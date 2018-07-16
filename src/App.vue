@@ -7,6 +7,7 @@
     </div>
 </template>
 <script>
+  import Vue from 'vue'
  import Header from './components/Header/Header'
  export default {
         data(){
@@ -16,7 +17,8 @@
         },
         components:{Header}
 
-    }
+ }
+
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .container

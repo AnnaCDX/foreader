@@ -9,8 +9,10 @@ import HomePage from '../pages/HomePage/HomePage'
 import Wallet from '../pages/Wallet/Wallet'
 import Collection from "../pages/Collection/Collection"
 import Shelter from "../pages/Shelter/Shelter"
+import Reading from "../pages/Reading/Reading"
 import ExpenseRecord from '../components/ExpenseRecord/ExpenseRecord'
 import RechargeRecord from "../components/RechargeRecord/RechargeRecord"
+
 Vue.use(Router)
 
 export default new Router({
@@ -47,6 +49,13 @@ export default new Router({
     {
       path:'/login',
       component:Login,
+      meta:{
+        showHead:true
+      }
+    },
+    {
+      path:'/reading',
+      component:Reading,
       meta:{
         showHead:true
       }

@@ -110,65 +110,6 @@ zy.book = {
         });
     },
 
-    //收藏
-    'fav': function (btn) {
-        if (!zy.layer_login.check()) return false;
-        if (zy.book.fav_status == 'loading') return false;
-        zy.book.fav_status = 'loading';
-        var bid = $(btn).data('bid'), act = $(btn).data('act');
-        function success(ret) {
-            if (ret.status == 1) {
-                //切换状态
-                if (act == 'cancel') {
-                    $(btn).data('act', '').removeClass('ysc').find('s').removeClass('yjr').end().find('p').text('加入书架');
-                    return;
-                }
-                $(btn).data('act', 'cancel').addClass('ysc').find('s').addClass('yjr').end().find('p').text('取消收藏');
-            } else {
-                layer.msg(ret.msg);
-            }
-        }
-        var layer_loading = layer.load(1);
-        $.ajax({
-            'url': zy.book.fav_url, 'data' : {'bid': bid, 'act': act},
-            'success': success,
-            'complete': function (response, status) {
-                zy.book.fav_status = 'complate';
-                layer.close(layer_loading);
-                if (status != 'success') layer.msg('请求失败');
-            }
-        });
-    },
-
-    //订阅
-    'buy_chapter': function (bid, cid, auto_buy, btn) {
-        if (!zy.layer_login.check()) return false;
-        var layer_loading = layer.load(1, {shade: 0.1});
-        $.ajax({
-            'url': '/index.php?ca=book.buy',
-            'data': {'bid': bid, 'cid': cid, 'auto_dingyue': auto_buy ? 1 : 0},
-            'dataType': 'json',
-            'success': function (ret) {
-                if (ret.status == 1) {
-                    setTimeout(function () {
-                        layer.close(layer_loading);
-                        cid = cid == 'all' ? btn.data('ccid') : cid;
-                        $('#mod_chapter_content_loading').data('cid', cid);
-                        zy.book.load_chapter_content(1, 1);
-                    }, 1000);
-                } else {
-                    layer.close(layer_loading);
-                    layer.msg(ret.msg, {icon: 7, 'shade': 0.1, 'shadeClose': true});
-                }
-            },
-            'complete': function (response, status) {
-                if (status != 'success') {
-                    layer.close(layer_loading);
-                    layer.msg('请求失败');
-                }
-            }
-        });
-    },
 
     //加载章节信息
     'load_chapter_content': function (append, load) {

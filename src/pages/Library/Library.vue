@@ -1151,7 +1151,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   /*@import '//at.alicdn.com/t/font_742546_4odf95dckcx.css'*/
-  @import '../../../reader/common.css'
+  @import '../../../reader/reader_common.css'
   @import "../../../reader/read.css"
   .content
     width: 1000px

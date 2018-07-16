@@ -24,6 +24,8 @@
           <router-link to="/net">网络</router-link>
           <router-link to="/same">同人</router-link>
           <router-link to="/scine">科幻</router-link>
+          <router-link to="/reading">阅读</router-link>
+
           <router-link to="/write" class="write">
             <i class="icon iconfont icon-xiezuo"></i>
             写作平台
