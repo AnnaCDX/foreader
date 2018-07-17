@@ -52,6 +52,8 @@
     },
 
     methods: {
+      ...mapActions(['recordUserInfo']),
+
       // 获取短信验证码
       async getVerifyCode() {
         if (this.rightPhoneNumber) {
@@ -65,7 +67,7 @@
           let {phone} = this
           console.log(phone)
           //发送短信验证码
-          let result = await reqCapture(phone)
+           let result = await reqCapture(phone)
         }
       },
 
@@ -77,16 +79,16 @@
             this.showAlert = true;
             this.alertText = '手机号码不正确'
             return
-          } else if (!(/^\d{6}$/gi.test(this.password))) {
+          } else if (!(/^\d{4}$/gi.test(this.password))) {
             this.showAlert = true;
             this.alertText = '短信验证码不正确'
             return
           }
 
           //手机号短信登录
-          const result = await captureLogin("password",this.phone, this.password,'dxsatfpxrna86ifu7v29m5n9s0rdr2dafmmyp0d8',"phone",0);
-          if(result.code===0) {
-            this.userInfo = result.data
+          const result = await captureLogin("password",this.phone, this.password,'dxsatfpxrna86ifu7v29m5n9s0rdr2dafmmyp0d8',"phone");
+          if(result.user) {
+            this.userInfo = result.user
           } else {
             this.userInfo = {
               msg: '登陆失败, 手机号或验证不正确'
@@ -94,12 +96,12 @@
           }
 
         //如果返回的值不正确，则弹出提示框，返回的值正确则返回上一页
-        if (!this.userInfo._id) {
+        if (!this.userInfo.id) {
           this.showAlert = true
           this.alertText = this.userInfo.msg
         } else {
           this.recordUserInfo(this.userInfo)
-          this.$router.back()
+          this.$router.push("/home")
         }
       },
       // 关系提示框

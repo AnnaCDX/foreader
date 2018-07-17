@@ -1,17 +1,24 @@
 <template>
   <div>
     <div class="header">
-      <div class="header-top">
-        <div class="top-head"></div>
-        <div class="top-center">
-          <Input placeholder="默认搜索词" class="tc-input"/>
-          <span ><i class="icon iconfont icon-sousuo"></i></span>
-        </div>
-        <div class="top-tail" :class="{private:!isSee}">
-          <router-link to="/phone" class="search-btn"><i class="icon iconfont icon-shoujiduan"></i>手机端</router-link>
-          <router-link to="/login" class="search-btn" v-show="isSee"><i class="icon iconfont icon-gerenzhongxin"></i>登陆</router-link>
-          <router-link to="/msite" class="search-btn" v-show="!isSee"><i class="icon iconfont icon-gerenzhongxin"></i>个人中心</router-link>
-
+     <div class="header-back">
+       <div class="header-top">
+         <div class="top-content">
+           <div class="top-logo"></div>
+           <div class="top-center">
+             <Input placeholder="默认搜索词" class="tc-input"/>
+             <span ><i class="icon iconfont icon-sousuo"></i></span>
+           </div>
+         </div>
+       </div>
+     </div>
+      <div class="header-fix">
+        <div class="fix-body">
+          <div class="private" >
+            <router-link to="/phone" class="phone-login"><i class="icon iconfont icon-shoujiduan"></i>手机端</router-link>
+            <router-link to="/login" class="phone-login" v-show="!userInfo.id"><i class="icon iconfont icon-gerenzhongxin"></i>登陆</router-link>
+            <router-link to="/msite" class="phone-login" v-show="userInfo.id"><i class="icon iconfont icon-gerenzhongxin"></i>个人中心</router-link>
+          </div>
         </div>
       </div>
       <div class="header-bottom">
@@ -36,13 +43,16 @@
 
 <script>
   import {Input} from "iview"
-
+import {mapState} from "vuex"
   export default {
       data() {
           return {
             isSee:true
           }
         },
+    methods:{
+      ...mapState(['userInfo'])
+    },
       components:{
         Input
       }
@@ -51,50 +61,64 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .header
-    .header-top
-      position relative
-      margin:0 auto
-      width: 990px
-      height: 64px
-      overflow hidden
-      .top-head,.top-center,.top-tail
-        line-height: 64px
-        height:64px
-      .top-head
-        float left
-        width 142px
-        background rgba(216,216,216,1)
-      .top-center
-        position absolute
-        top:0
-        left:343px
-        width:306px
-        font-size 0
-        .ivu-input-wrapper
-          width:261px
-        span
-          display inline-block
-          vertical-align middle
-          width:45px
-          height:32px
-          line-height 32px
-          text-align center
-          background rgba(77,139,238,1)
-          .icon
+    .header-back
+      background url("../../assets/img/title.jpeg")
+      background-repeat no-repeat
+      background-size 100% 100%
+      .header-top
+        position relative
+        margin:0 auto
+        width: 990px
+        height: 170px
+        overflow hidden
+      .top-content
+        width:60%
+        overflow hidden
+        margin-top: 77px
+        .top-logo,.top-center
+          line-height: 64px
+          height:64px
+        .top-logo
+          float left
+          width 142px
+          background rgba(216,216,216,1)
+        .top-center
+          float: right
+          font-size:0
+          .ivu-input-wrapper
+            width:261px
+            .ivu-input
+              border-radius
+                0
+          span
+            display inline-block
+            vertical-align middle
+            width:45px
+            height:32px
+            line-height 32px
+            text-align center
+            background rgba(77,139,238,1)
+            .icon
+              font-size 14px
+    .header-fix
+      z-index 100
+      position: fixed
+      top:0
+      width:100%
+      background: rgba(255,255,255,.65)
+      .fix-body
+        width:990px
+        height:40px
+        line-height:40px
+        margin:0 auto
+        .private
+          float: right
+          phone-login
+            display inline-block
             font-size 14px
-      .top-tail
-        float: right
-        width:135px
-        font-size 0
-      .search-btn
-        display inline-block
-        font-size 14px
-        margin:0 8px
-        .icon
-          font-size:16px
-      .private
-        width 162px
-
+            margin:0 8px
+            .icon
+              font-size:16px
     .header-bottom
       width: 100%
       background rgba(77,139,238,1)

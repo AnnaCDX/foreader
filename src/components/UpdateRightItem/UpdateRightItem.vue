@@ -1,0 +1,80 @@
+<template>
+  <div class="list-body-right">
+    <div class="top-right-list">
+      <div class="right-list-left">
+        <a href="javascript:;" class="list-book-name">宇宙最强矿工</a>
+        <p class="daily-update">日更9千+</p>
+        <a href="javascript:;" class="list-author-name">作者名字</a>
+      </div>
+      <a href="javascript:;" class="list-book-img"><img src="../../assets/img/title.jpeg" alt=""></a>
+    </div>
+    <p class="bottom-right-list">
+      俗话说：光剑贼吃肉，没见贼挨打。这话用在  洒俗话说这话用在  洒俗话说这话用在  洒俗话说这话用…
+    </p>
+  </div>
+</template>
+
+<script>
+    export default {
+        data() {
+          return {
+
+          }
+        }
+    }
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+  .list-body-right
+    background #f6f8fc
+    float: right
+    padding:13px 16px
+    margin-top:2px
+    .top-right-list
+      overflow hidden
+      .right-list-left
+        float: left
+        a
+          display inline-block
+          font-family: PingFangSC;
+        .list-book-name,.daily-update,.list-author-name
+          overflow hidden
+          text-overflow ellipsis
+          white-space nowrap
+        .list-book-name
+          width: 96px;
+          height: 16px;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 1;
+          color: rgba(0, 0, 0, 0.85);
+          margin-top 14px
+        .daily-update
+          width: 59px;
+          height: 14px;
+          font-family: PingFangSC;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1;
+          color: #dc5b5b;
+          margin 18px 0 15px
+        .list-author-name
+          width: 48px;
+          height: 14px;
+          font-size: 12px;
+          line-height: 1.17;
+          color: #9b9b9b;
+      .list-book-img
+        float: right
+        img
+          width:70px
+          height:94px
+    .bottom-right-list
+      width: 194px;
+      height: 66px;
+      font-family: PingFangSC;
+      font-size: 12px;
+      line-height: 1.83;
+      color: #9b9b9b;
+      margin-top 17px
+</style>

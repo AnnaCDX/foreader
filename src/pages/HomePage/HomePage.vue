@@ -3,9 +3,9 @@
 
       <div class="hp-body">
         <p class="info">个人信息  <router-link to="/changeInfo">修改信息</router-link></p>
-        <p>ID:<span>1234</span></p>
-        <p>昵称：<span>小微</span></p>
-        <p>性别：<span>男</span></p>
+        <p>ID:<span>{{userInfo.id}}</span></p>
+        <p>昵称：<span>{{userInfo.name}}</span></p>
+        <p>性别：<span>{{userInfo.sex===0?"男":"女"}}</span></p>
         <p>生日：<span>1993</span>年 <span>8</span>月 <span>76</span>号</p>
         <p>个性签名：<span>你是不是傻</span></p>
         <div class="wallet">
@@ -23,12 +23,24 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
     export default {
-        dada() {
+        data() {
           return{
-            isShow:false
+            isShow:false,
+            birth:[]
           }
-        }
+        },
+      mounted(){
+        let {birthday} = this.userInfo
+        birthday.split("-")
+      },
+      methods:{
+        ...mapState(['userInfo'])
+      },
+      computed:{
+
+      }
     }
 </script>
 
