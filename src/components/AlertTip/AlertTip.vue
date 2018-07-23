@@ -41,15 +41,15 @@
     left: 0;
     right: 0;
     bottom: 0;
+    margin: auto
     z-index: 200;
     background: rgba(0, 0, 0, .5)
     .tip_text_container
       position: absolute;
       top: 50%;
       left: 50%;
-      margin-top: -90px
-      margin-left: -110px
-      width: 60%
+      margin-left: -122px
+      width: 20%
       animation: tipMove .4s;
       background-color: rgba(255, 255, 255, 1);
       border: 1px;

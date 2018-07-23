@@ -30,7 +30,7 @@
   import {mapActions} from 'vuex'
   import {captureLogin,reqCapture} from '../../api'
   import AlertTip from '../../components/AlertTip/AlertTip.vue'
-
+  import {setStore} from '../../common/utils/storageUtils'
   export default {
     data() {
       return {
@@ -94,14 +94,16 @@
               msg: '登陆失败, 手机号或验证不正确'
             }
           }
-
+        console.log(this.userInfo)
         //如果返回的值不正确，则弹出提示框，返回的值正确则返回上一页
         if (!this.userInfo.id) {
           this.showAlert = true
           this.alertText = this.userInfo.msg
         } else {
           this.recordUserInfo(this.userInfo)
+          setStore("userinfo",this.userInfo)
           this.$router.push("/home")
+
         }
       },
       // 关系提示框

@@ -8,12 +8,27 @@ import Msite from '../pages/Msite/Msite'
 import HomePage from '../pages/HomePage/HomePage'
 import Wallet from '../pages/Wallet/Wallet'
 import Collection from "../pages/Collection/Collection"
-import Shelter from "../pages/Shelter/Shelter"
+import Modify from "../pages/Modify/Modify"
+import Reading from "../pages/Reading/Reading"
 import ExpenseRecord from '../components/ExpenseRecord/ExpenseRecord'
 import RechargeRecord from "../components/RechargeRecord/RechargeRecord"
+import Recharge from "../pages/Recharge/Recharge"
+import Detail from '../pages/Detail/Detail'
+import BookInfo from '../components/BookInfo/BookInfo'
+import Directory from "../components/Directory/Directory"
+import PaySuccess from "../pages/PaySuccess/PaySuccess"
+import Synthesize from '../components/Synthesize/Synthesize'
+import Recommend from '../components/Recommend/Recommend'
+import Click from '../components/Click/Click'
+import Favorite from '../components/Favorite/Favorite'
+import PeopleNum from "../components/PeopleNum/PeopleNum"
+import Update from '../components/Update/Update'
+import HotComments from '../components/HotComments/HotComments'
+import Comments from "../components/Comments/Comments"
 Vue.use(Router)
 
 export default new Router({
+  mode:'history',
   routes: [
     {
       path:'/',
@@ -33,9 +48,67 @@ export default new Router({
     {
       path:'/rank',
       component:Rank,
-      meta:{
-        showHead:true
-      }
+      children:[
+        {
+          path:"",
+          redirect:"/rank/synthesize",
+        },
+        {
+          path:"/rank/synthesize",
+          component:Synthesize,
+          meta:{
+            showHead:true
+          }
+        },
+        {
+          path:"/rank/recommend",
+          component:Recommend,
+          meta:{
+            showHead:true
+          }
+        },
+        {
+          path:"/rank/click",
+          component:Click,
+          meta:{
+            showHead:true
+          }
+        },
+        {
+          path:"/rank/favorite",
+          component:Favorite,
+          meta:{
+            showHead:true
+          }
+        },
+        {
+          path:"/rank/peopleNum",
+          component:PeopleNum,
+          meta:{
+            showHead:true
+          }
+        },
+        {
+          path:"/rank/update",
+          component:Update,
+          meta:{
+            showHead:true
+          }
+        },
+        {
+          path:"/rank/hotComments",
+          component:HotComments,
+          meta:{
+            showHead:true
+          }
+        }
+
+      ]
+
+    },
+    {
+      path:"/paySuccess",
+      component:PaySuccess,
     },
     {
       path:'/library',
@@ -52,16 +125,38 @@ export default new Router({
       }
     },
     {
+      path:'/reading',
+      component:Reading,
+      meta:{
+        showHead:true
+      }
+    },
+    {
+      path:"/comments",
+      component:Comments,
+      meta:{
+        showHead:true
+      }
+    },
+    {
       path:'/msite',
       component:Msite,
+
       children:[
         {
           path: '/msite/homePage',
-          component: HomePage
+          component: HomePage,
+          meta:{
+            showHead:true
+          },
+
         },
         {
           path: '/msite/collection',
-          component: Collection
+          component: Collection,
+          meta:{
+            showHead:true
+          },
         },
         {
           path: '/msite/wallet',
@@ -70,10 +165,16 @@ export default new Router({
             {
               path: '/msite/wallet/expenseRcd',
               component: ExpenseRecord,
+              meta:{
+                showHead:true
+              },
             },
             {
               path: '/msite/wallet/rechargeRcd',
               component: RechargeRecord,
+              meta:{
+                showHead:true
+              },
             },
             {
               path: '/msite/wallet',
@@ -83,8 +184,11 @@ export default new Router({
 
         },
         {
-          path: '/msite/shelter',
-          component: Shelter
+          path: '/msite/modify',
+          component: Modify,
+          meta:{
+            showHead:true
+          },
         },
         {
           path: '',
@@ -92,6 +196,34 @@ export default new Router({
         }
       ]
 
+    },
+    {
+      path:"/recharge",
+      component:Recharge
+    },
+    {
+      path:"/detail",
+      component:Detail,
+      children:[
+        {
+          path:"/detail/bookIntro",
+          component:BookInfo,
+          meta:{
+            showHead:true
+          }
+        },
+        {
+          path:"/detail/directory",
+          component:Directory,
+          meta:{
+            showHead:true
+          }
+        },
+        {
+          path:"",
+          redirect:"/detail/bookIntro"
+        }
+      ]
     }
   ]
 })

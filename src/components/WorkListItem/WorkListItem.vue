@@ -64,6 +64,7 @@
         float: right
         width:64px
         height:84px
+        object-fit cover
     .li-hide
       position: relative;
       display block

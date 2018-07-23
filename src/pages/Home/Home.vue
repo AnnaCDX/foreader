@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="main">
+    <div class="main" >
       <div class="body">
         <div class="recommend back-color marginTop">
           <div class="rcmd-left">
@@ -203,6 +203,9 @@
             <UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>
           </div>
         </div>
+        <div class="footer back-color marginTop" >
+          footer
+        </div>
       </div>
     </div>
   </div>
@@ -273,7 +276,14 @@
               prevEl: '.swiper-button-prev',
             },
           })
-        })
+        });
+
+      },
+      created(){
+
+      },
+      computed:{
+
       },
       methods:{
         gotoDetail(per){
@@ -281,7 +291,8 @@
         this.book = per
          //详情页组件显示
          //  this.$ref.datail.toggleShow()
-        }
+        },
+
       },
       data(){
         return {
@@ -577,4 +588,11 @@
         .list-body-left
           float left
 
+    .footer
+      width: 990px;
+      height: 255px;
+      background-color: #f5f5f5;
+      text-align center
+      line-height 255px
+      font-size 36px
 </style>

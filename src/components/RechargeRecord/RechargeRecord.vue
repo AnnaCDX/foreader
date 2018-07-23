@@ -1,19 +1,24 @@
 <template>
-  <div>
-    <Table :columns="columns1" :data="data1" disabled-hover="true"></Table>
+  <div class="none-table">
+    <Table :columns="columns1" :data="rechargeRecord[flag]" :disabled-hover=true></Table>
+    <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.rechargeRecord"></PageControl>
   </div>
 </template>
 
 <script>
   import {Table} from "iview"
+  import {mapState} from "vuex"
+  import PageControl from "../../components/PageControl/PageControl"
   export default {
+
     data () {
       return {
         loading: true,
+        flag:0,
         columns1: [
           {
             title: '消费金额',
-            key: 'money'
+            key: 'recharge_amount'
           },
           {
             title: '消费时间',
@@ -21,35 +26,57 @@
           },
           {
             title: '类型',
-            key: 'type'
+            key: 'pay_method'
           },
           {
-            title: '备注',
-            key: 'note'
-          }
-        ],
-        data1: [
-          {
-            money: '圣诞节',
-            time: 18,
-            type: 'New York No. 1 Lake Park',
-            note: '2016-10-03'
-          },
-          {
-            money: '圣诞节',
-            time: 18,
-            type: 'New York No. 1 Lake Park',
-            note: '2016-10-03'
+            title: '赠送',
+            key: 'give_amount'
           }
         ]
       }
     },
+    mounted(){
+
+    },
+    methods:{
+      pageTab(index){
+        this.flag = index
+      },
+      skip(page){
+        this.flag=page-1
+      },
+      prevNext(bool){
+        if(bool===true){
+
+          if(this.flag===0){
+           return
+          }
+          this.flag--
+        }else{
+
+          if(this.flag===this.rechargeRecord.length-1){
+            return
+          }
+          this.flag ++
+        }
+
+        console.log(bool)
+      }
+    },
+    computed:{
+      ...mapState(['rechargeRecord'])
+  },
     components:{
-      Table
+      Table,
+      PageControl
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  .none-table
+    .ivu-table-wrapper
+      border none
+
 
 </style>

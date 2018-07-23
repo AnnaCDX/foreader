@@ -4,47 +4,71 @@
       <div class="left">
         <div class="left-container">
           <div class="avatar-name">
-            <img src="../../assets/img/loading.gif" alt="">
-            <p>用户名称</p>
+            <img :src="userInfo.avatar" alt="">
+            <p>{{userInfo.name}}</p>
           </div>
           <div class="mine">
-            <router-link to="/msite/homePage">我的主页</router-link>
-            <router-link to="/msite/collection">我的收藏</router-link>
-            <router-link to="/msite/wallet">我的钱包</router-link>
-            <router-link to="/msite/shelter">我的书架</router-link>
+            <router-link to="/msite/homePage"><i class="icon iconfont icon-zhuye1"></i>我的主页</router-link>
+            <router-link to="/msite/collection"> <i class="icon iconfont icon-weibiaoti2fuzhi03"></i>我的收藏</router-link>
+            <router-link to="/msite/wallet"><i class="icon iconfont icon-qianbao"></i>我的钱包</router-link>
+            <!--<router-link to="/msite/shelter"> <i class="icon iconfont icon-qianbao"></i>我的书架</router-link>-->
           </div>
         </div>
+        <div class="homepage">
+          <router-view></router-view>
+        </div>
       </div>
-      <div class="homepage">
-        <router-view></router-view>
-      </div>
+
     </div>
   </div>
 </template>
 
 <script>
+  import {mapState} from "vuex"
     export default {
-        dada() {
+        data() {
           return {
           }
+        },
+      mounted(){
+        let id = this.$cookies.get("id")
+        let token = this.$cookies.get('tk')
+        let config={
+          headers:{
+            "Authorization":"Bearer "+token
+          }
+        }
+          this.$store.dispatch("getInfor",{id,config}),
+          this.$store.dispatch("getWalletInfo",{id,config})
+          this.$store.dispatch("getCollectList",{config})
+        },
+        computed:{
+          ...mapState(['userInfo'])
         }
     }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .msite-container
-  position relative
-  height:100%
-  padding-top 100px
+  width:100%
   .left
-    position absolute
-    width:30%
-    height:100%
+    overflow hidden
+    width: 990px
+    margin 20px auto 20px
+    height:620px
     .left-container
-      width: 33%
-      margin:0 auto
-      text-align: center
+      float: left
+      width:260px
+      height:100%
+      background #fff
+
       .avatar-name
+        width: 100%
+        height: 208px
+        border-radius: 4px;
+        background-color: rgba(243, 121, 156, 0.84);
+        text-align center
+        padding-top: 41px;
         img
           border-radius 50%
           width: 100px
@@ -53,15 +77,25 @@
           font-size 14px
           margin:15px 0 20px
       .mine
+        margin-top: 40px
         a
+          .icon
+            width 20px
+            height: 20px
+            font-size 16px
+            margin-left: 32px
+            margin-right 16px
           color: #000
           display block
-          margin:5px 0
+          height:48px
+          line-height 48px
         .router-link-active
           color: lightpink
-  .homepage
-    position: absolute;
-    left: 30%
-    width:70%
+          background #fff7f9
+
+    .homepage
+      float:right
+      width:710px
+
 
 </style>

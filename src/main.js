@@ -1,19 +1,22 @@
 import Vue from 'vue'
 import App from './App'
+import VueCookie from 'vue-cookies'
 import router from './router'
+import {Input} from 'iview'
 import store from './store/index'
 import "jquery"
-// import iView from 'iview'
+import iView from 'iview'
 import 'babel-polyfill';
 import "iview/dist/styles/iview.css"
 import axios from 'axios'
 import qs from 'qs'
+import "./filter/moment/moment"
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   if(config.method!='get'){
     config.data=qs.stringify(config.data);
   }
-  config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+  // config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
   let token = window.sessionStorage.getItem("TOKEN");
   if(token) {
     config.headers.common['Authorization'] = "Bearer " + token;
@@ -23,12 +26,6 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error)
 })
 
-axios.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  return response;
-}, function (error) {
-  return Promise.reject(error);
-})
 //兼容
 if (Number.parseInt === undefined) Number.parseInt = window.parseInt;
 if (Number.parseFloat === undefined) Number.parseFloat = window.parseFloat;
@@ -57,9 +54,9 @@ if (Number.parseFloat === undefined) Number.parseFloat = window.parseFloat;
       clearTimeout(id);
     };
 }());
-
-// Vue.use(iView)
-
+Vue.use(VueCookie)
+Vue.use(iView)
+Vue.component("Input",Input)
 Vue.config.productionTip = false
 
 new Vue({

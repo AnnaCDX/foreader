@@ -1,3 +1,9 @@
 export default {
-userInfo:{}
+  loginInfo:{},
+  userInfo:{},
+  rechargeInfo:{},
+  rechargeRecord:[],
+  myWallet:{},
+  rankType:[],
+  collectionList:{}
 }

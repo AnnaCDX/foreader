@@ -1,11 +1,13 @@
 <template>
-
+<div>
+  点金
+</div>
 </template>
 
 <script>
     export default {
-        dada() {
-
+        data() {
+            return {}
         }
     }
 </script>

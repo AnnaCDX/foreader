@@ -27,9 +27,11 @@
     span
       line-height:18px
       color: rgba(0,0,0,.85)
+      font-weight 500
     a
       float: right
       font-size 12px
       color:rgba(0,0,0,.65)
       margin-top:10px
+      font-weight 500
 </style>

@@ -1,11 +1,12 @@
 <template>
   <div>
-    <Table :columns="columns1" :data="data1" disabled-hover="true"></Table>
+    <Table :columns="columns1" :data="data1" :disabled-hover=true></Table>
+    <Page :total="100" show-elevator></Page>
   </div>
 </template>
 
 <script>
-  import {Table} from "iview"
+  import {Table,Page} from "iview"
     export default {
       data () {
         return {
@@ -57,7 +58,8 @@
         }
       },
       components:{
-        Table
+        Table,
+        Page
       }
     }
 </script>

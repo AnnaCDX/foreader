@@ -12,12 +12,12 @@
          </div>
        </div>
      </div>
-      <div class="header-fix">
+      <div class="header-fix" >
         <div class="fix-body">
           <div class="private" >
             <router-link to="/phone" class="phone-login"><i class="icon iconfont icon-shoujiduan"></i>手机端</router-link>
-            <router-link to="/login" class="phone-login" v-show="!userInfo.id"><i class="icon iconfont icon-gerenzhongxin"></i>登陆</router-link>
-            <router-link to="/msite" class="phone-login" v-show="userInfo.id"><i class="icon iconfont icon-gerenzhongxin"></i>个人中心</router-link>
+            <a class="phone-login" v-if="!loginInfo.id && !id" @click="closeTip"><i class="icon iconfont icon-gerenzhongxin"></i>登录</a>
+            <router-link to="/msite" class="phone-login" v-else><i class="icon iconfont icon-gerenzhongxin"></i>个人中心</router-link>
           </div>
         </div>
       </div>
@@ -29,8 +29,9 @@
           <router-link to="/magic">玄幻</router-link>
           <router-link to="/city">都市</router-link>
           <router-link to="/net">网络</router-link>
-          <router-link to="/same">同人</router-link>
+          <router-link to="/detail">同人</router-link>
           <router-link to="/scine">科幻</router-link>
+          <router-link to="/reading">阅读</router-link>
           <router-link to="/write" class="write">
             <i class="icon iconfont icon-xiezuo"></i>
             写作平台
@@ -43,16 +44,23 @@
 
 <script>
   import {Input} from "iview"
-import {mapState} from "vuex"
+  import {mapState} from "vuex"
+  import {getStore} from '../../common/utils/storageUtils'
   export default {
       data() {
           return {
-            isSee:true
+            isSee:true,
+            id:this.$cookies.get("id")
           }
         },
-    methods:{
-      ...mapState(['userInfo'])
-    },
+      computed:{
+      ...mapState(['loginInfo'])
+      },
+      methods:{
+        closeTip(){
+        this.$emit("closeTip",true)
+        }
+     },
       components:{
         Input
       }
@@ -137,7 +145,7 @@ import {mapState} from "vuex"
           color: #eee
           vertical-align middle
         .router-link-active
-          background rgba(70,127,217,1)
+          background #f3799c
           color: #fff
         .write
           float: right
