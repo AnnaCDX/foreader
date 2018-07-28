@@ -5,7 +5,7 @@ import router from './router'
 import {Input} from 'iview'
 import store from './store/index'
 import "jquery"
-import iView from 'iview'
+// import iView from 'iview'
 import 'babel-polyfill';
 import "iview/dist/styles/iview.css"
 import axios from 'axios'
@@ -56,7 +56,7 @@ if (Number.parseFloat === undefined) Number.parseFloat = window.parseFloat;
     };
 }());
 Vue.use(VueCookie)
-Vue.use(iView)
+// Vue.use(iView)
 Vue.component("Input",Input)
 Vue.config.productionTip = false
 
