@@ -18,6 +18,7 @@ axios.interceptors.request.use(function (config) {
   }
   // config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
   let token = window.sessionStorage.getItem("TOKEN");
+
   if(token) {
     config.headers.common['Authorization'] = "Bearer " + token;
   }

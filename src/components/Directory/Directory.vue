@@ -1,21 +1,30 @@
 <template>
   <div>
     <div class="all-chapter">
-      <ul v-for="(item,index) in jiade">
-        <li v-for="(item,index) in jiade1"><a href="###">第三章：天啦噜</a><i class="icon iconfont icon-icon-" v-show="item"></i></li>
+      <ul >
+        <li v-for="(item,index) in bookChapter"><a href="javascript:;">{{item.title}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+  import {mapState} from "vuex"
     export default {
         data() {
             return {
-              jiade :[1,1,1],
-              jiade1:[1,1,1,0,0,1,0,1,1,0,1,1,1,0]
+
             }
-        }}
+        },
+        mounted(){
+        let {bid} = this.$route.params
+          this.$store.dispatch("getBookChapter",{bid})
+        },
+        computed:{
+          ...mapState(["bookChapter"])
+        }
+
+    }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
@@ -24,11 +33,13 @@
   background #fff
   min-height 655px
   ul
-    width 33.3%
-    float left
+    width 100%
+    overflow hidden
     li
       height 40px
+      width 33.3%
       line-height 40px
+      float left
       border-bottom 1px solid #e8e8e8
       a
         width 226px

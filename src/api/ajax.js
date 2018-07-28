@@ -18,7 +18,7 @@ export default function ajax(url = '', data={}, config = null,type = 'GET') {
       // 发送get请求
 
       promise = config?axios.get(url,config):axios.get(url)
-    } else if(type==="POST") {
+    } else{
       // 发送post请求
 
       promise = config?axios.post(url, data,config):axios.post(url, data)

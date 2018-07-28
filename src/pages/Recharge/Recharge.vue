@@ -16,7 +16,7 @@
         <div class="recharge-body">
           <p class="recharge-num">充值金额</p>
           <div class="rcg-num-container">
-            <div class="recharge-detail" v-for="(item,index) in rechargeInfo" :key="item.recharge_give" :class="{isOn:item.id===recharge_id}" @click="changeMoney(item.id)">¥{{item.recharge_money}} <span>{{item.recharge_face}}</span></div>
+            <div class="recharge-detail" v-for="(item,index) in rechargeInfo" :key="item.recharge_give" :class="{isOn:item.recharge_face===recharge_face}" @click="changeMoney(item.recharge_face)">¥{{item.recharge_face}} <span>{{item.recharge_give}}</span></div>
           </div>
           <p class="recharge-type">充值方式</p>
           <div class="rcg-type-container">
@@ -58,7 +58,7 @@
           return {
             url:"",
             isRight:false,
-            recharge_id:1,
+            recharge_face:100,
             payType:1,
             id:this.$cookies.get("id"),
             shuju1:[
@@ -73,21 +73,20 @@
         mounted(){
         },
         computed:{
-          ...mapState(["rechargeInfo"]),
-          ...mapState(["loginInfo"])
+          ...mapState(["rechargeInfo","loginInfo"]),
         },
         methods:{
           async pay(){
             let user_id = this.$cookies.get("id")
             let pay_method= this.payType==1? "H5ALIPAY":"H5WEIXIN"
-            let {recharge_id} = this
-            let result = await reqPayUrl(user_id,pay_method,recharge_id)
+            let {recharge_face} = this
+            let result = await reqPayUrl(user_id,pay_method,recharge_face)
             this.url=result.pay_url;
             window.open(this.url)
           },
           changeMoney(index){
-            this.recharge_id = index
-            console.log(this.recharge_id)
+            this.recharge_face = index
+            console.log(this.recharge_face)
           },
           changeWay(index){
             this.payType=index

@@ -1,57 +1,41 @@
 <template>
   <div>
     <div class="main" >
-      <div class="body">
-        <div class="recommend back-color marginTop">
+      <div class="body" v-for="(item,index) in homeInfo" :key="index">
+        <div class="recommend back-color marginTop" v-if="item.template===1">
           <div class="rcmd-left">
             <div class="left-container">
               <div class="banner swiper-container" >
                 <div class="banner-wrapper swiper-wrapper">
-                  <div class="banner-slide swiper-slide">
-                    <router-link to="/detail">
-                      <img src="../../assets/img/loading.gif">
-                    </router-link>
-                  </div>
-                  <div class="banner-slide swiper-slide">
-                    <router-link to="/detail">
-                      <img src="../../assets/img/loading.gif">
-                    </router-link>
-                  </div>
-                  <div class="banner-slide swiper-slide">
-                    <router-link to="/detail">
-                      <img src="../../assets/img/loading.gif">
-                    </router-link>
+                  <div class="banner-slide swiper-slide" v-for="(per,index) in item.data.slice(0,3)" :key="index">
+                    <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))">
+                      <img :src="per.poster">
+                    </a>
                   </div>
                 </div>
                 <div class="swiper-pagination">
                 </div>
               </div>
               <div class="ct-book-name" >
-                <a href="javascript:;" class="ct-book-tag" v-for="(pe,inde) in banners" :class="{active:index==inde+1 || index == inde+4}" :key="inde">{{pe.name}}</a>
+                <a href="javascript:;" class="ct-book-tag" v-for="(each,inde) in item.data.slice(0,3)" :class="{active:num==inde+1 || num == inde+4}" :key="inde" @click="goDetail(each.webUrl.slice(-8))">{{each.title}}</a>
               </div>
-              <div class="ct-book-content"><span>作者名字</span><p>俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正好翻了过来，作为子承父业的小偷，他是光挨打也没吃到肉，半年进了六次局子，这次更不得了，竟然大厅…</p></div>
+              <div class="ct-book-content" v-if="item.data[num-1]"><span>{{item.data[num-1].content}}</span><p>{{item.data[num-1].extra}}</p></div>
 
             </div>
           </div>
+
           <div class="rcmd-right">
             <div class="right-container">
               <ul>
-                <li>
-                  <router-link to="/datail"><img src="../../assets/img/title.jpeg" alt=""></router-link>
+                <li v-for="(per,index) in item.data.slice(3)" :key="index">
+                  <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))"><img :src="per.poster" alt=""></a>
                   <div class="book-info">
-                    <p class="name-type"><router-link to='/detail' class="name">绝世神偷</router-link><router-link class="type" to="/type">类型</router-link></p>
-                    <span class="author-name">作者名字</span>
-                    <p class="simple-intro">俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正好翻了过来，作为子承父业的小偷，他是光挨打也没吃到肉……</p>
+                    <p class="name-type"><a @click="goDetail(per.webUrl.slice(-8))" class="name">{{per.title}}</a><a class="type" to="/type">类型</a></p>
+                    <span class="author-name">{{per.content}}</span>
+                    <p class="simple-intro">{{per.extra}}</p>
                   </div>
                 </li>
-                <li>
-                  <router-link to="/datail"><img src="../../assets/img/title.jpeg" alt=""></router-link>
-                  <div class="book-info">
-                    <p class="name-type"><router-link to='/detail' class="name">绝世神偷</router-link><router-link class="type" to="/type">类型</router-link></p>
-                    <span class="author-name">作者名字</span>
-                    <p class="simple-intro">俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正好翻了过来，作为子承父业的小偷，他是光挨打也没吃到肉……</p>
-                  </div>
-                </li>
+
               </ul>
               <div class="notice">
                 <i class="icon iconfont icon-sousuo"></i>
@@ -73,56 +57,37 @@
             </div>
           </div>
         </div>
-        <div class="strong-recommend back-color marginTop">
+        <div class="strong-recommend back-color marginTop" v-else-if="item.template===2">
           <div class="strong-container">
             <div class="strong-left">
-              <ModuleTitle :cls="'icon-sousuo'" :title="'本周强推'"></ModuleTitle>
+              <ModuleTitle :cls="'icon-sousuo'" :title="item.data[0].title"></ModuleTitle>
               <ul>
-                <LittleList v-for="(per,index) in shuju1" :key="index"></LittleList>
+                <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per"></LittleList>
               </ul>
             </div>
             <div class="strong-right">
-              <ModuleTitle :cls="'icon-sousuo'" :title="'重点图书'"></ModuleTitle>
+              <ModuleTitle :cls="'icon-sousuo'" :title="item.data[1].title"></ModuleTitle>
               <div class="swiper-list">
                 <div class="is-swiper">
                   <div class="sl-container swiper-container">
                     <div class="sl-wrapper swiper-wrapper">
-                      <div class="sl-slide swiper-slide">
+                      <div class="sl-slide swiper-slide" v-for="(per,index) in item.data[1].list.slice(0,5)" :key="index">
                         <router-link to="/detail">
-                          <img src="../../assets/img/title.jpeg" alt="">
+                          <img :src="per.poster" alt="">
                         </router-link>
                       </div>
-                      <div class="sl-slide swiper-slide">
-                        <router-link to="/detail">
-                          <img src="../../assets/img/title.jpeg" alt="">
-                        </router-link>
-                      </div>
-                      <div class="sl-slide swiper-slide">
-                        <router-link to="/detail">
-                          <img src="../../assets/img/title.jpeg" alt="">
-                        </router-link>
-                      </div>
-                      <div class="sl-slide swiper-slide">
-                        <router-link to="/detail">
-                          <img src="../../assets/img/title.jpeg" alt="">
-                        </router-link>
-                      </div>
-                      <div class="sl-slide swiper-slide">
-                        <router-link to="/detail">
-                          <img src="../../assets/img/title.jpeg" alt="">
-                        </router-link>
-                      </div>
+
                     </div>
                     <!-- 如果需要分页器 -->
                     <div class="swiper-pagination"></div>
                   </div>
                 </div>
                 <div class="is-list">
-                  <div class="list-item " v-for="(per,index) in shuju" :class="{'list-item-active':index+3===index1 || index+8===index1}" @click="gotoDetail(per)">
-                    <div class="item-header"><a href="javascript:;" @click="gotoDetail(book)">重生最轻女帝</a></div>
+                  <div class="list-item " v-for="(per,index) in item.data[1].list.slice(0,5)" :class="{'list-item-active':index+3===index1 || index+8===index1}" @click="gotoDetail(per)">
+                    <div class="item-header"><a href="javascript:;" @click="gotoDetail(book)">{{per.title}}</a></div>
                     <div class="item-content">
-                      <span>作者名称</span>
-                      <p>俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正好翻了过来，作… <router-link to="/read">阅读全部</router-link></p>
+                      <span v-for="(each,index) in per.authors" :key="index">{{each}}</span>
+                      <p>{{per.recDesc}} <router-link to="/read">阅读全部</router-link></p>
                     </div>
                   </div>
                 </div>
@@ -130,51 +95,25 @@
             </div>
           </div>
         </div>
-        <div class="productive marginTop"></div>
-        <div class="kindsOf-list back-color marginTop">
-          <WorkList v-for="(per,ind) in shuju2" :key="ind"></WorkList>
+        <div class="productive marginTop" v-else-if="index==1"></div>
+        <div class="kindsOf-list back-color marginTop" v-else-if="item.template===3">
+          <WorkList v-for="(per,ind) in item.data" :key="ind" :per = 'per'></WorkList>
         </div>
-        <div class="three-pic back-color marginTop">
-          <a href="javascript:;" class="pic" @click="gotoDetail()"><img src="../../assets/img/title.jpeg" alt=""></a>
-          <a href="javascript:;" class="pic"><img src="../../assets/img/title.jpeg" alt=""></a>
-          <a href="javascript:;" class="pic"><img src="../../assets/img/title.jpeg" alt=""></a>
+        <div class="three-pic back-color marginTop" v-else-if="item.template===4">
+          <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img :src="book.poster" alt=""></a>
         </div>
-        <div class="activity back-color marginTop" >
+        <div class="activity back-color marginTop" v-else-if="item.template===5" >
           <a href="javascript:;" class="img-left" @click="gotoDetail()"><img src="../../assets/img/title.jpeg" alt=""></a>
           <div class="arrow-swiper">
             <div class="arrow-container swiper-container">
               <div class="arrow-wrapper swiper-wrapper">
                 <div class="arrow-slide swiper-slide">
-                  <div class="arrow-content">
-                    <a href="javascript:;" class="arrow-img"><img src="../../assets/img/title.jpeg" alt=""></a>
-                    <p class="arrow-title"><a href="javascript:;">标题标题</a></p>
-                    <p class="isPay">免费</p>
+                  <div class="arrow-content" v-for="(per,index) in item.data" :key="index">
+                    <a href="javascript:;" class="arrow-img"><img :src="per.poster" alt=""></a>
+                    <p class="arrow-title"><a href="javascript:;">{{per.title}}</a></p>
+                    <p class="isPay">不知道</p>
                   </div>
-                  <div class="arrow-content">
-                    <a href="javascript:;" class="arrow-img"><img src="../../assets/img/title.jpeg" alt=""></a>
-                    <p class="arrow-title"><a href="javascript:;">标题标题</a></p>
-                    <p class="isPay">免费</p>
-                  </div>
-                  <div class="arrow-content">
-                    <a href="javascript:;" class="arrow-img"><img src="../../assets/img/title.jpeg" alt=""></a>
-                    <p class="arrow-title"><a href="javascript:;">标题标题</a></p>
-                    <p class="isPay">免费</p>
-                  </div>
-                  <div class="arrow-content">
-                    <a href="javascript:;" class="arrow-img"><img src="../../assets/img/title.jpeg" alt=""></a>
-                    <p class="arrow-title"><a href="javascript:;">标题标题</a></p>
-                    <p class="isPay">免费</p>
-                  </div>
-                  <div class="arrow-content">
-                    <a href="javascript:;" class="arrow-img"><img src="../../assets/img/title.jpeg" alt=""></a>
-                    <p class="arrow-title"><a href="javascript:;">标题标题</a></p>
-                    <p class="isPay">免费</p>
-                  </div>
-                  <div class="arrow-content">
-                    <a href="javascript:;" class="arrow-img"><img src="../../assets/img/title.jpeg" alt=""></a>
-                    <p class="arrow-title"><a href="javascript:;">标题标题</a></p>
-                    <p class="isPay">免费</p>
-                  </div>
+
                 </div>
               </div>
               <!-- 如果需要导航按钮 -->
@@ -184,17 +123,17 @@
             </div>
           </div>
         </div>
-        <FemaleMagic >
+        <FemaleMagic v-else-if="item.template===6">
           <div class="col-right" slot="right">
-            <LittleList v-for="(per,index) in shuju3" :key="index"></LittleList>
+            <LittleList v-for="(per,index) in item.data" :key="index" :per="per"></LittleList>
           </div>
         </FemaleMagic>
-        <FemaleMagic>
+        <FemaleMagic v-else-if="item.template===6">
          <div class="magic-col-right" slot="right">
            <WorkListItem v-for="(per,index) in shuju1"  @click="goDetail(index)" :key="index" :index="index"></WorkListItem>
          </div>
         </FemaleMagic>
-        <div class="update-list back-color marginTop">
+        <div class="update-list back-color marginTop" v-else-if="item.template===7">
           <ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>
           <div class="update-list-body">
             <div class="list-body-left">
@@ -203,7 +142,7 @@
             <UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>
           </div>
         </div>
-        <div class="footer back-color marginTop" >
+        <div class="footer back-color marginTop" v-else-if="item.template==7" >
           footer
         </div>
       </div>
@@ -221,71 +160,81 @@
   import WorkListItem from '../../components/WorkListItem/WorkListItem'
   import UpdateItem from '../../components/UpdateItem/UpdateItem'
   import UpdateRightItem from '../../components/UpdateRightItem/UpdateRightItem'
+  import {mapState} from "vuex"
     export default {
       mounted(){
-        let that = this;
-        this.$nextTick(() => {
-          let mySwiper = new Swiper('.banner.swiper-container', {
-            autoplay: {
-              delay: 2000,
-              stopOnLastSlide: false,
-              disableOnInteraction: false
-            },
-            pagination: {
-              el: '.swiper-pagination',
-              clickable :true
-            },
-            loop: true,
-            on: {
-              slideChangeTransitionStart: function(){
-                that.index = this.activeIndex
-              }},
-          })
-          let mySwiper1 =new Swiper('.sl-container.swiper-container',{
-            autoplay: {
-              delay: 2000,
-              stopOnLastSlide: false,
-              disableOnInteraction: false
-            },
-            pagination: {
-              el: '.swiper-pagination',
-              clickable :true
-            },
-            loop: true,
-            effect : 'coverflow',
-            slidesPerView: 3,
-            centeredSlides: true,
-            coverflowEffect: {
-              rotate: 0,
-              stretch: 0,
-              depth: 400,
-              modifier: 1,
-              slideShadows : true
-            },
-            on: {
-              slideChangeTransitionStart: function(){
-                that.index1 = this.activeIndex
-              }}
-          })
-          let mySwiper2 = new Swiper('.arrow-container.swiper-container', {
-            direction: 'horizontal',
-            loop: true,
-            // 如果需要前进后退按钮
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            },
-          })
-        });
+        this.$store.dispatch("getHomeInfo")
 
       },
-      created(){
+      watch:{
+        homeInfo(value){
+          let that = this;
+          this.$nextTick(() => {
+            let mySwiper = new Swiper('.banner.swiper-container', {
+              autoplay: {
+                delay: 2000,
+                stopOnLastSlide: false,
+                disableOnInteraction: false
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable :true
+              },
+              loop: true,
+              on: {
+                slideChangeTransitionStart: function(){
+                  that.num = this.activeIndex
 
+                }},
+            })
+            let mySwiper1 =new Swiper('.sl-container.swiper-container',{
+              autoplay: {
+                delay: 2000,
+                stopOnLastSlide: false,
+                disableOnInteraction: false
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable :true
+              },
+              loop: true,
+              effect : 'coverflow',
+              slidesPerView: 3,
+              centeredSlides: true,
+              coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 400,
+                modifier: 1,
+                slideShadows : true
+              },
+              on: {
+                slideChangeTransitionStart: function(){
+                  that.index1 = this.activeIndex
+                }}
+            })
+            let mySwiper2 = new Swiper('.arrow-container.swiper-container', {
+              direction: 'horizontal',
+              loop: true,
+              // 如果需要前进后退按钮
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+            })
+          });
+
+        }
       },
+
       computed:{
-
+        ...mapState(["homeInfo"])
       },
       methods:{
+        goDetail(bid){
+          let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
+          window.open(routeData.href, '_blank')
+        },
         gotoDetail(per){
           //将数据存好传递给详情页
         this.book = per
@@ -296,7 +245,7 @@
       },
       data(){
         return {
-          index:1,
+          num:1,
           index1:3,
           value2:0,
           shuju1:[1,2,3,4,5,6,7,8,9,10],
@@ -305,12 +254,7 @@
           shuju2:[1,2,3,4],
           shuju4:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
           shuju5:[1,1,1],
-          book:{},
-          banners:[
-            {cover:"https://img3.doubanio.com/view/photo/albumcover/public/p2317457275.webp",name:"banner 1",url:""},
-            {cover:"https://img3.doubanio.com/view/photo/albumcover/public/p2317457275.webp",name:"banner 2",url:""},
-            {cover:"https://img3.doubanio.com/view/photo/albumcover/public/p2317457275.webp",name:"banner 3",url:""}
-            ]
+          book:{}
         }
       },
       components:{
@@ -353,7 +297,8 @@
                 a
                   img
                     width:430px;
-                    height:274px;
+                    height 274px
+                    object-fit fill
             .swiper-pagination
               bottom:40px
 

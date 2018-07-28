@@ -1,19 +1,338 @@
 <template>
   <div>
-    书库
+    <div class="library-container">
+      <div class="library-main">
+        <div class="main-left">
+
+
+          <div class="already-select borderBottom">
+            <p class="selected">已选</p>
+            <div class="what-selected">
+              <a href="javascript:;" v-text="type"></a>
+              <a href="javascript:;" v-text="state"></a>
+              <a href="javascript:;" v-text="attribute"></a>
+            </div>
+          </div>
+
+
+          <div class="type borderBottom">
+            <p class="type-title">分类</p>
+            <div class="type-body">
+              <div class="item-container" v-for="(item,ind) in allCategory" :key="ind">
+                <ul>
+                  <li class="each-item" v-for="(per,index) in item" :key="index" v-if="per.id" @click="select(per.children,per.id,ind,per.name)" ><a href="javascript:;" :class="{'list-active':per.id==cid}">{{per.name}}</a><div class="trangle" v-show="per.id==cid && children.length"></div></li>
+                </ul>
+                <div class="item-child" v-if="ind===parentIndex && children.length">
+                  <a href="javascript:;" v-for="(item,index) in children" :key="index" :class="{'a-active':item.id==cid}" @click.prevent="selectChild(item.name,item.id)">{{item.name}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="state borderBottom">
+            <p class="type-title">状态</p>
+            <div class="state-body">
+              <a href="javascript:;" v-for="(item,index) in stateData" :class="{isActive:item.status==status}" :key="index" @click="selectState(item.status,item.name)">{{item.name}}</a>
+            </div>
+          </div>
+
+
+          <div class="state borderBottom">
+            <p class="type-title">属性</p>
+            <div class="state-body">
+              <a href="javascript:;" v-for="(item,index) in stateData" :class="{isActive:item.status==free}" :key="index" @click="selectAttribute(item.status,item.otherName)">{{item.otherName}}</a>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="main-right">
+            <div class="right-container " v-if="categoryInfo.length">
+              <ul>
+                <li v-for="(item,index) in categoryInfo[flag]" v-show="item.title">
+                  <img class="book-cover" :src="item.poster" alt="" @click="goDetail(item.bid)">
+                  <div class="book-info">
+                    <a href="javascript:;" class="name-words" @click="goDetail(item.bid)">{{item.title}}</a>
+                    <div class="gray-info">
+                      <img class="author-avantar" :src="item.poster" alt="">
+                      <span class="author-name" v-for="(per,index) in item.authors">{{per}}</span>
+                      <router-link v-for="(per,index) in item.tags" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+                    </div>
+                    <p class="paragragh">{{item.recDesc}}</p>
+                  </div>
+                </li>
+              </ul>
+
+              <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.categoryInfo"></PageControl>
+
+            </div>
+            <div class="empty" v-else>让你搜，没书啦～</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import {mapState} from "vuex"
+  import PageControl from "../../components/PageControl/PageControl"
   export default {
     data(){
       return {
-
+        type:"",
+        state:"",
+        attribute:'',
+        cid:9999,
+        status:0,
+        free:0,
+        flag:0,
+        parentIndex:0,
+        children:[],
+        stateData:[
+          {name:"不限",otherName:"不限",status:0},
+          {name:"连载",otherName:"免费",status:1},
+          {name:"完结",otherName:"付费",status:2}
+        ]
       }
+    },
+    computed:{
+      ...mapState(["allCategory","categoryInfo"])
+    },
+    methods:{
+      goDetail(bid){
+        console.log(bid)
+        let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
+        window.open(routeData.href, '_blank')
+      },
+      select(children,id,ind,name){
+        this.cid = id
+        this.parentIndex = ind
+        this.children = children
+        this.type = name
+        let {cid,status,free} = this
+        this.$store.dispatch("getCategoryInfo",{cid,status,free})
+
+      },
+      selectChild(name,id){
+        this.type = name
+        this.cid = id
+        let {cid,status,free} = this
+        this.$store.dispatch("getCategoryInfo",{cid,status,free})
+
+      },
+      selectState(id,name){
+        this.status = id
+        this.state = name
+        let {cid,status,free} = this
+        this.$store.dispatch("getCategoryInfo",{cid,status,free})
+      },
+      selectAttribute(id,name){
+        this.free = id
+        this.attribute = name
+        let {cid,status,free} = this
+        this.$store.dispatch("getCategoryInfo",{cid,status,free})
+      },
+      pageTab(index){
+        this.flag = index
+      },
+      skip(page){
+        this.flag=page-1
+      },
+      prevNext(bool){
+        if(bool===true){
+
+          if(this.flag===0){
+            return
+          }
+          this.flag--
+        }else{
+
+          if(this.flag===this.collectionList.length-1){
+            return
+          }
+          this.flag ++
+        }
+
+        console.log(bool)
+      }
+    },
+    mounted(){
+      let {cid,status,free} = this
+      this.$store.dispatch("getAllCategory")
+      this.$store.dispatch("getCategoryInfo",{cid,status,free})
+    },
+    components:{
+      PageControl
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+.library-container
+  width 100%
+  margin-top 20px
+  .library-main
+    width 990px
+    overflow hidden
+    margin 0 auto
+    .main-left
+      width 220px
+      min-height 749px
+      float left
+      padding 24px 10px
+      background #fff
+      .borderBottom
+        border-bottom 1px solid #e8e8e8
+        padding-bottom 16px
+        margin-bottom 20px
+        .type-title
+          font-size: 12px;
+          font-weight: 600;
+          /*margin-bottom 20px*/
+          color #000
+      .already-select
+        .selected
+          font-family: PingFangSC;
+          font-size: 12px;
+          line-height: 1;
+          color: #9b9b9b;
+        .what-selected
+          /*padding-bottom 12px*/
+          a
+            margin-top 12px
+            padding 0 3px
+            background #f3799c
+            border-radius 2px
+            font-size 12px
+            font-family: PingFangSC;
+            color #fff
+      .type
+        .type-body
+          .item-container
+            ul
+              overflow hidden
+              .each-item
+                position relative
+                float: left
+                margin-right 20px
+                &:last-child
+                  margin 0
+                a
+                  color rgba(0, 0, 0, 0.85)
+                  /*margin-bottom 10px*/
+                  margin-top 10px
+                .list-active
+                  color #4d8bee
+                .trangle
+                  position: absolute
+                  left 50%
+                  bottom 0
+                  margin-left -2px
+                  height: 0px;
+                  width: 0px;
+                  border-left: 2px solid transparent;
+                  border-right: 2px solid transparent;
+                  border-bottom: 4px solid rgba(219, 237, 255, 0.7);
+            .item-child
+              padding 10px 2px
+              border-radius: 1px;
+              background-color: rgba(219, 237, 255, 0.7);
+              border: solid .5px #e8e8e8;
+              border-top none
+              a
+                color rgba(0, 0, 0, 0.65)
+                margin-right 15px
+                padding 2px
+                border-radius 2px
+              a:nth-child(3n+0)
+                  margin 0
+              .a-active
+                background #4d8bee
+                color #fff
 
+      .state
+        .state-body
+          margin-top 14px
+          a
+            margin-right 15px
+            padding 2px
+            color rgba(0,0,0,.85)
+            border-radius 2px
+          .isActive
+            background #4d8bee
+            color #fff
+  .main-right
+    width 748px
+    float right
+    min-height 749px
+    padding 20px
+    background #fff
+    .right-container
+      ul
+        overflow hidden
+        margin-bottom 20px
+        li
+          overflow hidden
+          float left
+          width: 50%
+          border-bottom 1px solid #e8e8e8
+          padding 20px 0
+          .book-cover, .book-info
+            float: left
+          .book-cover
+            height: 118px
+            width: 90px
+            object-fit cover
+            margin-right: 15px
+          .book-info
+            width:70%
+            position relative
+            .name-words
+              font-family: PingFangSC
+              font-size: 16px
+              font-weight: 500
+              color: rgba(0, 0, 0, 0.85)
+            .gray-info
+              color:#666
+              margin:14px 0 16px
+              height 20px
+              white-space nowrap
+              .author-avantar
+                width 20px
+                height 20px
+                object-fit: cover;
+                border-radius 50%
+                vertical-align middle
+              .author-name
+                color #9b9b9b
+                font-size 12px
+              a
+                border-radius: 2.4px;
+                margin-left 13px
+                padding 2px 6px
+              .type
+                border: solid 0.5px #4f6ac5;
+              .comfort
+                border: solid 0.5px #f3799c;
+                color #f3799c
+            .paragragh
+              font-family: PingFangSC;
+              font-size: 14px;
+              line-height 1.7
+              color #9b9b9b
+            a
+              >img
+                width 18px
+                height 18px
+                position absolute
+                bottom 0
+                right 0
+    .empty
+      text-align center
+      min-height 749px
+      line-height 749px
+      font-size 18px
+      font-weight 600
+      color pink
 </style>

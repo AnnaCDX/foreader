@@ -3,17 +3,17 @@
     <div class="li-show" v-if='index===0'>
       <div class="li-show-left">
         <p class="num" :class="{'num-one':index==0}" >No.{{index+1}}</p>
-        <p class="name">爵士渗透</p>
-        <p class="clickNum">85777</p>
-        <p class="authorName">作者名字</p>
+        <p class="name">{{each.title}}</p>
+        <p class="clickNum">{{each.num}}</p>
+        <p class="authorName" v-for="(author,index) in each.authors" :key="index">{{author}}</p>
       </div>
-      <img src="../../assets/img/title.jpeg" alt="">
+      <img :src="each.poster" alt="">
     </div>
     <div class="li-hide" v-else>
       <p class="li-hide-rank" :class="{'num-two':index==1,'num-three':index==2}" >{{index+1}}</p>
       <div class="hide-name-click">
-        <span :class="{'isBold':index==1||index==2}">爵士渗透</span>
-        <span>86777</span></div>
+        <span :class="{'isBold':index==1||index==2}">{{each.title}}</span>
+        <span>{{each.num}}</span></div>
     </div>
   </li>
 </template>
@@ -21,7 +21,8 @@
 <script>
     export default {
       props:{
-        index:Number
+        index:Number,
+        each:Object
       },
         data() {
           return {

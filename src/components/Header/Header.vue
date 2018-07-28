@@ -5,10 +5,7 @@
        <div class="header-top">
          <div class="top-content">
            <div class="top-logo"></div>
-           <div class="top-center">
-             <Input placeholder="默认搜索词" class="tc-input"/>
-             <span ><i class="icon iconfont icon-sousuo"></i></span>
-           </div>
+           <HeaderSearch></HeaderSearch>
          </div>
        </div>
      </div>
@@ -29,9 +26,8 @@
           <router-link to="/magic">玄幻</router-link>
           <router-link to="/city">都市</router-link>
           <router-link to="/net">网络</router-link>
-          <router-link to="/detail">同人</router-link>
+          <router-link to="/samePeople">同人</router-link>
           <router-link to="/scine">科幻</router-link>
-          <router-link to="/reading">阅读</router-link>
           <router-link to="/write" class="write">
             <i class="icon iconfont icon-xiezuo"></i>
             写作平台
@@ -45,12 +41,13 @@
 <script>
   import {Input} from "iview"
   import {mapState} from "vuex"
+  import HeaderSearch from '../HeaderSearch/HeaderSearch'
   import {getStore} from '../../common/utils/storageUtils'
   export default {
       data() {
           return {
             isSee:true,
-            id:this.$cookies.get("id")
+            id:this.$cookies.get("id"),
           }
         },
       computed:{
@@ -59,10 +56,12 @@
       methods:{
         closeTip(){
         this.$emit("closeTip",true)
-        }
+        },
+
      },
       components:{
-        Input
+        Input,
+        HeaderSearch
       }
     }
 </script>
@@ -96,9 +95,8 @@
           .ivu-input-wrapper
             width:261px
             .ivu-input
-              border-radius
-                0
-          span
+              border-radius 0
+          .skipTo
             display inline-block
             vertical-align middle
             width:45px
@@ -108,6 +106,7 @@
             background rgba(77,139,238,1)
             .icon
               font-size 14px
+
     .header-fix
       z-index 100
       position: fixed

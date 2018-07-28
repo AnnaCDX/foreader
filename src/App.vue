@@ -6,11 +6,12 @@
       </div>
       <div class="login" v-show="isShow">
         <div class="login-body">
-          <div class="login-header">
-            <a href="javascript:;" @click="setLoginWay(true)" :class="{on: loginWay}">登录</a>
-            <a href="javascript:;" @click="setLoginWay(false)" :class="{on: !loginWay}">注册</a>
-            <i  class="icon iconfont icon-chahao" @click="closeTip(false)"></i>
-          </div>
+          <i  class="cha iconfont icon-chahao" @click="closeTip(false)"></i>
+
+          <!--<div class="login-header">-->
+            <!--&lt;!&ndash;<a href="javascript:;" @click="setLoginWay(true)" :class="{on: loginWay}">登录</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a href="javascript:;" @click="setLoginWay(false)" :class="{on: !loginWay}">注册</a>&ndash;&gt;-->
+          <!--</div>-->
           <div class="login-main">
             <form @submit.prevent="login">
               <div class="login-part" v-if="loginWay">
@@ -200,7 +201,7 @@
           width:261px
           .ivu-input
             border-radius 4px 0 0 4px
-        span
+        .span
           display inline-block
           vertical-align middle
           width:45px
@@ -265,6 +266,10 @@
     border-radius: 4px;
     padding: 7px 15px 10px 16px
     background-color: #ffffff;
+    .cha
+      position absolute
+      top:0
+      right:0
     .login-header
       width:100%
       height:49px
@@ -280,10 +285,10 @@
         &.on
           border-bottom 2px solid #4d8bee
           color: #4d8bee
-      .icon
-        position absolute
-        top:0
-        right:0
+      /*.icon*/
+        /*position absolute*/
+        /*top:0*/
+        /*right:0*/
 
     .login-main
       margin-top: 34px

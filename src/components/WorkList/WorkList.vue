@@ -1,9 +1,9 @@
 <template>
   <div class="kindsOf-listItem">
-    <ModuleTitle :cls="'icon-sousuo'" :title="'热搜榜'"><a href="javascript:;" slot="more">更多</a></ModuleTitle>
+    <ModuleTitle :cls="'icon-sousuo'" :title="per.title"><a href="javascript:;" slot="more">更多</a></ModuleTitle>
     <div>
       <!--v-for="(per,index) in shuju1"  @click="goDetail(index)" :key="index"-->
-      <WorkListItem v-for="(per,index) in shuju1"  @click="goDetail(index)" :key="index" :index="index"></WorkListItem>
+      <WorkListItem v-for="(each,index) in per.list"  @click="goDetail(index)" :key="index" :index="index" :each="each"></WorkListItem>
     </div>
   </div>
 </template>
@@ -12,9 +12,12 @@
   import ModuleTitle from '../ModuleTitle/ModuleTitle'
   import WorkListItem from '../WorkListItem/WorkListItem'
     export default {
+        props:{
+          per:Object
+        },
         data() {
             return{
-              shuju1:[1,2,3,4,5,6,7,8,9,10],
+
               book:{}
             }
         },

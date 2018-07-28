@@ -1,48 +1,46 @@
 <template>
   <div>
     <div class="detail-container">
-      <div class="detail-main">
+      <div class="detail-main" v-if="bookDetail.book">
         <Breadcrumb separator=">">
           <BreadcrumbItem to="/">首页</BreadcrumbItem>
-          <BreadcrumbItem to="/components/breadcrumb">玄幻</BreadcrumbItem>
-          <BreadcrumbItem>重生最轻女帝</BreadcrumbItem>
+          <BreadcrumbItem to="/components/breadcrumb">{{bookDetail.book.categories[0]}}</BreadcrumbItem>
+          <BreadcrumbItem>{{bookDetail.book.title}}</BreadcrumbItem>
         </Breadcrumb>
         <div class="detail-info">
-          <a href="###" class="book-face"><img src="../../assets/img/title.jpeg" alt=""></a>
+          <a href="javascript:;" class="book-face"><img :src="bookDetail.book.poster" alt=""></a>
           <div class="book-intro">
             <div class="intro-left">
               <p class="book-author">
-                <span class="book-name">重生最轻女帝</span><span class="author-name">作者名字 著</span>
+                <span class="book-name">{{bookDetail.book.title}}</span><span class="author-name" v-for="(item) in bookDetail.book.authors" :key="item">{{item}}</span> 著
               </p>
               <p class="other-info">
-                <router-link class="type" to="/type">玄幻</router-link>
-                <router-link class="loading" to="/loading">连载中</router-link>
-                <router-link class="comfort" to="/comfort">爽文</router-link>
+                <router-link class="type" v-for="(per,index) in bookDetail.book.tags" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
               </p>
-              <p class="words-num"><span>19</span>万字</p>
+              <p class="words-num"><span>{{bookDetail.book.wordCount}}</span>万字</p>
               <div class="update-new">
-                <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">3小时前</span><span class="update-chapter">第一百七十五章</span><span class="chapter-name">城运会前的比赛</span></p>
-                <p class="update-intro">俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正好翻了过来，作为子承父业的小偷俗话说：光剑贼吃肉，没见贼挨打。这话用在…</p>
+                <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">{{bookDetail.book.updated}}</span><span class="update-chapter">第多少张</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
+                <p class="update-intro">{{ bookDetail.book.recDesc}}</p>
               </div>
               <div class="read-collect">
-                <button class="free-read">免费试读</button>
-                <button class="free-read">加入收藏</button>
+                <button class="free-read" @click.prevent="goReading(bookDetail.book.bid)">免费试读</button>
+                <AddCollect :bid="bookDetail.book.bid" class="free-read"></AddCollect>
               </div>
             </div>
-            <div class="share">分享至
-              <a href="###"><img src="../../assets/img/title.jpeg" alt=""></a>
-              <a href="###"><img src="../../assets/img/title.jpeg" alt=""></a>
-              <a href="###"><img src="../../assets/img/title.jpeg" alt=""></a>
-            </div>
+            <!--<div class="share">分享至-->
+              <!--<a href="###"><img src="../../assets/img/title.jpeg" alt=""></a>-->
+              <!--<a href="###"><img src="../../assets/img/title.jpeg" alt=""></a>-->
+              <!--<a href="###"><img src="../../assets/img/title.jpeg" alt=""></a>-->
+            <!--</div>-->
           </div>
 
         </div>
         <div class="book-nav">
-          <router-link to="/detail/bookIntro">书籍简介</router-link>
-          <router-link to="/detail/directory">目录（1789章）</router-link>
+          <router-link :to="'/detail/bookIntro/'+bookDetail.book.bid">书籍简介</router-link>
+          <router-link :to="'/detail/directory/'+bookDetail.book.bid">目录（1789章）</router-link>
         </div>
         <div class="bookInfo-directory">
-          <router-view></router-view>
+          <router-view ></router-view>
         </div>
       </div>
     </div>
@@ -50,9 +48,28 @@
 </template>
 
 <script>
+  import {mapState} from "vuex"
+  import AddCollect from "../../components/AddCollect/AddCollect"
     export default {
       data() {
         return {}
+      },
+      mounted(){
+        let bid = this.$route.params.bid
+        console.log(bid)
+        this.$store.dispatch("getBookDetail",{bid})
+      },
+      methods:{
+        goReading(bid){
+          let routeData = this.$router.resolve({ path: `/reading/${bid}`});
+          window.open(routeData.href, '_blank')
+        }
+      },
+      computed:{
+        ...mapState(["bookDetail"])
+      },
+      components:{
+        AddCollect
       }
     }
 </script>
@@ -78,7 +95,8 @@
           width 196px
           height 256px
       .book-intro
-        float right
+        float left
+        margin-left 30px
         .intro-left
           width 440px
           float left
@@ -94,14 +112,18 @@
               color rgba(0,0,0,.86)
           .other-info
             margin-top 18px
-            a
-              width 44px
+            .type
               height 20px
               border-radius: 2.4px;
               border: solid 0.5px #4f6ac5
               margin-right: 13px
               text-align center
               line-height 20px
+              padding: 0 4px;
+            .comfort
+              color #f3799c
+              border: solid 0.5px #f3799c
+
           .words-num
             font-family: PingFangSC;
             font-size: 14px;
@@ -132,6 +154,7 @@
               border-radius: 4px;
               background-color: #4d8bee;
               margin-right 20px
+              color #fff
 
         .share
           float right

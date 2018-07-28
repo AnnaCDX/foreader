@@ -4,12 +4,12 @@
     <div class="rank-main">
       <div class="main-left">
         <ul class="left-ul">
-          <li ><router-link class="click" to='/rank/synthesize' ><img src="../../assets/img/title.jpeg" alt="">排行榜</router-link></li>
-          <li v-for="(item,index) in rankType" ><router-link class="click" to='/rank/recommend' ><img src="../../assets/img/title.jpeg" alt="">{{item.type_name}}榜</router-link></li>
+          <li ><router-link class="click" to='/rank/synthesize' ><img src="../../assets/img/title.jpeg" alt="">综合榜</router-link></li>
+          <li v-for="(item,index) in rankType" ><router-link class="click" :to="'/rank/'+item.type+'/'+item.type" ><img src="../../assets/img/title.jpeg" alt="">{{item.type_name}}榜</router-link></li>
         </ul>
       </div>
       <div class="main-right">
-        <router-view></router-view>
+          <router-view></router-view>
       </div >
     </div>
   </div>

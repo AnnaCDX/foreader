@@ -25,6 +25,7 @@ import PeopleNum from "../components/PeopleNum/PeopleNum"
 import Update from '../components/Update/Update'
 import HotComments from '../components/HotComments/HotComments'
 import Comments from "../components/Comments/Comments"
+import Search from "../components/Search/Search"
 Vue.use(Router)
 
 export default new Router({
@@ -36,6 +37,10 @@ export default new Router({
       meta:{
         showHead:true
       }
+    },
+    {
+      path:"/search/:bname",
+      component:Search
     },
     {
       path:'/home',
@@ -61,21 +66,21 @@ export default new Router({
           }
         },
         {
-          path:"/rank/recommend",
+          path:"/rank/recommend/:type",
           component:Recommend,
           meta:{
             showHead:true
           }
         },
         {
-          path:"/rank/click",
+          path:"/rank/pv/:type",
           component:Click,
           meta:{
             showHead:true
           }
         },
         {
-          path:"/rank/favorite",
+          path:"/rank/fav/:type",
           component:Favorite,
           meta:{
             showHead:true
@@ -96,7 +101,7 @@ export default new Router({
           }
         },
         {
-          path:"/rank/hotComments",
+          path:"/rank/comments/:type",
           component:HotComments,
           meta:{
             showHead:true
@@ -125,14 +130,11 @@ export default new Router({
       }
     },
     {
-      path:'/reading',
-      component:Reading,
-      meta:{
-        showHead:true
-      }
+      path:'/reading/:bid',
+      component:Reading
     },
     {
-      path:"/comments",
+      path:"/comments/:bid",
       component:Comments,
       meta:{
         showHead:true
@@ -206,14 +208,14 @@ export default new Router({
       component:Detail,
       children:[
         {
-          path:"/detail/bookIntro",
+          path:"/detail/bookIntro/:bid",
           component:BookInfo,
           meta:{
             showHead:true
           }
         },
         {
-          path:"/detail/directory",
+          path:"/detail/directory/:bid",
           component:Directory,
           meta:{
             showHead:true

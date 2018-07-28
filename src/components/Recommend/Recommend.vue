@@ -1,14 +1,14 @@
 <template>
 <div class="recommend-container">
-  <div class="recommend-main">
-    <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
+  <div class="recommend-main" v-for="(item,index) in rankList" :key="index">
+    <a href="javascript:;" ><img :src="item.poster" alt=""></a>
     <div class="book-info">
      <div class="info-container">
-       <a href="javascript:;">绝世神偷</a>
-       <p class="book-intro">俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正好翻了过来，俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正打…</p>
+       <a href="javascript:;">{{item.title}}</a>
+       <p class="book-intro">{{item.recDesc}}</p>
        <p class="author-tag">
-         <img src="../../assets/img/title.jpeg" alt="">
-         <a href="javascript:;">作者名字</a> | <span>8467367</span>
+         <img :src="item.poster" alt="">
+         <a href="javascript:;" v-for="(per,index) in item.authors" :key="per">{{per}}</a> | <span>{{item.num}}</span>
        </p>
      </div>
      <div class="read-fav">
@@ -18,50 +18,24 @@
 
     </div>
   </div>
-  <div class="recommend-main">
-    <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
-    <div class="book-info">
-      <div class="info-container">
-        <a href="javascript:;">绝世神偷</a>
-        <p class="book-intro">俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正好翻了过来，俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正打…</p>
-        <p class="author-tag">
-          <img src="../../assets/img/title.jpeg" alt="">
-          <a href="javascript:;">作者名字</a> | <span>8467367</span>
-        </p>
-      </div>
-      <div class="read-fav">
-        <router-link to="/read" class="read-now">立即阅读</router-link>
-        <a href="javascript:;" class="fav">加入收藏</a>
-      </div>
-
-    </div>
-  </div>
-  <div class="recommend-main">
-    <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
-    <div class="book-info">
-      <div class="info-container">
-        <a href="javascript:;">绝世神偷</a>
-        <p class="book-intro">俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正好翻了过来，俗话说：光剑贼吃肉，没见贼挨打。这话用在沉默身上正打…</p>
-        <p class="author-tag">
-          <img src="../../assets/img/title.jpeg" alt="">
-          <a href="javascript:;">作者名字</a> | <span>8467367</span>
-        </p>
-      </div>
-      <div class="read-fav">
-        <router-link to="/read" class="read-now">立即阅读</router-link>
-        <a href="javascript:;" class="fav">加入收藏</a>
-      </div>
-
-    </div>
-  </div>
 </div>
 </template>
 
 <script>
+  import {mapState} from "vuex"
     export default {
-        data() {
-            return {}
-        }
+      data() {
+          return {}
+        },
+      mounted(){
+        let type = this.$route.params.type
+        console.log(type)
+        let count = 6
+        this.$store.dispatch("getRankList",{type,count})
+      },
+      computed:{
+        ...mapState(["rankList"])
+      }
     }
 </script>
 
@@ -82,6 +56,7 @@
     .book-info
       float: right
       width:594px
+      min-height 133px
       position relative
       .info-container
         width 340px

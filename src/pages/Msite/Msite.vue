@@ -30,7 +30,7 @@
           return {
           }
         },
-      mounted(){
+      created(){
         let id = this.$cookies.get("id")
         let token = this.$cookies.get('tk')
         let config={
@@ -38,10 +38,13 @@
             "Authorization":"Bearer "+token
           }
         }
-          this.$store.dispatch("getInfor",{id,config}),
+        this.$store.dispatch("getInfor",{id,config}),
           this.$store.dispatch("getWalletInfo",{id,config})
-          this.$store.dispatch("getCollectList",{config})
-        },
+      },
+      mounted(){
+
+
+      },
         computed:{
           ...mapState(['userInfo'])
         }

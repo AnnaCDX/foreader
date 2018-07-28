@@ -36,7 +36,6 @@
       }
     },
     mounted(){
-
     },
     methods:{
       pageTab(index){

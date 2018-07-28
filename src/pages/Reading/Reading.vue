@@ -1,161 +1,855 @@
 <template>
-  <div id="reading_root_container"  :class="bgTheme">
+<div class="outer">
+  <div id="reading_root_container" :class="bgTheme">
+    <HeaderWithSearch >
+      <HeaderSearch slot="headerSearch"></HeaderSearch>
+    </HeaderWithSearch>
     <div class="content">
-      <div class="con_hd">
-          <span>
-              当前位置：<a href="" target="_blank">首页</a> &gt;
-              <a href="" target="_blank">玄幻小说</a> &gt;
-              <a href="" target="_blank" class="sm">武器大师</a>
-          </span>
+      <div class="content-body">
+        <Breadcrumb separator=">" v-if="bookDetail.book">
+          <BreadcrumbItem to="/">首页</BreadcrumbItem>
+          <BreadcrumbItem to="/components/breadcrumb" v-for="(item,index) in bookDetail.book.categories" :key="index">{{item}}</BreadcrumbItem>
 
-        <div class="gxsz">
-          <!--换背景-->
-          <span class="bj" btn="tool" name="background" title="切换背景"  v-on:click="toggleToolTip('bg')"></span>
-          <div class="xiala bjxl" v-show="showChangeBgTooltip" mod="tool_background">
-            <s class="sjbj"></s>
+          <BreadcrumbItem>{{bookDetail.book.title}}</BreadcrumbItem>
+        </Breadcrumb>
+        <div class="body-main">
+
+          <!--左侧导航-->
+          <div class="art-box-left" :class="bc1">
             <ul>
-              <li class="bj01" v-on:click="changeReadingBg('bgcolor01')"></li>
-              <li class="bj02" v-on:click="changeReadingBg('bgcolor02')"></li>
-              <li class="bj03" v-on:click="changeReadingBg('bgcolor03')"></li>
-              <li class="bj04" v-on:click="changeReadingBg('bgcolor04')"></li>
-              <li class="bj05" v-on:click="changeReadingBg('bgcolor05')"></li>
-              <li class="bj06" v-on:click="changeReadingBg('bgcolor06')"></li>
+
+              <!--目录-->
+              <li class="left-li" @click="toggleToolTip('cap')" :class="{isActive:which==='cap'&& isShow}">
+                <p class="li-title"><i class="icon iconfont icon-mulu"></i></p>目录
+                <div class="trangle" v-show="which==='cap' && isShow"></div>
+                <div class="trangle-body" v-show="which==='cap' && isShow" :class="{sameActive:which==='cap'}">
+                  <p class="chapter-title">目录·共106章</p>
+                  <div class="all-chapter">
+                    <ul >
+                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)"><a href="javascript:;">第{{index+1}}章 {{item.title}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+
+              <!--全屏-->
+              <li class="left-li" @click="">
+                <p><i class="icon iconfont icon-quanping"></i></p>全屏
+
+              </li>
+
+              <!--字体-->
+              <li class="left-li" @click="toggleToolTip('font')" :class="{isActive:which==='font'&& isShow}">
+                <p><i class="icon iconfont icon-728bianjiqi_zitidaxiao"></i></p>字体
+                <div class="trangle" v-show="which==='font' && isShow"></div>
+                <div class="trangle-body font-body" v-show="which==='font' && isShow" :class="{sameActive:which==='font'}">
+                  <div class="body-main">
+                    <a href="javascript:;" @click.stop="curFontSize -= 1">-</a>
+                    <a>{{ curFontSize }}</a>
+                    <a href="javascript:;" @click.stop="curFontSize += 1">+</a>
+                  </div>
+                </div>
+              </li>
+
+              <!--背景-->
+              <li class="left-li" @click="toggleToolTip('back')" :class="{isActive:which==='back'&& isShow}">
+                <p class="back"></p>背景
+                <div class="trangle" v-show="which==='back'&& isShow"></div>
+                <div class="trangle-body back-body " v-show="which==='back'&& isShow" :class="{sameActive:which==='back'}">
+                  <ul>
+                    <li class="back-li bj01" @click="changeReadingBg('bgcolor01','bc1')"></li>
+                    <li class="back-li bj02" @click="changeReadingBg('bgcolor05','bc2')"></li>
+                    <li class="back-li bj03" @click="changeReadingBg('bgcolor02','bc3')"></li>
+                    <li class="back-li bj04" @click="changeReadingBg('bgcolor03','bc4')"></li>
+                    <li class="back-li bj05" @click="changeReadingBg('bgcolor04','bc5')"></li>
+                    <li class="back-li bj06" @click="changeReadingBg('bgcolor06','bc6')"></li>
+                  </ul>
+
+                </div>
+              </li>
+
+              <!--收藏-->
+              <li class="left-li" @click="addCollection">
+                <p><i class="icon iconfont icon-msnui-collection"></i></p>收藏
+              </li>
+
+              <!--手机端-->
+              <li class="left-li" @click="">
+                <p><i class="icon iconfont icon-shouji"></i></p>手机
+              </li>
+            </ul>
+
+          </div>
+
+          <!--正文-->
+          <div class="art_box" id="chapter_11040162">
+            <div class="article" v-if="bookChapter[whichCapter]">
+              <h2>第{{whichCapter+1}}章 {{bookChapter[whichCapter].title}}</h2>
+              <ul v-if="bookDetail.book">
+                <li v-for="(item,index) in bookDetail.book.authors" :key="index">作者：{{item}}</li>
+                <li>类别：<a href="javascript:;" v-for="(item,index) in bookDetail.book.categories" @click="" :key="index">{{item}}</a> </li>
+                <li>更新时间：{{bookDetail.book.updated}}</li>
+                <li>本章字数：{{bookDetail.book.wordCount}}</li>
+              </ul>
+
+              <!--//小说内容-->
+              <div class="art_con" v-if="!needPay" >
+                <p :style="{fontSize : curFontSize + 'px'}" v-for="(item,index) in readInfo" :key="index">{{item}}</p>
+              </div>
+
+              <!--//需要购买时展示-->
+              <div class="subscribe" v-else>
+                <div class="sub-main">
+                  <p class="sub-title">这是VIP章节 需要订阅后才能阅读</p>
+                  <div class="sub-item" >
+                    <div class="item" v-for="(item,index) in chapterShow.chapter_shows" :class="{'active-item':buyWhich===item.id}" :key="index" @click="buySelect(item.id)">
+                      <span class="buy-num">订阅{{item.chapter_num===1?"本":("后续"+item.chapter_num)}}章</span>
+                    </div>
+                    <div class="item" :class="{'active-item':buyWhich===chapterShow.all_rest}" @click="buyAllSelect(chapterShow.all_rest)">
+                      <span class="buy-num">订阅后续全部{{chapterShow.all_rest}}章节</span>
+                    </div>
+                  </div>
+                  <div class="agreement">
+                    <label><input name="isAgree" type="checkbox" v-model="isRight"/></label>
+                    <a href="javascript:;" class="is-agree">自动购买下一章，以后不再提示</a>
+                  </div>
+
+                  <!--账户有钱，但不足时显示-->
+                  <div class="not-enough" v-show="myWallet.primary_balance<calculateResult.need_pay">
+                    余额不足，还差<span>{{(calculateResult.need_pay - myWallet.primary_balance)}}</span>阅读币
+                  </div>
+
+
+                  <div class="no-duty">
+                    <p class="onduty-title">温馨提示</p>
+                    <div class="onduty-content">
+                      <p>1.不足1000字免费，5阅读币/1000字</p>
+                      <p>2.已购章节不扣费</p>
+                    </div>
+                  </div>
+                  <div class="buy-bottom">
+                    <p class="bottom-left">需支付：<span class="need-pay">{{calculateResult.need_pay}}币</span><span class="origin-pay">（原价：{{calculateResult.original_price}}币）</span></p>
+                    <button class="sub-btn" @click="subscribeRecharge">{{myWallet.primary_balance < calculateResult.need_pay?"去充值":"立即订阅"}}</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--右侧导航-->
+          <div class="art-box-right">
+            <ul>
+              <li class="right-li"><a href="javascript:;"><i class="icon iconfont icon-jiantou-zuo"></i></a></li>
+              <li class="right-li"><a href="javascript:;"><i class="icon iconfont icon-jiantou-you"></i></a></li>
+              <li class="right-li"><a href="#reading_root_container"><i class="icon iconfont icon-tubiao02"></i></a></li>
             </ul>
           </div>
-
-          <!--切换字体大小-->
-          <span class="zh" btn="tool" name="font" title="切换字体大小" v-on:click="toggleToolTip('font_size')"><s></s></span>
-          <div class="xiala zhxl" v-show="showChangeFontTooltip" mod="tool_font">
-            <s class="sjbj"></s>
-            <div class="xl_con">
-              <s class="reduce" v-on:click="curFontSize -= 1"></s>
-              <a>{{ curFontSize }}</a>
-              <s class="add" v-on:click="curFontSize += 1"></s>
-            </div>
-          </div>
-
-          <!--切换窗口大小-->
-          <span class="kd" btn="tool" name="screen" title="切换窗口大小" v-on:click="toggleToolTip('window_size')"><s></s></span>
-          <div class="xiala kdxl" v-show="showChangeWindowSizeTip" mod="tool_screen">
-            <s class="sjbj"></s>
-            <div class="xl_con">
-              <s class="reduce"></s>
-              <a>1000</a>
-              <s class="add"></s>
-            </div>
-          </div>
-
-
-          <span class="ydfs" btn="tool" name="gund" title="切换滚动/翻页模式" v-on:click="toggleToolTip('scroll_mode')"><s></s></span>
-          <div class="xiala gdxl" v-show="showScrollModeTip" mod="tool_gund">
-            <s class="sjbj"></s>
-            <div class="xl_con"><p>点击切换翻页模式</p></div>
-          </div>
+        </div>
+        <div class="read-foot">
+          <a href="javascript:;" @click="nextPrev(true)" :disabled="whichCapter <= 0" :class="{dis:whichCapter <= 0}">上一章</a><a href="javascript:;" @click="goDetail">目录</a><a href="javascript:;" @click="nextPrev(false)" :disabled="whichCapter >= bookChapter.length-1" :class="{dis:whichCapter >= bookChapter.length-1}">下一章</a>
         </div>
       </div>
-
-
-      <div class="art_box" id="chapter_11040162">
-        <div class="article">
-          <h2>第1章 九阳神炉</h2>
-          <ul>
-            <li>作者：独悠</li>
-            <li>类别：<a href="" target="_blank">异界大陆</a></li>
-            <li>更新时间：2015-08-24</li>
-            <li>本章字数：2842</li>
-          </ul>
-          <div class="art_con" >
-            <p v-bind:style="{fontSize : curFontSize + 'px'}">“真他妈晦气，这小子太不经打了，三两下就死了。”
-            </p><p v-bind:style="{fontSize : curFontSize + 'px'}">“鸿哥，这样真的没事吗？他毕竟是大伯的儿子，要是让大伯知道的话……”
-          </p><p v-bind:style="{fontSize : curFontSize + 'px'}">“一个私生子而已，有什么好怕的？再说了，谁知道是我们动的手？走！走！赶紧离开这鬼地方！”</p>
-
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
+  <div class="mask" v-show="false">
+    <div class="mask-container">
+      <div class="mask-left">
+        <ul>
+          <li class="mask-li">
+            目录
+            <div class="trangle"></div>
+          </li>
+          <li class="mask-li">
+            全屏阅读
+            <div class="trangle"></div>
+          </li>
+          <li class="mask-li">
+            字体大小
+            <div class="trangle"></div>
+          </li>
+          <li class="mask-li">
+            阅读背景
+            <div class="trangle"></div>
+          </li>
+          <li class="mask-li">
+            收藏本书
+            <div class="trangle"></div>
+          </li>
+          <li class="mask-li">
+            手机阅读
+            <div class="trangle"></div>
+          </li>
+        </ul>
+      </div>
+      <div class="mask-right">
+        <p class="right-title">指南</p>
+        <div class="right-main">
+          <div class="screen">
+            <p>全屏模式</p>
+            <a href="javascript:;">F11</a>
+          </div>
+          <div class="page">
+            <p>翻页</p>
+            <a href="javascript:;"><i class="icon iconfont icon-zuojiantou"></i></a><a href="javascript:;"> <i class="icon iconfont icon-youjiantou"></i></a>
+          </div>
+          <div class="move">
+            <p>上下移动</p>
+            <a href="javascript:;"><i class="icon iconfont icon-shangjiantou"></i></a><a href="javascript:;"><i class="icon iconfont icon-xiajiantou"></i></a>
+          </div>
+        </div>
+        <div class="btn">
+          <button @click="readyRead">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </template>
 
 <script>
+  import HeaderWithSearch from "../../components/HeaderWithSearch/HeaderWithSearch"
+  import HeaderSearch from "../../components/HeaderSearch/HeaderSearch"
+  import {mapState,mapActions} from "vuex"
+  import {reqReadInfo,reqChapterShow,reqCalPrice,reqCalPriceAll,buyChapter,buyChapterAll} from "../../api"
   // todo how to import this css more elegant
   import "../../../reader/reader_common.css";
   import "../../../reader/layer.css";
-  // import "../../../reader/book.js";
   import "../../../reader/read.css";
-
-
+  import {addCollection} from "../../api"
   export default {
-    mounted(){
-      let that = this;
-      this.$nextTick(() => {
-
-      })
-    },
-    methods:{
-      // fixme: this method is so stupid
-      toggleToolTip(id) {
-        if (id === "bg") {
-          this.showChangeBgTooltip = !this.showChangeBgTooltip;
-
-          this.showChangeFontTooltip = false;
-          this.showTurnPageModeTip = false;
-          this.showChangeWindowSizeTip = false;
-          this.showScrollModeTip = false;
-        } else if (id === "font_size") {
-          this.showChangeFontTooltip = !this.showChangeFontTooltip;
-
-          this.showTurnPageModeTip = false;
-          this.showChangeWindowSizeTip = false;
-          this.showScrollModeTip = false;
-          this.showChangeBgTooltip = false;
-        } else if (id === "turn_page") {
-          this.showTurnPageModeTip = !this.showTurnPageModeTip;
-
-          this.showChangeFontTooltip = false;
-          this.showChangeWindowSizeTip = false;
-          this.showScrollModeTip = false;
-          this.showChangeBgTooltip = false;
-        } else if (id === "scroll_mode") {
-          this.showScrollModeTip = !this.showScrollModeTip;
-
-          this.showTurnPageModeTip = false;
-          this.showChangeWindowSizeTip = false;
-          this.showChangeFontTooltip = false;
-          this.showChangeBgTooltip = false;
-        } else if (id === 'window_size') {
-          this.showChangeWindowSizeTip = !this.showChangeWindowSizeTip;
-
-          this.showTurnPageModeTip = false;
-          this.showScrollModeTip = false;
-          this.showChangeFontTooltip = false;
-          this.showChangeBgTooltip = false;
-        }
-      },
-
-      changeReadingBg(bg_name) {
-        this.bgTheme = bg_name
-      }
-    },
     data(){
       return {
-        showChangeBgTooltip: false,
-        showChangeFontTooltip: false,
-        showChangeWindowSizeTip:false,
-        showTurnPageModeTip: false,
-        showScrollModeTip: false,
-        bgTheme: 'bgcolor01',
-        curFontSize: 16
+        which:"",//初始化选择操作哪个小工具
+        bgTheme: 'bgcolor01',//初始化背景色
+        curFontSize: 16,//初始化字体大小
+        bc1:'bc1',//初始化颜色盘
+        isRight:true,//初始化是否自动购买
+        buyWhich:1,//初始化购买哪个套餐
+        isShow:false,//初始化是否显示
+        maskShow:true,//初始化遮罩层是否显示
+        bid:"",
+        cid:"",
+        whichCapter:0,//初始化选择哪个章节阅读
+        token:this.$cookies.get('tk'),
+        needPay:false,//判断是否需要付钱，并控制购买页面的显示与隐藏
+        isAll:false//是否购买剩下的全部
       }
     },
-    created: function () {
+    mounted(){
+      let {bid} = this.$route.params
 
+      this.$store.dispatch("getBookChapter",{bid})
+      this.$store.dispatch("getBookDetail",{bid})
+
+    },
+    watch:{
+      async bookChapter(value){
+        let {bid,cid} = this.bookChapter[0]
+        let token = this.$cookies.get('tk')
+        let config={
+          headers:{
+            "Authorization":"Bearer "+token
+          }
+        }
+        let {data} = await reqReadInfo(bid,cid,config)
+        if(!data){
+          this.$router.push('/home')
+        }else if(data.need_pay){
+          let user_id = this.$cookies.get("id")
+          let result = await reqChapterShow(user_id,bid,cid)
+          this.getChapterShow({result})
+          this.needPay = data.need_pay
+
+        }else{
+          let {content} = data
+          this.recordReadInfo({content})
+        }
+      }
+    },
+    methods:{
+      ...mapActions(["recordReadInfo","getChapterShow","recordCalculate"]),
+      // 太多复用未处理
+      async subscribeRecharge(){
+        if(this.myWallet.primary_balance < this.calculateResult.need_pay){
+          let routeData = this.$router.resolve({ path: `/recharge`});
+          window.open(routeData.href, '_blank')
+        }else{
+          let {buyWhich,cid,bid,} = this
+          let user_id = this.$cookies.get("id")
+          let {need_pay} = this.calculateResult
+          if(this.isAll){
+            let result = await buyChapterAll(user_id,cid,bid,need_pay,buyWhich)
+            console.log(result)
+          }else{
+            let result = await buyChapter(user_id,buyWhich,cid,bid,need_pay)
+            console.log(result)
+          }
+
+        }
+      },
+      async buySelect(index){
+        this.buyWhich = index
+        this.isAll = false
+        let {bid,cid} = this
+        let token = this.$cookies.get('tk')
+        let config={
+          headers:{
+            "Authorization":"Bearer "+token
+          }
+        }
+        let user_id = this.$cookies.get("id")
+        let dtResult = await reqCalPrice(user_id,index,cid,bid)
+        this.recordCalculate({dtResult})
+
+        this.$store.dispatch("getWalletInfo",{user_id,config})
+      },
+     async buyAllSelect(allIndex){
+        this.isAll = true
+        this.buyWhich = allIndex;
+       let {bid,cid} = this
+       let user_id = this.$cookies.get("id")
+        let dtResult = await reqCalPriceAll(user_id,cid,bid,allIndex)
+       this.recordCalculate({dtResult})
+       let token = this.$cookies.get('tk')
+       let config={
+         headers:{
+           "Authorization":"Bearer "+token
+         }
+       }
+       this.$store.dispatch("getWalletInfo",{user_id,config})
+
+     },
+      goDetail(){
+        let {bid} = this.$route.params
+
+        let routeData = this.$router.resolve({ path: `/detail/directory/${bid}`});
+        window.open(routeData.href, '_blank')
+      },
+      readyRead(){
+        this.maskShow = false
+      },
+      toggleToolTip(id) {
+        this.which = id
+        this.isShow = !this.isShow
+      },
+      changeReadingBg(bg_name,bc) {
+        this.bgTheme = bg_name
+        this.bc1 = bc
+      },
+      async addCollection(){
+        let {bid} = this.$route.params
+        let token = this.$cookies.get('tk')
+        let config={
+          headers:{
+            "Authorization":"Bearer "+token
+          }
+        }
+        let data = await addCollection(bid,config)
+        let isSuccess = /^2\d{2}$/.test(data)
+        isSuccess?alert("收藏成功"):alert("收藏失败")
+      },
+      // 点击列表进行阅读
+      async isFree(cid,bid,wCapter,title){
+        this.bid = bid
+        this.cid = cid
+        this.whichCapter = wCapter
+        this.title = title
+        this.needPay = false
+        let config={
+          headers:{
+            "Authorization":"Bearer "+this.token
+          }
+        }
+        console.log(bid,cid)
+        let {data} = await reqReadInfo(bid,cid,config)
+        if(!data){
+          this.$router.push('/home')
+        }else if(data.need_pay){
+          let user_id = this.$cookies.get("id")
+          let result = await reqChapterShow(user_id,bid,cid)
+          this.getChapterShow({result})
+          let dtResult = await reqCalPrice(user_id,1,cid,bid)
+          this.recordCalculate({dtResult})
+          this.needPay = data.need_pay
+        }else{
+          let {content} = data
+          this.recordReadInfo({content})
+          document.documentElement.scrollTop = 0
+          document.body.scrolltop = 0
+        }
+      },
+      // 点击上下章进行阅读
+      async nextPrev(bool){
+
+        if(bool){
+          this.whichCapter--
+          let {bookChapter,whichCapter} = this
+          let cid = bookChapter[whichCapter].cid
+          let bid = bookChapter[whichCapter].bid
+          let config={
+            headers:{
+              "Authorization":"Bearer "+this.token
+            }
+          }
+          let {data} = await reqReadInfo(bid,cid,config)
+          if(!data){
+            this.$router.push('/home')
+          }else if(data.need_pay){
+            let user_id = this.$cookies.get("id")
+            let result = await reqChapterShow(user_id,bid,cid)
+            this.getChapterShow({result})
+            let dtResult = await reqCalPrice(user_id,1,cid,bid)
+            this.recordCalculate({dtResult})
+            this.needPay = data.need_pay
+
+          }else{
+            let {content} = data
+            this.recordReadInfo({content})
+            document.documentElement.scrollTop = 0
+            document.body.scrolltop = 0
+          }
+        }else{
+          this.whichCapter++
+          let {whichCapter,bookChapter} = this
+          let cid = bookChapter[whichCapter].cid
+          let bid = bookChapter[whichCapter].bid
+          let config={
+            headers:{
+              "Authorization":"Bearer "+this.token
+            }
+          }
+          let {data} = await reqReadInfo(bid,cid,config)
+          if(!data){
+
+            this.$router.push('/home')
+          }else if(data.need_pay){
+            let user_id = this.$cookies.get("id")
+            let result = await reqChapterShow(user_id,bid,cid)
+            this.getChapterShow({result})
+            let dtResult = await reqCalPrice(user_id,1,cid,bid)
+            this.recordCalculate({dtResult})
+            this.needPay = data.need_pay
+          }else{
+            let {content} = data
+            this.recordReadInfo({content})
+            document.documentElement.scrollTop = 0
+            document.body.scrolltop = 0
+          }
+        }
+      }
+    },
+    computed:{
+      ...mapState(["bookChapter","bookDetail","readInfo","chapterShow","calculateResult" ,"myWallet"])
+    },
+    components:{
+      HeaderWithSearch,
+      HeaderSearch
     }
   }
 </script>
 
-<style lang="scss" rel="stylesheet" scoped>
-  .content{width: 80%;}
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+  .outer
+    position relative
+    .header-fix
+      background rgba(255,255,255,.5)
+      .fix-body
+        .top-center
+          position absolute
+          top 0
+          left 342px
+    .content
+      width:100%
 
+      //置于中间位置
+      .content-body
+        width 982px
+        margin 0 auto
+
+        //面包屑
+        .ivu-breadcrumb
+          margin: 23px 0
+
+         //左中右的父亲
+        .body-main
+          position relative
+          overflow hidden
+          .art-box-left,.art_box
+           /*float left */
+          //左侧导航
+          .art-box-left
+            position fixed
+            top 110px
+            left 186px
+
+
+            margin:0 14px
+            background #eaeaea
+            ul
+              .left-li
+                position relative
+                padding 5px 15px
+                border-bottom 1px solid #d9d9d9
+                &:last-child
+                  border none
+                .trangle
+                  position: absolute;
+                  top: 50%;
+                  right: -14px;
+                  width 0
+                  height 0
+                  border-top 3px solid transparent
+                  border-bottom 3px solid transparent
+                  border-right 6px solid #eaeaea
+                .trangle-body
+                  position absolute
+                  top:0
+                  background #fff
+                  left: 68px;
+                  padding 20px
+                  .chapter-title
+                    font-size 20px
+                    color rgba(0,0,0,.85)
+                    font-family PingFangSC-Medium
+                  .all-chapter
+                    width 760px
+                    min-height 655px
+                    ul
+                      width 100%
+                      overflow hidden
+                      .chapter-li
+                        height 40px
+                        width 50%
+                        line-height 40px
+                        float left
+                        border-bottom 1px solid #e8e8e8
+                        a
+                          width 226px
+                          color rgba(0,0,0,.85)
+                          font-size 14px
+                          text-overflow ellipsis
+                          overflow hidden
+                          white-space nowrap
+                          vertical-align: top;
+                        .icon
+                          width 16px
+                          height 16px
+                          color #000000
+                          font-size 16px
+                          margin-left 34px
+                .font-body
+                  padding 0
+                  border:1px solid #d9d9d9
+                  .body-main
+                    width 184px
+                    height 52px
+                    line-height 52px
+                    text-align center
+                    a
+                     margin 0 20px
+                     color rgba(0,0,0,.65)
+                     font-size 18px
+                .back-body
+                  width 380px
+                  height 52px
+                  padding 0
+                  border 1px solid #d9d9d9
+                  ul
+                    overflow hidden
+                    .back-li
+                      float left
+                      width 40px
+                      height 40px
+                      border-radius 50%
+                      margin 6px 11px
+                    .bj01
+                      background #f9f4e8
+                    .bj02
+                      background #faf3db
+                    .bj03
+                      background #e9f1e3
+                    .bj04
+                      background #e8f1f0
+                    .bj05
+                      background #f6e7e2
+                    .bj06
+                      background #454642
+                .li-title
+                    .icon
+                      font-size 22px
+                .back
+                  width 22px
+                  height 22px
+                  border-radius 50%
+                  border 1px solid #ccc
+                  margin-bottom: 2px;
+
+
+           //控制颜色
+          .bc1
+            background #bdbdbd
+            ul
+              .isActive
+                background #e9e9e9
+                .sameActive
+                  background #e9e9e9
+          .bc2
+            background #daca92
+            ul
+              .isActive
+                background #c4b78a
+                .sameActive
+                  background #c4b78a
+          .bc3
+            background #dbe5d8
+            ul
+              .isActive
+                background #e9f1e3
+                .sameActive
+                  background #e9f1e3
+          .bc4
+            background #d6e5e3
+            ul
+              .isActive
+                background #e8f1f0
+                .sameActive
+                  background #e8f1f0
+          .bc5
+            background #e6d9d5
+            ul
+              .isActive
+                background #f6e7e2
+                .sameActive
+                  background #f6e7e2
+          .bc6
+            background #363733
+            ul
+              .isActive
+                background #454642
+                .sameActive
+                  background #454642
+
+          //内容区
+          .art_box
+            width 800px
+            .article
+              .subscribe
+                .sub-main
+                  width 366px
+                  margin 0 auto
+                  .sub-title
+                    font-family: PingFangSC;
+                    font-size: 24px;
+                    font-weight: 600;
+                    color: #9b9b9b;
+                    margin 30px 0
+                  .sub-item
+                    overflow hidden
+                    .item
+                      float: left
+                      margin-right 38px
+                      width: 164px;
+                      height: 68px;
+                      border-radius: 4px;
+                      background-color: rgba(255, 255, 255, 0.55);
+                      border: solid 1px #cccccc;
+                      text-align center
+                      line-height 68px
+                      margin-bottom 22px
+                      &:last-child
+                        width 366px
+                        margin-bottom 11px
+                      .buy-num
+                        font-family: PingFangSC;
+                        font-size: 14px;
+                        font-weight: 500;
+                        line-height 1.57
+                        color: rgba(0, 0, 0, 0.85);
+                        .need-num
+                          font-family: PingFangSC;
+                          font-size: 12px;
+                          line-height 1.83
+                          color #9b9b9b
+                    .active-item
+                      background #4d8bee
+                    .item:nth-child(2n+0)
+                      margin-right 0
+
+                  .agreement
+                    margin-bottom 10px
+                    .is-agree
+                      font-family: PingFangSC;
+                      font-size: 12px;
+                      color rgba(0,0,0,.65)
+                  .not-enough
+                    font-family: PingFangSC;
+                    font-size: 14px;
+                    color: rgba(0, 0, 0, 0.85);
+                    margin-bottom 5px
+                    span
+                      color #d0021b;
+                  .no-duty
+                    .onduty-title
+                      margin 15px 0 5px
+                      color #9b9b9b
+                      font-size 14px
+                    .onduty-content
+                      p
+                        color #9b9b9b
+                        font-size 12px
+                  .buy-bottom
+                    overflow hidden
+                    margin 20px 0
+
+                    .bottom-left
+                      float left
+                      width 206px
+                      height 38px
+                      border-radius: 4px;
+                      background-color: #ffffff;
+                      border: solid 0.5px #4d8bee;
+                      text-align center
+                      line-height 38px
+                      .need-pay
+                        font-size 12px
+                        color #d0021b
+                        font-family "PingFang SC"
+                      .origin-pay
+                        color #9b9b9b
+                        font-size 12px
+                        font-family "PingFang SC"
+                        text-decoration line-through
+                    .sub-btn
+                      float: right
+                      width: 148px;
+                      height: 38px;
+                      border-radius: 4px;
+                      background-color: #4d8bee;
+                      color #fff
+          //右侧导航
+          .art-box-right
+            position absolute
+            right 14px
+            bottom 0
+            width 64px
+            height 192px
+            .right-li
+              height 63px
+              border-bottom 1px solid #d9d9d9
+              text-align center
+              line-height 64px
+              &:last-child
+                border none
+              a
+                .icon
+                  width 24px
+                  height 24px
+                  font-size 24px
+                  color #000
+
+
+        .read-foot
+          width 800px
+          height 70px
+          margin-top 30px
+          margin-left 82px
+          padding 22px 0
+          a
+            padding 0 106px
+            border-right 1px solid #d9d9d9
+            font-size 20px
+            color rgba(0,0,0,.65)
+            &:last-child
+              border none
+          .dis
+            color #9b9b9b
+    .mask
+      position absolute
+      top: 0
+      left 0
+      right 0
+      bottom 0
+      margin auto
+      background rgba(0,0,0,.3)
+      .mask-container
+        position fixed
+        top 95px
+        left 95px
+        width: 1150px;
+        .mask-left
+          ul
+            .mask-li
+              position relative
+              width 81px
+              height 41px
+              background #fff
+              border-radius 2.6px
+              box-shadow: 0 0 4px 0 #c4b78a;
+              margin-top 15px
+              text-align center
+              line-height 41px
+              font-family: PingFangSC;
+              font-size: 16px;
+              color rgba(0,0,0,.85)
+              .trangle
+                position: absolute
+                top 50%
+                left 81px
+                margin-top -2px
+                height 0
+                width 0
+                border-top 3px solid transparent
+                border-bottom 3px solid transparent
+                border-left 6px solid #fff
+        .mask-right
+          position absolute
+          top: 248px
+          left: 358px
+          width 433px
+          height 255px
+          background #fff
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+          padding 14px 16px
+          .right-title
+            font-size: 18px;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.85);
+          .right-main
+            margin-top 36px
+            overflow hidden
+
+            .screen,.page,.move
+              float left
+              margin-left 12px
+              margin-right 41px
+              p
+                margin-bottom 12px
+                font-family: PingFangSC;
+                font-size: 14px;
+                font-weight: 500;
+                color: #9b9b9b;
+              a
+                width 44px
+                height 44px
+                background #f5f5f5
+                border: solid 1px #e2e2e2;
+                border-radius 4px
+                margin-right 12px
+                text-align center
+                line-height 44px
+                color #808080
+            .move
+              margin-right 0
+
+          .btn
+            margin-top 40px
+            text-align center
+            button
+              width: 65px;
+              height: 32px;
+              border-radius: 4px;
+              background-color: #4d8bee;
+              color #fff
 </style>

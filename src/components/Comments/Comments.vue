@@ -1,30 +1,30 @@
 <template>
     <div>
       <div class="comments-container">
-        <div class="comments-main">
-          <div class="comments-left">
-            <Breadcrumb separator=">">
+        <div class="comments-main" v-if="bookDetail.book">
+          <div class="comments-left" >
+            <Breadcrumb separator=">" >
               <BreadcrumbItem to="/">首页</BreadcrumbItem>
-              <BreadcrumbItem to="/components/breadcrumb">玄幻</BreadcrumbItem>
-              <BreadcrumbItem to="/detail">重生最轻女帝</BreadcrumbItem>
+              <BreadcrumbItem to="/components/breadcrumb">{{bookDetail.book.categories[0]}}</BreadcrumbItem>
+              <BreadcrumbItem to="/detail">{{bookDetail.book.title}}</BreadcrumbItem>
               <BreadcrumbItem to="/comments">评论区</BreadcrumbItem>
             </Breadcrumb>
             <div class="write-comments">
-              <p class="book-title">血染长生《评论区》</p>
+              <p class="book-title">{{bookDetail.book.title}}《评论区》</p>
               <div class="comments-input">
                 <img src="../../assets/img/title.jpeg" alt="">
-                <Input v-model="myComments" placeholder="我也来说一句" />
+                <Input v-model="content" placeholder="我也来说一句" />
               </div>
-              <button class="publish">发表评论</button>
+              <button class="publish" @click.prevent="publishComments">发表评论</button>
             </div>
             <div class="comments-content">
-              <p class="all-title">全部评论 <span>(18888)条</span></p>
+              <p class="all-title">全部评论 <span>({{commentsListSingle.length}})条</span></p>
               <div class="all-comments">
                   <ul>
-                    <li class="comments-item" v-for="(item,index) in data[flag]">
+                    <li class="comments-item" v-for="(item,index) in commentsList[flag]" v-if="item.user" >
                       <img src="../../assets/img/title.jpeg" alt="">
                       <div class="comment-info">
-                        <p class="who-when"><span class="whose-comment">昵称昵称</span><span class="when-comment">34分钟前</span></p>
+                        <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.created}}</span></p>
                         <div class="comment-content">
                           <p class="content-main">{{item.content}}</p>                         <!--<a href="javascript:;">展开全部</a>-->
                         </div>
@@ -32,16 +32,16 @@
                     </li>
                   </ul>
               </div>
-              <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.data"></PageControl>
+              <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.commentsList"></PageControl>
             </div>
           </div>
           <div class="coments-right">
             <div class="right-top">
               <div class="top-body">
-                <img src="../../assets/img/title.jpeg" alt="">
-                <p>血染长生</p>
-                <button class="collect-read collect">收藏本书</button>
-                <button class="collect-read">开始阅读</button>
+                <img :src="bookDetail.book.poster" alt="">
+                <p>{{bookDetail.book.title}}</p>
+                <button class="collect-read collect" @click.prevent="goReading(bookDetail.book.bid)">免费试读</button>
+                <AddCollect :bid="this.$route.params.bid" class="collect-read"></AddCollect>
               </div>
             </div>
             <div class="right-bottom">
@@ -58,25 +58,43 @@
 
 <script>
   import PageControl from "../PageControl/PageControl"
+  import {mapState} from "vuex"
+  import {addComment} from "../../api"
+  import AddCollect from "../../components/AddCollect/AddCollect"
     export default {
         data() {
             return {
-              myComments:"",
-              flag:0,
-              data:[
-                [
-                  {title:"aa",content:"作者辛苦了！送上鲜花，聊表心意作者辛苦，了送上，鲜花聊表心意作，者辛苦了送上鲜花聊表心 意作者辛苦了送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花…"},
-                  {title:"aa",content:"作者辛苦了！送上鲜花，聊表心意作者辛苦，了送上，鲜花聊表心意作，者辛苦了送上鲜花聊表心 意作者辛苦了送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花…"},
-                  {title:"aa",content:"作者辛苦了！送上鲜花，聊表心意作者辛苦，了送上，鲜花聊表心意作，者辛苦了送上鲜花聊表心 意作者辛苦了送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花…"}
-                ],
-                [
-                  {title:"aa",content:"作者辛苦了！送上鲜花，聊表心意作者辛苦，了送上，鲜花聊表心意作，者辛苦了送上鲜花聊表心 意作者辛苦了送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花…"},
-                  {title:"aa",content:"作者辛苦了！送上鲜花，聊表心意作者辛苦，了送上，鲜花聊表心意作，者辛苦了送上鲜花聊表心 意作者辛苦了送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花聊表心意！作者辛苦了！送上鲜花，聊表心意！作者辛苦了！送上鲜花，聊表心意作者辛苦了！送上鲜花…"}
-                ]
-              ]
+              content:"",
+              flag:0
             }
         },
+        mounted(){
+          let bid = this.$route.params.bid
+          this.$store.dispatch("getCommentsList",{bid})
+          this.$store.dispatch("getBookDetail",{bid})
+
+        },
+        computed:{
+          ...mapState(["commentsList","commentsListSingle","bookDetail"]),
+
+        },
         methods:{
+          goReading(bid){
+            let routeData = this.$router.resolve({ path: `/reading/${bid}`});
+            window.open(routeData.href, '_blank')
+          },
+          async publishComments(){
+            let bid = this.$route.params.bid
+            let {content} = this
+            let token = this.$cookies.get('tk')
+            let config={
+              headers:{
+                "Authorization":"Bearer "+token
+              }
+            }
+            await addComment(bid,content,config)
+            this.$store.dispatch("getCommentsList",{bid})
+          },
           pageTab(index){
             this.flag = index
           },
@@ -92,7 +110,7 @@
               this.flag--
             }else{
 
-              if(this.flag===this.data.length-1){
+              if(this.flag===this.commentsList.length-1){
                 return
               }
               this.flag ++
@@ -102,7 +120,8 @@
           }
         },
         components:{
-          PageControl
+          PageControl,
+          AddCollect
         }
     }
 </script>
@@ -125,7 +144,6 @@
 
         overflow hidden
         .book-title
-          width: 216px;
           height: 33px;
           font-family: PingFangSC;
           font-size: 24px;
@@ -155,6 +173,7 @@
       .comments-content
         margin-top 20px
         background #fff
+        padding-bottom 20px
         .all-title
           padding-left 43px
           height 60px
@@ -213,6 +232,7 @@
             width 98px
             height 128px
             object-fit cover
+            margin-bottom 10px
           p
             font-family: PingFangSC;
             font-size: 16px;
@@ -220,6 +240,9 @@
             line-height: 1;
             color: rgba(0, 0, 0, 0.85);
             text-align center
+            text-overflow ellipsis
+            overflow hidden
+            white-space nowrap
           .collect-read
             margin-top 20px
             width 104px

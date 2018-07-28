@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="collection" v-if="collectionList.books">
-      <p class="collection-title"> 我的收藏(<span>32</span>)</p>
-      <div class="maybe-change" v-if="collectionList.books.length">
+    <div class="collection" v-if="collectionList">
+      <p class="collection-title"> 我的收藏(<span>{{collectionListSingle.length}}</span>)</p>
+      <div class="maybe-change" v-if="collectionList.length">
         <ul>
-          <li v-for="(item,index) in collectionList.books">
+          <li v-for="(item,index) in collectionList[flag]" v-show="item.title">
             <img class="book-cover" :src="item.poster" alt="">
             <div class="book-info">
               <router-link  to="/detail"class="name-words">{{item.title}}</router-link>
@@ -18,7 +18,8 @@
             </div>
           </li>
         </ul>
-        <Page class-name="page" :total="10" size="small" show-elevator></Page>
+        <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.collectionList"></PageControl>
+
       </div>
       <div class="empty-collection" v-else>
         <div class="empty-main">
@@ -34,44 +35,80 @@
   import {Page} from "iview"
   import {mapState} from "vuex"
   import {deleteCollectList} from "../../api"
+  import PageControl from "../../components/PageControl/PageControl"
     export default {
         data() {
           return {
-
+          flag:0
           }
+        },
+        created(){
+          let token = this.$cookies.get('tk')
+          let config={
+            headers:{
+              "Authorization":"Bearer "+token
+            }
+          }
+          this.$store.dispatch("getCollectList",{config})
         },
         methods:{
           async deleteCollect(bid){
-            let baseData = {
+            let data = {
               uid:this.$cookies.get("id"),
               bids:[bid]
-            }
+            };
             let token = this.$cookies.get('tk')
-            let data = baseData
+            let configure= {
+              "Authorization": "Bearer " + token,
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+            await deleteCollectList(data,configure)
+            this.$router.push("/msite/collection")
             let config={
               headers:{
-                "Authorization":"Bearer "+token,
-                "Content-Type": "application/json",
-                // "X-Merchant": "53cdd6f50cf261fadf0dd74c"
-              },
-              data: baseData
+                "Authorization":"Bearer "+token
+              }
             }
-            console.log(data,config)
-            await deleteCollectList(config)
+            this.$store.dispatch("getCollectList",{config})
+          },
+          pageTab(index){
+            this.flag = index
+          },
+          skip(page){
+            this.flag=page-1
+          },
+          prevNext(bool){
+            if(bool===true){
+
+              if(this.flag===0){
+                return
+              }
+              this.flag--
+            }else{
+
+              if(this.flag===this.collectionList.length-1){
+                return
+              }
+              this.flag ++
+            }
+
+            console.log(bool)
           }
         },
         computed:{
-          ...mapState(["collectionList"])
+          ...mapState(["collectionList","collectionListSingle"])
         },
         components:{
-          Page
+          Page,
+          PageControl
         }
     }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .collection
-    height 710px
+    min-height 710px
     background #fff
     padding: 0 30px 44px
     .collection-title
@@ -139,8 +176,6 @@
                 position absolute
                 bottom 0
                 right 0
-
-
       .ivu-page
         width 88px
         margin 30px auto 30px
