@@ -19,5 +19,6 @@ export default {
   homeInfo:[],//主页详情
   readInfo:[],//阅读内容
   chapterShow:{},//未购买时展示的可购买套餐套餐
-  calculateResult:{}//点击各个套餐计算费用
+  calculateResult:{},//点击各个套餐计算费用
+  dealRecord:[]
 }

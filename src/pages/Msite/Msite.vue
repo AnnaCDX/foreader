@@ -38,8 +38,9 @@
             "Authorization":"Bearer "+token
           }
         }
+        let user_id = id
         this.$store.dispatch("getInfor",{id,config}),
-          this.$store.dispatch("getWalletInfo",{id,config})
+          this.$store.dispatch("getWalletInfo",{user_id,config})
       },
       mounted(){
 

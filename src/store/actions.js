@@ -17,7 +17,8 @@ import {
   GET_HOME_INFO,
   RECORD_READ_INFO,
   GET_CHAPTER_SHOW,
-  RECORD_CALCULATE} from "./mutation-types"
+  RECORD_CALCULATE,
+  GET_DEAL_RECORD} from "./mutation-types"
 import {
   reqUserInfo,
   reqRechargeInfo,
@@ -32,7 +33,8 @@ import {
   reqBookChapter,
   reqAllCategory,
   reqCategoryInfo,
-  reqHomeInfo} from '../api'
+  reqHomeInfo,
+  reqDealRecord} from '../api'
 
 export default {
   //存储用户信息
@@ -198,6 +200,23 @@ export default {
   //存储计算的结果
   recordCalculate({commit},{dtResult}){
     commit(RECORD_CALCULATE,{dtResult})
+  },
+  //获取用户消费记录
+  async getDealRecord({commit},{user_id}){
+    let arr = await reqDealRecord(user_id)
+    let num = 5;
+    let result = new Array(Math.ceil(arr.length / num))
+    for(let i=0; i<result.length;i++){
+      result[i] = [];
+      for(let j=0;j<num;j++){
+        result[i][j] ={}
+      }
+    }
+    for(let g=0;g<arr.length;g++){
+      result[parseInt(g / num)][g%num] = arr[g]
+    }
+
+    commit(GET_DEAL_RECORD,{result})
   }
 
 }

@@ -23,7 +23,7 @@
                 <p class="li-title"><i class="icon iconfont icon-mulu"></i></p>目录
                 <div class="trangle" v-show="which==='cap' && isShow"></div>
                 <div class="trangle-body" v-show="which==='cap' && isShow" :class="{sameActive:which==='cap'}">
-                  <p class="chapter-title">目录·共106章</p>
+                  <p class="chapter-title">目录·共{{bookChapter.length}}章</p>
                   <div class="all-chapter">
                     <ul >
                       <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)"><a href="javascript:;">第{{index+1}}章 {{item.title}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
@@ -212,7 +212,7 @@
   import HeaderWithSearch from "../../components/HeaderWithSearch/HeaderWithSearch"
   import HeaderSearch from "../../components/HeaderSearch/HeaderSearch"
   import {mapState,mapActions} from "vuex"
-  import {reqReadInfo,reqChapterShow,reqCalPrice,reqCalPriceAll,buyChapter,buyChapterAll} from "../../api"
+  import {reqReadInfo,reqChapterShow,reqCalPrice,reqCalPriceAll,buyChapter,buyChapterAll,askAutoBuy} from "../../api"
   // todo how to import this css more elegant
   import "../../../reader/reader_common.css";
   import "../../../reader/layer.css";
@@ -234,7 +234,8 @@
         whichCapter:0,//初始化选择哪个章节阅读
         token:this.$cookies.get('tk'),
         needPay:false,//判断是否需要付钱，并控制购买页面的显示与隐藏
-        isAll:false//是否购买剩下的全部
+        isAll:false,//是否购买剩下的全部
+        status:1
       }
     },
     mounted(){
@@ -280,12 +281,19 @@
           let user_id = this.$cookies.get("id")
           let {need_pay} = this.calculateResult
           if(this.isAll){
-            let result = await buyChapterAll(user_id,cid,bid,need_pay,buyWhich)
-            console.log(result)
+            await buyChapterAll(user_id,cid,bid,need_pay,buyWhich)
+
           }else{
-            let result = await buyChapter(user_id,buyWhich,cid,bid,need_pay)
-            console.log(result)
+            await buyChapter(user_id,buyWhich,cid,bid,need_pay)
           }
+          if(this.isRight){
+            this.status = 1
+          }else{
+            this.status = 0
+          }
+          await askAutoBuy(user_id,this.status,bid)
+          this.needPay = false
+
 
         }
       },
@@ -480,9 +488,9 @@
            /*float left */
           //左侧导航
           .art-box-left
-            position fixed
-            top 110px
-            left 186px
+            position absolute
+            top 0
+            left 0
 
 
             margin:0 14px

@@ -1,5 +1,5 @@
 <template>
-  <li><a class="rcmd-type">「玄幻」</a><a class="rcmd-name">{{per.title}}</a><a class="authorname" v-for="(each,index) in per.authors" :key="index">{{each}}</a></li>
+  <li><a class="rcmd-type">「玄幻」</a><a class="rcmd-name" @>{{per.title}}</a><a class="authorname" v-for="(each,index) in per.authors" :key="index">{{each}}</a></li>
 </template>
 
 <script>
