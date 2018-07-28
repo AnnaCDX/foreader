@@ -1,5 +1,9 @@
 <template>
   <div class="text-container">
+    <vueHeadful
+      title="隐私权声明"
+      description="速更-隐私权声明"
+    />
     <p class="first-intro">复阅科技非常重视用户个人信息的保护。您在使用我们的产品或服务时，我们可能会收集和使用您的相关信息。请您务必仔细阅读并透彻理解本声明。一旦您选择使用我们的产品或服务，即表示您认可并接受本条款现有内容及其可能随时更新的内容。</p>
     <h2>一、信息收集</h2>
     <p>
@@ -91,6 +95,9 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+  import vueHeadful from 'vue-headful';
+
   export default {
     data() {
       return {
@@ -104,6 +111,7 @@
 
     },
     components:{
+      vueHeadful
     }
   }
 </script>

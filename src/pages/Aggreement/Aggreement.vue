@@ -1,6 +1,9 @@
 <template>
   <div class="text-container">
-
+    <vueHeadful
+      title="用户协议"
+      description="速更-用户协议"
+    />
     <h2>速更小说软件使用协议</h2>
     <p>
 速更小说软件使用协议（以下简称“本协议”）是北京复阅科技有限公司（以下简称“复阅科技”）与您就 “速更小说”软件（以下简称“速更小说”或“本软件”）的安装及使用等相关事项所订立的有效合约。您通过点击确认本协议或以其他方式选择接受本协议，即表示您已与复阅科技达成协议并同意接受本协议的全部如下约定内容。
@@ -26,6 +29,8 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import vueHeadful from 'vue-headful';
   export default {
     data() {
       return {
@@ -36,6 +41,7 @@
 
     },
     components:{
+      vueHeadful
     }
   }
 </script>
