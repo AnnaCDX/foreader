@@ -2,8 +2,7 @@
   <div class="kindsOf-listItem">
     <ModuleTitle :cls="'icon-sousuo'" :title="per.title"><a href="javascript:;" slot="more">更多</a></ModuleTitle>
     <div>
-      <!--v-for="(per,index) in shuju1"  @click="goDetail(index)" :key="index"-->
-      <WorkListItem v-for="(each,index) in per.list"  @click="goDetail(index)" :key="index" :index="index" :each="each"></WorkListItem>
+      <WorkListItem v-for="(each,index) in per.list" :key="index" :index="index" :each="each"></WorkListItem>
     </div>
   </div>
 </template>

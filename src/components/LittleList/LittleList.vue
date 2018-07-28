@@ -1,12 +1,14 @@
 <template>
-  <li><a class="rcmd-type">「玄幻」</a><a class="rcmd-name" @>{{per.title}}</a><a class="authorname" v-for="(each,index) in per.authors" :key="index">{{each}}</a></li>
+  <li><a class="rcmd-type">「玄幻」</a><a class="rcmd-name" @click="goDetail(per.bid)">{{per.title}}</a><a class="authorname" v-for="(each,index) in per.authors" :key="index">{{each}}</a></li>
 </template>
 
 <script>
     export default {
       props:{
-        per:Object
+        per:Object,
+        goDetail:Function
       },
+
       data() {
         return {
 

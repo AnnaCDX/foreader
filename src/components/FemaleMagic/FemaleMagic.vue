@@ -4,89 +4,30 @@
     <div class="female-body">
       <div class="fml-body-left">
         <div class="fml-left-content">
-          <a href="javascript:;" class="book-img"><img src="../../assets/img/title.jpeg" alt=""></a>
-          <p class="book-name"><a href="javascript:;">爵士渗透</a></p>
-          <p class="book-click">85276</p>
-          <p class="book-author">作者名字</p>
-          <p class="book-intro">俗话说：光剑贼吃肉，没见贼挨打。这话用在  洒…</p>
-          <a href="javascript:;" class="to-read">阅读</a>
+          <a href="javascript:;" class="book-img" @click="goDetail(item.data[0].bid)"><img :src="item.data[0].poster" alt=""></a>
+          <p class="book-name"><a href="javascript:;" @click="goDetail(item.data[0].bid)">{{item.data[0].title}}</a></p>
+          <p class="book-click">点击数</p>
+          <p class="book-author" v-for="(per,index) in item.data[0].authors" :key="index">{{per}}</p>
+          <p class="book-intro">{{item.data[0].recDesc}}</p>
+          <a href="javascript:;" class="to-read" @click="goReading(item.data[0].bid)">阅读</a>
         </div>
       </div>
+      <div class="fml-body-middle">
+            <div class="list" v-for="(per,index) in item.data.slice(1,7)" :key="index">
+              <a href="javascript:;" @click="goDetail(per.bid)"><img :src="per.poster" alt=""></a>
+              <div class="book-info">
+                <a href="javascript:;" @click="goDetail(per.bid)">{{per.title}}</a>
+                <p class="book-intro">{{per.recDesc}}</p>
+                <p class="author-tag">
+                  <a href="javascript:;" v-for="(author,index) in per.authors" :key="author">{{author}}</a>
+                  <a href="javascript:;" >{{per.tags[0]}}</a>
+                </p>
+              </div>
+            </div>
+
+
+      </div>
       <div class="fml-body-right">
-        <div class="col-list">
-          <ul>
-            <div class="list">
-              <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
-              <div class="book-info">
-                <a href="javascript:;">绝世神偷</a>
-                <p class="book-intro">俗话说：光剑贼吃肉光剑贼吃肉…</p>
-                <p class="author-tag">
-                  <a href="javascript:;">作者名字</a>
-                  <a href="javascript:;">标签</a>
-                </p>
-              </div>
-            </div>
-            <div class="list">
-              <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
-              <div class="book-info">
-                <a href="javascript:;">绝世神偷</a>
-                <p class="book-intro">俗话说：光剑贼吃肉光剑贼吃肉…</p>
-                <p class="author-tag">
-                  <a href="javascript:;">作者名字</a>
-                  <a href="javascript:;">标签</a>
-                </p>
-              </div>
-            </div>
-            <div class="list">
-              <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
-              <div class="book-info">
-                <a href="javascript:;">绝世神偷</a>
-                <p class="book-intro">俗话说：光剑贼吃肉光剑贼吃肉…</p>
-                <p class="author-tag">
-                  <a href="javascript:;">作者名字</a>
-                  <a href="javascript:;">标签</a>
-                </p>
-              </div>
-            </div>
-          </ul>
-        </div>
-        <div class="col-list">
-          <ul>
-            <div class="list">
-              <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
-              <div class="book-info">
-                <a href="javascript:;">绝世神偷</a>
-                <p class="book-intro">俗话说：光剑贼吃肉光剑贼吃肉…</p>
-                <p class="author-tag">
-                  <a href="javascript:;">作者名字</a>
-                  <a href="javascript:;">标签</a>
-                </p>
-              </div>
-            </div>
-            <div class="list">
-              <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
-              <div class="book-info">
-                <a href="javascript:;">绝世神偷</a>
-                <p class="book-intro">俗话说：光剑贼吃肉光剑贼吃肉…</p>
-                <p class="author-tag">
-                  <a href="javascript:;">作者名字</a>
-                  <a href="javascript:;">标签</a>
-                </p>
-              </div>
-            </div>
-            <div class="list">
-              <a href="javascript:;" ><img src="../../assets/img/title.jpeg" alt=""></a>
-              <div class="book-info">
-                <a href="javascript:;">绝世神偷</a>
-                <p class="book-intro">俗话说：光剑贼吃肉光剑贼吃肉…</p>
-                <p class="author-tag">
-                  <a href="javascript:;">作者名字</a>
-                  <a href="javascript:;">标签</a>
-                </p>
-              </div>
-            </div>
-          </ul>
-        </div>
         <slot name="right"></slot>
       </div>
     </div>
@@ -96,6 +37,19 @@
 <script>
   import ModuleTitle from "../ModuleTitle/ModuleTitle"
     export default {
+        props:{
+          item:Object
+        },
+      methods:{
+        goReading(bid){
+          let routeData = this.$router.resolve({ path: `/reading/${bid}`});
+          window.open(routeData.href, '_blank')
+        },
+        goDetail(bid){
+          let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
+          window.open(routeData.href, '_blank')
+        }
+      },
         data() {
           return {
 
@@ -158,62 +112,59 @@
             font-size 14px
             color: #fff
 
-      .fml-body-right
-        float right
+      .fml-body-middle
+        float left
         overflow hidden
-        .col-list
-          width: 232px
+        width 500px
+        margin-left 20px
+
+        .list
           float: left
-          margin-right 24px
-          margin-left 22px
-          ul
-            .list
-              margin-top 26px
+          width 232px
+          margin-bottom 25px
+          >a
+            display inline-block
+            img
+              width:76px
+              height:102px
+              box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
+          .book-info
+            float: right
+            width:142px
+            >a
+              color rgba(0,0,0,.85)
+              font-family: PingFangSC;
+              font-size: 16px;
+              font-weight: 500;
+            .book-intro
+              font-family: PingFangSC;
+              color: rgba(0, 0, 0, 0.65);
+              margin: 7px 0 17px;
+            .author-tag
+              overflow hidden
               >a
-                display inline-block
-                img
-                  width:76px
-                  height:102px
-                  border-radius 5px
-                  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
-              .book-info
-                float: right
-                width:142px
-                >a
-                  color rgba(0,0,0,.85)
-                  font-family: PingFangSC;
-                  font-size: 16px;
-                  font-weight: 500;
-                .book-intro
-                  font-family: PingFangSC;
-                  color: rgba(0, 0, 0, 0.65);
-                  margin: 7px 0 17px;
-                .author-tag
-                  overflow hidden
-                  >a
-                    font-size 12px
-                    &:first-child
-                      float left
-                      color: #9b9b9b
-                    &:last-child
-                      display block
-                      width: 44px
-                      height: 19px
-                      float: right
-                      border-radius: 2.4px;
-                      border: solid 0.5px #4f6ac5;
-                      text-align center
-                      line-height: 19px
-                      color: #4f6ac5
+                font-size 12px
+                &:first-child
+                  float left
+                  color: #9b9b9b
+                &:last-child
+                  display block
+                  width: 44px
+                  height: 19px
+                  float: right
+                  border-radius: 2.4px;
+                  border: solid 0.5px #4f6ac5;
+                  text-align center
+                  line-height: 19px
+                  color: #4f6ac5
 
 
-
-
-              &:first-child
-                margin-top:0
+        .list:nth-child(2n+0)
+          margin-left 35px
+      .fml-body-right
+        float: right
         .col-right
           width:224px
-          float: left
           li
             padding-top 1px
         .magic-col-right

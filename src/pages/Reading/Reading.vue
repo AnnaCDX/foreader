@@ -152,7 +152,7 @@
       </div>
     </div>
   </div>
-  <div class="mask" v-show="false">
+  <div class="mask" v-show="firstCome">
     <div class="mask-container">
       <div class="mask-left">
         <ul>
@@ -212,6 +212,7 @@
   import HeaderWithSearch from "../../components/HeaderWithSearch/HeaderWithSearch"
   import HeaderSearch from "../../components/HeaderSearch/HeaderSearch"
   import {mapState,mapActions} from "vuex"
+  import {Breadcrumb,BreadcrumbItem} from "iview"
   import {reqReadInfo,reqChapterShow,reqCalPrice,reqCalPriceAll,buyChapter,buyChapterAll,askAutoBuy} from "../../api"
   // todo how to import this css more elegant
   import "../../../reader/reader_common.css";
@@ -235,12 +236,12 @@
         token:this.$cookies.get('tk'),
         needPay:false,//判断是否需要付钱，并控制购买页面的显示与隐藏
         isAll:false,//是否购买剩下的全部
-        status:1
+        status:1,
+        firstCome:true
       }
     },
     mounted(){
       let {bid} = this.$route.params
-
       this.$store.dispatch("getBookChapter",{bid})
       this.$store.dispatch("getBookDetail",{bid})
 
@@ -336,7 +337,8 @@
         window.open(routeData.href, '_blank')
       },
       readyRead(){
-        this.maskShow = false
+        this.firstCome = false
+        // this.$cookies.firstCome = false
       },
       toggleToolTip(id) {
         this.which = id
@@ -453,7 +455,9 @@
     },
     components:{
       HeaderWithSearch,
-      HeaderSearch
+      HeaderSearch,
+      BreadcrumbItem,
+      Breadcrumb
     }
   }
 </script>

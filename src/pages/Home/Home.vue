@@ -64,7 +64,7 @@
             <div class="strong-left">
               <ModuleTitle :cls="'icon-sousuo'" :title="item.data[0].title"></ModuleTitle>
               <ul>
-                <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per"></LittleList>
+                <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per" :go-detail="goDetail"></LittleList>
               </ul>
             </div>
             <div class="strong-right">
@@ -74,9 +74,9 @@
                   <div class="sl-container swiper-container">
                     <div class="sl-wrapper swiper-wrapper">
                       <div class="sl-slide swiper-slide" v-for="(per,index) in item.data[1].list.slice(0,5)" :key="index">
-                        <router-link to="/detail">
+                        <a href="javascript:;" @click="goDetail(per.bid)">
                           <img :src="per.poster" alt="">
-                        </router-link>
+                        </a>
                       </div>
 
                     </div>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="is-list">
                   <div class="list-item " v-for="(per,index) in item.data[1].list.slice(0,5)" :class="{'list-item-active':index+3===index1 || index+8===index1}" @click="gotoDetail(per)">
-                    <div class="item-header"><a href="javascript:;" @click="gotoDetail(book)">{{per.title}}</a></div>
+                    <div class="item-header"><a href="javascript:;" @click="goDetail(per.bid)">{{per.title}}</a></div>
                     <div class="item-content">
                       <span v-for="(each,index) in per.authors" :key="index">{{each}}</span>
                       <p>{{per.recDesc}} <router-link to="/read">阅读全部</router-link></p>
@@ -97,10 +97,12 @@
             </div>
           </div>
         </div>
-        <div class="productive marginTop" v-else-if="index==1"></div>
-        <div class="kindsOf-list back-color marginTop" v-else-if="item.template===3">
-          <WorkList v-for="(per,ind) in item.data" :key="ind" :per = 'per'></WorkList>
-        </div>
+        <template v-else-if="item.template===3" slot-scope="item">
+          <div class="productive marginTop"></div>
+          <div class="kindsOf-list back-color marginTop" >
+            <WorkList v-for="(per,ind) in item.data" :key="ind" :per = 'per'></WorkList>
+          </div>
+        </template>
         <div class="three-pic back-color marginTop" v-else-if="item.template===4">
           <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img :src="book.poster" alt=""></a>
         </div>
@@ -111,8 +113,8 @@
               <div class="arrow-wrapper swiper-wrapper">
                 <div class="arrow-slide swiper-slide">
                   <div class="arrow-content" v-for="(per,index) in item.data" :key="index">
-                    <a href="javascript:;" class="arrow-img"><img :src="per.poster" alt=""></a>
-                    <p class="arrow-title"><a href="javascript:;">{{per.title}}</a></p>
+                    <a href="javascript:;" class="arrow-img" @click="goDetail(per.bid)"><img :src="per.poster" alt=""></a>
+                    <p class="arrow-title" @click="goDetail(per.bid)"><a href="javascript:;">{{per.title}}</a></p>
                     <p class="isPay">不知道</p>
                   </div>
 
@@ -128,20 +130,20 @@
 
 
         <template v-else-if="item.template===6" slot-scope="item">
-          <FemaleMagic >
+          <FemaleMagic :item="item">
             <div class="col-right" slot="right" >
-              <LittleList v-for="(per,index) in item.data" :key="index" :per="per"></LittleList>
+              <LittleList v-for="(per,index) in item.data" :key="index" :per="per" :goDetail="goDetail" ></LittleList>
             </div>
           </FemaleMagic>
 
-          <FemaleMagic >
+          <FemaleMagic :item="item">
             <div class="magic-col-right" slot="right">
-              <WorkListItem v-for="(per,index) in shuju1"  @click="goDetail(index)" :key="index" :index="index"></WorkListItem>
+              <WorkListItem v-for="(each,index) in item.data"  @click="goDetail(each.bid)" :key="index" :index="index" :each="each" ></WorkListItem>
             </div>
           </FemaleMagic>
         </template>
 
-
+        <!--completely undone-->
         <div class="update-list back-color marginTop" v-else-if="item.template===7">
           <ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>
           <div class="update-list-body">

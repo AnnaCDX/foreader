@@ -55,9 +55,14 @@
                   <div class="book-info">
                     <a href="javascript:;" class="name-words" @click="goDetail(item.bid)">{{item.title}}</a>
                     <div class="gray-info">
-                      <img class="author-avantar" :src="item.poster" alt="">
-                      <span class="author-name" v-for="(per,index) in item.authors">{{per}}</span>
-                      <router-link v-for="(per,index) in item.tags" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+                      <div class="little-info">
+                        <img class="author-avantar" :src="item.poster" alt="">
+                        <span class="author-name" v-for="(per,index) in item.authors">{{per}}</span>
+                      </div>
+                      <div class="little-info" v-if="item.tags">
+                        <router-link v-for="(per,index) in item.tags.slice(0,3)" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+
+                      </div>
                     </div>
                     <p class="paragragh">{{item.recDesc}}</p>
                   </div>
@@ -296,26 +301,33 @@
             .gray-info
               color:#666
               margin:14px 0 16px
-              height 20px
+              height 25px
               white-space nowrap
-              .author-avantar
-                width 20px
-                height 20px
-                object-fit: cover;
-                border-radius 50%
-                vertical-align middle
-              .author-name
-                color #9b9b9b
-                font-size 12px
-              a
-                border-radius: 2.4px;
-                margin-left 13px
-                padding 2px 6px
-              .type
-                border: solid 0.5px #4f6ac5;
-              .comfort
-                border: solid 0.5px #f3799c;
-                color #f3799c
+              overflow hidden
+              .little-info
+                float: left
+                &:first-child
+                  width 30%
+                &:last-child
+                  width 70%
+                .author-avantar
+                  width 20px
+                  height 20px
+                  object-fit: cover;
+                  border-radius 50%
+                  vertical-align middle
+                .author-name
+                  color #9b9b9b
+                  font-size 12px
+                a
+                  border-radius: 2.4px;
+                  margin-left 13px
+                  padding 2px 6px
+                .type
+                  border: solid 0.5px #4f6ac5;
+                .comfort
+                  border: solid 0.5px #f3799c;
+                  color #f3799c
             .paragragh
               font-family: PingFangSC;
               font-size: 14px;

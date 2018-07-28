@@ -3,17 +3,17 @@
     <div class="li-show" v-if='index===0'>
       <div class="li-show-left">
         <p class="num" :class="{'num-one':index==0}" >No.{{index+1}}</p>
-        <p class="name">{{each.title}}</p>
+        <a class="name" href="javascript:;" @click="goDetail(each.bid)">{{each.title}}</a>
         <p class="clickNum">{{each.num}}</p>
         <p class="authorName" v-for="(author,index) in each.authors" :key="index">{{author}}</p>
       </div>
-      <img :src="each.poster" alt="">
+      <a href="javascript:;" @click="goDetail(each.bid)"><img :src="each.poster" alt=""></a>
     </div>
     <div class="li-hide" v-else>
       <p class="li-hide-rank" :class="{'num-two':index==1,'num-three':index==2}" >{{index+1}}</p>
       <div class="hide-name-click">
-        <span :class="{'isBold':index==1||index==2}">{{each.title}}</span>
-        <span>{{each.num}}</span></div>
+        <a class="span" href="javascript:;" :class="{'isBold':index==1||index==2}" @click="goDetail(each.bid)">{{each.title}}</a>
+        <span class="span">{{each.num}}</span></div>
     </div>
   </li>
 </template>
@@ -23,6 +23,12 @@
       props:{
         index:Number,
         each:Object
+      },
+      methods:{
+        goDetail(bid){
+          let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
+          window.open(routeData.href, '_blank')
+        },
       },
         data() {
           return {
@@ -61,11 +67,12 @@
           color: #9b9b9b
           line-height 10px
           font-size: 12px
-      img
+      a
         float: right
-        width:64px
-        height:84px
-        object-fit cover
+        img
+          width:64px
+          height:84px
+          object-fit cover
     .li-hide
       position: relative;
       display block
@@ -95,7 +102,7 @@
         line-height 29px
         margin-left 30px
 
-        span
+        .span
           vertical-align middle
           &:first-child
             float left

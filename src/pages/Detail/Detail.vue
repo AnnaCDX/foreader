@@ -49,6 +49,7 @@
 
 <script>
   import {mapState} from "vuex"
+  import {BreadcrumbItem,Breadcrumb} from "iview"
   import AddCollect from "../../components/AddCollect/AddCollect"
     export default {
       data() {
@@ -69,7 +70,9 @@
         ...mapState(["bookDetail"])
       },
       components:{
-        AddCollect
+        AddCollect,
+        Breadcrumb,
+        BreadcrumbItem
       }
     }
 </script>
