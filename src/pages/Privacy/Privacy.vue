@@ -144,6 +144,7 @@
        system, -apple-system, BlinkMacSystemFont,
        "PingFang SC", "Segoe UI", "Microsoft YaHei", "wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
        "Helvetica Neue", Helvetica, Arial, sans-serif;
+       text-align: justify;
     }
   }
 

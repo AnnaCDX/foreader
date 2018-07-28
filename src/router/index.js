@@ -9,6 +9,7 @@ import HomePage from '../pages/HomePage/HomePage'
 import Wallet from '../pages/Wallet/Wallet'
 import Collection from "../pages/Collection/Collection"
 import Privacy from "../pages/Privacy/Privacy"
+import Aggreement from "../pages/Aggreement/Aggreement"
 import Modify from "../pages/Modify/Modify"
 import Reading from "../pages/Reading/Reading"
 import ExpenseRecord from '../components/ExpenseRecord/ExpenseRecord'
@@ -231,6 +232,10 @@ export default new Router({
     {
       path:"/privacy",
       component:Privacy
+    },
+    {
+      path:"/aggreement",
+      component:Aggreement
     },
   ]
 })
