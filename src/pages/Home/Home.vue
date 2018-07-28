@@ -2,6 +2,7 @@
   <div>
     <div class="main" >
       <div class="body" v-for="(item,index) in homeInfo" :key="index">
+        <!--over-->
         <div class="recommend back-color marginTop" v-if="item.template===1">
           <div class="rcmd-left">
             <div class="left-container">
@@ -57,6 +58,7 @@
             </div>
           </div>
         </div>
+        <!--类型不可点，作者不可点-->
         <div class="strong-recommend back-color marginTop" v-else-if="item.template===2">
           <div class="strong-container">
             <div class="strong-left">
@@ -123,6 +125,7 @@
             </div>
           </div>
         </div>
+
 
         <template v-else-if="item.template===6" slot-scope="item">
           <FemaleMagic >

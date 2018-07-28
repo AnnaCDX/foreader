@@ -59,7 +59,6 @@
           this.flag ++
         }
 
-        console.log(bool)
       }
     },
     computed:{
