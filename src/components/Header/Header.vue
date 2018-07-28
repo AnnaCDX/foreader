@@ -67,6 +67,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  img
+    object-fit cover
   .header
     .header-back
       background url("../../assets/img/title.jpeg")

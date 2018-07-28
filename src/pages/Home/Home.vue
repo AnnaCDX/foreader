@@ -277,6 +277,8 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import '../../common/style/mixin.styl'
+img
+  object-fit cover
 .main
   width: 100%
   .body
@@ -304,7 +306,7 @@
                   img
                     width:430px;
                     height 274px
-                    object-fit fill
+                    object-fit contain
             .swiper-pagination
               bottom:40px
 
@@ -517,6 +519,7 @@
                 display: inline-block
                 .arrow-img
                   img
+                    border-radius 3px
                     width: 98px;
                     height: 128px;
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);

@@ -179,8 +179,14 @@
 
 </script>
 <style lang="stylus" rel="stylesheet/stylus" >
+img
+  object-fit cover
 .container
   width:100%
+  font-family:
+   system, -apple-system, BlinkMacSystemFont,
+   "PingFang SC", "Segoe UI", "Microsoft YaHei", "wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+   "Helvetica Neue", Helvetica, Arial, sans-serif;
   .header
     .header-top
       position relative
@@ -476,4 +482,3 @@
           &.on
             background-color #4d8bee
 </style>
-

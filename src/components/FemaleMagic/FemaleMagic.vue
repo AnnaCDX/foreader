@@ -108,6 +108,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  img
+    object-fit cover
   .female-chanel
     padding:22px 20px
 
@@ -129,6 +131,7 @@
             img
               width:98px
               height 128px
+              border-radius 3px
               box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);
           .book-name
             font-size 16px
@@ -171,6 +174,7 @@
                 img
                   width:76px
                   height:102px
+                  border-radius 5px
                   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
               .book-info
                 float: right
