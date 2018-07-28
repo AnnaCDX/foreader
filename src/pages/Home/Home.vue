@@ -125,18 +125,23 @@
             </div>
           </div>
         </div>
-       <template v-else-if="item.template===6">
-         <FemaleMagic slot-scope="item">
-           <div class="col-right" slot="right">
-             <LittleList v-for="(per,index) in item.data" :key="index" :per="per"></LittleList>
-           </div>
-         </FemaleMagic>
-         <FemaleMagic slot-scope="item">
-           <div class="magic-col-right" slot="right">
-             <WorkListItem v-for="(per,index) in shuju1"  @click="goDetail(index)" :key="index" :index="index"></WorkListItem>
-           </div>
-         </FemaleMagic>
-       </template>
+
+
+        <template v-else-if="item.template===6" slot-scope="item">
+          <FemaleMagic >
+            <div class="col-right" slot="right" >
+              <LittleList v-for="(per,index) in item.data" :key="index" :per="per"></LittleList>
+            </div>
+          </FemaleMagic>
+
+          <FemaleMagic >
+            <div class="magic-col-right" slot="right">
+              <WorkListItem v-for="(per,index) in shuju1"  @click="goDetail(index)" :key="index" :index="index"></WorkListItem>
+            </div>
+          </FemaleMagic>
+        </template>
+
+
         <div class="update-list back-color marginTop" v-else-if="item.template===7">
           <ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>
           <div class="update-list-body">
