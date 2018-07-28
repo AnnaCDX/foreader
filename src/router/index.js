@@ -8,6 +8,7 @@ import Msite from '../pages/Msite/Msite'
 import HomePage from '../pages/HomePage/HomePage'
 import Wallet from '../pages/Wallet/Wallet'
 import Collection from "../pages/Collection/Collection"
+import Privacy from "../pages/Privacy/Privacy"
 import Modify from "../pages/Modify/Modify"
 import Reading from "../pages/Reading/Reading"
 import ExpenseRecord from '../components/ExpenseRecord/ExpenseRecord'
@@ -226,6 +227,10 @@ export default new Router({
           redirect:"/detail/bookIntro"
         }
       ]
-    }
+    },
+    {
+      path:"/privacy",
+      component:Privacy
+    },
   ]
 })
