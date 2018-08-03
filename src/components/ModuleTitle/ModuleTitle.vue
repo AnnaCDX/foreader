@@ -1,5 +1,6 @@
 <template>
-  <p class="module-title"><i class="icon iconfont" :class="cls"></i> <span>{{title}}</span><slot name="more"></slot></p>
+  <p class="module-title"> <span>{{title}}</span><slot name="more"></slot></p>
+  <!--<i class="icon iconfont" :class="cls"></i>-->
 </template>
 
 <script>

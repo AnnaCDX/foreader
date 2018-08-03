@@ -18,7 +18,8 @@ import {
   RECORD_READ_INFO,
   GET_CHAPTER_SHOW,
   RECORD_CALCULATE,
-  GET_DEAL_RECORD} from "./mutation-types"
+  GET_DEAL_RECORD,
+  GET_SYNTHESIZE_INFO} from "./mutation-types"
 import {
   reqUserInfo,
   reqRechargeInfo,
@@ -34,7 +35,8 @@ import {
   reqAllCategory,
   reqCategoryInfo,
   reqHomeInfo,
-  reqDealRecord} from '../api'
+  reqDealRecord,
+  reqSynthesizeInfo} from '../api'
 
 export default {
   //存储用户信息
@@ -57,21 +59,8 @@ export default {
       commit(GET_RECHARGE_INFO,{result})
   },
   //获取充值记录
-  async getRechargeRecord({commit},cb){
-    let {id,config} = cb&&cb()
-    let arr = await reqRechargeRecord(id,config)
-    let num = 5;
-    let result = new Array(Math.ceil(arr.length / num))
-    for(let i=0; i<result.length;i++){
-      result[i] = [];
-      for(let j=0;j<num;j++){
-        result[i][j] ={}
-      }
-    }
-    for(let g=0;g<arr.length;g++){
-      result[parseInt(g / num)][g%num] = arr[g]
-    }
-
+  async getRechargeRecord({commit},{user_id,offset,limit}){
+    let result = await reqRechargeRecord(user_id,offset,limit)
     commit(GET_RECHARGE_RECORD,{result})
   },
   //获取钱包信息
@@ -169,19 +158,8 @@ export default {
     commit(GET_ALL_CATEGORY,{result})
   },
   //获取分类筛选信息
-  async getCategoryInfo({commit},{cid,status,free}){
-    let arr = await reqCategoryInfo(cid,status,free)
-    let num = 20;
-    let result = new Array(Math.ceil(arr.length / num))
-    for(let i=0; i<result.length;i++){
-      result[i] = [];
-      for(let j=0;j<num;j++){
-        result[i][j] ={}
-      }
-    }
-    for(let g=0;g<arr.length;g++){
-      result[parseInt(g / num)][g%num] = arr[g]
-    }
+  async getCategoryInfo({commit},{cid,status,free,limit,offset}){
+    let result = await reqCategoryInfo(cid,status,free,limit,offset)
     commit(GET_CATEGORY_INFO,{result})
   },
   //获取首页数据信息
@@ -202,21 +180,12 @@ export default {
     commit(RECORD_CALCULATE,{dtResult})
   },
   //获取用户消费记录
-  async getDealRecord({commit},{user_id}){
-    let arr = await reqDealRecord(user_id)
-    let num = 5;
-    let result = new Array(Math.ceil(arr.length / num))
-    for(let i=0; i<result.length;i++){
-      result[i] = [];
-      for(let j=0;j<num;j++){
-        result[i][j] ={}
-      }
-    }
-    for(let g=0;g<arr.length;g++){
-      result[parseInt(g / num)][g%num] = arr[g]
-    }
-
+  async getDealRecord({commit},{user_id,offset,limit}){
+    let result = await reqDealRecord(user_id,offset,limit)
     commit(GET_DEAL_RECORD,{result})
+  },
+  async getSynthesizeInfo({commit}){
+    let result = await reqSynthesizeInfo()
+    commit(GET_SYNTHESIZE_INFO,{result})
   }
-
 }

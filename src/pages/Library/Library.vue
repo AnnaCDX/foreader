@@ -20,7 +20,10 @@
             <div class="type-body">
               <div class="item-container" v-for="(item,ind) in allCategory" :key="ind">
                 <ul>
-                  <li class="each-item" v-for="(per,index) in item" :key="index" v-if="per.id" @click="select(per.children,per.id,ind,per.name)" ><a href="javascript:;" :class="{'list-active':per.id==cid}">{{per.name}}</a><div class="trangle" v-show="per.id==cid && children.length"></div></li>
+                  <li class="each-item" v-for="(per,index) in item" :key="index" v-if="per.id" @click="select(per.children,per.id,ind,per.name)" >
+                    <a href="javascript:;" :class="{'list-active':per.id==cid}">{{per.name}}</a>
+                    <div class="trangle" v-show="per.id==cid && children.length"></div>
+                  </li>
                 </ul>
                 <div class="item-child" v-if="ind===parentIndex && children.length">
                   <a href="javascript:;" v-for="(item,index) in children" :key="index" :class="{'a-active':item.id==cid}" @click.prevent="selectChild(item.name,item.id)">{{item.name}}</a>
@@ -47,32 +50,39 @@
 
 
         </div>
-        <div class="main-right">
+        <div class="main-right" v-if="!isLoading">
             <div class="right-container " v-if="categoryInfo.length">
               <ul>
                 <li v-for="(item,index) in categoryInfo[flag]" v-show="item.title">
                   <img class="book-cover" :src="item.poster" alt="" @click="goDetail(item.bid)">
                   <div class="book-info">
-                    <a href="javascript:;" class="name-words" @click="goDetail(item.bid)">{{item.title}}</a>
+                    <a href="javascript:;" class="name-words" @click="goDetail(item.bid)" :title="item.title">{{item.title}}</a>
                     <div class="gray-info">
-                      <div class="little-info">
+                      <div class="little-info one">
                         <img class="author-avantar" :src="item.poster" alt="">
-                        <span class="author-name" v-for="(per,index) in item.authors">{{per}}</span>
-                      </div>
-                      <div class="little-info" v-if="item.tags">
+                        <span class="author-name" v-for="(per,index) in item.authors" :key="index" :title="per">{{per}}</span>
+                      </div>|
+                      <div class="little-info two" v-if="item.tags">
                         <router-link v-for="(per,index) in item.tags.slice(0,3)" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
 
                       </div>
                     </div>
-                    <p class="paragragh">{{item.recDesc}}</p>
+                    <p class="paragragh" :title="item.description">{{item.description}}
+                    <a href="javascript:;" @click="goDetail(item.bid)" class="ellipsis">...</a>
+                    </p>
+                    <p class="word-count">{{item.wordCount/10000}}万</p>
                   </div>
                 </li>
               </ul>
 
-              <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.categoryInfo"></PageControl>
-
+              <RcdPageControl></RcdPageControl>
             </div>
             <div class="empty" v-else>让你搜，没书啦～</div>
+        </div>
+        <div class="loading" v-else>
+          <div class="loading-container">
+            <img src="../../assets/img/tenor.gif" alt="">
+          </div>
         </div>
       </div>
     </div>
@@ -81,7 +91,8 @@
 
 <script>
   import {mapState} from "vuex"
-  import PageControl from "../../components/PageControl/PageControl"
+  import RcdPageControl from "../../components/RcdPageControl/RcdPageControl"
+  import Loading from '../../components/Loading/Loading'
   export default {
     data(){
       return {
@@ -92,6 +103,7 @@
         status:0,
         free:0,
         flag:0,
+        isLoading:true,
         parentIndex:0,
         children:[],
         stateData:[
@@ -102,15 +114,20 @@
       }
     },
     computed:{
-      ...mapState(["allCategory","categoryInfo"])
+      ...mapState(["allCategory","categoryInfo"]),
+    },
+    watch:{
+      categoryInfo(){
+        this.isLoading = false
+      }
     },
     methods:{
       goDetail(bid){
-        console.log(bid)
         let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
         window.open(routeData.href, '_blank')
       },
       select(children,id,ind,name){
+        this.isLoading = true
         this.cid = id
         this.parentIndex = ind
         this.children = children
@@ -120,6 +137,8 @@
 
       },
       selectChild(name,id){
+        this.isLoading = true
+
         this.type = name
         this.cid = id
         let {cid,status,free} = this
@@ -127,12 +146,16 @@
 
       },
       selectState(id,name){
+        this.isLoading = true
+
         this.status = id
         this.state = name
         let {cid,status,free} = this
         this.$store.dispatch("getCategoryInfo",{cid,status,free})
       },
       selectAttribute(id,name){
+        this.isLoading = true
+
         this.free = id
         this.attribute = name
         let {cid,status,free} = this
@@ -168,7 +191,8 @@
       this.$store.dispatch("getCategoryInfo",{cid,status,free})
     },
     components:{
-      PageControl
+      RcdPageControl,
+      Loading
     }
   }
 </script>
@@ -194,7 +218,7 @@
         .type-title
           font-size: 12px;
           font-weight: 600;
-          /*margin-bottom 20px*/
+          margin-bottom 20px
           color #000
       .already-select
         .selected
@@ -226,9 +250,12 @@
                 a
                   color rgba(0, 0, 0, 0.85)
                   /*margin-bottom 10px*/
-                  margin-top 10px
+                  padding 0 2px
+                  border-radius 2px
+                  margin-bottom 10px
                 .list-active
-                  color #4d8bee
+                  background #4d8bee
+                  color #fff
                 .trangle
                   position: absolute
                   left 50%
@@ -261,90 +288,135 @@
           margin-top 14px
           a
             margin-right 15px
-            padding 2px
+            padding 0 2px
             color rgba(0,0,0,.85)
             border-radius 2px
           .isActive
             background #4d8bee
             color #fff
-  .main-right
-    width 748px
-    float right
-    min-height 749px
-    padding 20px
-    background #fff
-    .right-container
-      ul
-        overflow hidden
-        margin-bottom 20px
-        li
-          overflow hidden
-          float left
-          width: 50%
-          border-bottom 1px solid #e8e8e8
-          padding 20px 0
-          .book-cover, .book-info
-            float: left
-          .book-cover
-            height: 118px
-            width: 90px
-            object-fit cover
-            margin-right: 15px
-          .book-info
-            width:70%
-            position relative
-            .name-words
-              font-family: PingFangSC
-              font-size: 16px
-              font-weight: 500
-              color: rgba(0, 0, 0, 0.85)
-            .gray-info
-              color:#666
-              margin:14px 0 16px
-              height 25px
-              white-space nowrap
-              overflow hidden
-              .little-info
-                float: left
-                &:first-child
-                  width 30%
-                &:last-child
-                  width 70%
-                .author-avantar
-                  width 20px
-                  height 20px
-                  object-fit: cover;
-                  border-radius 50%
-                  vertical-align middle
-                .author-name
-                  color #9b9b9b
-                  font-size 12px
-                a
-                  border-radius: 2.4px;
-                  margin-left 13px
-                  padding 2px 6px
-                .type
-                  border: solid 0.5px #4f6ac5;
-                .comfort
-                  border: solid 0.5px #f3799c;
-                  color #f3799c
-            .paragragh
-              font-family: PingFangSC;
-              font-size: 14px;
-              line-height 1.7
-              color #9b9b9b
-            a
-              >img
-                width 18px
-                height 18px
-                position absolute
-                bottom 0
-                right 0
-    .empty
-      text-align center
+    .main-right
+      width 748px
+      float right
       min-height 749px
-      line-height 749px
-      font-size 18px
-      font-weight 600
-      color pink
+      padding 20px
+      background #fff
+      .right-container
+        ul
+          overflow hidden
+          margin-bottom 20px
+          li
+            overflow hidden
+            float left
+            width: 50%
+            height 173px
+
+            border-bottom 1px solid #e8e8e8
+            padding 20px 0
+            .book-cover, .book-info
+              float: left
+            .book-cover
+              height: 128px
+              width: 90px
+              object-fit cover
+              margin-right: 15px
+            .book-info
+              width:70%
+              position relative
+              .name-words
+                font-family: PingFangSC
+                font-size: 16px
+                font-weight: 500
+                color: rgba(0, 0, 0, 0.85)
+                width 220px
+                text-overflow ellipsis
+                overflow hidden
+                white-space nowrap
+              .gray-info
+                color:#666
+                margin:0 0 5px
+                height 25px
+                white-space nowrap
+                overflow hidden
+                .little-info
+
+                  &:first-child
+                    width 25%
+                    float: left
+                  &:last-child
+                    width 68%
+                    float right
+                  .author-avantar
+                    width 14px
+                    height 14px
+                    object-fit: cover;
+                    border-radius 50%
+                    vertical-align middle
+
+                  .author-name
+                    color #9b9b9b
+                    font-size 12px
+                    width 34px
+                    text-overflow ellipsis
+                    overflow hidden
+                    white-space nowrap
+                    display inline-block
+                    vertical-align middle
+                  a
+                    border-radius: 2.4px;
+                    margin-left 13px
+                    padding 2px 6px
+                    &:first-child
+                      margin-left 10px
+                  .type
+                    border: solid 0.5px #4f6ac5;
+                  .comfort
+                    border: solid 0.5px #f3799c;
+                    color #f3799c
+              .paragragh
+                font-family: PingFangSC;
+                width 226px
+                position: relative;
+                max-height: 48px;
+                overflow: hidden;
+                font-size: 14px;
+                line-height 1.7
+                color rgba(0,0,0,.65)
+                .ellipsis
+                  position: absolute;
+                  bottom: 0;
+                  right: 0;
+                  color rgba(0,0,0,.65)
+                  padding-left: 40px;
+                  background: linear-gradient(to right, transparent, #fff 55%);
+              .word-count
+                color #9b9b9b
+                font-size 12px
+                font-family "PingFang SC"
+              a
+                >img
+                  width 18px
+                  height 18px
+                  position absolute
+                  bottom 0
+                  right 0
+      .empty
+        text-align center
+        min-height 749px
+        line-height 749px
+        font-size 18px
+        font-weight 600
+        color pink
+
+    .loading
+      float: right
+      width 748px
+      margin 0 auto
+      background #fff
+      height 749px
+      text-align center
+      line-height 600px
+      img
+        width 200px
+        vertical-align middle
+
 </style>

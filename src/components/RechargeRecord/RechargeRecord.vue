@@ -1,20 +1,20 @@
 <template>
-  <div class="none-table">
-    <Table :columns="columns1" :data="rechargeRecord[flag]" :disabled-hover=true></Table>
-    <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.rechargeRecord"></PageControl>
-  </div>
+  <div class="none-table" v-if="rechargeRecord.data">
+    <Table :columns="columns1" :data="rechargeRecord.data?rechargeRecord.data:[]" :disabled-hover=true></Table>
+    <RcdPageControl :act="'getRechargeRecord'" :data="{}" :total="new Array(Math.ceil(rechargeRecord.total/limit))" :limit="limit"></RcdPageControl>
+ </div>
 </template>
 
 <script>
   import {Table} from "iview"
   import {mapState} from "vuex"
-  import PageControl from "../../components/PageControl/PageControl"
+  import RcdPageControl from "../../components/RcdPageControl/RcdPageControl"
   export default {
 
     data () {
       return {
-        loading: true,
-        flag:0,
+        limit:1,
+        offset:0,
         columns1: [
           {
             title: '消费金额',
@@ -36,45 +36,34 @@
       }
     },
     mounted(){
+      let user_id=this.$cookies.get("id")
+      let {limit,offset} = this
+      this.$store.dispatch("getRechargeRecord",{user_id,offset,limit})
+
+    },
+    watch:{
+      rechargeRecord(){
+        this.$emit("global:msite",2)
+      }
     },
     methods:{
-      pageTab(index){
-        this.flag = index
-      },
-      skip(page){
-        this.flag=page-1
-      },
-      prevNext(bool){
-        if(bool===true){
 
-          if(this.flag===0){
-           return
-          }
-          this.flag--
-        }else{
-
-          if(this.flag===this.rechargeRecord.length-1){
-            return
-          }
-          this.flag ++
-        }
-
-      }
     },
     computed:{
       ...mapState(['rechargeRecord'])
   },
     components:{
       Table,
-      PageControl
+      RcdPageControl
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .none-table
+
     .ivu-table-wrapper
       border none
+
 
 
 </style>

@@ -14,7 +14,7 @@
                 <router-link v-for="(per,index) in item.tags" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
               </div>
               <p class="paragragh">{{item.recDesc}}</p>
-              <a href="javascript:;" @click.prevent="deleteCollect(item.bid)"><img src="../../assets/img/title.jpeg" alt="" title="删除收藏" ></a>
+              <a href="javascript:;" @click.prevent="deleteCollect(item.bid)"><img src="../../assets/img/web/msite/delete.png" alt="" title="删除收藏" ></a>
             </div>
           </li>
         </ul>
@@ -23,7 +23,7 @@
       </div>
       <div class="empty-collection" v-else>
         <div class="empty-main">
-          <img src="../../assets/img/title.jpeg" alt="">
+          <img src="../../assets/img/web/defaultLose/default_result.png" alt="">
           <p>还没有收藏的书哦</p>
         </div>
       </div>
@@ -51,6 +51,11 @@
           }
           this.$store.dispatch("getCollectList",{config})
         },
+      watch:{
+        collectionListSingle(){
+          this.$emit("global:msite",1)
+        }
+      },
         methods:{
           async deleteCollect(bid){
             let data = {

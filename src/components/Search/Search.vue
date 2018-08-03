@@ -14,7 +14,7 @@
           <router-link to="/scine">科幻</router-link>
           <router-link to="/reading">阅读</router-link>
           <router-link to="/write" class="write">
-            <i class="icon iconfont icon-xiezuo"></i>
+            <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
           </router-link>
         </div>
@@ -46,7 +46,7 @@
         </div>
         <div class="empty-collection" v-else>
           <div class="empty-main">
-            <img src="../../assets/img/title.jpeg" alt="">
+            <img src="../../assets/img/web/defaultLose/default_result.png" alt="">
             <p>没有搜索结果，你还可以去<router-link to="/library">书库</router-link>找书哦</p>
           </div>
         </div>
@@ -154,7 +154,12 @@
         background #f3799c
         color: #fff
       .write
-        float: right
+        position absolute
+        right 0
+        img
+          width 16px
+          height 16px
+          vertical-align middle
   .search-main
     width 990px
     min-height 666px

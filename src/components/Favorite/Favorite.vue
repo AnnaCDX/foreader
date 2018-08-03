@@ -1,14 +1,21 @@
 <template>
   <div class="recommend-container" v-if="rankList.length">
     <div class="recommend-main" v-for="(item,index) in rankList" :key="index" >
-      <a href="javascript:;" @click.prevent="goDetail(item.bid)"><img :src="item.poster" alt=""></a>
+      <a href="javascript:;" @click.prevent="goDetail(item.bid)">
+        <img class="avatar" :src="item.poster" alt="">
+        <img class="little-icon" :src="index==0?img.top1:(index==1?img.top2:(index==2?img.top3:img.top4))" alt="">
+        <span class="little-icon font">{{index+1}}</span>
+      </a>
       <div class="book-info">
         <div class="info-container">
           <a href="javascript:;" @click="goDetail(item.bid)">{{item.title}}</a>
-          <p class="book-intro">{{item.recDesc}}</p>
+          <p class="book-intro">
+            {{item.description}}
+            <a href="javascript:;" class="ellipsis" @click="goDetail(item.bid)" v-show="item.description" title="了解更多">...</a>
+          </p>
           <p class="author-tag">
             <img :src="item.poster" alt="">
-            <a href="javascript:;" v-for="(per,index) in item.authors" :key="per">{{per}}</a> | <span>{{item.num}}</span>
+            <a href="javascript:;" v-for="(per,index) in item.authors" :key="per" >{{per}}</a> | <span>{{item.num}}</span>
           </p>
         </div>
 
@@ -18,6 +25,7 @@
         </div>
 
       </div>
+
     </div>
   </div>
 </template>
@@ -27,12 +35,25 @@
   import AddCollect from '../AddCollect/AddCollect'
   export default {
     data() {
-      return {}
+      return {
+        img:{
+          top1:require('../../assets/img/web/rank/top1.png'),
+          top2:require('../../assets/img/web/rank/top2.png'),
+          top3:require('../../assets/img/web/rank/top3.png'),
+          top4:require('../../assets/img/web/rank/top4.png')
+        }
+      }
     },
     created(){
       let type = this.$route.params.type
       let count = 6
       this.$store.dispatch("getRankList",{type,count})
+    },
+    watch:{
+      rankList(){
+        let type = this.$route.params.type
+        this.$emit("global:more",type)
+      }
     },
     methods:{
       goDetail(bid){
@@ -64,11 +85,25 @@
       padding-bottom 20px
       border-bottom 1px solid #e8e8e8
       >a
+        position relative
         display inline-block
-        img
+        .avatar
           width:98px
           height:128px
           box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
+        .little-icon
+          width 24px
+          height 28px
+          position absolute
+          top:0
+          left -1px
+        .font
+          text-align center
+          line-height 28px
+          color #fff
+          font-size 16px
+          font-family Helvetica
+          font-weight bold
       .book-info
         float: right
         width:594px
@@ -83,8 +118,23 @@
             font-weight: 500;
           .book-intro
             font-family: PingFangSC;
-            color: rgba(0, 0, 0, 0.65);
-            margin: 7px 0 17px;
+            margin: 3px 0 5px;
+            width 340px
+            position: relative;
+            height: 72px;
+            overflow: hidden;
+            font-size: 14px;
+            line-height 1.7
+            color rgba(0,0,0,.65)
+            .ellipsis
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              color rgba(0,0,0,.65)
+              padding-left: 40px;
+              font-size 18px
+              font-weight 600
+              background: linear-gradient(to right, transparent, #fff 55%);
           .author-tag
             color #E8E8E8
             line-height 20px

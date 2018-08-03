@@ -19,7 +19,8 @@
               </p>
               <p class="words-num"><span>{{bookDetail.book.wordCount}}</span>万字</p>
               <div class="update-new">
-                <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">{{bookDetail.book.updated}}</span><span class="update-chapter">第多少张</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
+                <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
+                <!--<span class="update-chapter">第多少张</span>-->
                 <p class="update-intro">{{ bookDetail.book.recDesc}}</p>
               </div>
               <div class="read-collect">
@@ -43,6 +44,11 @@
           <router-view ></router-view>
         </div>
       </div>
+      <div class="loading" v-else>
+        <div class="loading-container">
+          <img src="../../assets/img/tenor.gif" alt="">
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -51,14 +57,15 @@
   import {mapState} from "vuex"
   import {BreadcrumbItem,Breadcrumb} from "iview"
   import AddCollect from "../../components/AddCollect/AddCollect"
+  import {rankAdd} from "../../api"
     export default {
       data() {
         return {}
       },
-      mounted(){
+      async  mounted(){
         let bid = this.$route.params.bid
-        console.log(bid)
         this.$store.dispatch("getBookDetail",{bid})
+        await rankAdd(bid,"pv")
       },
       methods:{
         goReading(bid){
@@ -184,4 +191,16 @@
         color #4d8bee
     .bookInfo-directory
       margin-top 20px
+  .loading
+    width 100%
+    .loading-container
+      width 990px
+      margin 20px auto
+      background #fff
+      height 434px
+      text-align center
+      line-height 434px
+      img
+        width 200px
+        vertical-align middle
 </style>

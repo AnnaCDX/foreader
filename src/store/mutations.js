@@ -17,7 +17,8 @@ import {
   RECORD_READ_INFO,
   GET_CHAPTER_SHOW,
   RECORD_CALCULATE,
-  GET_DEAL_RECORD} from "./mutation-types"
+  GET_DEAL_RECORD,
+  GET_SYNTHESIZE_INFO} from "./mutation-types"
 export default{
   [RECEIVE_USER_INFO](state, {userInfo}) {
     state.loginInfo = userInfo
@@ -78,5 +79,8 @@ export default{
   },
   [GET_DEAL_RECORD](state,{result}){
     state.dealRecord = result
+  },
+  [GET_SYNTHESIZE_INFO](state,{result}){
+    state.synthesizeInfo = result
   }
 }

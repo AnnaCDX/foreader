@@ -5,12 +5,13 @@ import router from './router'
 import {Input} from 'iview'
 import store from './store/index'
 import "jquery"
-// import iView from 'iview'
 import 'babel-polyfill';
 import "iview/dist/styles/iview.css"
 import axios from 'axios'
 import qs from 'qs'
 import "./filter/moment/moment"
+import EventProxy from 'vue-event-proxy';
+Vue.use(EventProxy);
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   if(config.method!='get'){

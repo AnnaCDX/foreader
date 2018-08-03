@@ -1,8 +1,9 @@
 <template>
   <div class="kindsOf-listItem">
-    <ModuleTitle :cls="'icon-sousuo'" :title="per.title"><a href="javascript:;" slot="more">更多</a></ModuleTitle>
+    <!--per.title=='点击'?path.pv:(per.title=='评论'?path.fav:path.comments)-->
+    <ModuleTitle :title="per.title"><a href="javascript:;" @click="goMore(per.title)" slot="more" >更多</a></ModuleTitle>
     <div>
-      <WorkListItem v-for="(each,index) in per.list" :key="index" :index="index" :each="each"></WorkListItem>
+      <WorkListItem v-for="(each,index) in per.list || per.data" :key="index" :index="index" :each="each"></WorkListItem>
     </div>
   </div>
 </template>
@@ -16,8 +17,12 @@
         },
         data() {
             return{
-
-              book:{}
+              path:{
+                "点击":"/rank/pv/pv",
+                "评论":"/rank/comments/comments",
+                "收藏":"/rank/fav/fav"
+              },
+              goWhere:""
             }
         },
       methods:{
@@ -26,6 +31,22 @@
             this.book = per
             //详情页组件显示
             //  this.$ref.datail.toggleShow()
+        },
+        goMore(title){
+          let t =  title.substring(0,2)
+          // console.log(t)
+          // if(t=="点击" ){
+          //   this.goWhere = "pv"
+          // }else if(t=="评论"){
+          //   this.goWhere  = "comments"
+          // }else{
+          //   this.goWhere  = "fav"
+          // }
+         // this.$emit("global:more",this.goWhere)
+
+          this.$router.push(this.path[t])
+          document.documentElement.scrollTop = 0
+          document.body.scrolltop = 0
         }
       },
         components:{

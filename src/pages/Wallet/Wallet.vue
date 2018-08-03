@@ -38,16 +38,7 @@
         }
       },
       mounted(){
-        this.$store.dispatch("getRechargeRecord",()=>{
-        let token = this.$cookies.get('tk')
-        let id=this.$cookies.get("id")
-        let config={
-          headers:{
-            "Authorization":"Bearer "+token
-          }
-        };
-        return {id,config}
-      })
+
       },
       computed:{
         ...mapState(["myWallet"]),
@@ -66,7 +57,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .wallet
     width: 710px
-    height: 710px
+    min-height: 710px
     padding: 0 30px 44px
     .assets
       margin-bottom 20px
@@ -112,7 +103,7 @@
     .record
       background #fff
       .record-body
-        height 442px
+        min-height 442px
         .body-title
           padding 0 22px
           height 68px

@@ -12,9 +12,9 @@
       <div class="header-fix" >
         <div class="fix-body">
           <div class="private" >
-            <router-link to="/phone" class="phone-login"><i class="icon iconfont icon-shoujiduan"></i>手机端</router-link>
-            <a class="phone-login" v-if="!loginInfo.id && !id" @click="closeTip"><i class="icon iconfont icon-gerenzhongxin"></i>登录</a>
-            <router-link to="/msite" class="phone-login" v-else><i class="icon iconfont icon-gerenzhongxin"></i>个人中心</router-link>
+            <a href="javascript:;" class="phone-login" @click="goMsite()"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</a>
+            <a class="phone-login" v-if="!loginInfo.id && !id" @click="closeTip"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
+            <router-link to="/msite" class="phone-login" v-else><img  src="../../assets/img/web/home/login.jpg" alt="">个人中心</router-link>
           </div>
         </div>
       </div>
@@ -29,9 +29,13 @@
           <router-link to="/samePeople">同人</router-link>
           <router-link to="/scine">科幻</router-link>
           <router-link to="/write" class="write">
-            <i class="icon iconfont icon-xiezuo"></i>
+            <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
           </router-link>
+          <router-link to="/phone" class="phone-login">
+            <img  src="../../assets/img/web/home/sy_shoujiduan.png" alt="">
+            手机端</router-link>
+
         </div>
       </div>
     </div>
@@ -57,6 +61,9 @@
         closeTip(){
         this.$emit("closeTip",true)
         },
+        goMsite(){
+          this.$router.push(`/msite/collection`)
+        }
 
      },
       components:{
@@ -122,12 +129,16 @@
         margin:0 auto
         .private
           float: right
-          phone-login
+          >.phone-login
             display inline-block
             font-size 14px
             margin:0 8px
-            .icon
-              font-size:16px
+            color rgba(0,0,0,.85)
+            >img
+              width 16px
+              height 16px
+              margin-right 5px
+              vertical-align middle
     .header-bottom
       width: 100%
       background rgba(77,139,238,1)
@@ -148,7 +159,12 @@
         .router-link-active
           background #f3799c
           color: #fff
-        .write
+        .write,.phone-login
           float: right
+          img
+            width 20px
+            height 20px
+            vertical-align middle
+
 
 </style>

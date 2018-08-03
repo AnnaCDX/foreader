@@ -26,7 +26,7 @@
                   <p class="chapter-title">目录·共{{bookChapter.length}}章</p>
                   <div class="all-chapter">
                     <ul >
-                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)"><a href="javascript:;">第{{index+1}}章 {{item.title}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
+                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)"><a href="javascript:;">{{item.title}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
                     </ul>
                   </div>
                 </div>
@@ -58,10 +58,10 @@
                 <div class="trangle-body back-body " v-show="which==='back'&& isShow" :class="{sameActive:which==='back'}">
                   <ul>
                     <li class="back-li bj01" @click="changeReadingBg('bgcolor01','bc1')"></li>
-                    <li class="back-li bj02" @click="changeReadingBg('bgcolor05','bc2')"></li>
-                    <li class="back-li bj03" @click="changeReadingBg('bgcolor02','bc3')"></li>
-                    <li class="back-li bj04" @click="changeReadingBg('bgcolor03','bc4')"></li>
-                    <li class="back-li bj05" @click="changeReadingBg('bgcolor04','bc5')"></li>
+                    <li class="back-li bj02" @click="changeReadingBg('bgcolor02','bc2')"></li>
+                    <li class="back-li bj03" @click="changeReadingBg('bgcolor03','bc4')"></li>
+                    <li class="back-li bj04" @click="changeReadingBg('bgcolor04','bc3')"></li>
+                    <li class="back-li bj05" @click="changeReadingBg('bgcolor05','bc5')"></li>
                     <li class="back-li bj06" @click="changeReadingBg('bgcolor06','bc6')"></li>
                   </ul>
 
@@ -83,8 +83,8 @@
 
           <!--正文-->
           <div class="art_box" id="chapter_11040162">
-            <div class="article" v-if="bookChapter[whichCapter]">
-              <h2>第{{whichCapter+1}}章 {{bookChapter[whichCapter].title}}</h2>
+            <div class="article" v-if="bookChapter.length">
+              <h2>{{title}}</h2>
               <ul v-if="bookDetail.book">
                 <li v-for="(item,index) in bookDetail.book.authors" :key="index">作者：{{item}}</li>
                 <li>类别：<a href="javascript:;" v-for="(item,index) in bookDetail.book.categories" @click="" :key="index">{{item}}</a> </li>
@@ -98,40 +98,52 @@
               </div>
 
               <!--//需要购买时展示-->
-              <div class="subscribe" v-else>
-                <div class="sub-main">
-                  <p class="sub-title">这是VIP章节 需要订阅后才能阅读</p>
-                  <div class="sub-item" >
-                    <div class="item" v-for="(item,index) in chapterShow.chapter_shows" :class="{'active-item':buyWhich===item.id}" :key="index" @click="buySelect(item.id)">
-                      <span class="buy-num">订阅{{item.chapter_num===1?"本":("后续"+item.chapter_num)}}章</span>
+              <!--<div class="sub-main">-->
+                <!--<p class="sub-title">这是VIP章节 需要订阅后才能阅读</p>-->
+                <!--<div class="sub-item" >-->
+                  <!--<div class="item" v-for="(item,index) in chapterShow.chapter_shows" :class="{'active-item':buyWhich===item.id}" :key="index" @click="buySelect(item.id)">-->
+                    <!--<span class="buy-num">订阅{{item.chapter_num===1?"本":("后续"+item.chapter_num)}}章</span>-->
+                  <!--</div>-->
+                  <!--<div class="item" :class="{'active-item':buyWhich===chapterShow.all_rest}" @click="buyAllSelect(chapterShow.all_rest)">-->
+                    <!--<span class="buy-num">订阅后续全部{{chapterShow.all_rest}}章节</span>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="agreement">-->
+                  <!--<label><input name="isAgree" type="checkbox" v-model="isRight"/></label>-->
+                  <!--<a href="javascript:;" class="is-agree">自动购买下一章，以后不再提示</a>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;账户有钱，但不足时显示&ndash;&gt;-->
+                <!--<div class="not-enough" v-show="myWallet.primary_balance<calculateResult.need_pay">-->
+                  <!--余额不足，还差<span>{{(calculateResult.need_pay - myWallet.primary_balance)}}</span>阅读币-->
+                <!--</div>-->
+
+
+                <!--<div class="no-duty">-->
+                  <!--<p class="onduty-title">温馨提示</p>-->
+                  <!--<div class="onduty-content">-->
+                    <!--<p>1.不足1000字免费，5阅读币/1000字</p>-->
+                    <!--<p>2.已购章节不扣费</p>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="buy-bottom">-->
+                  <!--<p class="bottom-left">需支付：<span class="need-pay">{{calculateResult.need_pay}}币</span><span class="origin-pay">（原价：{{calculateResult.original_price}}币）</span></p>-->
+                  <!--<button class="sub-btn" @click="subscribeRecharge">{{myWallet.primary_balance < calculateResult.need_pay?"去充值":"立即订阅"}}</button>-->
+                <!--</div>-->
+
+              <!--</div>-->
+
+
+              <!--现在只弹出一个弹窗-->
+              <div class="subscribe alert" v-show="true">
+                <div class="alert-main ">
+                    <i class="icon iconfont icon-chahao"></i>
+                    <p class="alert-title">后续内容，请在速更小说APP中阅读</p>
+                    <div class="alert-img">
+                      <a href="javascript:;"><img src="../../assets/img/title.jpeg" alt=""><span>速更小说 for Android</span></a>
+                      <a href="javascript:;"><img src="../../assets/img/title.jpeg" alt=""><span>速更小说 for iPhone</span></a>
                     </div>
-                    <div class="item" :class="{'active-item':buyWhich===chapterShow.all_rest}" @click="buyAllSelect(chapterShow.all_rest)">
-                      <span class="buy-num">订阅后续全部{{chapterShow.all_rest}}章节</span>
-                    </div>
-                  </div>
-                  <div class="agreement">
-                    <label><input name="isAgree" type="checkbox" v-model="isRight"/></label>
-                    <a href="javascript:;" class="is-agree">自动购买下一章，以后不再提示</a>
-                  </div>
-
-                  <!--账户有钱，但不足时显示-->
-                  <div class="not-enough" v-show="myWallet.primary_balance<calculateResult.need_pay">
-                    余额不足，还差<span>{{(calculateResult.need_pay - myWallet.primary_balance)}}</span>阅读币
-                  </div>
-
-
-                  <div class="no-duty">
-                    <p class="onduty-title">温馨提示</p>
-                    <div class="onduty-content">
-                      <p>1.不足1000字免费，5阅读币/1000字</p>
-                      <p>2.已购章节不扣费</p>
-                    </div>
-                  </div>
-                  <div class="buy-bottom">
-                    <p class="bottom-left">需支付：<span class="need-pay">{{calculateResult.need_pay}}币</span><span class="origin-pay">（原价：{{calculateResult.original_price}}币）</span></p>
-                    <button class="sub-btn" @click="subscribeRecharge">{{myWallet.primary_balance < calculateResult.need_pay?"去充值":"立即订阅"}}</button>
-                  </div>
-
+                    <p class="alert-foot">更新<span>快</span>，爽文<span>多</span>，更多精彩尽在 <a href="javascript:;">速更小说APP</a></p>
                 </div>
               </div>
             </div>
@@ -140,9 +152,9 @@
           <!--右侧导航-->
           <div class="art-box-right">
             <ul>
-              <li class="right-li"><a href="javascript:;"><i class="icon iconfont icon-jiantou-zuo"></i></a></li>
-              <li class="right-li"><a href="javascript:;"><i class="icon iconfont icon-jiantou-you"></i></a></li>
-              <li class="right-li"><a href="#reading_root_container"><i class="icon iconfont icon-tubiao02"></i></a></li>
+              <li class="right-li"><a href="javascript:;" @click="nextPrev(true)"><i class="icon iconfont icon-jiantou-zuo"></i></a></li>
+              <li class="right-li"><a href="javascript:;" @click="nextPrev(false)"><i class="icon iconfont icon-jiantou-you"></i></a></li>
+              <li class="right-li"><a href="#reading_root_container" ><i class="icon iconfont icon-tubiao02"></i></a></li>
             </ul>
           </div>
         </div>
@@ -232,6 +244,7 @@
         maskShow:true,//初始化遮罩层是否显示
         bid:"",
         cid:"",
+        title:"",
         whichCapter:0,//初始化选择哪个章节阅读
         token:this.$cookies.get('tk'),
         needPay:false,//判断是否需要付钱，并控制购买页面的显示与隐藏
@@ -248,16 +261,36 @@
     },
     watch:{
       async bookChapter(value){
-        let {bid,cid} = this.bookChapter[0]
+        let bid
+        let cid
+        if(this.$route.params.cid){
+          bid = this.$route.params.bid
+          cid = this.$route.params.cid
+          this.title=this.$route.params.title
+        }else{
+          bid = this.bookChapter[0].bid
+          cid= this.bookChapter[0].cid
+          this.title = this.bookChapter[0].title
+        }
         let token = this.$cookies.get('tk')
+        let id = this.$cookies.get("id")
         let config={
           headers:{
             "Authorization":"Bearer "+token
           }
         }
-        let {data} = await reqReadInfo(bid,cid,config)
+        let initData
+        if(!id){
+          initData = await reqReadInfo(bid,cid)
+        }else{
+          initData = await reqReadInfo(bid,cid,config)
+        }
+        let {data} = initData
+
         if(!data){
-          this.$router.push('/home')
+         // this.$router.push('/home')
+          this.needPay = true
+
         }else if(data.need_pay){
           let user_id = this.$cookies.get("id")
           let result = await reqChapterShow(user_id,bid,cid)
@@ -273,63 +306,65 @@
     methods:{
       ...mapActions(["recordReadInfo","getChapterShow","recordCalculate"]),
       // 太多复用未处理
-      async subscribeRecharge(){
-        if(this.myWallet.primary_balance < this.calculateResult.need_pay){
-          let routeData = this.$router.resolve({ path: `/recharge`});
-          window.open(routeData.href, '_blank')
-        }else{
-          let {buyWhich,cid,bid,} = this
-          let user_id = this.$cookies.get("id")
-          let {need_pay} = this.calculateResult
-          if(this.isAll){
-            await buyChapterAll(user_id,cid,bid,need_pay,buyWhich)
 
-          }else{
-            await buyChapter(user_id,buyWhich,cid,bid,need_pay)
-          }
-          if(this.isRight){
-            this.status = 1
-          }else{
-            this.status = 0
-          }
-          await askAutoBuy(user_id,this.status,bid)
-          this.needPay = false
-
-
-        }
-      },
-      async buySelect(index){
-        this.buyWhich = index
-        this.isAll = false
-        let {bid,cid} = this
-        let token = this.$cookies.get('tk')
-        let config={
-          headers:{
-            "Authorization":"Bearer "+token
-          }
-        }
-        let user_id = this.$cookies.get("id")
-        let dtResult = await reqCalPrice(user_id,index,cid,bid)
-        this.recordCalculate({dtResult})
-
-        this.$store.dispatch("getWalletInfo",{user_id,config})
-      },
-     async buyAllSelect(allIndex){
-        this.isAll = true
-        this.buyWhich = allIndex;
-       let {bid,cid} = this
-       let user_id = this.$cookies.get("id")
-        let dtResult = await reqCalPriceAll(user_id,cid,bid,allIndex)
-       this.recordCalculate({dtResult})
-       let token = this.$cookies.get('tk')
-       let config={
-         headers:{
-           "Authorization":"Bearer "+token
-         }
-       }
-       this.$store.dispatch("getWalletInfo",{user_id,config})
-
-     },
+      //购买时才用到，将html打开
+     //  async subscribeRecharge(){
+     //    if(this.myWallet.primary_balance < this.calculateResult.need_pay){
+     //      let routeData = this.$router.resolve({ path: `/recharge`});
+     //      window.open(routeData.href, '_blank')
+     //    }else{
+     //      let {buyWhich,cid,bid,} = this
+     //      let user_id = this.$cookies.get("id")
+     //      let {need_pay} = this.calculateResult
+     //      if(this.isAll){
+     //        await buyChapterAll(user_id,cid,bid,need_pay,buyWhich)
+     //
+     //      }else{
+     //        await buyChapter(user_id,buyWhich,cid,bid,need_pay)
+     //      }
+     //      if(this.isRight){
+     //        this.status = 1
+     //      }else{
+     //        this.status = 0
+     //      }
+     //      await askAutoBuy(user_id,this.status,bid)
+     //      this.needPay = false
+     //
+     //
+     //    }
+     //  },
+     //  async buySelect(index){
+     //    this.buyWhich = index
+     //    this.isAll = false
+     //    let {bid,cid} = this
+     //    let token = this.$cookies.get('tk')
+     //    let config={
+     //      headers:{
+     //        "Authorization":"Bearer "+token
+     //      }
+     //    }
+     //    let user_id = this.$cookies.get("id")
+     //    let dtResult = await reqCalPrice(user_id,index,cid,bid)
+     //    this.recordCalculate({dtResult})
+     //
+     //    this.$store.dispatch("getWalletInfo",{user_id,config})
+     //  },
+     //  async buyAllSelect(allIndex){
+     //    this.isAll = true
+     //    this.buyWhich = allIndex;
+     //   let {bid,cid} = this
+     //   let user_id = this.$cookies.get("id")
+     //    let dtResult = await reqCalPriceAll(user_id,cid,bid,allIndex)
+     //   this.recordCalculate({dtResult})
+     //   let token = this.$cookies.get('tk')
+     //   let config={
+     //     headers:{
+     //       "Authorization":"Bearer "+token
+     //     }
+     //   }
+     //   this.$store.dispatch("getWalletInfo",{user_id,config})
+     //
+     // },
       goDetail(){
         let {bid} = this.$route.params
 
@@ -348,6 +383,7 @@
         this.bgTheme = bg_name
         this.bc1 = bc
       },
+      //加入收藏
       async addCollection(){
         let {bid} = this.$route.params
         let token = this.$cookies.get('tk')
@@ -364,6 +400,7 @@
       async isFree(cid,bid,wCapter,title){
         this.bid = bid
         this.cid = cid
+        let id = this.$cookies.get("id")
         this.whichCapter = wCapter
         this.title = title
         this.needPay = false
@@ -372,10 +409,17 @@
             "Authorization":"Bearer "+this.token
           }
         }
-        console.log(bid,cid)
-        let {data} = await reqReadInfo(bid,cid,config)
+
+        let initData
+        if(!id){
+          initData = await reqReadInfo(bid,cid)
+        }else{
+          initData = await reqReadInfo(bid,cid,config)
+        }
+        let {data} = initData
         if(!data){
-          this.$router.push('/home')
+          // this.$router.push('/home')
+          this.needPay = true
         }else if(data.need_pay){
           let user_id = this.$cookies.get("id")
           let result = await reqChapterShow(user_id,bid,cid)
@@ -398,14 +442,25 @@
           let {bookChapter,whichCapter} = this
           let cid = bookChapter[whichCapter].cid
           let bid = bookChapter[whichCapter].bid
+          this.title = bookChapter[whichCapter].title
+          let id = this.$cookies.get("id")
+
           let config={
             headers:{
               "Authorization":"Bearer "+this.token
             }
           }
-          let {data} = await reqReadInfo(bid,cid,config)
+          let initData
+          if(!id){
+            initData = await reqReadInfo(bid,cid)
+          }else{
+            initData = await reqReadInfo(bid,cid,config)
+          }
+          let {data} = initData
           if(!data){
-            this.$router.push('/home')
+            // this.$router.push('/home')
+            this.needPay = true
+
           }else if(data.need_pay){
             let user_id = this.$cookies.get("id")
             let result = await reqChapterShow(user_id,bid,cid)
@@ -422,9 +477,12 @@
           }
         }else{
           this.whichCapter++
+
           let {whichCapter,bookChapter} = this
           let cid = bookChapter[whichCapter].cid
           let bid = bookChapter[whichCapter].bid
+          this.title = bookChapter[whichCapter].title
+
           let config={
             headers:{
               "Authorization":"Bearer "+this.token
@@ -433,7 +491,9 @@
           let {data} = await reqReadInfo(bid,cid,config)
           if(!data){
 
-            this.$router.push('/home')
+            // this.$router.push('/home')
+            this.needPay = true
+
           }else if(data.need_pay){
             let user_id = this.$cookies.get("id")
             let result = await reqChapterShow(user_id,bid,cid)
@@ -446,6 +506,7 @@
             this.recordReadInfo({content})
             document.documentElement.scrollTop = 0
             document.body.scrolltop = 0
+            console.log(content)
           }
         }
       }
@@ -488,22 +549,20 @@
         .body-main
           position relative
           overflow hidden
-          .art-box-left,.art_box
-           /*float left */
-          //左侧导航
+          min-height 450px
+          .art_box
+            min-height 700px
           .art-box-left
             position absolute
             top 0
             left 0
-
-
             margin:0 14px
             background #eaeaea
             ul
               .left-li
                 position relative
                 padding 5px 15px
-                border-bottom 1px solid #d9d9d9
+                border-bottom 1px solid #a1a3b0
                 &:last-child
                   border none
                 .trangle
@@ -518,16 +577,20 @@
                 .trangle-body
                   position absolute
                   top:0
+                  /*height 800px*/
                   background #fff
                   left: 68px;
                   padding 20px
+                  z-index 100
+                  /*overflow auto*/
                   .chapter-title
                     font-size 20px
                     color rgba(0,0,0,.85)
                     font-family PingFangSC-Medium
                   .all-chapter
                     width 760px
-                    min-height 655px
+                    max-height 1500px
+                    overflow auto
                     ul
                       width 100%
                       overflow hidden
@@ -553,7 +616,7 @@
                           margin-left 34px
                 .font-body
                   padding 0
-                  border:1px solid #d9d9d9
+                  border:1px solid #a1a3b0
                   .body-main
                     width 184px
                     height 52px
@@ -567,7 +630,7 @@
                   width 380px
                   height 52px
                   padding 0
-                  border 1px solid #d9d9d9
+                  border 1px solid #a1a3b0
                   ul
                     overflow hidden
                     .back-li
@@ -577,17 +640,17 @@
                       border-radius 50%
                       margin 6px 11px
                     .bj01
-                      background #f9f4e8
+                      background #e9e9e9
                     .bj02
-                      background #faf3db
+                      background #fbf0cd
                     .bj03
-                      background #e9f1e3
+                      background #ebcecf
                     .bj04
-                      background #e8f1f0
+                      background #cfdde0
                     .bj05
-                      background #f6e7e2
+                      background #bdcace
                     .bj06
-                      background #454642
+                      background #212121
                 .li-title
                     .icon
                       font-size 22px
@@ -595,59 +658,79 @@
                   width 22px
                   height 22px
                   border-radius 50%
-                  border 1px solid #ccc
+                  border 1px solid #a1a3b0
                   margin-bottom: 2px;
 
 
            //控制颜色
           .bc1
-            background #bdbdbd
+            background #e9e9e9
             ul
+              .left-li
+                border-bottom 1px solid #a1a3b0
               .isActive
-                background #e9e9e9
+                background #f8f8f8
                 .sameActive
-                  background #e9e9e9
+                  background #f8f8f8
+                  border #a1a3b0
           .bc2
-            background #daca92
+            background #fbf0cd
             ul
+              .left-li
+                border-bottom 1px solid #daca92
               .isActive
-                background #c4b78a
+                background #FDFBED
                 .sameActive
-                  background #c4b78a
+                  background #FDFBED
+                  border 1px solid #DACA92
           .bc3
-            background #dbe5d8
+            background #cfdde0
             ul
+              .left-li
+                border-bottom 1px solid #bfcdd1
               .isActive
-                background #e9f1e3
+                background #eefaff
                 .sameActive
-                  background #e9f1e3
+                  background #eefaff
+                  border 1px solid #bfcdd1
           .bc4
-            background #d6e5e3
+            background #ebcecf
             ul
+              .left-li
+                border-bottom 1px solid #d7c4c4
               .isActive
-                background #e8f1f0
+                background #fbf1f1
                 .sameActive
-                  background #e8f1f0
+                  background #fbf1f1
+                  border 1px solid #d7c4c4
           .bc5
-            background #e6d9d5
+            background #c5d3c7
             ul
+              .left-li
+                border-bottom 1px solid #d7c4c4
               .isActive
-                background #f6e7e2
+                background #F0FAF0
                 .sameActive
-                  background #f6e7e2
+                  background #F0FAF0
+                  border 1px solid #d7c4c4
           .bc6
-            background #363733
+            background #212121
             ul
+              .left-li
+                border-bottom 1px solid #333333
               .isActive
-                background #454642
+                background #444444
                 .sameActive
-                  background #454642
+                  background #444444
+                  border 1px solid #333333
 
           //内容区
           .art_box
             width 800px
             .article
-              .subscribe
+              min-height 650px
+              position relative
+              /*.subscribe
                 .sub-main
                   width 366px
                   margin 0 auto
@@ -739,7 +822,60 @@
                       height: 38px;
                       border-radius: 4px;
                       background-color: #4d8bee;
-                      color #fff
+                      color #fff*/
+              .alert
+                position absolute
+                top 230px
+                left 115px
+                z-index 150px
+                .alert-main
+                  width 570px
+                  height 388px
+                  background #fff
+                  padding 54px 121px
+                  .alert-title
+                    font-size 20px
+                    font-weight 500
+                    color #9b9b9b
+                    font-family "PingFang SC"
+                    margin-bottom 20px
+                  .alert-img
+                    a
+                      width 130px
+                      height 130px
+                      text-align center
+                      &:first-child
+                        margin-right 58px
+                      img
+                        width 130px
+                        height 130px
+
+                      span
+                        font-family Helvetica
+                        color #9b9b9b
+                        font-size 12px
+                        margin-top 10px
+                  .alert-foot
+                    color rgba(0,0,0,.5)
+                    font-size 14px
+                    font-family "PingFang SC"
+                    margin-top 40px
+                    text-align center
+                    span
+                      color rgba(0,0,0,.85)
+                    a
+                      color #4d8bee
+
+                  .icon
+                    position absolute
+                    top 0
+                    line-height 1
+                    color #000
+                    right 0
+                    font-size 18px
+                    width 18px
+                    height 18px
+
           //右侧导航
           .art-box-right
             position absolute

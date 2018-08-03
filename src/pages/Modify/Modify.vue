@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import {Input,RadioGroup,Radio} from "iview"
+  import {Input,RadioGroup,Radio,Row,Col,DatePicker} from "iview"
   import {modifyInfo} from "../../api"
   import {mapActions} from "vuex"
     export default {
@@ -49,8 +49,9 @@
           return{
             isAlert:false,
             nickname:"",
-            sex:"",
+            sexSelect:"",
             birthday:'',
+            sex:0,
             ownSign:''
           }
         },
@@ -63,8 +64,13 @@
           this.birthday = date
         },
         async save(){
+
+          if(this.sexSelect=="女"){
+            this.sex=0
+          }else{
+            this.sex=1
+          }
           let {nickname,sex,birthday,ownSign} = this
-          console.log(nickname,sex,birthday,ownSign)
           let token = this.$cookies.get('tk')
           let id=this.$cookies.get("id")
           let config={
@@ -81,10 +87,13 @@
 
         }
       },
-      component:{
+      components:{
         Input,
         RadioGroup,
-        Radio
+        Radio,
+        Row,
+        Col,
+        DatePicker
       }
     }
 </script>

@@ -4,7 +4,7 @@
         <Header v-show="$route.meta.showHead" @closeTip="closeTip(true,arguments)"></Header>
         <router-view></router-view>
       </div>
-      <div class="login" v-show="isShow">
+      <div class="login" v-show="isShow"><!--isShow-->
         <div class="login-body">
           <i  class="cha iconfont icon-chahao" @click="closeTip(false)"></i>
 
@@ -19,6 +19,7 @@
                   <i class="icon iconfont icon-shoujihao"></i>
                   <input class="phone-login" type="tel" maxlength="11" placeholder="手机号" v-model="phone">
                 </div>
+                <span class="phone-alert" v-show="phoneAlert">请输入11位有效手机号码</span>
                 <div class="lgn-part-capture">
                   <div class="capture-left">
                     <i class="icon iconfont icon-xiaoxi"></i>
@@ -31,6 +32,7 @@
                   </button>
                   <button disabled="disabled" class="get_verification" v-else>已发送({{computedTime}}s)</button>
                 </div>
+                <span class="phone-alert" v-show="captureAlert">请输入四位有效验证码</span>
                 <div class="auto-forget">
                   <label><input name="isLogin" type="checkbox" value="" v-model="isSelect"/></label>
                   <span class="isAuto" :class="{selected:isSelect}">自动登录</span>
@@ -44,31 +46,32 @@
                   </div>
                 </div>
               </div>
-              <div class="register-part" v-else>
-                <div class="lgn-part-phone">
-                  <Select v-model="choose" class="down-list" style="width: 72px;height: 40px;" placeholder="+86">
-                    <Option v-for="(item,index) in phonePrefix" :value="item.value" :key="index">{{item.label}}</Option>
-                  </Select>
-                  <input class="phone-login"  type="tel" maxlength="11" placeholder="手机号" v-model="phone">
-                </div>
-                <div class="lgn-part-capture">
-                  <div class="capture-left">
-                    <i class="icon iconfont icon-xiaoxi"></i>
-                    <input class="capture-login" type="text" placeholder="验证码" v-model="password">
-                  </div>
-                  <button class="get_verification"
-                          v-if="!computedTime"
-                          :class="{right_phone_number:rightPhoneNumber}"
-                          @click.prevent="getVerifyCode">获取验证码
-                  </button>
-                  <button disabled="disabled" class="get_verification" v-else>已发送({{computedTime}}s)</button>
-                </div>
-                <div class="agreement">
-                  <label><input name="isLogin" type="checkbox" value="" v-model="isRight"/></label>
-                  <a href="###" class="is-agree">我已阅读并同意《用户服务协议》</a>
-                </div>
-                <input type="submit" :disabled="!isRight" :class="{on:isRight}" value="注册" class="login_submit">
-              </div>
+              <!--<div class="register-part" v-else>-->
+                <!--<div class="lgn-part-phone">-->
+                  <!--<Select v-model="choose" class="down-list" style="width: 72px;height: 40px;" placeholder="+86">-->
+                    <!--<Option v-for="(item,index) in phonePrefix" :value="item.value" :key="index">{{item.label}}</Option>-->
+                  <!--</Select>-->
+                  <!--<input class="phone-login"  type="tel" maxlength="11" placeholder="手机号" v-model="phone">-->
+                <!--</div>-->
+                <!---->
+                <!--<div class="lgn-part-capture">-->
+                  <!--<div class="capture-left">-->
+                    <!--<i class="icon iconfont icon-xiaoxi"></i>-->
+                    <!--<input class="capture-login" type="text" placeholder="验证码" v-model="password">-->
+                  <!--</div>-->
+                  <!--<button class="get_verification"-->
+                          <!--v-if="!computedTime"-->
+                          <!--:class="{right_phone_number:rightPhoneNumber}"-->
+                          <!--@click.prevent="getVerifyCode">获取验证码-->
+                  <!--</button>-->
+                  <!--<button disabled="disabled" class="get_verification" v-else>已发送({{computedTime}}s)</button>-->
+                <!--</div>-->
+                <!--<div class="agreement">-->
+                  <!--<label><input name="isLogin" type="checkbox" value="" v-model="isRight"/></label>-->
+                  <!--<a href="###" class="is-agree">我已阅读并同意《用户服务协议》</a>-->
+                <!--</div>-->
+                <!--<input type="submit" :disabled="!isRight" :class="{on:isRight}" value="注册" class="login_submit">-->
+              <!--</div>-->
             </form>
           </div>
         </div>
@@ -110,7 +113,9 @@
               },
             ],
             choose:"",
-            alertInfo:""
+            alertInfo:"",
+            phoneAlert:false,
+            captureAlert:false
           }
         },
         computed:{
@@ -145,12 +150,10 @@
             // debugger
 
             if (!this.phone) {
-              this.showAlert = true;
-              this.alertText = '手机号码不正确'
+              this.phoneAlert = true
               return
             } else if (!(/^\d{4}$/gi.test(this.password))) {
-              this.showAlert = true;
-              this.alertText = '短信验证码不正确'
+             this.captureAlert = true
               return
             }
 
@@ -324,6 +327,8 @@ img
           .phone-login
             height:30px
             width:92%
+        .phone-alert
+          color red
         .lgn-part-capture
           position relative
           margin:24px 0

@@ -129,23 +129,23 @@
 /* 控制阅读背景色 */
 .bgcolor01{background: #3d3e45;}
 .bgcolor01 .con_hd,.bgcolor01 .art_box,.bgcolor01 .art-box-right,.bgcolor01 .read-foot{background: #eaeaea;}
-.bgcolor02{background: #c5e6c5;}
-.bgcolor02 .con_hd,.bgcolor02 .art_box,.bgcolor02 .art-box-right,.bgcolor02 .read-foot{background: #e6f0e6;}
+.bgcolor02{background: #EAE0C1;}
+.bgcolor02 .con_hd,.bgcolor02 .art_box,.bgcolor02 .art-box-right,.bgcolor02 .read-foot{background: #FAF3DB;}
 .bgcolor02 .aut_word{background: #d7ead7; border: 1px solid #c5e6c5;}
-.bgcolor03{background: #c6d3e9;}
-.bgcolor03 .con_hd,.bgcolor03 .art_box,.tools ul .tool_bj,.bgcolor03 .art-box-right,.bgcolor03 .read-foot{background: #dee4ef;}
+.bgcolor03{background: #EBCECF;}
+.bgcolor03 .con_hd,.bgcolor03 .art_box,.tools ul .tool_bj,.bgcolor03 .art-box-right,.bgcolor03 .read-foot{background: #F5E4E4;}
 .bgcolor03 .aut_word{background: #d1daeb; border: 1px solid #c6d3e9;}
-.bgcolor04{background: #e4cae9;}
-.bgcolor04 .con_hd,.bgcolor04 .art_box,.bgcolor04 .art-box-right,.bgcolor04 .read-foot{background: #ede2ef;}
+.bgcolor04{background: #CFDDE0;}
+.bgcolor04 .con_hd,.bgcolor04 .art_box,.bgcolor04 .art-box-right,.bgcolor04 .read-foot{background: #E1EEF3;}
 .bgcolor04 .aut_word{background: #e8d5ec; border: 1px solid #e4cae9;}
-.bgcolor05{background: #e8e6b8;}
-.bgcolor05 .con_hd,.bgcolor05 .art_box,.bgcolor05 .art-box-right,.bgcolor05 .read-foot{background: #f3f2d9;}
+.bgcolor05{background: #CEE0CE;}
+.bgcolor05 .con_hd,.bgcolor05 .art_box,.bgcolor05 .art-box-right,.bgcolor05 .read-foot{background: #E3EFE3;}
 .bgcolor05 .aut_word{background: #f0eec0; border: 1px solid #e8e6b8;}
 .bgcolor06{background: #212121;}
 .bgcolor06 .con_hd,.bgcolor06 .art_box,.bgcolor06 .art-box-right,.bgcolor06 .read-foot{background: #333333;}
 .bgcolor06 .tools ul li p,.bgcolor06 .article .art_con p,.bgcolor06 .article h2, .bgcolor06 a,.bgcolor06 .zjqh_R ul li a{color: #9e9e9e;}
 .content .tools ul li:hover,.zjqh_R ul li:hover{background: #fff;}
-.bgcolor06 a:hover{color: #f26552}
+.bgcolor06 a:hover{color: #212121}
 .bgcolor06 .readend a:hover{color: #fff;}
 .bgcolor06 .aut_word{background: #212121; border: 1px solid #212121;}
 .bgcolor06 .aut_word{color: #9e9e9e;}

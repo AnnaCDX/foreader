@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="main" >
+  <div class="outer">
+    <div class="main" v-if="homeInfo[0]">
       <div class="body" v-for="(item,index) in homeInfo" :key="index">
         <!--over-->
         <div class="recommend back-color marginTop" v-if="item.template===1">
@@ -14,7 +14,9 @@
                     </a>
                   </div>
                 </div>
-                <div class="swiper-pagination">
+                <div class="pag-banner">
+                  <div class="pb-item" v-for="(per,index) in item.data.slice(0,3)" :key="index" :class="{'pb-item-active':num==index+1 || num == index+4}"></div>
+
                 </div>
               </div>
               <div class="ct-book-name" >
@@ -39,20 +41,21 @@
 
               </ul>
               <div class="notice">
-                <i class="icon iconfont icon-sousuo"></i>
-                <div class="want-articles">
-                  <p class="ad-title">
-                    <router-link to="/newFashion">新风尚征文大赛</router-link>
-                    <router-link to="/glory" class="list-left">王者荣耀新赛季征文</router-link>
-                  </p>
-                  <p class="ad-content">
-                    <router-link to="/toBeAuthor">白金神作，霸气来袭成为作者</router-link>
-                    <router-link to="/contributeDeclare" class="list-left">作者投稿说明</router-link>
-                  </p>
-                  <p class="ad-content">
-                    <router-link to="/fastUpdate">作者投稿说明</router-link>
-                    <router-link to="/fastUpdate" class="list-left">作者投稿说明</router-link>
-                  </p>
+                <div class="notice-main">
+                  <a href="javascript:;" class="notice-item">
+                    <img src="../../assets/img/web/home/iphone.png" alt="">
+                    <div class="notice-word">
+                      <p class="for-chinese">速更小说</p>
+                      <p class=for-chinese>for iPhone</p>
+                    </div>
+                  </a>
+                  <a href="javascript:;" class="notice-item">
+                    <img src="../../assets/img/web/home/android.png" alt="">
+                    <div class="notice-word">
+                      <p class="for-chinese">速更小说</p>
+                      <p class="for-chinese">for Android</p>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -62,13 +65,13 @@
         <div class="strong-recommend back-color marginTop" v-else-if="item.template===2">
           <div class="strong-container">
             <div class="strong-left">
-              <ModuleTitle :cls="'icon-sousuo'" :title="item.data[0].title"></ModuleTitle>
+              <ModuleTitle :title="item.data[0].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
               <ul>
                 <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per" :go-detail="goDetail"></LittleList>
               </ul>
             </div>
             <div class="strong-right">
-              <ModuleTitle :cls="'icon-sousuo'" :title="item.data[1].title"></ModuleTitle>
+              <ModuleTitle  :title="item.data[1].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
               <div class="swiper-list">
                 <div class="is-swiper">
                   <div class="sl-container swiper-container">
@@ -80,17 +83,29 @@
                       </div>
 
                     </div>
-                    <!-- 如果需要分页器 -->
-                    <div class="swiper-pagination"></div>
+
+
+
                   </div>
                 </div>
                 <div class="is-list">
-                  <div class="list-item " v-for="(per,index) in item.data[1].list.slice(0,5)" :class="{'list-item-active':index+3===index1 || index+8===index1}" @click="gotoDetail(per)">
+                  <div class="list-item " v-for="(per,index) in item.data[1].list.slice(0,5)" :class="{'list-item-active':index+3===index1 || index+8===index1}">
                     <div class="item-header"><a href="javascript:;" @click="goDetail(per.bid)">{{per.title}}</a></div>
                     <div class="item-content">
                       <span v-for="(each,index) in per.authors" :key="index">{{each}}</span>
-                      <p>{{per.recDesc}} <router-link to="/read">阅读全部</router-link></p>
+                      <p class="main-desc">
+                        {{per.description}}
+                        <a href="javascript:;" class="ellipsis" @click="goDetail(per.bid)">...</a>
+
+                      </p>
+                      <p class="last-desc"><span></span><a href="javascript:;" @click="goReading(per.bid)">阅读全部</a></p>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pag-container">
+                <div class="each-item" v-for="(item,index) in item.data[1].list.slice(0,5)" :class="{'each-item-active':index+3===index1 || index+8===index1}">
+                  <div class="each-inner">
                   </div>
                 </div>
               </div>
@@ -98,7 +113,7 @@
           </div>
         </div>
         <template v-else-if="item.template===3" slot-scope="item">
-          <div class="productive marginTop"></div>
+          <!--<div class="productive marginTop"></div>-->
           <div class="kindsOf-list back-color marginTop" >
             <WorkList v-for="(per,ind) in item.data" :key="ind" :per = 'per'></WorkList>
           </div>
@@ -107,15 +122,15 @@
           <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img :src="book.poster" alt=""></a>
         </div>
         <div class="activity back-color marginTop" v-else-if="item.template===5" >
-          <a href="javascript:;" class="img-left" @click="gotoDetail()"><img src="../../assets/img/title.jpeg" alt=""></a>
+          <a href="javascript:;" class="img-left" @click="gotoDetail()"><img src="../../assets/img/web/home/xianshimianfei.png" alt=""></a>
           <div class="arrow-swiper">
             <div class="arrow-container swiper-container">
               <div class="arrow-wrapper swiper-wrapper">
                 <div class="arrow-slide swiper-slide">
-                  <div class="arrow-content" v-for="(per,index) in item.data" :key="index">
-                    <a href="javascript:;" class="arrow-img" @click="goDetail(per.bid)"><img :src="per.poster" alt=""></a>
-                    <p class="arrow-title" @click="goDetail(per.bid)"><a href="javascript:;">{{per.title}}</a></p>
-                    <p class="isPay">不知道</p>
+                  <div class="arrow-content" v-for="(per,index) in item.data.slice(0,6)" :key="index">
+                    <a href="javascript:;" class="arrow-img" @click="goDetail(per.bid)" :title="per.title"><img :src="per.poster" alt=""></a>
+                    <p class="arrow-title" @click="goDetail(per.bid)"><a href="javascript:;" :title="per.title">{{per.title}}</a></p>
+                    <p class="isPay">免费</p>
                   </div>
 
                 </div>
@@ -130,13 +145,13 @@
 
 
         <template v-else-if="item.template===6" slot-scope="item">
-          <FemaleMagic :item="item">
+          <FemaleMagic :item="item" :title="'女频四部曲'">
             <div class="col-right" slot="right" >
               <LittleList v-for="(per,index) in item.data" :key="index" :per="per" :goDetail="goDetail" ></LittleList>
             </div>
           </FemaleMagic>
 
-          <FemaleMagic :item="item">
+          <FemaleMagic :item="item" :title="'东方玄幻'">
             <div class="magic-col-right" slot="right">
               <WorkListItem v-for="(each,index) in item.data"  @click="goDetail(each.bid)" :key="index" :index="index" :each="each" ></WorkListItem>
             </div>
@@ -144,18 +159,46 @@
         </template>
 
         <!--completely undone-->
-        <div class="update-list back-color marginTop" v-else-if="item.template===7">
-          <ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>
-          <div class="update-list-body">
-            <div class="list-body-left">
-              <UpdateItem v-for="(per,index) in shuju4" :key="index"></UpdateItem>
+        <template v-else-if="item.template===7" slot-scope="item">
+          <div class="update-list back-color marginTop">
+            <ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>
+            <div class="update-list-body">
+              <div class="list-body-left">
+                <UpdateItem v-for="(per,index) in shuju4" :key="index"></UpdateItem>
+              </div>
+              <!--<UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>-->
             </div>
-            <UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>
           </div>
-        </div>
-        <div class="footer back-color marginTop" v-else-if="item.template==7" >
-          footer
-        </div>
+          <div class="footer  marginTop">
+            <p class="friend-title">友情链接</p>
+            <div class="all-friends">
+              <a href="javascript:;">掌阅书城</a>
+              <a href="javascript:;">掌阅书城</a>
+              <a href="javascript:;">掌阅书城</a>
+              <a href="javascript:;">掌阅书城</a>
+              <a href="javascript:;">掌阅书城</a>
+              <a href="javascript:;">掌阅书城</a>
+              <a href="javascript:;">掌阅书城</a>
+              <a href="javascript:;">掌阅书城</a>
+            </div>
+            <div class="center">
+              <router-link to="/helpCenter" >帮助中心</router-link>
+              <router-link to="/privacy">隐私策略</router-link>
+              <router-link to="/aggreement">使用协议</router-link>
+            </div>
+            <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
+            <div class="copy-img">
+              <img src="../../assets/img/title.jpeg" alt="">
+              <img src="../../assets/img/title.jpeg" alt="">
+              <img src="../../assets/img/title.jpeg" alt="">
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <div class="loading" v-else>
+      <div class="loading-container">
+        <img src="../../assets/img/tenor.gif" alt="">
       </div>
     </div>
   </div>
@@ -164,6 +207,7 @@
 <script>
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.min.css'
+  import {Spin,Col,Icon} from "iview"
   import ModuleTitle from '../../components/ModuleTitle/ModuleTitle'
   import LittleList from '../../components/LittleList/LittleList'
   import FemaleMagic from '../../components/FemaleMagic/FemaleMagic'
@@ -171,6 +215,7 @@
   import WorkListItem from '../../components/WorkListItem/WorkListItem'
   import UpdateItem from '../../components/UpdateItem/UpdateItem'
   import UpdateRightItem from '../../components/UpdateRightItem/UpdateRightItem'
+  import Loading from "../../components/Loading/Loading"
   import {mapState} from "vuex"
     export default {
       mounted(){
@@ -189,7 +234,8 @@
               },
               pagination: {
                 el: '.swiper-pagination',
-                clickable :true
+                clickable :true,
+                bulletActiveClass: 'my-bullet-active',
               },
               loop: true,
               on: {
@@ -203,10 +249,6 @@
                 delay: 2000,
                 stopOnLastSlide: false,
                 disableOnInteraction: false
-              },
-              pagination: {
-                el: '.swiper-pagination',
-                clickable :true
               },
               loop: true,
               effect : 'coverflow',
@@ -246,23 +288,17 @@
           let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
           window.open(routeData.href, '_blank')
         },
-        gotoDetail(per){
-          //将数据存好传递给详情页
-        this.book = per
-         //详情页组件显示
-         //  this.$ref.datail.toggleShow()
-        },
-
+        goReading(bid){
+          let routeData = this.$router.resolve({ path: `/reading/${bid}`});
+          window.open(routeData.href, '_blank')
+        }
       },
       data(){
         return {
+          pagNum:0,
           num:1,
           index1:3,
           value2:0,
-          shuju1:[1,2,3,4,5,6,7,8,9,10],
-          shuju:[1,2,3,4,5],
-          shuju3:[1,2,3,4,5,6,7,8,9,10,1,1,1],
-          shuju2:[1,2,3,4],
           shuju4:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
           shuju5:[1,1,1],
           book:{}
@@ -275,7 +311,8 @@
         WorkList,
         WorkListItem,
         UpdateItem,
-        UpdateRightItem
+        UpdateRightItem,
+        Loading
       }
     }
 </script>
@@ -284,6 +321,12 @@
   @import '../../common/style/mixin.styl'
 img
   object-fit cover
+    .demo-spin-col{
+      height: 100px;
+      position: relative;
+      border: 1px solid #eee;
+
+    }
 .main
   width: 100%
   .body
@@ -305,6 +348,7 @@ img
           position: relative
           .banner
             height:274px
+            position relative
             .banner-wrapper
               .banner-slide
                 a
@@ -312,12 +356,26 @@ img
                     width:430px;
                     height 274px
                     object-fit contain
-            .swiper-pagination
-              bottom:40px
-
+            .pag-banner
+              position absolute
+              bottom 40px
+              left 190px
+              z-index 100
+              overflow hidden
+              .pb-item
+                float: left
+                margin-right 10px
+                width 10px
+                height 10px
+                background-color rgba(255,255,255,.65)
+                border-radius 50%
+              .pb-item-active
+                background-color #f3799c
+                width 20px
+                border-radius 5px
           .ct-book-name
               position: absolute
-              bottom: 126px
+              bottom: 124px
               width:430px;
               height:34px;
               background:rgba(0,0,0,1);
@@ -350,6 +408,10 @@ img
               margin: 10px 0
               color: $authName_Intro
               line-height 12px
+            p
+              width 420px
+              height 84px
+              overflow hidden
       .rcmd-right
         margin:20px 0
         margin-right:20px
@@ -361,7 +423,7 @@ img
                 margin-bottom 32px
               img
                 width:90px
-                height 118px
+                height 119px
               .book-info
                 width 378px
                 float right
@@ -384,31 +446,36 @@ img
                   margin-top:28px
 
           .notice
+            position relative
             height: 96px
-            background-color #f6f8fc
-            margin-top 20px
-            i
-              margin:0 25px
-              font-size 32px
-            .want-articles
-              margin: 18px 0 14px
-              display inline-block
-              a
-                display inline-block
-                width:156px
-              .list-left
-                margin-left:70px
-              .ad-top
-                margin-bottom 10px
-                a
-                  color #4d8bee
-                  font-size:14px
-              .ad-content
-                margin: 4px 0
-                a
-                  color rgba(0,0,0,.75)
-                  font-size 12px
-                  line-height 12px
+            margin-top 14px
+            background url("../../assets/img/web/home/ad_bg.png")
+            background-repeat no-repeat
+            background-size 100% 100%
+            .notice-main
+              position absolute
+              bottom:10px
+              right 0
+              .notice-item
+                width 114px
+                height 38px
+                background #fff
+                margin-right 20px
+                border-radius 4px
+                img
+                  width 20px
+                  height 20px
+                  margin-top 8px
+                  margin-left 10px
+                .notice-word
+                  float right
+                  height 38px
+                  width 60%
+                  margin-right 5px
+                  .for-chinese
+                    font-size 12px
+                    color #4a4a4a
+                    font-family "PingFang SC"
     .strong-recommend
       height:382px
       padding:20px
@@ -423,6 +490,7 @@ img
 
         .strong-right
           float: right
+          position relative
           width:654px
           .swiper-list
             .is-swiper
@@ -449,22 +517,41 @@ img
                   font-size:14px
                   a
                     color: rgba(0,0,0,.85)
+                    text-overflow ellipsis
+                    overflow hidden
+                    white-space nowrap
+                    width 164px
                 .item-content
                   height: 0
                   overflow: hidden
                   span
                     font-size 12px
                     color: $authName_Intro
-                  p
+                  .main-desc
                     font-size 12px
-                    position relative
-                    line-height: 20px
                     color: rgba(0,0,0,.65)
-                    margin-top 24px
+                    margin-top 14px
+                    width 163px
+                    height 35px
+                    position: relative;
+                    overflow: hidden;
+                    line-height 1.5
+                    .ellipsis
+                      position: absolute;
+                      bottom: 0;
+                      right: 0;
+                      color rgba(0,0,0,.65)
+                      padding-left: 40px;
+                      font-size 18px
+                      height 18px
+                      line-height 14px
+                      background: linear-gradient(to right, transparent, #f6f8fc 55%);
+                  .last-desc
+                    position relative
                     a
                       position absolute
-                      right: 8px
-                      bottom: 0
+                      bottom 0
+                      right 0
                       color: #f3799c
                 &:last-child
                   border-bottom none
@@ -479,11 +566,38 @@ img
                   transition 1s
 
 
-    .productive
-      height:100px
-      background url("../../assets/img/title.jpeg")
-      background-repeat no-repeat
-      background-size 100% 100%
+          .pag-container
+            position absolute
+            bottom 35px
+            left 190px
+            width 100px
+            height 10px
+            background transparent
+            .each-item
+              position relative
+              float left
+              width 10px
+              height 10px
+              background #fff
+              border-radius 50%
+              margin-right 10px
+              .each-inner
+                position absolute
+                top 2px
+                left 2px
+                border-radius 50%
+                width 6px
+                height 6px
+                background #dedede
+            .each-item-active
+              background #ff3a6f
+              .each-inner
+                background #fff
+    /*.productive*/
+      /*height:100px*/
+      /*background url("../../assets/img/title.jpeg")*/
+      /*background-repeat no-repeat*/
+      /*background-size 100% 100%*/
     .kindsOf-list
       height:460px
       .kindsOf-listItem
@@ -530,6 +644,10 @@ img
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);
                 .arrow-title
                   text-align center
+                  width 98px
+                  text-overflow ellipsis
+                  white-space nowrap
+                  overflow hidden
                   a
                     color: #9b9b9b
                     font-size 14px
@@ -540,6 +658,15 @@ img
           .arrow-button
             width:26px
             height:28px
+
+          .swiper-button-prev
+            background url("../../assets/img/web/home/last.png")
+            background-size 100% 100%
+            background-repeat no-repeat
+          .swiper-button-next
+            background url("../../assets/img/web/home/next.png")
+            background-size 100% 100%
+            background-repeat no-repeat
     .update-list
       padding:24px 11px 5px
       .update-list-body
@@ -549,9 +676,48 @@ img
 
     .footer
       width: 990px;
-      height: 255px;
-      background-color: #f5f5f5;
-      text-align center
-      line-height 255px
-      font-size 36px
+      .friend-title
+        color #000
+        font-family "PingFang SC"
+        font-weight 600
+        font-size 14px
+        padding-top 30px
+        padding-left 20px
+      .all-friends
+        margin 30px auto
+        width 720px
+        a
+          margin-right 30px
+          font-size 14px
+          color rgba(0,0,0,.85)
+      .copy-right
+        margin 0 auto 30px
+        width 720px
+        color #d9d9d9
+        text-align center
+      .center
+        width 720px
+        margin 30px auto
+        text-align center
+        a
+          color #b9b9b9
+      .copy-img
+        text-align center
+        img
+          width 100px
+          height 50px
+          margin-right 20px
+
+.loading
+  width 100%
+  .loading-container
+    width 990px
+    margin 20px auto
+    background #fff
+    height 434px
+    text-align center
+    line-height 434px
+    img
+      width 200px
+      vertical-align middle
 </style>

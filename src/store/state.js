@@ -15,10 +15,11 @@ export default {
   commentsListSingle:[],//评论信息，纯后台获取
   bookChapter:[],//书籍章节列表
   allCategory:[],//书籍所有章节
-  categoryInfo:[],//章节详情
+  categoryInfo:'',//章节详情
   homeInfo:[],//主页详情
   readInfo:[],//阅读内容
   chapterShow:{},//未购买时展示的可购买套餐套餐
   calculateResult:{},//点击各个套餐计算费用
-  dealRecord:[]
+  dealRecord:[],
+  synthesizeInfo:[]
 }

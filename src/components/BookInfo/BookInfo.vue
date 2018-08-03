@@ -3,15 +3,8 @@
     <div class="introduction">
       <div class="introduction-left">
           <div class="intro-content">
-            <p>俗话说：光剑贼吃肉，没见贼挨打。</p>
-            <p>这话用在沉默身上正好翻了过来，作为子承父业的小偷，</p>
-            <p>他是光挨打也没吃到肉，半年进了六次局子，这次更不得了，</p>
-            <p>竟然局子了，竟然。</p>
-            <p>俗话说：光剑贼吃肉，没见贼挨打。</p>
-            <p>这话用在沉默身上正好翻了过来，作为子承父业的小偷，</p>
-            <p>他是光挨打也没吃到肉，半年进了六次局子，这次更不得了，</p>
-            <p>竟然局子了，竟然。</p>
-            <p>……</p>
+            <p >{{bookDetail.book.description}}</p>
+            <!--v-for="(item,index) in bookDetail.book.description.split('，')" :key="index"-->
           </div>
           <!--<p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">3小时前</span><span class="update-chapter">第一百七十五章</span><span class="chapter-name">城运会前的比赛</span></p>-->
       </div>
@@ -20,7 +13,8 @@
           <img src="../../assets/img/title.jpeg" alt="">
           <p class="author-name" v-for="(item) in bookDetail.book.authors">{{item}}</p>
           <p class="author-type">大神作家</p>
-          <p class="update-info"><span class="update-time">{{bookDetail.book.updated}}</span><span class="update-chapter">第一百七十五章</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
+          <p class="update-info"><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
+          <!--<span class="update-chapter">第一百七十五章</span>-->
         </div>
       </div>
     </div>
@@ -28,8 +22,8 @@
       <p class="like-title">喜欢这本书的人还喜欢</p>
       <div class="like-body">
         <div class="like-item" v-for="(item,index) in bookDetail.recommends" :key="index">
-          <img :src="item.poster" alt="">
-          <p class="like-book">{{item.title}}</p>
+          <a href="javascript:;" @click="goDetail(item.bid)" :title="item.title"><img :src="item.poster" alt=""></a>
+          <a class="like-book" @click="goDetail(item.bid)" :title="item.title">{{item.title}}</a>
           <p class="who-read">没定多少%的用户度过</p>
         </div>
       </div>
@@ -58,13 +52,34 @@
       </div>
       <div class="empty-collection" v-else>
         <div class="empty-main">
-          <img src="../../assets/img/title.jpeg" alt="">
+          <img src="../../assets/img/web/defaultLose/default_result.png" alt="">
           <p>暂无评论</p>
         </div>
       </div>
     </div>
-    <div class="footer">
-      footer
+    <div class="footer  marginTop">
+      <p class="friend-title">友情链接</p>
+      <div class="all-friends">
+        <a href="javascript:;">掌阅书城</a>
+        <a href="javascript:;">掌阅书城</a>
+        <a href="javascript:;">掌阅书城</a>
+        <a href="javascript:;">掌阅书城</a>
+        <a href="javascript:;">掌阅书城</a>
+        <a href="javascript:;">掌阅书城</a>
+        <a href="javascript:;">掌阅书城</a>
+        <a href="javascript:;">掌阅书城</a>
+      </div>
+      <div class="center">
+        <a href="javascript:;">帮助中心</a>
+        <a href="javascript:;">隐私策略</a>
+        <a href="javascript:;">使用协议</a>
+      </div>
+      <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
+      <div class="copy-img">
+        <img src="../../assets/img/title.jpeg" alt="">
+        <img src="../../assets/img/title.jpeg" alt="">
+        <img src="../../assets/img/title.jpeg" alt="">
+      </div>
     </div>
   </div>
 </template>
@@ -88,7 +103,11 @@
 
           let routeData = this.$router.resolve({ path: `/comments/${bid}`});
           window.open(routeData.href, '_blank')
-        }
+        },
+        goDetail(bid){
+          let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
+          window.open(routeData.href, '_blank')
+        },
       }
     }
 </script>
@@ -108,7 +127,11 @@
       p
         font-size 14px
         color rgba(0,0,0,.65)
-        line-height 2
+        line-height 3
+        display:-webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
     .update-info
       .update-title
         color #f3799c
@@ -155,10 +178,11 @@
       float: left
       margin-right 53px
       width 104px
-      img
-        width 104px
-        height 136px
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.35);
+      a
+        img
+          width 104px
+          height 136px
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.35);
       .like-book,.who-read
         font-family: PingFangSC;
         overflow hidden
@@ -271,11 +295,36 @@
         a
           width 100%
 .footer
-  margin-top 20px
-  height 255px
-  background #f5f5f5
-  text-align center
-  line-height 255px
-  font-size 36px
-  color #4a4a4a
+  width: 990px;
+  .friend-title
+    color #000
+    font-family "PingFang SC"
+    font-weight 600
+    font-size 14px
+    padding-top 30px
+    padding-left 20px
+  .all-friends
+    margin 30px auto
+    width 720px
+    a
+      margin-right 30px
+      font-size 14px
+      color rgba(0,0,0,.85)
+  .copy-right
+    margin 0 auto 30px
+    width 720px
+    color #d9d9d9
+    text-align center
+  .center
+    width 720px
+    margin 30px auto
+    text-align center
+    a
+      color #b9b9b9
+  .copy-img
+    text-align center
+    img
+      width 100px
+      height 50px
+      margin-right 20px
 </style>

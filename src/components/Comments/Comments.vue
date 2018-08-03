@@ -12,19 +12,19 @@
             <div class="write-comments">
               <p class="book-title">{{bookDetail.book.title}}《评论区》</p>
               <div class="comments-input">
-                <img src="../../assets/img/title.jpeg" alt="">
+                <img :src="userInfo.avatar" alt="">
                 <Input v-model="content" placeholder="我也来说一句" />
               </div>
               <button class="publish" @click.prevent="publishComments">发表评论</button>
             </div>
-            <div class="comments-content">
+            <div class="comments-content" v-if="commentsListSingle.length">
               <p class="all-title">全部评论 <span>({{commentsListSingle.length}})条</span></p>
               <div class="all-comments">
                   <ul>
                     <li class="comments-item" v-for="(item,index) in commentsList[flag]" v-if="item.user" >
                       <img src="../../assets/img/title.jpeg" alt="">
                       <div class="comment-info">
-                        <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.created}}</span></p>
+                        <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.createdFormated}}</span></p>
                         <div class="comment-content">
                           <p class="content-main">{{item.content}}</p>                         <!--<a href="javascript:;">展开全部</a>-->
                         </div>
@@ -33,6 +33,12 @@
                   </ul>
               </div>
               <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.commentsList"></PageControl>
+            </div>
+            <div class="empty-collection" v-else>
+              <div class="empty-main">
+                <img src="../../assets/img/web/defaultLose/default_result.png" alt="">
+                <p>暂无评论</p>
+              </div>
             </div>
           </div>
           <div class="coments-right">
@@ -61,6 +67,8 @@
   import {mapState} from "vuex"
   import {addComment} from "../../api"
   import AddCollect from "../../components/AddCollect/AddCollect"
+  import {BreadcrumbItem,Breadcrumb} from "iview"
+
     export default {
         data() {
             return {
@@ -70,12 +78,19 @@
         },
         mounted(){
           let bid = this.$route.params.bid
+          let id = this.$cookies.get("id")
+          let token = this.$cookies.get('tk')
+          let config={
+            headers:{
+              "Authorization":"Bearer "+token
+            }
+          }
           this.$store.dispatch("getCommentsList",{bid})
           this.$store.dispatch("getBookDetail",{bid})
-
+          this.$store.dispatch("getInfor",{id,config})
         },
         computed:{
-          ...mapState(["commentsList","commentsListSingle","bookDetail"]),
+          ...mapState(["commentsList","commentsListSingle","bookDetail","userInfo"]),
 
         },
         methods:{
@@ -121,7 +136,9 @@
         },
         components:{
           PageControl,
-          AddCollect
+          AddCollect,
+          BreadcrumbItem,
+          Breadcrumb
         }
     }
 </script>
@@ -218,7 +235,33 @@
                     font-size 12px
                     line-height 24px
 
-    .coments-right
+      .empty-collection
+        min-height 270px
+        position relative
+        background #fff
+        margin-top 20px
+        .empty-main
+          position absolute
+          top: 0
+          bottom 0
+          left 0
+          right 0
+          text-align center
+          width 308px
+          height 150px
+          margin auto
+          img
+            width 96px
+            height 96px
+            object-fit cover
+            margin-bottom 25px
+          p
+            font-family: PingFangSC;
+            font-size: 18px;
+            line-height: 1.33;
+            color: #cccccc;
+
+.coments-right
       width 260px
       float right
       margin-top 65px

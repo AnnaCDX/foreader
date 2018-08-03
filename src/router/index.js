@@ -28,6 +28,7 @@ import Update from '../components/Update/Update'
 import HotComments from '../components/HotComments/HotComments'
 import Comments from "../components/Comments/Comments"
 import Search from "../components/Search/Search"
+import HelpCenter from "../pages/HelpCenter/HelpCenter"
 Vue.use(Router)
 
 export default new Router({
@@ -58,10 +59,10 @@ export default new Router({
       children:[
         {
           path:"",
-          redirect:"/rank/synthesize",
+          redirect:"/rank/synthesize/synthesize",
         },
         {
-          path:"/rank/synthesize",
+          path:"/rank/synthesize/synthesize",
           component:Synthesize,
           meta:{
             showHead:true
@@ -132,7 +133,7 @@ export default new Router({
       }
     },
     {
-      path:'/reading/:bid',
+      path:'/reading/:bid/:cid?/:title?',
       component:Reading
     },
     {
@@ -237,5 +238,9 @@ export default new Router({
       path:"/aggreement",
       component:Aggreement
     },
+    {
+      path:"/helpCenter",
+      component:HelpCenter
+    }
   ]
 })

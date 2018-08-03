@@ -3,7 +3,7 @@
     <div class="li-show" v-if='index===0'>
       <div class="li-show-left">
         <p class="num" :class="{'num-one':index==0}" >No.{{index+1}}</p>
-        <a class="name" href="javascript:;" @click="goDetail(each.bid)">{{each.title}}</a>
+        <a class="name" href="javascript:;" @click="goDetail(each.bid)" :title="each.title">{{each.title}}</a>
         <p class="clickNum">{{each.num}}</p>
         <p class="authorName" v-for="(author,index) in each.authors" :key="index">{{author}}</p>
       </div>
@@ -12,7 +12,7 @@
     <div class="li-hide" v-else>
       <p class="li-hide-rank" :class="{'num-two':index==1,'num-three':index==2}" >{{index+1}}</p>
       <div class="hide-name-click">
-        <a class="span" href="javascript:;" :class="{'isBold':index==1||index==2}" @click="goDetail(each.bid)">{{each.title}}</a>
+        <a class="span" href="javascript:;" :class="{'isBold':index==1||index==2}" @click="goDetail(each.bid)" :title="each.title">{{each.title}}</a>
         <span class="span">{{each.num}}</span></div>
     </div>
   </li>
@@ -42,8 +42,10 @@
   .each-li
     overflow hidden
     .li-show
+      overflow hidden
       .li-show-left
         float: left
+        width 65%
         .num
           width: 34px
           height: 18px
@@ -58,6 +60,10 @@
           color: rgba(0,0,0,.85)
           line-height 14px
           margin-bottom 10px
+          width 100%
+          text-overflow ellipsis
+          overflow hidden
+          white-space nowrap
           font-weight: 500;
         .clickNum
           color: #dc5b5b
@@ -80,7 +86,7 @@
       height:28px
       .li-hide-rank
         position absolute
-        bottom: 8px
+        bottom: 3px
         display inline-block
         width:18px
         height:18px
@@ -104,6 +110,10 @@
 
         .span
           vertical-align middle
+          text-overflow ellipsis
+          overflow hidden
+          white-space nowrap
+          width 176px
           &:first-child
             float left
             font-size 14px

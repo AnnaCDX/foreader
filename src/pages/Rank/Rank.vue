@@ -4,8 +4,8 @@
     <div class="rank-main">
       <div class="main-left">
         <ul class="left-ul">
-          <li ><router-link class="click" to='/rank/synthesize' ><img src="../../assets/img/title.jpeg" alt="">综合榜</router-link></li>
-          <li v-for="(item,index) in rankType" ><router-link class="click" :to="'/rank/'+item.type+'/'+item.type" ><img src="../../assets/img/title.jpeg" alt="">{{item.type_name}}榜</router-link></li>
+          <li ><a class="click" href="javascript:;" @click="rankTab('synthesize')"><img :src="current=='synthesize'?synthesize.synthesizeActive:synthesize.synthesize" alt="">综合榜</a></li>
+          <li v-for="(item,index) in rankType" :key="index"><a href="javascript:;" class="click"  @click="rankTab(item.type)"><img :src="item.type==current?imgUrl[item.type][item.type+'Active']:imgUrl[item.type][item.type]" alt="">{{item.type_name}}榜</a></li>
         </ul>
       </div>
       <div class="main-right">
@@ -21,15 +21,43 @@
   export default {
     data(){
       return {
-        current:1,
-        jiade1:[1,1,1,1,1,1,1]
+        current:"synthesize",
+        synthesize:{
+          synthesize: require("../../assets/img/web/rank/zonghebang_grey.png"),
+          synthesizeActive: require("../../assets/img/web/rank/zonghebang.png")
+        },
+        imgUrl:{
+          pv: {
+            pv: require("../../assets/img/web/rank/dianjibang_grey.png"),
+            pvActive: require("../../assets/img/web/rank/dianjibang.png")
+          },
+          fav: {
+            fav: require("../../assets/img/web/rank/shoucangbang_grey.png"),
+            favActive: require("../../assets/img/web/rank/shoucangbang.png")
+          },
+          comments: {
+            comments: require("../../assets/img/web/rank/renshubang_grey.png"),
+            commentsActive: require("../../assets/img/web/rank/renshubang.png")
+          }
+        }
+
       }
+    },
+    methods:{
+      rankTab(type){
+        this.current = type
+        this.$router.push(`/rank/${type}/${type}`)
+      }
+
     },
     mounted() {
       this.$store.dispatch("getRankType")
+      this.$on('global:more',(hh)=>{
+        this.current = hh
+      })
     },
     computed:{
-      ...mapState(["rankType"])
+      ...mapState(["rankType","rankList"])
     }
   }
 </script>

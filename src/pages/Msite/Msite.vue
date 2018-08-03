@@ -8,10 +8,10 @@
             <p>{{userInfo.name}}</p>
           </div>
           <div class="mine">
-            <router-link to="/msite/homePage"><i class="icon iconfont icon-zhuye1"></i>我的主页</router-link>
-            <router-link to="/msite/collection"> <i class="icon iconfont icon-weibiaoti2fuzhi03"></i>我的收藏</router-link>
-            <router-link to="/msite/wallet"><i class="icon iconfont icon-qianbao"></i>我的钱包</router-link>
-            <!--<router-link to="/msite/shelter"> <i class="icon iconfont icon-qianbao"></i>我的书架</router-link>-->
+            <a v-for="(item,index) in listData"  :key="index" @click="changeTab(index,item.path)" :class="{'router-link-active':index===clickWhich}">
+              <img :src="index===clickWhich?item.activeSrc:item.baseSrc" alt="" />
+              {{item.title}}</a>
+
           </div>
         </div>
         <div class="homepage">
@@ -28,6 +28,12 @@
     export default {
         data() {
           return {
+            clickWhich:0,
+            listData:[
+              {title:"我的主页",path:'/msite/homePage' ,baseSrc:require("../../assets/img/web/msite/wodezhuye_grey.png"),activeSrc:require("../../assets/img/web/msite/wodezhuye.png")},
+              {title:"我的收藏",path:'/msite/collection' ,baseSrc:require('../../assets/img/web/msite/wodeshoucang_grey.png'),activeSrc:require('../../assets/img/web/msite/wodeshoucang.png')},
+              {title:"我的钱包",path:'/msite/wallet' ,baseSrc:require('../../assets/img/web/msite/wodeqianbao_grey.png'),activeSrc:require('../../assets/img/web/msite/wodeqianbao.png')}
+            ]
           }
         },
       created(){
@@ -43,8 +49,15 @@
           this.$store.dispatch("getWalletInfo",{user_id,config})
       },
       mounted(){
-
-
+        this.$on("global:msite",(item)=>{
+          this.clickWhich = item
+        })
+      },
+      methods:{
+        changeTab(index,path){
+          this.clickWhich = index
+          this.$router.push(path)
+        }
       },
         computed:{
           ...mapState(['userInfo'])
@@ -59,18 +72,18 @@
     overflow hidden
     width: 990px
     margin 20px auto 20px
-    height:620px
+
     .left-container
       float: left
       width:260px
-      height:100%
+      height:620px
       background #fff
-
+      border-radius 10px 4px
       .avatar-name
         width: 100%
         height: 208px
         border-radius: 4px;
-        background-color: rgba(243, 121, 156, 0.84);
+        background url("../../assets/img/web/msite/grzx_bg.png")
         text-align center
         padding-top: 41px;
         img
@@ -83,20 +96,21 @@
       .mine
         margin-top: 40px
         a
-          .icon
-            width 20px
-            height: 20px
-            font-size 16px
-            margin-left: 32px
-            margin-right 16px
           color: #000
           display block
           height:48px
           line-height 48px
+          padding-left 29px
+          img
+            height 20px
+            width 20px
+            margin-right 17px
+            vertical-align: middle
         .router-link-active
-          color: lightpink
-          background #fff7f9
+          color: #4d8bee
+          padding-left 26px
 
+          border-left 3px solid #4d8bee
     .homepage
       float:right
       width:710px

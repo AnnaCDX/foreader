@@ -1,19 +1,20 @@
 <template>
-  <div>
-    <Table :columns="columns1" :data="dealRecord[flag]" :disabled-hover=true></Table>
-    <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.dealRecord"></PageControl>
+  <div v-if="dealRecord.data">
+    <Table :columns="columns1" :data="dealRecord.data" :disabled-hover=true></Table>
+    <RcdPageControl :act="'getDealRecord'" :total="new Array(Math.ceil(dealRecord.total/limit))" :limit="limit"></RcdPageControl>
   </div>
 </template>
 
 <script>
   import {Table} from "iview"
   import {mapState} from "vuex"
-  import PageControl from "../PageControl/PageControl"
+  import RcdPageControl from "../RcdPageControl/RcdPageControl"
+
     export default {
       data () {
         return {
-          loading: true,
-          flag:0,
+          offset:0,
+          limit:2,
           columns1: [
             {
               title: '消费金额',
@@ -36,41 +37,28 @@
       },
       mounted(){
         let user_id = this.$cookies.get("id")
-        this.$store.dispatch("getDealRecord",{user_id})
+        let {limit,offset} = this
+        this.$store.dispatch("getDealRecord",{user_id,offset,limit})
       },
       computed:{
         ...mapState(["dealRecord"])
       },
-      methods:{
-        pageTab(index){
-          this.flag = index
-        },
-        skip(page){
-          this.flag=page-1
-        },
-        prevNext(bool){
-          if(bool===true){
-
-            if(this.flag===0){
-              return
-            }
-            this.flag--
-          }else{
-
-            if(this.flag===this.dealRecord.length-1){
-              return
-            }
-            this.flag ++
-          }
+      watch:{
+        dealRecord(){
+          this.$emit("global:msite",2)
         }
+      },
+      methods:{
+
       },
       components:{
         Table,
-        PageControl
+        RcdPageControl
       }
     }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-
+    .ivu-table-wrapper
+      border none
 </style>

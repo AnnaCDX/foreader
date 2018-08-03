@@ -5,9 +5,9 @@
         <div class="fix-body">
           <img src="../../assets/img/title.jpeg" alt="">
           <div class="private" >
-            <router-link to="/phone" class="phone-login"><i class="icon iconfont icon-shoujiduan"></i>手机端</router-link>
-            <a class="phone-login" v-if="!loginInfo.id && !id" @click="closeTip"><i class="icon iconfont icon-gerenzhongxin"></i>登录</a>
-            <router-link to="/msite" class="phone-login" v-else><i class="icon iconfont icon-gerenzhongxin"></i>个人中心</router-link>
+            <router-link to="/phone" class="phone-login"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</router-link>
+            <a class="phone-login" v-if="!loginInfo.id && !id" @click="closeTip"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
+            <router-link to="/msite" class="phone-login" v-else><img src="../../assets/img/web/home/login.jpg" alt="">个人中心</router-link>
           </div>
         </div>
       </div>
@@ -16,12 +16,12 @@
         <div class="recharge-body">
           <p class="recharge-num">充值金额</p>
           <div class="rcg-num-container">
-            <div class="recharge-detail" v-for="(item,index) in rechargeInfo" :key="item.recharge_give" :class="{isOn:item.recharge_face===recharge_face}" @click="changeMoney(item.recharge_face)">¥{{item.recharge_face}} <span>{{item.recharge_give}}</span></div>
+            <div class="recharge-detail" v-for="(item,index) in rechargeInfo" :key="index" :class="{isOn:item.recharge_face===recharge_face}" @click="changeMoney(item.recharge_face)">¥{{item.recharge_money}} <span>{{item.recharge_face + item.recharge_give}}</span></div>
           </div>
           <p class="recharge-type">充值方式</p>
           <div class="rcg-type-container">
-            <div v-for="(item ,index) in shuju1 " class="alipay-type" :class="{whichWay:index+1==payType}" :key="index" @click="changeWay(index+1)">
-              <img src="../../assets/img/title.jpeg" alt="" >
+            <div v-for="(item ,index) in shuju1 " class="alipay-type" :class="{whichWay:index+1==payType}" :key="item.font" @click="changeWay(index+1)">
+              <img :src="item.img" alt="" >
               {{item.font}}
             </div>
           </div>
@@ -58,12 +58,12 @@
           return {
             url:"",
             isRight:false,
-            recharge_face:100,
+            recharge_face:600,
             payType:1,
             id:this.$cookies.get("id"),
             shuju1:[
-              {img:"../../assets/img/title.jpeg",font:"支付宝"},
-              {img:"../../assets/img/title.jpeg",font:"微信"}
+              {img:require("../../assets/img/web/msite/zhifubao.png"),font:"支付宝"},
+              {img:require("../../assets/img/web/msite/wechat.png"),font:"微信"}
               ],
           }
         },
@@ -86,7 +86,6 @@
           },
           changeMoney(index){
             this.recharge_face = index
-            console.log(this.recharge_face)
           },
           changeWay(index){
             this.payType=index
@@ -112,12 +111,15 @@
         object-fit cover
       .private
         float: right
-        phone-login
+        .phone-login
           display inline-block
           font-size 14px
           margin:0 8px
-          .icon
-            font-size:16px
+          img
+            width 16px
+            height 16px
+            vertical-align middle
+            margin-right 5px
   .recharge-main
     width:990px
     height 845px

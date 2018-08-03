@@ -54,9 +54,8 @@
       height: 12px;
       font-size: 12px;
       color: #9b9b9b;
-      margin-right:137px
+      margin-right:360px
     .release-time
-      width: 51px;
       line-height 1
       height: 12px;
       font-size: 12px;

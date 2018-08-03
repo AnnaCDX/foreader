@@ -1,6 +1,6 @@
 <template>
   <div class="female-chanel back-color marginTop">
-    <ModuleTitle :cls="'icon-sousuo'" :title="'女频四部曲'"></ModuleTitle>
+    <ModuleTitle :title="title"></ModuleTitle>
     <div class="female-body">
       <div class="fml-body-left">
         <div class="fml-left-content">
@@ -8,7 +8,10 @@
           <p class="book-name"><a href="javascript:;" @click="goDetail(item.data[0].bid)">{{item.data[0].title}}</a></p>
           <p class="book-click">点击数</p>
           <p class="book-author" v-for="(per,index) in item.data[0].authors" :key="index">{{per}}</p>
-          <p class="book-intro">{{item.data[0].recDesc}}</p>
+          <p class="book-intro" :title="item.data[0].description" >
+            {{item.data[0].description}}
+            <a href="javascript:;" class="ellipsis" @click="goDetail(item.data[0].bid)">...</a>
+          </p>
           <a href="javascript:;" class="to-read" @click="goReading(item.data[0].bid)">阅读</a>
         </div>
       </div>
@@ -16,8 +19,12 @@
             <div class="list" v-for="(per,index) in item.data.slice(1,7)" :key="index">
               <a href="javascript:;" @click="goDetail(per.bid)"><img :src="per.poster" alt=""></a>
               <div class="book-info">
-                <a href="javascript:;" @click="goDetail(per.bid)">{{per.title}}</a>
-                <p class="book-intro">{{per.recDesc}}</p>
+                <a href="javascript:;" @click="goDetail(per.bid)" :title="per.title">{{per.title}}</a>
+                <p class="book-intro" :title="per.description">
+                  {{per.description}}
+                  <a href="javascript:;" class="ellipsis" @click="goDetail(per.bid)">...</a>
+
+                </p>
                 <p class="author-tag">
                   <a href="javascript:;" v-for="(author,index) in per.authors" :key="author">{{author}}</a>
                   <a href="javascript:;" >{{per.tags[0]}}</a>
@@ -38,7 +45,8 @@
   import ModuleTitle from "../ModuleTitle/ModuleTitle"
     export default {
         props:{
-          item:Object
+          item:Object,
+          title:String
         },
       methods:{
         goReading(bid){
@@ -101,6 +109,21 @@
             color #9b9b9b
           .book-intro
             margin:12px auto 20px
+            width 142px
+            height 44px
+            position: relative;
+            overflow: hidden;
+            font-size: 14px;
+            line-height 1.5
+            color #9b9b9b
+            .ellipsis
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              color rgba(0,0,0,.65)
+              padding-left: 40px;
+              font-size 18px
+              background: linear-gradient(to right, transparent, #f6f8fc 55%);
           .to-read
             display inline-block
             width:74px
@@ -121,7 +144,7 @@
         .list
           float: left
           width 232px
-          margin-bottom 25px
+          margin-bottom 28px
           >a
             display inline-block
             img
@@ -136,10 +159,28 @@
               font-family: PingFangSC;
               font-size: 16px;
               font-weight: 500;
+              text-overflow ellipsis
+              overflow hidden
+              white-space nowrap
+              width 142px
             .book-intro
               font-family: PingFangSC;
               color: rgba(0, 0, 0, 0.65);
-              margin: 7px 0 17px;
+              margin-bottom 12px
+              width 142px
+              height 44px
+              position: relative;
+              overflow: hidden;
+              font-size: 14px;
+              line-height 1.5
+              .ellipsis
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                color rgba(0,0,0,.65)
+                padding-left: 40px;
+                font-size 18px
+                background: linear-gradient(to right, transparent, #fff 55%);
             .author-tag
               overflow hidden
               >a
@@ -161,6 +202,10 @@
 
         .list:nth-child(2n+0)
           margin-left 35px
+        .list:nth-child(5)
+          margin-bottom 0
+        .list:nth-child(6)
+          margin-bottom 0
       .fml-body-right
         float: right
         .col-right

@@ -2,7 +2,7 @@
   <div>
 
       <div class="hp-body" v-if="userInfo">
-        <p class="info">个人信息  <router-link to="/msite/modify">修改信息</router-link></p>
+        <p class="info">个人信息  <router-link to="/msite/modify"><img src="../../assets/img/web/msite/edit.png" alt="">修改信息</router-link></p>
         <p class="marginTop">ID:<span>{{userInfo.id}}</span></p>
         <p class="marginTop">昵称：<span>{{userInfo.name}}</span></p>
         <p class="marginTop">性别：<span>{{userInfo.sex==0?"女":"男"}}</span></p>
@@ -40,6 +40,9 @@
         methods:{
         },
       watch:{
+        myWallet(){
+          this.$emit("global:msite",0)
+        }
       },
         computed:{
           ...mapState(["userInfo","myWallet"]),
@@ -66,6 +69,11 @@
         a
           margin-left 80%
           font-size 12px
+          img
+            width 15px
+            height 15px
+            vertical-align middle
+            margin-right 5px
       .marginTop
         margin-top: 20px
         font-family: PingFangSC;
