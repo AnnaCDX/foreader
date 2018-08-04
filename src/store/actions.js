@@ -74,41 +74,15 @@ export default {
     commit(GET_RANK_TYPE,{result})
   },
   //获取收藏列表
-  async getCollectList({commit},{config}){
-    let data = await reqCollectList(config);
-    let arr = data.books
-    let num = 3;
-    let result = new Array(Math.ceil(arr.length / num))
+  async getCollectList({commit},{config,offset,limit}){
+    let result = await reqCollectList(config,offset,limit);
 
-    for(let i=0; i<result.length;i++){
-      result[i] = [];
-      for(let j=0;j<num;j++){
-        result[i][j] ={}
-      }
-    }
-
-    for(let g=0;g<arr.length;g++){
-      result[parseInt(g / num)][g%num] = arr[g]
-    }
-    commit(GET_COLLECT_LIST,{result,arr})
+    commit(GET_COLLECT_LIST,{result})
   },
   //获取搜索结果
-  async getSearchResult({commit},{bname}){
-      let arr = await reqSearchResult(bname)
-      let num = 6;
-      let result = new Array(Math.ceil(arr.length / num))
-      // console.log(result);
-
-      for(let i=0; i<result.length;i++){
-        result[i] = [];
-        for(let j=0;j<num;j++){
-          result[i][j] ={}
-          }
-        }
-      for(let g=0;g<arr.length;g++){
-        result[parseInt(g / num)][g%num] = arr[g]
-      }
-      commit(GET_SEARCH_RESULT,{result,arr})
+  async getSearchResult({commit},{bname,offset,limit}){
+      let result = await reqSearchResult(bname,offset,limit)
+      commit(GET_SEARCH_RESULT,{result})
   },
   //获取排行类别里面的排行书籍信息
   async getRankList({commit},{count,type}){
@@ -121,20 +95,9 @@ export default {
     commit(GET_BOOK_DETAIL,{result})
   },
   //获取评论列表
-  async getCommentsList({commit},{bid}){
-    let arr = await reqCommentsList(bid)
-    let num = 6;
-    let result = new Array(Math.ceil(arr.length / num))
-    for(let i=0; i<result.length;i++){
-      result[i] = [];
-      for(let j=0;j<num;j++){
-        result[i][j] ={}
-      }
-    }
-    for(let g=0;g<arr.length;g++){
-      result[parseInt(g / num)][g%num] = arr[g]
-    }
-    commit(GET_COMMENTS_LIST,{result,arr})
+  async getCommentsList({commit},{bid,offset,limit}){
+    let result = await reqCommentsList(bid,offset,limit)
+    commit(GET_COMMENTS_LIST,{result})
   },
   //获取书籍章节
   async getBookChapter({commit},{bid}){
@@ -158,8 +121,8 @@ export default {
     commit(GET_ALL_CATEGORY,{result})
   },
   //获取分类筛选信息
-  async getCategoryInfo({commit},{cid,status,free,limit,offset}){
-    let result = await reqCategoryInfo(cid,status,free,limit,offset)
+  async getCategoryInfo({commit},{cid,status,free,offset,limit}){
+    let result = await reqCategoryInfo(cid,status,free,offset,limit)
     commit(GET_CATEGORY_INFO,{result})
   },
   //获取首页数据信息

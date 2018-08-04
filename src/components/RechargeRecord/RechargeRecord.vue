@@ -1,7 +1,7 @@
 <template>
   <div class="none-table" v-if="rechargeRecord.data">
     <Table :columns="columns1" :data="rechargeRecord.data?rechargeRecord.data:[]" :disabled-hover=true></Table>
-    <RcdPageControl :act="'getRechargeRecord'" :data="{}" :total="new Array(Math.ceil(rechargeRecord.total/limit))" :limit="limit"></RcdPageControl>
+    <RcdPageControl :act="'getRechargeRecord'" :data="{user_id}" :total="new Array(Math.ceil(rechargeRecord.total/limit))" :limit="limit"></RcdPageControl>
  </div>
 </template>
 
@@ -32,7 +32,8 @@
             title: '赠送',
             key: 'give_amount'
           }
-        ]
+        ],
+        user_id:this.$cookies.get("id")
       }
     },
     mounted(){

@@ -8,9 +8,9 @@
           <div class="already-select borderBottom">
             <p class="selected">已选</p>
             <div class="what-selected">
-              <a href="javascript:;" v-text="type"></a>
-              <a href="javascript:;" v-text="state"></a>
-              <a href="javascript:;" v-text="attribute"></a>
+              <a href="javascript:;" v-text="type" v-show="type"></a>
+              <a href="javascript:;" v-text="state" v-show="state"></a>
+              <a href="javascript:;" v-text="attribute" v-show="attribute" ></a>
             </div>
           </div>
 
@@ -51,9 +51,9 @@
 
         </div>
         <div class="main-right" v-if="!isLoading">
-            <div class="right-container " v-if="categoryInfo.length">
+            <div class="right-container " v-if="categoryInfo.books.length">
               <ul>
-                <li v-for="(item,index) in categoryInfo[flag]" v-show="item.title">
+                <li v-for="(item,index) in categoryInfo.books" v-show="item.title" :key="index">
                   <img class="book-cover" :src="item.poster" alt="" @click="goDetail(item.bid)">
                   <div class="book-info">
                     <a href="javascript:;" class="name-words" @click="goDetail(item.bid)" :title="item.title">{{item.title}}</a>
@@ -75,7 +75,7 @@
                 </li>
               </ul>
 
-              <RcdPageControl></RcdPageControl>
+              <RcdPageControl  :act="'getCategoryInfo'" :data="{cid,status,free}" :total="new Array(Math.ceil(categoryInfo.total/limit))" :limit="limit"></RcdPageControl>
             </div>
             <div class="empty" v-else>让你搜，没书啦～</div>
         </div>
@@ -99,6 +99,8 @@
         type:"",
         state:"",
         attribute:'',
+        limit:20,
+        offset:0,
         cid:9999,
         status:0,
         free:0,
@@ -119,7 +121,8 @@
     watch:{
       categoryInfo(){
         this.isLoading = false
-      }
+      },
+      deep:true
     },
     methods:{
       goDetail(bid){
@@ -132,8 +135,8 @@
         this.parentIndex = ind
         this.children = children
         this.type = name
-        let {cid,status,free} = this
-        this.$store.dispatch("getCategoryInfo",{cid,status,free})
+        let {cid,status,free,limit,offset} = this
+        this.$store.dispatch("getCategoryInfo",{cid,status,free,offset,limit})
 
       },
       selectChild(name,id){
@@ -141,8 +144,8 @@
 
         this.type = name
         this.cid = id
-        let {cid,status,free} = this
-        this.$store.dispatch("getCategoryInfo",{cid,status,free})
+        let {cid,status,free,limit,offset} = this
+        this.$store.dispatch("getCategoryInfo",{cid,status,free,offset,limit})
 
       },
       selectState(id,name){
@@ -150,45 +153,22 @@
 
         this.status = id
         this.state = name
-        let {cid,status,free} = this
-        this.$store.dispatch("getCategoryInfo",{cid,status,free})
+        let {cid,status,free,limit,offset} = this
+        this.$store.dispatch("getCategoryInfo",{cid,status,free,offset,limit})
       },
       selectAttribute(id,name){
         this.isLoading = true
 
         this.free = id
         this.attribute = name
-        let {cid,status,free} = this
-        this.$store.dispatch("getCategoryInfo",{cid,status,free})
-      },
-      pageTab(index){
-        this.flag = index
-      },
-      skip(page){
-        this.flag=page-1
-      },
-      prevNext(bool){
-        if(bool===true){
-
-          if(this.flag===0){
-            return
-          }
-          this.flag--
-        }else{
-
-          if(this.flag===this.collectionList.length-1){
-            return
-          }
-          this.flag ++
-        }
-
-        console.log(bool)
+        let {cid,status,free,limit,offset} = this
+        this.$store.dispatch("getCategoryInfo",{cid,status,free,offset,limit})
       }
     },
     mounted(){
-      let {cid,status,free} = this
+      let {cid,status,free,limit,offset} = this
       this.$store.dispatch("getAllCategory")
-      this.$store.dispatch("getCategoryInfo",{cid,status,free})
+      this.$store.dispatch("getCategoryInfo",{cid,status,free,offset,limit})
     },
     components:{
       RcdPageControl,
@@ -227,10 +207,9 @@
           line-height: 1;
           color: #9b9b9b;
         .what-selected
-          /*padding-bottom 12px*/
           a
             margin-top 12px
-            padding 0 3px
+            padding 2px 6px
             background #f3799c
             border-radius 2px
             font-size 12px
@@ -244,13 +223,13 @@
               .each-item
                 position relative
                 float: left
-                margin-right 20px
+                margin-right 15px
                 &:last-child
                   margin 0
                 a
                   color rgba(0, 0, 0, 0.85)
                   /*margin-bottom 10px*/
-                  padding 0 2px
+                  padding 2px 6px
                   border-radius 2px
                   margin-bottom 10px
                 .list-active
@@ -272,6 +251,7 @@
               background-color: rgba(219, 237, 255, 0.7);
               border: solid .5px #e8e8e8;
               border-top none
+              margin-bottom 15px
               a
                 color rgba(0, 0, 0, 0.65)
                 margin-right 15px
@@ -288,7 +268,7 @@
           margin-top 14px
           a
             margin-right 15px
-            padding 0 2px
+            padding 2px 6px
             color rgba(0,0,0,.85)
             border-radius 2px
           .isActive
@@ -328,6 +308,7 @@
                 font-weight: 500
                 color: rgba(0, 0, 0, 0.85)
                 width 220px
+                line-height 1.2
                 text-overflow ellipsis
                 overflow hidden
                 white-space nowrap
@@ -364,7 +345,7 @@
                   a
                     border-radius: 2.4px;
                     margin-left 13px
-                    padding 2px 6px
+                    padding 0 6px
                     &:first-child
                       margin-left 10px
                   .type
@@ -376,8 +357,10 @@
                 font-family: PingFangSC;
                 width 226px
                 position: relative;
+                height 48px
                 max-height: 48px;
                 overflow: hidden;
+                margin-top 10px
                 font-size: 14px;
                 line-height 1.7
                 color rgba(0,0,0,.65)

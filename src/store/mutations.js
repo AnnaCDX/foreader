@@ -38,13 +38,11 @@ export default{
   [GET_RANK_TYPE](state,{result}){
     state.rankType = result
   },
-  [GET_COLLECT_LIST](state,{result,arr}){
+  [GET_COLLECT_LIST](state,{result}){
     state.collectionList = result
-    state.collectionListSingle = arr
   },
-  [GET_SEARCH_RESULT](state,{result,arr}){
+  [GET_SEARCH_RESULT](state,{result}){
     state.searchResult = result
-    state.searchResultSingle = arr
   },
   [GET_RANK_LIST](state,{result}){
     state.rankList = result
@@ -52,9 +50,8 @@ export default{
   [GET_BOOK_DETAIL](state,{result}){
     state.bookDetail = result
   },
-  [GET_COMMENTS_LIST](state,{result,arr}){
+  [GET_COMMENTS_LIST](state,{result}){
     state.commentsList = result
-    state.commentsListSingle = arr
   },
   [GET_BOOK_CHAPTER](state,{result}){
     state.bookChapter = result

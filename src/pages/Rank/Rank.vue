@@ -4,8 +4,8 @@
     <div class="rank-main">
       <div class="main-left">
         <ul class="left-ul">
-          <li ><a class="click" href="javascript:;" @click="rankTab('synthesize')"><img :src="current=='synthesize'?synthesize.synthesizeActive:synthesize.synthesize" alt="">综合榜</a></li>
-          <li v-for="(item,index) in rankType" :key="index"><a href="javascript:;" class="click"  @click="rankTab(item.type)"><img :src="item.type==current?imgUrl[item.type][item.type+'Active']:imgUrl[item.type][item.type]" alt="">{{item.type_name}}榜</a></li>
+          <li @click="rankTab('synthesize')" :class="{liActive:current=='synthesize'}"><a class="click" href="javascript:;" ><img :src="current=='synthesize'?synthesize.synthesizeActive:synthesize.synthesize" alt="">综合榜</a></li>
+          <li v-for="(item,index) in rankType" :key="index":class="{liActive:current==item.type}"><a href="javascript:;" class="click"  @click="rankTab(item.type)"><img :src="item.type==current?imgUrl[item.type][item.type+'Active']:imgUrl[item.type][item.type]" alt="">{{item.type_name}}榜</a></li>
         </ul>
       </div>
       <div class="main-right">
@@ -78,6 +78,7 @@
       margin-right 22px
       .left-ul
         li
+          padding-left 27px
           .click
             height 34px
             line-height 34px
@@ -90,11 +91,10 @@
               height 20px
               vertical-align middle
               margin-right 16px
-          .router-link-active
-            color #4d8bee
-            border-left 3px solid #4d8bee
-            padding-left 27px
-
+        .liActive
+          color #4d8bee
+          border-left 3px solid #4d8bee
+          padding-left 24px
     .main-right
       background #fff
 

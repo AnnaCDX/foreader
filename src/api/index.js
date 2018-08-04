@@ -23,17 +23,17 @@ export const reqWalletInfo = (user_id,config)=>ajax(`${url}/wallet/balance`,{use
 //获取排行榜的各种类型
 export const reqRankType = ()=>ajax(`${url}/ranks/tabs`)
 //获取用户收藏列表
-export const reqCollectList = (config)=>ajax(`${url}/books/favs`,{},config)
+export const reqCollectList = (config,offset,limit)=>ajax(`${url}/web/books/favs`,{offset,limit},config)
 //删除用户收藏列表
 export const deleteCollectList = (data,configure)=>fetch(`${url}/books/favs`, {method: 'DELETE', headers: configure, body: JSON.stringify(data)})
 //获取搜索结果
-export const reqSearchResult = (bname)=>ajax(`${url}/books/search/${bname}`)
+export const reqSearchResult = (bname,offset,limit)=>ajax(`${url}/web/books/search/${bname}`,{offset,limit})
 //获取排行前十名
 export const reqRankList = (type,count)=>ajax(`${url}/books/ranks/${type}`,{count})
 //获取书籍详情页信息
 export const reqBookDetail = (bid)=>ajax(`${url}/books/${bid}/detail`)
 //获取评论列表
-export const reqCommentsList = (bid)=>ajax(`${url}/books/${bid}/comments`)
+export const reqCommentsList = (bid,offset,limit)=>ajax(`${url}/web/books/${bid}/comments`,{offset,limit})
 //添加评论
 export const addComment = (bid,content,config)=>ajax(`${url}/books/${bid}/comments`,{content},config,"POST")
 //加入收藏
@@ -44,7 +44,7 @@ export const reqBookChapter = (bid)=>ajax(`${url}/books/${bid}/chapters`)
 //获取分类
 export const reqAllCategory = ()=>ajax(`${url}/categories`)
 //获取分类筛选信息
-export const reqCategoryInfo = (cid,status,free,offset,limit)=>ajax(`${url}web/category/books`,{cid,status,free,offset,limit})
+export const reqCategoryInfo = (cid,status,free,offset,limit)=>ajax(`${url}/web/category/books`,{cid,status,free,offset,limit})
 // 获取首页数据
 export const reqHomeInfo = ()=>ajax(`${url}/pages/web_bookstore`)
 //获取阅读信息

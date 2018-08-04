@@ -1,6 +1,5 @@
 <template>
   <div class="kindsOf-listItem">
-    <!--per.title=='点击'?path.pv:(per.title=='评论'?path.fav:path.comments)-->
     <ModuleTitle :title="per.title"><a href="javascript:;" @click="goMore(per.title)" slot="more" >更多</a></ModuleTitle>
     <div>
       <WorkListItem v-for="(each,index) in per.list || per.data" :key="index" :index="index" :each="each"></WorkListItem>
@@ -34,15 +33,6 @@
         },
         goMore(title){
           let t =  title.substring(0,2)
-          // console.log(t)
-          // if(t=="点击" ){
-          //   this.goWhere = "pv"
-          // }else if(t=="评论"){
-          //   this.goWhere  = "comments"
-          // }else{
-          //   this.goWhere  = "fav"
-          // }
-         // this.$emit("global:more",this.goWhere)
 
           this.$router.push(this.path[t])
           document.documentElement.scrollTop = 0

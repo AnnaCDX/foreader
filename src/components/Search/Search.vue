@@ -19,22 +19,26 @@
           </router-link>
         </div>
       </div>
-      <div class="search-main" >
+      <div class="search-main" v-if="searchResult.books" >
         <HeaderSearch></HeaderSearch>
-        <p class="search-result">共有<span>{{searchResultSingle.length}}</span>条结果</p>
-        <div class="result-list" v-if="searchResultSingle.length">
+        <p class="search-result">共有<span>{{searchResult.total}}</span>条结果</p>
+        <div class="result-list" v-if="searchResult.books.length">
           <ul>
-            <li v-for="(item,index) in searchResult[flag]" v-show="item.bid" :key="index" >
+            <li v-for="(item,index) in searchResult.books" v-show="item.bid" :key="index" >
               <img class="book-cover" :src="item.poster" alt="">
               <div class="book-info">
                 <router-link  :to="'/detail/bookIntro/'+item.bid" class="name-words">{{item.title}}</router-link>
                 <div class="gray-info">
                   <img class="author-avantar" :src="item.poster" alt="">
                   <span class="author-name" v-for="(per,index) in item.authors" :key="per">{{per}}</span>|
-                  <router-link v-for="(per,index) in item.tags" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
-
+                  <router-link v-for="(per,index) in item.tags.slice(0,2)" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+                  <a href="javascript:;" class="type">{{item.status==0?"连载中":"已完结"}}</a>
+                  <a href="javascript:;" class="type">{{item.categories[0]}}</a>
                 </div>
-                <p class="paragragh">{{item.recDesc}}</p>
+                <p class="paragragh">
+                  {{item.description}}
+                  <a href="javascript:;" class="ellipsis">...</a>
+                </p>
                 <div class="words-click">
                   <p > <span>{{item.wordCount}}万</span>字</p>
                   <p > <span>3万</span>点击</p>
@@ -42,8 +46,10 @@
               </div>
             </li>
           </ul>
-          <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.searchResult"></PageControl>
-        </div>
+
+          <RcdPageControl :act="'getSearchResult'" :data="{bname}" :total="new Array(Math.ceil(searchResult.total/limit))" :limit="limit"></RcdPageControl>
+
+      </div>
         <div class="empty-collection" v-else>
           <div class="empty-main">
             <img src="../../assets/img/web/defaultLose/default_result.png" alt="">
@@ -61,51 +67,30 @@
   import {mapState} from "vuex"
   import HeaderSearch from "../../components/HeaderSearch/HeaderSearch"
   import HeaderWithSearch from "../HeaderWithSearch/HeaderWithSearch"
-  import PageControl from "../PageControl/PageControl"
+  import RcdPageControl from "../RcdPageControl/RcdPageControl"
     export default {
         data() {
             return {
-              flag:0,
+              offset:0,
+              limit:10,
+              bname:this.$route.params.bname
             }
 
         },
       mounted(){
       let {bname} = this.$route.params
-        console.log(bname)
-        this.$store.dispatch("getSearchResult",{bname})
+        let {offset,limit} = this
+        this.$store.dispatch("getSearchResult",{bname,offset,limit})
       },
       methods:{
-        pageTab(index){
-          this.flag = index
-        },
-        skip(page){
-          this.flag=page-1
-        },
-        prevNext(bool){
-          if(bool===true){
-
-            if(this.flag===0){
-              return
-            }
-            this.flag--
-          }else{
-
-            if(this.flag===this.searchResult.length-1){
-              return
-            }
-            this.flag ++
-          }
-
-          console.log(bool)
-        }
       },
       computed:{
-        ...mapState(["searchResult","searchResultSingle"]),
+        ...mapState(["searchResult"]),
       },
       components:{
           Input,
           HeaderSearch,
-          PageControl,
+          RcdPageControl,
           HeaderWithSearch
       }
     }
@@ -185,6 +170,12 @@
           font-size 14px
     .search-result
       color #d9d9d9
+      width 100px
+      height 24px
+      border-radius 2px
+      background #f6f8fc
+      text-align center
+      line-height 24px
     .result-list
       ul
         li
@@ -200,7 +191,7 @@
             object-fit cover
             margin-right: 15px
           .book-info
-            width:80%
+            width:88%
             position relative
             .name-words
               font-family: PingFangSC
@@ -233,8 +224,18 @@
             .paragragh
               font-family: PingFangSC;
               font-size: 14px;
+              height 48px
               line-height 1.7
               color #9b9b9b
+              max-height: 48px;
+              overflow: hidden;
+              .ellipsis
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                color rgba(0,0,0,.65)
+                padding-left: 40px;
+                background: linear-gradient(to right, transparent, #fff 55%);
             .words-click
               position absolute
               top 0

@@ -2,7 +2,7 @@
   <div>
     <div class="detail-container">
       <div class="detail-main" v-if="bookDetail.book">
-        <Breadcrumb separator=">">
+        <Breadcrumb separator="<b class='demo-breadcrumb-separator'>></b>">
           <BreadcrumbItem to="/">首页</BreadcrumbItem>
           <BreadcrumbItem to="/components/breadcrumb">{{bookDetail.book.categories[0]}}</BreadcrumbItem>
           <BreadcrumbItem>{{bookDetail.book.title}}</BreadcrumbItem>
@@ -15,9 +15,11 @@
                 <span class="book-name">{{bookDetail.book.title}}</span><span class="author-name" v-for="(item) in bookDetail.book.authors" :key="item">{{item}}</span> 著
               </p>
               <p class="other-info">
-                <router-link class="type" v-for="(per,index) in bookDetail.book.tags" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+                <router-link class="type" v-for="(per,index) in bookDetail.book.tags.slice(0,2)" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+                <a href="javascript:;" class="type">{{bookDetail.book.status==0?"连载中":"已完结"}}</a>
+                <a href="javascript:;" class="type">{{bookDetail.book.categories[0]}}</a>
               </p>
-              <p class="words-num"><span>{{bookDetail.book.wordCount}}</span>万字</p>
+              <p class="words-num"><span>{{bookDetail.book.wordCount}}</span> 万字</p>
               <div class="update-new">
                 <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
                 <!--<span class="update-chapter">第多少张</span>-->
@@ -85,6 +87,9 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+
+
+
 .detail-container
   width 100%
   .detail-main
@@ -92,6 +97,9 @@
     margin 0 auto
     .ivu-breadcrumb
       margin: 23px 0 20px 10px
+      font-size 12px
+      .demo-breadcrumb-separator
+        color #000
     .detail-info
       height: 386px;
       border-radius: 4px;
@@ -112,6 +120,7 @@
           float left
           .book-author
             font-family: PingFangSC;
+            font-size 14px
             .book-name
               font-size: 24px;
               font-weight: 500;

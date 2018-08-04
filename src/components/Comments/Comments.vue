@@ -17,11 +17,11 @@
               </div>
               <button class="publish" @click.prevent="publishComments">发表评论</button>
             </div>
-            <div class="comments-content" v-if="commentsListSingle.length">
-              <p class="all-title">全部评论 <span>({{commentsListSingle.length}})条</span></p>
+            <div class="comments-content" v-if="commentsList.comments">
+              <p class="all-title">全部评论 <span>({{commentsList.total}})条</span></p>
               <div class="all-comments">
                   <ul>
-                    <li class="comments-item" v-for="(item,index) in commentsList[flag]" v-if="item.user" >
+                    <li class="comments-item" v-for="(item,index) in commentsList.comments" v-if="item.user" >
                       <img src="../../assets/img/title.jpeg" alt="">
                       <div class="comment-info">
                         <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.createdFormated}}</span></p>
@@ -32,8 +32,10 @@
                     </li>
                   </ul>
               </div>
-              <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.commentsList"></PageControl>
-            </div>
+              <RcdPageControl :act="'getCommentsList'" :data="{bid}" :total="new Array(Math.ceil(commentsList.total/limit))" :limit="limit"></RcdPageControl>
+
+
+             </div>
             <div class="empty-collection" v-else>
               <div class="empty-main">
                 <img src="../../assets/img/web/defaultLose/default_result.png" alt="">
@@ -63,7 +65,7 @@
 </template>
 
 <script>
-  import PageControl from "../PageControl/PageControl"
+  import RcdPageControl from "../RcdPageControl/RcdPageControl"
   import {mapState} from "vuex"
   import {addComment} from "../../api"
   import AddCollect from "../../components/AddCollect/AddCollect"
@@ -73,7 +75,9 @@
         data() {
             return {
               content:"",
-              flag:0
+              offset:0,
+              limit:5,
+              bid: this.$route.params.bid
             }
         },
         mounted(){
@@ -85,12 +89,13 @@
               "Authorization":"Bearer "+token
             }
           }
-          this.$store.dispatch("getCommentsList",{bid})
+          let {limit,offset} = this
+          this.$store.dispatch("getCommentsList",{bid,offset,limit})
           this.$store.dispatch("getBookDetail",{bid})
           this.$store.dispatch("getInfor",{id,config})
         },
         computed:{
-          ...mapState(["commentsList","commentsListSingle","bookDetail","userInfo"]),
+          ...mapState(["commentsList","bookDetail","userInfo"]),
 
         },
         methods:{
@@ -109,33 +114,10 @@
             }
             await addComment(bid,content,config)
             this.$store.dispatch("getCommentsList",{bid})
-          },
-          pageTab(index){
-            this.flag = index
-          },
-          skip(page){
-            this.flag=page-1
-          },
-          prevNext(bool){
-            if(bool===true){
-
-              if(this.flag===0){
-                return
-              }
-              this.flag--
-            }else{
-
-              if(this.flag===this.commentsList.length-1){
-                return
-              }
-              this.flag ++
-            }
-
-            console.log(bool)
           }
         },
         components:{
-          PageControl,
+          RcdPageControl,
           AddCollect,
           BreadcrumbItem,
           Breadcrumb

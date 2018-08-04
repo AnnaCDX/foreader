@@ -52,7 +52,9 @@
           background #e8e8e8
           color: #ffffff
           font-size:12px
+          text-align center
           margin-bottom 11px
+          border-radius 2px
         .num-one
           background #dc5b5b
         .name

@@ -95,6 +95,7 @@
             this.offset = this.flag*this.limit
             let {offset,limit,data} = this
             this.$store.dispatch(this.act,{...data,offset,limit})
+
           }else{
             this.flag ++
             if(this.flag>this.max-1){

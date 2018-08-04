@@ -1,7 +1,12 @@
 <template>
     <div>
       <div class="container" >
-        <Header v-show="$route.meta.showHead" @closeTip="closeTip(true,arguments)"></Header>
+        <!--<Header v-show="$route.meta.showHead" @closeTip="closeTip(true,arguments)"></Header>-->
+        <div class="header" v-show="$route.meta.showHead">
+          <HearderBack></HearderBack>
+          <HeaderFix @closeTip="closeTip(true,arguments)"></HeaderFix>
+          <HeaderBottom></HeaderBottom>
+        </div>
         <router-view></router-view>
       </div>
       <div class="login" v-show="isShow"><!--isShow-->
@@ -82,8 +87,9 @@
   import {captureLogin,reqCapture} from './api'
   import {Select,Option,Input} from 'iview'
   import {mapActions,mapState} from 'vuex'
- import Header from './components/Header/Header'
-  import {setStore} from './common/utils/storageUtils'
+  import HearderBack from "./components/HeaderBack/HeaderBack"
+  import HeaderFix from "./components/HeaderFix/HeaderFix"
+  import HeaderBottom from "./components/HeaderBottom/HeaderBottom"
  export default {
         data(){
           return {
@@ -172,8 +178,10 @@
             }
           },
         components:{
-          Header,
+          HearderBack,
           Option,
+          HeaderFix,
+          HeaderBottom,
           Select,
           Input
         }

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="collection" v-if="collectionList">
-      <p class="collection-title"> 我的收藏(<span>{{collectionListSingle.length}}</span>)</p>
-      <div class="maybe-change" v-if="collectionList.length">
+    <div class="collection" v-if="collectionList.books">
+      <p class="collection-title"> 我的收藏(<span>{{collectionList.total}}</span>)</p>
+      <div class="maybe-change" v-if="collectionList.books.length">
         <ul>
-          <li v-for="(item,index) in collectionList[flag]" v-show="item.title">
+          <li v-for="(item,index) in collectionList.books" v-show="item.title">
             <img class="book-cover" :src="item.poster" alt="">
             <div class="book-info">
               <router-link  to="/detail"class="name-words">{{item.title}}</router-link>
@@ -18,7 +18,7 @@
             </div>
           </li>
         </ul>
-        <PageControl :flag="this.flag" :pageTab="this.pageTab" :skip="this.skip" :prevNext="this.prevNext" :data="this.collectionList"></PageControl>
+        <RcdPageControl :act="'getCollectList'" :data="{config}" :total="new Array(Math.ceil(collectionList.total/limit))" :limit="limit"></RcdPageControl>
 
       </div>
       <div class="empty-collection" v-else>
@@ -35,11 +35,17 @@
   import {Page} from "iview"
   import {mapState} from "vuex"
   import {deleteCollectList} from "../../api"
-  import PageControl from "../../components/PageControl/PageControl"
+  import RcdPageControl from "../../components/RcdPageControl/RcdPageControl"
     export default {
         data() {
           return {
-          flag:0
+            offset:0,
+            limit:5,
+            config:{
+              headers:{
+                "Authorization":"Bearer "+this.$cookies.get('tk')
+              }
+            }
           }
         },
         created(){
@@ -49,7 +55,8 @@
               "Authorization":"Bearer "+token
             }
           }
-          this.$store.dispatch("getCollectList",{config})
+          let {offset,limit} = this
+          this.$store.dispatch("getCollectList",{config,offset,limit})
         },
       watch:{
         collectionListSingle(){
@@ -75,38 +82,16 @@
                 "Authorization":"Bearer "+token
               }
             }
-            this.$store.dispatch("getCollectList",{config})
-          },
-          pageTab(index){
-            this.flag = index
-          },
-          skip(page){
-            this.flag=page-1
-          },
-          prevNext(bool){
-            if(bool===true){
-
-              if(this.flag===0){
-                return
-              }
-              this.flag--
-            }else{
-
-              if(this.flag===this.collectionList.length-1){
-                return
-              }
-              this.flag ++
-            }
-
-            console.log(bool)
+            let {offset,limit} = this
+            this.$store.dispatch("getCollectList",{config,offset,limit})
           }
         },
         computed:{
-          ...mapState(["collectionList","collectionListSingle"])
+          ...mapState(["collectionList"])
         },
         components:{
           Page,
-          PageControl
+          RcdPageControl
         }
     }
 </script>

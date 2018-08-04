@@ -1,7 +1,7 @@
 <template>
   <div class="header-fix" >
     <div class="fix-body">
-      <img src="../../assets/img/title.jpeg" alt="">
+      <img src="../../assets/img/web/home/top_logo.png" alt="">
       <slot name="headerSearch"></slot>
       <div class="private" >
         <router-link to="/phone" class="phone-login"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</router-link>
@@ -36,8 +36,7 @@
       line-height:40px
       margin:0 auto
       img
-        width: 142px;
-        height: 40px;
+        height: 34px;
         object-fit cover
       .private
         float: right

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-     <div class="header-back">
+      <div class="header-back">
        <div class="header-top">
          <div class="top-content">
            <div class="top-logo"></div>
@@ -44,26 +44,15 @@
 
 <script>
   import {Input} from "iview"
-  import {mapState} from "vuex"
-  import HeaderSearch from '../HeaderSearch/HeaderSearch'
-  import {getStore} from '../../common/utils/storageUtils'
   export default {
       data() {
           return {
             isSee:true,
-            id:this.$cookies.get("id"),
           }
         },
-      computed:{
-      ...mapState(['loginInfo'])
-      },
+
       methods:{
-        closeTip(){
-        this.$emit("closeTip",true)
-        },
-        goMsite(){
-          this.$router.push(`/msite/collection`)
-        }
+
 
      },
       components:{
@@ -77,7 +66,7 @@
   img
     object-fit cover
   .header
-    .header-back
+    /*.header-back
       background url("../../assets/img/title.jpeg")
       background-repeat no-repeat
       background-size 100% 100%
@@ -115,8 +104,8 @@
             background rgba(77,139,238,1)
             .icon
               font-size 14px
-
-    .header-fix
+*/
+    /*.header-fix
       z-index 100
       position: fixed
       top:0
@@ -138,8 +127,8 @@
               width 16px
               height 16px
               margin-right 5px
-              vertical-align middle
-    .header-bottom
+              vertical-align middle*/
+    /*.header-bottom
       width: 100%
       background rgba(77,139,238,1)
       .bottom-content
@@ -166,5 +155,5 @@
             height 20px
             vertical-align middle
 
-
+*/
 </style>

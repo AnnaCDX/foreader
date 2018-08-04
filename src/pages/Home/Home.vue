@@ -378,9 +378,7 @@ img
               bottom: 124px
               width:430px;
               height:34px;
-              background:rgba(0,0,0,1);
-              border-radius:4px 4px 0px 0px;
-              opacity:0.85;
+              border-radius:4px 4px 0 0
               font-size 0
               z-index: 199
               .ct-book-tag
@@ -389,14 +387,20 @@ img
                 height:34px;
                 line-height 34px
                 font-size 14px
-                background transparent
-                border-radius:4px 4px 0px 0px;
-                opacity:0.85;
+                opacity 0.85
+                border-radius 0
+                background rgba(0,0,0,.85)
                 color: #fff
                 vertical-align middle
                 text-align center
+                &:first-child
+                  border-radius 4px 0 0 0
+                &:last-child
+                  border-radius 0 4px 0 0
               .active
-                background:rgba(77,139,238,1);
+                background:#4d8bee;
+                border-radius 4px 4px 0 0
+                opacity 1
           .ct-book-content
             bg-title(rgba(0,0,0,.65),14px)
             font-family:PingFangSC-Regular;
@@ -484,10 +488,10 @@ img
         .strong-left
           width:224px
           float left
-
-
-
-
+          ul
+            li
+              height 42px
+              padding-top 10px
         .strong-right
           float: right
           position relative

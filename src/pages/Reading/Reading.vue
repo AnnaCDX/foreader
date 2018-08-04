@@ -135,7 +135,7 @@
 
 
               <!--现在只弹出一个弹窗-->
-              <div class="subscribe alert" v-show="true">
+              <div class="subscribe alert" v-else>
                 <div class="alert-main ">
                     <i class="icon iconfont icon-chahao"></i>
                     <p class="alert-title">后续内容，请在速更小说APP中阅读</p>

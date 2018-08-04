@@ -6,13 +6,10 @@ export default {
   myWallet:{},//钱包信息
   rankType:[],//排行榜的类型
   collectionList:[],//收藏列表二维，可翻页
-  collectionListSingle:[],//收藏列表，纯后台获取
   searchResult:[],//搜索结果，二维可翻页
-  searchResultSingle:[],//搜索结果，纯后台获取
   rankList:[],//排行榜列表
   bookDetail:{},//书籍详情
   commentsList:[],//评论信息，二维可翻页
-  commentsListSingle:[],//评论信息，纯后台获取
   bookChapter:[],//书籍章节列表
   allCategory:[],//书籍所有章节
   categoryInfo:'',//章节详情

@@ -1,7 +1,7 @@
 <template>
   <div class="top-center">
     <Input placeholder="默认搜索词" class="tc-input" v-model="bname"/>
-    <a class="skipTo" tag="a" target="_blank" @click.prevent="gotosearch">
+    <a class="skipTo" @click.prevent="gotosearch">
       <i class="icon iconfont icon-sousuo"></i>
     </a>
   </div>
@@ -50,6 +50,7 @@
       line-height 32px
       text-align center
       background rgba(77,139,238,1)
+      border-radius 0 4px 4px 0
       .icon
         font-size 14px
         color #fff

@@ -1,0 +1,66 @@
+<template>
+  <div class="header-bottom">
+    <div class="bottom-content">
+      <router-link to="/home">首页</router-link>
+      <router-link to="/rank">排行榜</router-link>
+      <router-link to="/library">书库</router-link>
+      <router-link to="/magic">玄幻</router-link>
+      <router-link to="/city">都市</router-link>
+      <router-link to="/net">网络</router-link>
+      <router-link to="/samePeople">同人</router-link>
+      <router-link to="/scine">科幻</router-link>
+      <router-link to="/write" class="write">
+        <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
+        写作平台
+      </router-link>
+      <router-link to="/phone" class="phone-login">
+        <img  src="../../assets/img/web/home/sy_shoujiduan.png" alt="">
+        手机端</router-link>
+
+    </div>
+  </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {}
+        }
+    }
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+  .header-bottom
+    width: 100%
+    background rgba(77,139,238,1)
+    .bottom-content
+      position relative
+      margin:0 auto
+      width: 990px
+      height: 48px
+      line-height: 48px
+      a
+        display inline-block
+        width: 80px
+        height: 47px
+        font-size 14px
+        text-align center
+        color: #eee
+        vertical-align middle
+      .router-link-active
+        background-color:  #f3799c !important
+        color: #fff
+        border-radius 4px
+        font-weight 500
+        font-size 16px !important
+      .write
+        margin-left 10px
+      .write,.phone-login
+        float: right
+        img
+          width 20px
+          height 20px
+          vertical-align middle
+
+
+</style>
