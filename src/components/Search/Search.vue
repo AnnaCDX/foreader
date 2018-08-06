@@ -7,12 +7,12 @@
           <router-link to="/home">首页</router-link>
           <router-link to="/rank">排行榜</router-link>
           <router-link to="/library">书库</router-link>
-          <router-link to="/magic">玄幻</router-link>
-          <router-link to="/city">都市</router-link>
-          <router-link to="/net">网络</router-link>
-          <router-link to="/detail">同人</router-link>
-          <router-link to="/scine">科幻</router-link>
-          <router-link to="/reading">阅读</router-link>
+          <!--<router-link to="/magic">玄幻</router-link>-->
+          <!--<router-link to="/city">都市</router-link>-->
+          <!--<router-link to="/net">网络</router-link>-->
+          <!--<router-link to="/detail">同人</router-link>-->
+          <!--<router-link to="/scine">科幻</router-link>-->
+          <!--<router-link to="/reading">阅读</router-link>-->
           <router-link to="/write" class="write">
             <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
@@ -99,6 +99,9 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .search-container
   width 100%
+  height: 100%;
+  min-height: 100vh;
+
   .header-fix
     .fix-body
       width:990px
@@ -190,6 +193,7 @@
             width: 90px
             object-fit cover
             margin-right: 15px
+            box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.35)
           .book-info
             width:88%
             position relative

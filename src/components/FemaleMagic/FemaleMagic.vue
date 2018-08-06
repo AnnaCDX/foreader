@@ -93,7 +93,6 @@
             img
               width:98px
               height 128px
-              border-radius 3px
               box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);
           .book-name
             font-size 16px

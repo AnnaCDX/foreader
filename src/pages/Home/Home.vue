@@ -1,9 +1,9 @@
 <template>
   <div class="outer">
-    <div class="main" v-if="homeInfo[0]">
-      <div class="body" v-for="(item,index) in homeInfo" :key="index">
+    <div class="main padding-top-20" v-if="homeInfo[0]">
+      <div class="body " v-for="(item,index) in homeInfo" :key="index">
         <!--over-->
-        <div class="recommend back-color marginTop" v-if="item.template===1">
+        <div class="recommend back-color " v-if="item.template===1">
           <div class="rcmd-left">
             <div class="left-container">
               <div class="banner swiper-container" >
@@ -33,7 +33,7 @@
                 <li v-for="(per,index) in item.data.slice(3)" :key="index">
                   <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))"><img :src="per.poster" alt=""></a>
                   <div class="book-info">
-                    <p class="name-type"><a @click="goDetail(per.webUrl.slice(-8))" class="name">{{per.title}}</a><a class="type" to="/type">类型</a></p>
+                    <p class="name-type"><a @click="goDetail(per.webUrl.slice(-8))" class="name">{{per.title}}</a><a class="type" to="/type"></a></p>
                     <span class="author-name">{{per.content}}</span>
                     <p class="simple-intro">{{per.extra}}</p>
                   </div>
@@ -83,8 +83,6 @@
                       </div>
 
                     </div>
-
-
 
                   </div>
                 </div>
@@ -160,26 +158,26 @@
 
         <!--completely undone-->
         <template v-else-if="item.template===7" slot-scope="item">
-          <div class="update-list back-color marginTop">
-            <ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>
-            <div class="update-list-body">
-              <div class="list-body-left">
-                <UpdateItem v-for="(per,index) in shuju4" :key="index"></UpdateItem>
-              </div>
-              <!--<UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>-->
-            </div>
-          </div>
+          <!--<div class="update-list back-color marginTop">-->
+            <!--<ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>-->
+            <!--<div class="update-list-body">-->
+              <!--<div class="list-body-left">-->
+                <!--<UpdateItem v-for="(per,index) in shuju4" :key="index"></UpdateItem>-->
+              <!--</div>-->
+              <!--&lt;!&ndash;<UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>&ndash;&gt;-->
+            <!--</div>-->
+          <!--</div>-->
           <div class="footer  marginTop">
             <p class="friend-title">友情链接</p>
             <div class="all-friends">
               <a href="javascript:;">掌阅书城</a>
-              <a href="javascript:;">掌阅书城</a>
-              <a href="javascript:;">掌阅书城</a>
-              <a href="javascript:;">掌阅书城</a>
-              <a href="javascript:;">掌阅书城</a>
-              <a href="javascript:;">掌阅书城</a>
-              <a href="javascript:;">掌阅书城</a>
-              <a href="javascript:;">掌阅书城</a>
+              <!--<a href="javascript:;">掌阅书城</a>-->
+              <!--<a href="javascript:;">掌阅书城</a>-->
+              <!--<a href="javascript:;">掌阅书城</a>-->
+              <!--<a href="javascript:;">掌阅书城</a>-->
+              <!--<a href="javascript:;">掌阅书城</a>-->
+              <!--<a href="javascript:;">掌阅书城</a>-->
+              <!--<a href="javascript:;">掌阅书城</a>-->
             </div>
             <div class="center">
               <router-link to="/helpCenter" >帮助中心</router-link>
@@ -188,9 +186,9 @@
             </div>
             <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
             <div class="copy-img">
-              <img src="../../assets/img/title.jpeg" alt="">
-              <img src="../../assets/img/title.jpeg" alt="">
-              <img src="../../assets/img/title.jpeg" alt="">
+              <!--<img src="../../assets/img/title.jpeg" alt="">-->
+              <!--<img src="../../assets/img/title.jpeg" alt="">-->
+              <!--<img src="../../assets/img/title.jpeg" alt="">-->
             </div>
           </div>
         </template>
@@ -228,7 +226,7 @@
           this.$nextTick(() => {
             let mySwiper = new Swiper('.banner.swiper-container', {
               autoplay: {
-                delay: 2000,
+                delay: 10000,
                 stopOnLastSlide: false,
                 disableOnInteraction: false
               },
@@ -246,7 +244,7 @@
             })
             let mySwiper1 =new Swiper('.sl-container.swiper-container',{
               autoplay: {
-                delay: 2000,
+                delay: 5000,
                 stopOnLastSlide: false,
                 disableOnInteraction: false
               },
@@ -320,18 +318,22 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import '../../common/style/mixin.styl'
 img
-  object-fit cover
-    .demo-spin-col{
-      height: 100px;
-      position: relative;
-      border: 1px solid #eee;
+  object-fit cover;
+  .demo-spin-col{
+    height: 100px;
+    position: relative;
+    border: 1px solid #eee;
 
-    }
+  }
+.padding-top-20
+  padding-top 20px
 .main
   width: 100%
+  background #f8f8f8
   .body
     width:990px
     margin: 0 auto
+
     .marginTop
       margin-top 20px
     .back-color
@@ -356,6 +358,7 @@ img
                     width:430px;
                     height 274px
                     object-fit contain
+                    box-shadow none
             .pag-banner
               position absolute
               bottom 40px
@@ -428,6 +431,7 @@ img
               img
                 width:90px
                 height 119px
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.35);
               .book-info
                 width 378px
                 float right
@@ -452,8 +456,9 @@ img
           .notice
             position relative
             height: 96px
+            width: 495px
             margin-top 14px
-            background url("../../assets/img/web/home/ad_bg.png")
+            background url("../../assets/img/web/home/download_app_banner.png")
             background-repeat no-repeat
             background-size 100% 100%
             .notice-main
@@ -507,6 +512,7 @@ img
                       img
                         width:160px
                         height:215px
+                        box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.35)
             .is-list
               background-color #f6f8fc
               width:184px
@@ -642,7 +648,6 @@ img
                 display: inline-block
                 .arrow-img
                   img
-                    border-radius 3px
                     width: 98px;
                     height: 128px;
                     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);
@@ -688,14 +693,17 @@ img
         padding-top 30px
         padding-left 20px
       .all-friends
-        margin 30px auto
+        margin-top 30px
         width 720px
         a
-          margin-right 30px
+          margin-left 20px
           font-size 14px
           color rgba(0,0,0,.85)
       .copy-right
-        margin 0 auto 30px
+        margin 0
+        margin-left auto
+        margin-right auto
+        padding-bottom 30px
         width 720px
         color #d9d9d9
         text-align center

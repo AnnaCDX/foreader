@@ -9,12 +9,12 @@
       <div class="bottom-content">
         <router-link to="/home">首页</router-link>
         <router-link to="/rank">排行榜</router-link>
-        <router-link to="/library">书库</router-link>
-        <router-link to="/magic">玄幻</router-link>
-        <router-link to="/city">都市</router-link>
-        <router-link to="/net">网络</router-link>
-        <router-link to="/samePeople">同人</router-link>
-        <router-link to="/scine">科幻</router-link>
+        <!--<router-link to="/library">书库</router-link>-->
+        <!--<router-link to="/magic">玄幻</router-link>-->
+        <!--<router-link to="/city">都市</router-link>-->
+        <!--<router-link to="/net">网络</router-link>-->
+        <!--<router-link to="/samePeople">同人</router-link>-->
+        <!--<router-link to="/scine">科幻</router-link>-->
         <div class="write-phone">
           <!--<router-link to="/phone" class="phone-port">-->
           <!--<img  src="../../assets/img/web/home/sy_shoujiduan.png" alt="">-->

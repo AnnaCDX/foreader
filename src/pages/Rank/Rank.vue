@@ -4,7 +4,12 @@
     <div class="rank-main">
       <div class="main-left">
         <ul class="left-ul">
-          <li @click="rankTab('synthesize')" :class="{liActive:current=='synthesize'}"><a class="click" href="javascript:;" ><img :src="current=='synthesize'?synthesize.synthesizeActive:synthesize.synthesize" alt="">综合榜</a></li>
+          <li @click="rankTab('synthesize')" :class="{liActive:current=='synthesize'}">
+            <a class="click" href="javascript:;" >
+              <img :src="current=='synthesize'?synthesize.synthesizeActive:synthesize.synthesize" alt="">
+              综合榜
+            </a>
+          </li>
           <li v-for="(item,index) in rankType" :key="index":class="{liActive:current==item.type}"><a href="javascript:;" class="click"  @click="rankTab(item.type)"><img :src="item.type==current?imgUrl[item.type][item.type+'Active']:imgUrl[item.type][item.type]" alt="">{{item.type_name}}榜</a></li>
         </ul>
       </div>
@@ -65,6 +70,8 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .rank-container
   width 100%
+  height 100%
+  min-height 100vh
   .rank-main
     width 990px
     margin 20px auto

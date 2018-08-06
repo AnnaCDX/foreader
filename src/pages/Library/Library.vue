@@ -289,7 +289,7 @@
             float left
             width: 50%
             height 173px
-
+            position relative
             border-bottom 1px solid #e8e8e8
             padding 20px 0
             .book-cover, .book-info
@@ -299,6 +299,8 @@
               width: 90px
               object-fit cover
               margin-right: 15px
+              box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.35)
+
             .book-info
               width:70%
               position relative
@@ -375,6 +377,7 @@
                 color #9b9b9b
                 font-size 12px
                 font-family "PingFang SC"
+                position absolute
               a
                 >img
                   width 18px

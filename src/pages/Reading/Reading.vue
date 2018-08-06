@@ -33,10 +33,10 @@
               </li>
 
               <!--全屏-->
-              <li class="left-li" @click="">
-                <p><i class="icon iconfont icon-quanping"></i></p>全屏
+              <!--<li class="left-li" @click="">-->
+                <!--<p><i class="icon iconfont icon-quanping"></i></p>全屏-->
 
-              </li>
+              <!--</li>-->
 
               <!--字体-->
               <li class="left-li" @click="toggleToolTip('font')" :class="{isActive:which==='font'&& isShow}">
@@ -69,14 +69,14 @@
               </li>
 
               <!--收藏-->
-              <li class="left-li" @click="addCollection">
-                <p><i class="icon iconfont icon-msnui-collection"></i></p>收藏
-              </li>
+              <!--<li class="left-li" @click="addCollection">-->
+                <!--<p><i class="icon iconfont icon-msnui-collection"></i></p>收藏-->
+              <!--</li>-->
 
               <!--手机端-->
-              <li class="left-li" @click="">
-                <p><i class="icon iconfont icon-shouji"></i></p>手机
-              </li>
+              <!--<li class="left-li" @click="">-->
+                <!--<p><i class="icon iconfont icon-shouji"></i></p>手机-->
+              <!--</li>-->
             </ul>
 
           </div>
@@ -221,6 +221,7 @@
 </template>
 
 <script>
+  import vueHeadful from 'vue-headful';
   import HeaderWithSearch from "../../components/HeaderWithSearch/HeaderWithSearch"
   import HeaderSearch from "../../components/HeaderSearch/HeaderSearch"
   import {mapState,mapActions} from "vuex"
@@ -518,7 +519,7 @@
       HeaderWithSearch,
       HeaderSearch,
       BreadcrumbItem,
-      Breadcrumb
+      Breadcrumb,
     }
   }
 </script>
@@ -531,7 +532,7 @@
       .fix-body
         .top-center
           position absolute
-          top 0
+          top 3px
           left 342px
     .content
       width:100%
@@ -549,7 +550,6 @@
         .body-main
           position relative
           overflow hidden
-          min-height 450px
           .art_box
             min-height 700px
           .art-box-left
@@ -559,6 +559,7 @@
             margin:0 14px
             background #eaeaea
             ul
+              text-align center
               .left-li
                 position relative
                 padding 5px 15px
@@ -582,6 +583,8 @@
                   left: 68px;
                   padding 20px
                   z-index 100
+                  border-radius: 4px;
+                  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
                   /*overflow auto*/
                   .chapter-title
                     font-size 20px
@@ -622,6 +625,8 @@
                     height 52px
                     line-height 52px
                     text-align center
+                    .sameActive
+                      min-height 350px
                     a
                      margin 0 20px
                      color rgba(0,0,0,.65)
@@ -672,6 +677,7 @@
                 background #f8f8f8
                 .sameActive
                   background #f8f8f8
+
                   border #a1a3b0
           .bc2
             background #fbf0cd
@@ -913,6 +919,8 @@
               border none
           .dis
             color #9b9b9b
+    .art_con
+      text-align justify
     .mask
       position absolute
       top: 0

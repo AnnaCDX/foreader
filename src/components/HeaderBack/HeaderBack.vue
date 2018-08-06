@@ -27,7 +27,9 @@
   .header-back
     background url("../../assets/img/web/home/top_bg.png")
     background-repeat no-repeat
-    background-size cover
+    background-size contain
+    background-position:center;
+    background-color #e5f3fc
     .header-top
       position relative
       margin:0 auto

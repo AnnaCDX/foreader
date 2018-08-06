@@ -1,5 +1,10 @@
 <template>
     <div>
+      <vueHeadful
+        title="速更小说"
+        description="速更小说"
+        image="./assets/img/home/favicon.ico"
+      />
       <div class="container" >
         <!--<Header v-show="$route.meta.showHead" @closeTip="closeTip(true,arguments)"></Header>-->
         <div class="header" v-show="$route.meta.showHead">
@@ -90,7 +95,9 @@
   import HearderBack from "./components/HeaderBack/HeaderBack"
   import HeaderFix from "./components/HeaderFix/HeaderFix"
   import HeaderBottom from "./components/HeaderBottom/HeaderBottom"
- export default {
+  import vueHeadful from 'vue-headful'
+
+  export default {
         data(){
           return {
             isShow:false,
@@ -183,7 +190,8 @@
           HeaderFix,
           HeaderBottom,
           Select,
-          Input
+          Input,
+          vueHeadful
         }
 
  }
@@ -194,6 +202,9 @@ img
   object-fit cover
 .container
   width:100%
+  height 100%
+  min-height 100vh
+  background #F8F8F8
   font-family:
    system, -apple-system, BlinkMacSystemFont,
    "PingFang SC", "Segoe UI", "Microsoft YaHei", "wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -254,11 +265,13 @@ img
         a
           display inline-block
           width: 80px
-          height: 47px
           font-size 14px
           text-align center
           color: #eee
           vertical-align middle
+          height: 100%;
+          position: relative;
+          top: -1px;
         .router-link-active
           background rgba(70,127,217,1)
           color: #fff

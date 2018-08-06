@@ -81,11 +81,13 @@
           width:64px
           height:84px
           object-fit cover
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.45);
     .li-hide
       position: relative;
       display block
       font-size 0
       height:28px
+      border-radius: 2px;
       .li-hide-rank
         position absolute
         bottom: 3px
@@ -95,17 +97,21 @@
         text-align center
         line-height 18px
         font-size 12px
-        color: #ffffff
+        color: rgba(0,0,0,.75)
         background #e8e8e8
+        border-radius: 2px;
+
       .num-two
         background #696edf
+        color: white
       .num-three
         background #fdd44c
+        color: white
       .hide-name-click
         display inline-block
         overflow hidden
         width:176px
-        height:29px
+        height:34px
         border-top:1px solid #e8e8e8
         line-height 29px
         margin-left 30px
