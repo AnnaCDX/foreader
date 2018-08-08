@@ -29,7 +29,7 @@
     background-repeat no-repeat
     background-size contain
     background-position:center;
-    background-color #e5f3fc
+    background-color #e8f4fc
     .header-top
       position relative
       margin:0 auto
