@@ -22,7 +22,7 @@
               <div class="all-comments">
                   <ul>
                     <li class="comments-item" v-for="(item,index) in commentsList.comments" v-if="item.user" >
-                      <img src="../../assets/img/title.jpeg" alt="">
+                      <img :src="item.user.avatar" alt="">
                       <div class="comment-info">
                         <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.createdFormated}}</span></p>
                         <div class="comment-content">
@@ -112,7 +112,8 @@
                 "Authorization":"Bearer "+token
               }
             }
-            await addComment(bid,content,config)
+            var result = await addComment(bid,content,config)
+            this.content ='';
             this.$store.dispatch("getCommentsList",{bid})
           }
         },

@@ -1,7 +1,7 @@
 
 import ajax from'./ajax'
 import axios from "axios"
-let url = "https://api.foreader.com.cn/"
+let url = "https://api.foreader.com.cn"
 //登录注册
 export const captureLogin = (grant_type,username,password,client_id,oauth_type,weixin_kind) => ajax(`${url}/accounts/access_token`, {
   grant_type,username,password,client_id,oauth_type,weixin_kind

@@ -43,18 +43,18 @@
                   <button disabled="disabled" class="get_verification" v-else>已发送({{computedTime}}s)</button>
                 </div>
                 <span class="phone-alert" v-show="captureAlert">请输入四位有效验证码</span>
-                <div class="auto-forget">
-                  <label><input name="isLogin" type="checkbox" value="" v-model="isSelect"/></label>
-                  <span class="isAuto" :class="{selected:isSelect}">自动登录</span>
-                  <router-link class="fgt-pswd" to="/forget">忘记密码</router-link>
-                </div>
+                <!--<div class="auto-forget">-->
+                  <!--<label><input name="isLogin" type="checkbox" value="" v-model="isSelect"/></label>-->
+                  <!--<span class="isAuto" :class="{selected:isSelect}">自动登录</span>-->
+                  <!--<router-link class="fgt-pswd" to="/forget">忘记密码</router-link>-->
+                <!--</div>-->
                 <input type="submit" value="登 录" class="login_submit">
-                <div class="otherWay">
-                  <p class="other-click"><a href="###">其它方式登录</a></p>
-                  <div class="wx-qq">
-                    <a href="###" class="weixin"><i class="icon iconfont icon-weixin"></i></a><a href="###" class="qq"><i class="icon iconfont icon-qq"></i></a>
-                  </div>
-                </div>
+                <!--<div class="otherWay">-->
+                  <!--<p class="other-click"><a href="###">其它方式登录</a></p>-->
+                  <!--<div class="wx-qq">-->
+                    <!--<a href="###" class="weixin"><i class="icon iconfont icon-weixin"></i></a><a href="###" class="qq"><i class="icon iconfont icon-qq"></i></a>-->
+                  <!--</div>-->
+                <!--</div>-->
               </div>
               <!--<div class="register-part" v-else>-->
                 <!--<div class="lgn-part-phone">-->
@@ -173,8 +173,8 @@
             //手机号短信登录
             const result = await captureLogin("password",this.phone, this.password,'dxsatfpxrna86ifu7v29m5n9s0rdr2dafmmyp0d8',"phone");
             if(result.user) {
-              this.$cookies.set("tk",result.access_token)
-              this.$cookies.set("id",result.user.id)
+              this.$cookies.set("tk",result.access_token, 60 * 60 * 24 * 30)
+              this.$cookies.set("id",result.user.id, 60 * 60 * 24 * 30)
               this.isShow = false
               this.recordUserInfo(result.user)
             } else {
@@ -198,6 +198,8 @@
 
 </script>
 <style lang="stylus" rel="stylesheet/stylus" >
+html
+  font-size: 14px;
 img
   object-fit cover
 .container
@@ -292,14 +294,14 @@ img
     margin-top -215px
     margin-left -216px
     width: 432px;
-    height: 430px;
+    height: 240px;
     border-radius: 4px;
     padding: 7px 15px 10px 16px
     background-color: #ffffff;
     .cha
       position absolute
-      top:0
-      right:0
+      top:10px
+      right:10px
     .login-header
       width:100%
       height:49px
@@ -325,9 +327,9 @@ img
       padding: 0 16px
       .login-part
         .icon
-          width: 12px
-          height: 14px
-          font-size 12px
+          width: 16px
+          height: 16px
+          font-size 16px
           margin-left: 8px
           color: rgba(0,0,0,.25)
         input
@@ -348,6 +350,7 @@ img
           .phone-login
             height:30px
             width:92%
+            font-size 16px
         .phone-alert
           color red
         .lgn-part-capture
@@ -363,7 +366,9 @@ img
             border: solid 1px #d9d9d9;
            .capture-login
               height:30px
-              width:90%
+              width:83%
+              margin-left 8px
+              font-size 16px
           .get_verification
             height:40px
             width: 102px;
@@ -374,6 +379,7 @@ img
             vertical-align middle
             line-height 30px
             text-align center
+            font-size 1rem
             color: #eee
             position: absolute;
             top: 0px;
@@ -393,6 +399,7 @@ img
           width: 368px;
           height: 40px;
           border-radius: 4px;
+          font-size 1.1rem
           background-color: #4d8bee;
           color: #fff
           margin-botom 32px
@@ -460,8 +467,10 @@ img
                 text-align center
           .phone-login
             height:34px
+            font-size 16px
             width:79%
             border-radius 4px
+            margin-left 6px
         .lgn-part-capture
           position relative
           margin:24px 0
