@@ -229,7 +229,7 @@
   import {reqReadInfo,reqChapterShow,reqCalPrice,reqCalPriceAll,buyChapter,buyChapterAll,askAutoBuy} from "../../api"
   // todo how to import this css more elegant
   import "../../../reader/reader_common.css";
-  import "../../../reader/layer.css";
+  // import "../../../reader/layer.css";
   import "../../../reader/read.css";
   import {addCollection} from "../../api"
   export default {

@@ -1,7 +1,7 @@
 <template>
   <div class="loading" v-else>
     <div class="loading-container">
-      <img src="../../assets/img/tenor.gif" alt="">
+      <img src="../../assets/img/fy_loading.gif" alt="">
     </div>
   </div>
 </template>
