@@ -10,7 +10,7 @@
       </div>
       <div class="introduction-right">
         <div class="avatar-name">
-          <img src="../../assets/img/title.jpeg" alt="">
+          <img :src="bookDetail.book.mainAuthor.avatar" alt="">
           <p class="author-name" v-for="(item) in bookDetail.book.authors">{{item}}</p>
           <p class="author-type">大神作家</p>
           <p class="update-info"><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
