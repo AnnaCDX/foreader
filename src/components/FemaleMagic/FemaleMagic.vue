@@ -4,7 +4,7 @@
     <div class="female-body">
       <div class="fml-body-left">
         <div class="fml-left-content">
-          <a href="javascript:;" class="book-img" @click="goDetail(item.data[0].bid)"><img :src="item.data[0].poster" alt=""></a>
+          <a href="javascript:;" class="book-img" @click="goDetail(item.data[0].bid)"><img v-lazy="item.data[0].poster" alt=""></a>
           <p class="book-name"><a href="javascript:;" @click="goDetail(item.data[0].bid)">{{item.data[0].title}}</a></p>
           <p class="book-click">点击数</p>
           <p class="book-author" v-for="(per,index) in item.data[0].authors" :key="index">{{per}}</p>
@@ -42,7 +42,11 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import ModuleTitle from "../ModuleTitle/ModuleTitle"
+  import VueLazyload from 'vue-lazyload'
+  Vue.use(VueLazyload);
+
     export default {
         props:{
           item:Object,

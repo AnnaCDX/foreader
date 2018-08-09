@@ -7,7 +7,7 @@
         <p class="clickNum">{{each.num}}</p>
         <p class="authorName" v-for="(author,index) in each.authors" :key="index">{{author}}</p>
       </div>
-      <a href="javascript:;" @click="goDetail(each.bid)"><img :src="each.poster" alt=""></a>
+      <a href="javascript:;" @click="goDetail(each.bid)"><img v-lazy="each.poster" alt=""></a>
     </div>
     <div class="li-hide" v-else>
       <p class="li-hide-rank" :class="{'num-two':index==1,'num-three':index==2}" >{{index+1}}</p>
@@ -19,7 +19,11 @@
 </template>
 
 <script>
-    export default {
+  import Vue from 'vue'
+  import VueLazyload from 'vue-lazyload'
+  Vue.use(VueLazyload);
+
+  export default {
       props:{
         index:Number,
         each:Object

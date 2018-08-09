@@ -10,7 +10,7 @@
                 <div class="banner-wrapper swiper-wrapper">
                   <div class="banner-slide swiper-slide" v-for="(per,index) in item.data.slice(0,3)" :key="index">
                     <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))">
-                      <img :src="per.poster">
+                      <img v-lazy="per.poster">
                     </a>
                   </div>
                 </div>
@@ -31,7 +31,7 @@
             <div class="right-container">
               <ul>
                 <li v-for="(per,index) in item.data.slice(3)" :key="index">
-                  <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))"><img :src="per.poster" alt=""></a>
+                  <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))"><img v-lazy="per.poster" alt=""></a>
                   <div class="book-info">
                     <p class="name-type"><a @click="goDetail(per.webUrl.slice(-8))" class="name">{{per.title}}</a><a class="type" to="/type"></a></p>
                     <span class="author-name">{{per.content}}</span>
@@ -78,7 +78,7 @@
                     <div class="sl-wrapper swiper-wrapper">
                       <div class="sl-slide swiper-slide" v-for="(per,index) in item.data[1].list.slice(0,5)" :key="index">
                         <a href="javascript:;" @click="goDetail(per.bid)">
-                          <img :src="per.poster" alt="">
+                          <img v-lazy="per.poster" alt="">
                         </a>
                       </div>
 
@@ -117,7 +117,7 @@
           </div>
         </template>
         <div class="three-pic back-color marginTop" v-else-if="item.template===4">
-          <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img :src="book.poster" alt=""></a>
+          <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img v-lazy="book.poster" alt=""></a>
         </div>
         <div class="activity back-color marginTop" v-else-if="item.template===5" >
           <a href="javascript:;" class="img-left" @click="gotoDetail()"><img src="../../assets/img/web/home/xianshimianfei.png" alt=""></a>
@@ -203,6 +203,7 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.min.css'
   import {Spin,Col,Icon} from "iview"
@@ -215,7 +216,10 @@
   import UpdateRightItem from '../../components/UpdateRightItem/UpdateRightItem'
   import Loading from "../../components/Loading/Loading"
   import {mapState} from "vuex"
-    export default {
+  import VueLazyload from 'vue-lazyload'
+  Vue.use(VueLazyload);
+
+  export default {
       mounted(){
         this.$store.dispatch("getHomeInfo")
 

@@ -54,12 +54,12 @@
             <div class="right-container " v-if="categoryInfo.books.length">
               <ul>
                 <li v-for="(item,index) in categoryInfo.books" v-show="item.title" :key="index">
-                  <img class="book-cover" :src="item.poster" alt="" @click="goDetail(item.bid)">
+                  <img class="book-cover" v-lazy="item.poster" alt="" @click="goDetail(item.bid)">
                   <div class="book-info">
                     <a href="javascript:;" class="name-words" @click="goDetail(item.bid)" :title="item.title">{{item.title}}</a>
                     <div class="gray-info">
                       <div class="little-info one">
-                        <img class="author-avantar" :src="item.poster" alt="">
+                        <img class="author-avantar" v-lazy="item.poster" alt="">
                         <span class="author-name" v-for="(per,index) in item.authors" :key="index" :title="per">{{per}}</span>
                       </div>|
                       <div class="little-info two" v-if="item.tags">
@@ -90,9 +90,14 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import {mapState} from "vuex"
   import RcdPageControl from "../../components/RcdPageControl/RcdPageControl"
   import Loading from '../../components/Loading/Loading'
+  import VueLazyload from 'vue-lazyload'
+  Vue.use(VueLazyload);
+
+
   export default {
     data(){
       return {
