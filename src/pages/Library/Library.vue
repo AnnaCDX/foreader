@@ -300,7 +300,7 @@
             .book-cover, .book-info
               float: left
             .book-cover
-              height: 128px
+              height: 118px
               width: 90px
               object-fit cover
               margin-right: 15px

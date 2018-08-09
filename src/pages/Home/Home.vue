@@ -434,7 +434,7 @@ img
                 margin-bottom 32px
               img
                 width:90px
-                height 119px
+                height 118px
                 box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.35);
               .book-info
                 width 378px
