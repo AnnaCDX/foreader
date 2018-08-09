@@ -193,6 +193,12 @@
           </div>
         </template>
       </div>
+
+      <InfiniteLoading @infinite="infiniteHandler">
+        <span slot="no-more">
+
+        </span>
+      </InfiniteLoading>
     </div>
     <div class="loading" v-else>
       <div class="loading-container">
@@ -215,13 +221,39 @@
   import UpdateItem from '../../components/UpdateItem/UpdateItem'
   import UpdateRightItem from '../../components/UpdateRightItem/UpdateRightItem'
   import Loading from "../../components/Loading/Loading"
+  import InfiniteLoading from 'vue-infinite-loading';
   import {mapState} from "vuex"
   import VueLazyload from 'vue-lazyload'
+  import {reqHomeInfo} from "../../api";
   Vue.use(VueLazyload);
 
   export default {
+      data(){
+        return {
+          offset:0,
+          limit:2,
+          pagNum:0,
+          num:1,
+          index1:3,
+          value2:0,
+          shuju4:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+          shuju5:[1,1,1],
+          book:{},
+          homeInfo:[]
+        }
+      },
       mounted(){
-        this.$store.dispatch("getHomeInfo")
+        let that = this;
+        // this.$store.dispatch("getHomeInfo",{limit,offset})
+
+        reqHomeInfo(this.offset,this.limit).then(function(successMessage){
+          console.log(successMessage);
+          that.homeInfo = successMessage
+
+          that.offset += that.homeInfo.length
+        }).catch(function(successMessage){
+
+        })
 
       },
       watch:{
@@ -278,12 +310,11 @@
               },
             })
           });
-
         }
       },
 
       computed:{
-        ...mapState(["homeInfo"])
+        // ...mapState(["homeInfo"])
       },
       methods:{
         goDetail(bid){
@@ -293,17 +324,21 @@
         goReading(bid){
           let routeData = this.$router.resolve({ path: `/reading/${bid}`});
           window.open(routeData.href, '_blank')
-        }
-      },
-      data(){
-        return {
-          pagNum:0,
-          num:1,
-          index1:3,
-          value2:0,
-          shuju4:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-          shuju5:[1,1,1],
-          book:{}
+        },
+        infiniteHandler($state) {
+          let that = this;
+          reqHomeInfo(that.offset,that.limit).then(function(res){
+            if (res.length > 0) {
+              that.homeInfo = that.homeInfo.concat(res);
+              that.offset += res.length;
+              $state.loaded();
+            } else {
+              $state.loaded();
+              $state.complete();
+            }
+          }).catch(function(res){
+             console.log(res);
+          })
         }
       },
       components:{
@@ -314,7 +349,8 @@
         WorkListItem,
         UpdateItem,
         UpdateRightItem,
-        Loading
+        Loading,
+        InfiniteLoading
       }
     }
 </script>

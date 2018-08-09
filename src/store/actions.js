@@ -126,8 +126,8 @@ export default {
     commit(GET_CATEGORY_INFO,{result})
   },
   //获取首页数据信息
-  async getHomeInfo({commit}){
-    let result = await reqHomeInfo()
+  async getHomeInfo({commit},{offset,limit}){
+    let result = await reqHomeInfo(offset,limit)
     commit(GET_HOME_INFO,{result})
   },
   //存储阅读信息
