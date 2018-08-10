@@ -19,7 +19,9 @@ import {
   GET_CHAPTER_SHOW,
   RECORD_CALCULATE,
   GET_DEAL_RECORD,
-  GET_SYNTHESIZE_INFO} from "./mutation-types"
+  GET_SYNTHESIZE_INFO,
+  SHOW_LOGIN_DIALOG
+} from "./mutation-types"
 import {
   reqUserInfo,
   reqRechargeInfo,
@@ -150,5 +152,8 @@ export default {
   async getSynthesizeInfo({commit}){
     let result = await reqSynthesizeInfo()
     commit(GET_SYNTHESIZE_INFO,{result})
+  },
+  showLoginDialog({commit}, result) {
+    commit(SHOW_LOGIN_DIALOG,result)
   }
 }

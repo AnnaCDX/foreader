@@ -6,7 +6,8 @@
       </router-link>
       <slot name="headerSearch"></slot>
       <div class="private" >
-        <router-link to="/phone" class="phone-login"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</router-link>
+        <a href="javascript:;" class="phone-login collect" @click="goMsite()"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</a>
+
         <a class="phone-login" v-if="!loginInfo.id && !id" ><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
         <router-link to="/msite" class="phone-login" v-else><img src="../../assets/img/web/home/login.jpg" alt="">个人中心</router-link>
       </div>
@@ -25,6 +26,18 @@
         },
         computed:{
           ...mapState(["loginInfo"])
+        },
+        methods:{
+          showLoginDialog(){
+            this.$store.dispatch("showLoginDialog",true)
+          },
+          goMsite(){
+            if (this.loginInfo.id) {
+              this.$router.push(`/msite/collection`)
+            } else {
+              this.showLoginDialog()
+            }
+          }
         }
     }
 </script>

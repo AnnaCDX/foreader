@@ -3,8 +3,7 @@
       <vueHeadful
         title="速更小说"
         description="速更小说"
-        image="./assets/img/home/favicon.ico"
-      />
+        image="./assets/img/home/favicon.ico"/>
       <div class="container" >
         <!--<Header v-show="$route.meta.showHead" @closeTip="closeTip(true,arguments)"></Header>-->
         <div class="header" v-show="$route.meta.showHead">
@@ -14,7 +13,7 @@
         </div>
         <router-view></router-view>
       </div>
-      <div class="login" v-show="isShow"><!--isShow-->
+      <div class="login" v-show="needShowLogin"><!--isShow-->
         <div class="login-body">
           <i  class="cha iconfont icon-chahao" @click="closeTip(false)"></i>
 
@@ -100,7 +99,6 @@
   export default {
         data(){
           return {
-            isShow:false,
             computedTime: 0,
             phone: "", //电话号
             password: '', //验证码
@@ -134,12 +132,19 @@
         computed:{
           rightPhoneNumber: function () {
             return /^1\d{10}$/.test(this.phone)
-          }
+          },
+          ...mapState(["needShowLogin"]),
         },
         methods:{
           ...mapActions(["recordUserInfo"]),
           closeTip(bool){
-            this.isShow=bool
+            this.$store.dispatch("showLoginDialog",bool)
+          },
+
+          showLoginIfNessary() {
+            if (!loginInfo.id) {
+               closeTip(true)
+            }
           },
           setLoginWay(bool){
             this.loginWay = bool
@@ -175,7 +180,8 @@
             if(result.user) {
               this.$cookies.set("tk",result.access_token, 60 * 60 * 24 * 30)
               this.$cookies.set("id",result.user.id, 60 * 60 * 24 * 30)
-              this.isShow = false
+              this.$store.dispatch("showLoginDialog",false)
+
               this.recordUserInfo(result.user)
             } else {
               this.alertInfo = '登陆失败, 手机号或验证不正确'
@@ -200,6 +206,10 @@
 <style lang="stylus" rel="stylesheet/stylus" >
 html
   font-size: 14px;
+  font-family:
+   system, -apple-system, BlinkMacSystemFont,
+   "PingFang SC", "Segoe UI", "Microsoft YaHei", "wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+   "Helvetica Neue", Helvetica, Arial, sans-serif;
 img
   object-fit cover
 .container
@@ -207,10 +217,6 @@ img
   height 100%
   min-height 100vh
   background #F8F8F8
-  font-family:
-   system, -apple-system, BlinkMacSystemFont,
-   "PingFang SC", "Segoe UI", "Microsoft YaHei", "wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-   "Helvetica Neue", Helvetica, Arial, sans-serif;
   .header
     .header-top
       position relative

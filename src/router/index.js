@@ -38,7 +38,9 @@ export default new Router({
       path:'/',
       redirect:'/home',
       meta:{
-        showHead:true
+        showHead:true,
+        keepAlive: true
+
       }
     },
     {
@@ -49,7 +51,8 @@ export default new Router({
       path:'/home',
       component:Home,
       meta:{
-        showHead:true
+        showHead:true,
+        keepAlive: true
       },
 
     },
@@ -111,7 +114,10 @@ export default new Router({
           }
         }
 
-      ]
+      ],
+      meta:{
+        keepAlive: true
+      }
 
     },
     {
@@ -122,7 +128,8 @@ export default new Router({
       path:'/library',
       component:Library,
       meta:{
-        showHead:true
+        showHead:true,
+        keepAlive: true
       }
     },
     {

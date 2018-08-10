@@ -1,211 +1,212 @@
 <template>
-  <div class="outer">
-    <div class="main padding-top-20" v-if="homeInfo[0]">
-      <div class="body " v-for="(item,index) in homeInfo" :key="index">
-        <!--over-->
-        <div class="recommend back-color " v-if="item.template===1">
-          <div class="rcmd-left">
-            <div class="left-container">
-              <div class="banner swiper-container" >
-                <div class="banner-wrapper swiper-wrapper">
-                  <div class="banner-slide swiper-slide" v-for="(per,index) in item.data.slice(0,3)" :key="index">
-                    <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))">
-                      <img v-lazy="per.poster">
+  <keep-alive>
+    <div class="outer">
+      <div class="main padding-top-20" v-if="homeInfo[0]">
+        <div class="body " v-for="(item,index) in homeInfo" :key="index">
+          <!--over-->
+          <div class="recommend back-color " v-if="item.template===1">
+            <div class="rcmd-left">
+              <div class="left-container">
+                <div class="banner swiper-container" >
+                  <div class="banner-wrapper swiper-wrapper">
+                    <div class="banner-slide swiper-slide" v-for="(per,index) in item.data.slice(0,3)" :key="index">
+                      <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))">
+                        <img v-lazy="per.poster">
+                      </a>
+                    </div>
+                  </div>
+                  <div class="pag-banner">
+                    <div class="pb-item" v-for="(per,index) in item.data.slice(0,3)" :key="index" :class="{'pb-item-active':num==index+1 || num == index+4}"></div>
+
+                  </div>
+                </div>
+                <div class="ct-book-name" >
+                  <a href="javascript:;" class="ct-book-tag" v-for="(each,inde) in item.data.slice(0,3)" :class="{active:num==inde+1 || num == inde+4}" :key="inde" @click="goDetail(each.webUrl.slice(-8))">{{each.title}}</a>
+                </div>
+                <div class="ct-book-content" v-if="item.data[num-1]"><span>{{item.data[num-1].content}}</span><p>{{item.data[num-1].extra}}</p></div>
+
+              </div>
+            </div>
+
+            <div class="rcmd-right">
+              <div class="right-container">
+                <ul>
+                  <li v-for="(per,index) in item.data.slice(3)" :key="index">
+                    <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))"><img v-lazy="per.poster" alt=""></a>
+                    <div class="book-info">
+                      <p class="name-type"><a @click="goDetail(per.webUrl.slice(-8))" class="name">{{per.title}}</a><a class="type" to="/type"></a></p>
+                      <span class="author-name">{{per.content}}</span>
+                      <p class="simple-intro">{{per.extra}}</p>
+                    </div>
+                  </li>
+
+                </ul>
+                <div class="notice">
+                  <div class="notice-main">
+                    <a href="javascript:;" class="notice-item">
+                      <img src="../../assets/img/web/home/iphone.png" alt="">
+                      <div class="notice-word">
+                        <p class="for-chinese">速更小说</p>
+                        <p class=for-chinese>for iPhone</p>
+                      </div>
+                    </a>
+                    <a href="javascript:;" class="notice-item">
+                      <img src="../../assets/img/web/home/android.png" alt="">
+                      <div class="notice-word">
+                        <p class="for-chinese">速更小说</p>
+                        <p class="for-chinese">for Android</p>
+                      </div>
                     </a>
                   </div>
                 </div>
-                <div class="pag-banner">
-                  <div class="pb-item" v-for="(per,index) in item.data.slice(0,3)" :key="index" :class="{'pb-item-active':num==index+1 || num == index+4}"></div>
-
-                </div>
-              </div>
-              <div class="ct-book-name" >
-                <a href="javascript:;" class="ct-book-tag" v-for="(each,inde) in item.data.slice(0,3)" :class="{active:num==inde+1 || num == inde+4}" :key="inde" @click="goDetail(each.webUrl.slice(-8))">{{each.title}}</a>
-              </div>
-              <div class="ct-book-content" v-if="item.data[num-1]"><span>{{item.data[num-1].content}}</span><p>{{item.data[num-1].extra}}</p></div>
-
-            </div>
-          </div>
-
-          <div class="rcmd-right">
-            <div class="right-container">
-              <ul>
-                <li v-for="(per,index) in item.data.slice(3)" :key="index">
-                  <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))"><img v-lazy="per.poster" alt=""></a>
-                  <div class="book-info">
-                    <p class="name-type"><a @click="goDetail(per.webUrl.slice(-8))" class="name">{{per.title}}</a><a class="type" to="/type"></a></p>
-                    <span class="author-name">{{per.content}}</span>
-                    <p class="simple-intro">{{per.extra}}</p>
-                  </div>
-                </li>
-
-              </ul>
-              <div class="notice">
-                <div class="notice-main">
-                  <a href="javascript:;" class="notice-item">
-                    <img src="../../assets/img/web/home/iphone.png" alt="">
-                    <div class="notice-word">
-                      <p class="for-chinese">速更小说</p>
-                      <p class=for-chinese>for iPhone</p>
-                    </div>
-                  </a>
-                  <a href="javascript:;" class="notice-item">
-                    <img src="../../assets/img/web/home/android.png" alt="">
-                    <div class="notice-word">
-                      <p class="for-chinese">速更小说</p>
-                      <p class="for-chinese">for Android</p>
-                    </div>
-                  </a>
-                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!--类型不可点，作者不可点-->
-        <div class="strong-recommend back-color marginTop" v-else-if="item.template===2">
-          <div class="strong-container">
-            <div class="strong-left">
-              <ModuleTitle :title="item.data[0].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
-              <ul>
-                <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per" :go-detail="goDetail"></LittleList>
-              </ul>
-            </div>
-            <div class="strong-right">
-              <ModuleTitle  :title="item.data[1].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
-              <div class="swiper-list">
-                <div class="is-swiper">
-                  <div class="sl-container swiper-container">
-                    <div class="sl-wrapper swiper-wrapper">
-                      <div class="sl-slide swiper-slide" v-for="(per,index) in item.data[1].list.slice(0,5)" :key="index">
-                        <a href="javascript:;" @click="goDetail(per.bid)">
-                          <img v-lazy="per.poster" alt="">
-                        </a>
+          <!--类型不可点，作者不可点-->
+          <div class="strong-recommend back-color marginTop" v-else-if="item.template===2">
+            <div class="strong-container">
+              <div class="strong-left">
+                <ModuleTitle :title="item.data[0].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
+                <ul>
+                  <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per" :go-detail="goDetail"></LittleList>
+                </ul>
+              </div>
+              <div class="strong-right">
+                <ModuleTitle  :title="item.data[1].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
+                <div class="swiper-list">
+                  <div class="is-swiper">
+                    <div class="sl-container swiper-container">
+                      <div class="sl-wrapper swiper-wrapper">
+                        <div class="sl-slide swiper-slide" v-for="(per,index) in item.data[1].list.slice(0,5)" :key="index">
+                          <a href="javascript:;" @click="goDetail(per.bid)">
+                            <img v-lazy="per.poster" alt="">
+                          </a>
+                        </div>
+
                       </div>
 
                     </div>
+                  </div>
+                  <div class="is-list">
+                    <div class="list-item " v-for="(per,index) in item.data[1].list.slice(0,5)" :class="{'list-item-active':index+3===index1 || index+8===index1}">
+                      <div class="item-header"><a href="javascript:;" @click="goDetail(per.bid)">{{per.title}}</a></div>
+                      <div class="item-content">
+                        <span v-for="(each,index) in per.authors" :key="index">{{each}}</span>
+                        <p class="main-desc">
+                          {{per.description}}
+                          <a href="javascript:;" class="ellipsis" @click="goDetail(per.bid)">...</a>
 
+                        </p>
+                        <p class="last-desc"><span></span><a href="javascript:;" @click="goReading(per.bid)">阅读全部</a></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="is-list">
-                  <div class="list-item " v-for="(per,index) in item.data[1].list.slice(0,5)" :class="{'list-item-active':index+3===index1 || index+8===index1}">
-                    <div class="item-header"><a href="javascript:;" @click="goDetail(per.bid)">{{per.title}}</a></div>
-                    <div class="item-content">
-                      <span v-for="(each,index) in per.authors" :key="index">{{each}}</span>
-                      <p class="main-desc">
-                        {{per.description}}
-                        <a href="javascript:;" class="ellipsis" @click="goDetail(per.bid)">...</a>
-
-                      </p>
-                      <p class="last-desc"><span></span><a href="javascript:;" @click="goReading(per.bid)">阅读全部</a></p>
+                <div class="pag-container">
+                  <div class="each-item" v-for="(item,index) in item.data[1].list.slice(0,5)" :class="{'each-item-active':index+3===index1 || index+8===index1}">
+                    <div class="each-inner">
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="pag-container">
-                <div class="each-item" v-for="(item,index) in item.data[1].list.slice(0,5)" :class="{'each-item-active':index+3===index1 || index+8===index1}">
-                  <div class="each-inner">
+            </div>
+          </div>
+          <template v-else-if="item.template===3" slot-scope="item">
+            <!--<div class="productive marginTop"></div>-->
+            <div class="kindsOf-list back-color marginTop" >
+              <WorkList v-for="(per,ind) in item.data" :key="ind" :per = 'per'></WorkList>
+            </div>
+          </template>
+          <div class="three-pic back-color marginTop" v-else-if="item.template===4">
+            <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img v-lazy="book.poster" alt=""></a>
+          </div>
+          <div class="activity back-color marginTop" v-else-if="item.template===5" >
+            <a href="javascript:;" class="img-left" @click="gotoDetail()"><img src="../../assets/img/web/home/xianshimianfei.png" alt=""></a>
+            <div class="arrow-swiper">
+              <div class="arrow-container swiper-container">
+                <div class="arrow-wrapper swiper-wrapper">
+                  <div class="arrow-slide swiper-slide">
+                    <div class="arrow-content" v-for="(per,index) in item.data.slice(0,6)" :key="index">
+                      <a href="javascript:;" class="arrow-img" @click="goDetail(per.bid)" :title="per.title"><img :src="per.poster" alt=""></a>
+                      <p class="arrow-title" @click="goDetail(per.bid)"><a href="javascript:;" :title="per.title">{{per.title}}</a></p>
+                      <p class="isPay">免费</p>
+                    </div>
+
                   </div>
                 </div>
+                <!-- 如果需要导航按钮 -->
+                <div class="arrow-button swiper-button-prev"></div>
+                <div class="arrow-button swiper-button-next"></div>
+
               </div>
             </div>
           </div>
-        </div>
-        <template v-else-if="item.template===3" slot-scope="item">
-          <!--<div class="productive marginTop"></div>-->
-          <div class="kindsOf-list back-color marginTop" >
-            <WorkList v-for="(per,ind) in item.data" :key="ind" :per = 'per'></WorkList>
-          </div>
-        </template>
-        <div class="three-pic back-color marginTop" v-else-if="item.template===4">
-          <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img v-lazy="book.poster" alt=""></a>
-        </div>
-        <div class="activity back-color marginTop" v-else-if="item.template===5" >
-          <a href="javascript:;" class="img-left" @click="gotoDetail()"><img src="../../assets/img/web/home/xianshimianfei.png" alt=""></a>
-          <div class="arrow-swiper">
-            <div class="arrow-container swiper-container">
-              <div class="arrow-wrapper swiper-wrapper">
-                <div class="arrow-slide swiper-slide">
-                  <div class="arrow-content" v-for="(per,index) in item.data.slice(0,6)" :key="index">
-                    <a href="javascript:;" class="arrow-img" @click="goDetail(per.bid)" :title="per.title"><img :src="per.poster" alt=""></a>
-                    <p class="arrow-title" @click="goDetail(per.bid)"><a href="javascript:;" :title="per.title">{{per.title}}</a></p>
-                    <p class="isPay">免费</p>
-                  </div>
 
-                </div>
+
+          <template v-else-if="item.template===6" slot-scope="item">
+            <FemaleMagic :item="item" :title="'女频四部曲'">
+              <div class="col-right" slot="right" >
+                <LittleList v-for="(per,index) in item.data" :key="index" :per="per" :goDetail="goDetail" ></LittleList>
               </div>
-              <!-- 如果需要导航按钮 -->
-              <div class="arrow-button swiper-button-prev"></div>
-              <div class="arrow-button swiper-button-next"></div>
+            </FemaleMagic>
 
-            </div>
-          </div>
-        </div>
+            <FemaleMagic :item="item" :title="'东方玄幻'">
+              <div class="magic-col-right" slot="right">
+                <WorkListItem v-for="(each,index) in item.data"  @click="goDetail(each.bid)" :key="index" :index="index" :each="each" ></WorkListItem>
+              </div>
+            </FemaleMagic>
+          </template>
 
-
-        <template v-else-if="item.template===6" slot-scope="item">
-          <FemaleMagic :item="item" :title="'女频四部曲'">
-            <div class="col-right" slot="right" >
-              <LittleList v-for="(per,index) in item.data" :key="index" :per="per" :goDetail="goDetail" ></LittleList>
-            </div>
-          </FemaleMagic>
-
-          <FemaleMagic :item="item" :title="'东方玄幻'">
-            <div class="magic-col-right" slot="right">
-              <WorkListItem v-for="(each,index) in item.data"  @click="goDetail(each.bid)" :key="index" :index="index" :each="each" ></WorkListItem>
-            </div>
-          </FemaleMagic>
-        </template>
-
-        <!--completely undone-->
-        <template v-else-if="item.template===7" slot-scope="item">
-          <!--<div class="update-list back-color marginTop">-->
-            <!--<ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>-->
-            <!--<div class="update-list-body">-->
-              <!--<div class="list-body-left">-->
-                <!--<UpdateItem v-for="(per,index) in shuju4" :key="index"></UpdateItem>-->
+          <!--completely undone-->
+          <template v-else-if="item.template===7" slot-scope="item">
+            <!--<div class="update-list back-color marginTop">-->
+              <!--<ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>-->
+              <!--<div class="update-list-body">-->
+                <!--<div class="list-body-left">-->
+                  <!--<UpdateItem v-for="(per,index) in shuju4" :key="index"></UpdateItem>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>&ndash;&gt;-->
               <!--</div>-->
-              <!--&lt;!&ndash;<UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>&ndash;&gt;-->
             <!--</div>-->
-          <!--</div>-->
-          <div class="footer  marginTop">
-            <p class="friend-title">友情链接</p>
-            <div class="all-friends">
-              <a href="javascript:;">掌阅书城</a>
-              <!--<a href="javascript:;">掌阅书城</a>-->
-              <!--<a href="javascript:;">掌阅书城</a>-->
-              <!--<a href="javascript:;">掌阅书城</a>-->
-              <!--<a href="javascript:;">掌阅书城</a>-->
-              <!--<a href="javascript:;">掌阅书城</a>-->
-              <!--<a href="javascript:;">掌阅书城</a>-->
-              <!--<a href="javascript:;">掌阅书城</a>-->
+            <div class="footer  marginTop">
+              <p class="friend-title">友情链接</p>
+              <div class="all-friends">
+                <a href="javascript:;">掌阅书城</a>
+                <!--<a href="javascript:;">掌阅书城</a>-->
+                <!--<a href="javascript:;">掌阅书城</a>-->
+                <!--<a href="javascript:;">掌阅书城</a>-->
+                <!--<a href="javascript:;">掌阅书城</a>-->
+                <!--<a href="javascript:;">掌阅书城</a>-->
+                <!--<a href="javascript:;">掌阅书城</a>-->
+                <!--<a href="javascript:;">掌阅书城</a>-->
+              </div>
+              <div class="center">
+                <router-link to="/helpCenter" >帮助中心</router-link>
+                <router-link to="/privacy">隐私策略</router-link>
+                <router-link to="/aggreement">使用协议</router-link>
+              </div>
+              <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
+              <div class="copy-img">
+                <!--<img src="../../assets/img/title.jpeg" alt="">-->
+                <!--<img src="../../assets/img/title.jpeg" alt="">-->
+                <!--<img src="../../assets/img/title.jpeg" alt="">-->
+              </div>
             </div>
-            <div class="center">
-              <router-link to="/helpCenter" >帮助中心</router-link>
-              <router-link to="/privacy">隐私策略</router-link>
-              <router-link to="/aggreement">使用协议</router-link>
-            </div>
-            <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
-            <div class="copy-img">
-              <!--<img src="../../assets/img/title.jpeg" alt="">-->
-              <!--<img src="../../assets/img/title.jpeg" alt="">-->
-              <!--<img src="../../assets/img/title.jpeg" alt="">-->
-            </div>
-          </div>
-        </template>
-      </div>
+          </template>
+        </div>
 
-      <InfiniteLoading @infinite="infiniteHandler">
-        <span slot="no-more">
-
-        </span>
-      </InfiniteLoading>
-    </div>
-    <div class="loading" v-else>
-      <div class="loading-container">
-        <img src="../../assets/img/fy_loading.gif" alt="">
+        <InfiniteLoading @infinite="infiniteHandler">
+          <span slot="no-more">
+          </span>
+        </InfiniteLoading>
+      </div>
+      <div class="loading" v-else>
+        <div class="loading-container">
+          <img src="../../assets/img/fy_loading.gif" alt="">
+        </div>
       </div>
     </div>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
@@ -231,7 +232,7 @@
       data(){
         return {
           offset:0,
-          limit:2,
+          limit:1,
           pagNum:0,
           num:1,
           index1:3,
@@ -245,15 +246,17 @@
       mounted(){
         let that = this;
         // this.$store.dispatch("getHomeInfo",{limit,offset})
+        if (that.offset == 0) {
+          reqHomeInfo(this.offset, this.limit).then(function (successMessage) {
+            console.log(successMessage);
+            that.homeInfo = successMessage
 
-        reqHomeInfo(this.offset,this.limit).then(function(successMessage){
-          console.log(successMessage);
-          that.homeInfo = successMessage
+            that.offset += that.homeInfo.length
+            that.limit = 2
+          }).catch(function (successMessage) {
 
-          that.offset += that.homeInfo.length
-        }).catch(function(successMessage){
-
-        })
+          })
+        }
 
       },
       watch:{

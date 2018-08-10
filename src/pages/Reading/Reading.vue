@@ -17,7 +17,6 @@
           <!--左侧导航-->
           <div class="art-box-left" :class="bc1">
             <ul>
-
               <!--目录-->
               <li class="left-li" @click="toggleToolTip('cap')" :class="{isActive:which==='cap'&& isShow}">
                 <p class="li-title"><i class="icon iconfont icon-mulu"></i></p>目录
@@ -69,9 +68,9 @@
               </li>
 
               <!--收藏-->
-              <!--<li class="left-li" @click="addCollection">-->
-                <!--<p><i class="icon iconfont icon-msnui-collection"></i></p>收藏-->
-              <!--</li>-->
+              <li class="left-li" @click="addCollection">
+                <p><i class="icon iconfont icon-msnui-collection"></i></p>收藏
+              </li>
 
               <!--手机端-->
               <!--<li class="left-li" @click="">-->
@@ -386,16 +385,20 @@
       },
       //加入收藏
       async addCollection(){
-        let {bid} = this.$route.params
-        let token = this.$cookies.get('tk')
-        let config={
-          headers:{
-            "Authorization":"Bearer "+token
+        if (this.loginInfo.id) {
+          let {bid} = this.$route.params
+          let token = this.$cookies.get('tk')
+          let config = {
+            headers: {
+              "Authorization": "Bearer " + token
+            }
           }
+          let data = await addCollection(bid, config)
+          let isSuccess = /^2\d{2}$/.test(data)
+          isSuccess ? alert("收藏成功") : alert("收藏失败")
+        } else {
+          this.$store.dispatch("showLoginDialog",true)
         }
-        let data = await addCollection(bid,config)
-        let isSuccess = /^2\d{2}$/.test(data)
-        isSuccess?alert("收藏成功"):alert("收藏失败")
       },
       // 点击列表进行阅读
       async isFree(cid,bid,wCapter,title){
@@ -513,7 +516,7 @@
       }
     },
     computed:{
-      ...mapState(["bookChapter","bookDetail","readInfo","chapterShow","calculateResult" ,"myWallet"])
+      ...mapState(["bookChapter","bookDetail","readInfo","chapterShow","calculateResult" ,"myWallet","loginInfo"])
     },
     components:{
       HeaderWithSearch,

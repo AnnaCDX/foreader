@@ -18,7 +18,8 @@ import {
   GET_CHAPTER_SHOW,
   RECORD_CALCULATE,
   GET_DEAL_RECORD,
-  GET_SYNTHESIZE_INFO} from "./mutation-types"
+  GET_SYNTHESIZE_INFO, SHOW_LOGIN_DIALOG
+} from "./mutation-types"
 export default{
   [RECEIVE_USER_INFO](state, {userInfo}) {
     state.loginInfo = userInfo
@@ -79,5 +80,8 @@ export default{
   },
   [GET_SYNTHESIZE_INFO](state,{result}){
     state.synthesizeInfo = result
+  },
+  [SHOW_LOGIN_DIALOG](state,result) {
+    state.needShowLogin = result
   }
 }

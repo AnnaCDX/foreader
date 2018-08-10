@@ -3,7 +3,7 @@
     <div class="fix-body">
       <div class="private" >
         <a href="javascript:;" class="phone-login collect" @click="goMsite()"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</a>
-        <a class="phone-login log" v-if="!loginInfo.id && !id" @click="closeTip"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
+        <a class="phone-login log" v-if="!loginInfo.id && !id" @click="showLoginDialog"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
         <router-link to="/msite" class="phone-login log" v-else><img  src="../../assets/img/web/home/login.jpg" alt="">个人中心</router-link>
       </div>
     </div>
@@ -23,11 +23,15 @@
       ...mapState(['loginInfo'])
     },
     methods:{
-      closeTip(){
-        this.$emit("closeTip",true)
+      showLoginDialog(){
+        this.$store.dispatch("showLoginDialog",true)
       },
       goMsite(){
-        this.$router.push(`/msite/collection`)
+        if (this.loginInfo.id) {
+          this.$router.push(`/msite/collection`)
+        } else {
+          this.showLoginDialog()
+        }
       }
     }
     }

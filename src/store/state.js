@@ -18,5 +18,6 @@ export default {
   chapterShow:{},//未购买时展示的可购买套餐套餐
   calculateResult:{},//点击各个套餐计算费用
   dealRecord:[],
-  synthesizeInfo:[]
+  synthesizeInfo:[],
+  needShowLogin: false
 }

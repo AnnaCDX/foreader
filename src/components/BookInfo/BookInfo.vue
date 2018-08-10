@@ -10,7 +10,7 @@
       </div>
       <div class="introduction-right">
         <div class="avatar-name">
-          <img :src="bookDetail.book.mainAuthor.avatar" alt="">
+          <img v-lazy="bookDetail.book.mainAuthor.avatar" alt="">
           <p class="author-name" v-for="(item) in bookDetail.book.authors">{{item}}</p>
           <p class="author-type">大神作家</p>
           <p class="update-info"><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
@@ -24,7 +24,7 @@
         <div class="like-item" v-for="(item,index) in bookDetail.recommends" :key="index">
           <a href="javascript:;" @click="goDetail(item.bid)" :title="item.title"><img :src="item.poster" alt=""></a>
           <a class="like-book" @click="goDetail(item.bid)" :title="item.title">{{item.title}}</a>
-          <p class="who-read">没定多少%的用户度过</p>
+          <p class="who-read">{{item.description}}</p>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
       <div class="all-comments" v-if="bookDetail.comments.length">
         <ul>
           <li class="comments-item" v-for="(item,index) in bookDetail.comments" :key="index">
-            <img src="../../assets/img/title.jpeg" alt="">
+            <img v-lazy="item.user.avatar" alt="">
             <div class="comment-info">
               <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.user.created}}</span></p>
               <div class="comment-content">
@@ -60,13 +60,6 @@
     <div class="footer  marginTop">
       <p class="friend-title">友情链接</p>
       <div class="all-friends">
-        <a href="javascript:;">掌阅书城</a>
-        <a href="javascript:;">掌阅书城</a>
-        <a href="javascript:;">掌阅书城</a>
-        <a href="javascript:;">掌阅书城</a>
-        <a href="javascript:;">掌阅书城</a>
-        <a href="javascript:;">掌阅书城</a>
-        <a href="javascript:;">掌阅书城</a>
         <a href="javascript:;">掌阅书城</a>
       </div>
       <div class="center">
@@ -96,13 +89,16 @@
 
       },
       computed:{
-        ...mapState(["bookDetail"])
+        ...mapState(["bookDetail", "loginInfo"])
       },
       methods:{
         goComments(bid){
-
-          let routeData = this.$router.resolve({ path: `/comments/${bid}`});
-          window.open(routeData.href, '_blank')
+          if (this.loginInfo.id) {
+            let routeData = this.$router.resolve({path: `/comments/${bid}`});
+            window.open(routeData.href, '_blank')
+          } else {
+            this.$store.dispatch("showLoginDialog",true)
+          }
         },
         goDetail(bid){
           let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
