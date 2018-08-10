@@ -147,7 +147,7 @@
         overflow hidden
         .book-title
           height: 33px;
-          font-family: PingFangSC;
+
           font-size: 24px;
           font-weight: 500;
           color: #4d8bee;
@@ -180,13 +180,13 @@
           padding-left 43px
           height 60px
           line-height 60px
-          font-family: PingFangSC;
+
           font-size: 18px;
           font-weight: 500;
           color: rgba(0, 0, 0, 0.85);
           border-bottom 1px solid #e8e8e8
           span
-            font-family: PingFangSC;
+
             font-size: 18px;
             line-height: 1.33;
             color: rgba(0, 0, 0, 0.65);
@@ -241,7 +241,7 @@
             object-fit cover
             margin-bottom 25px
           p
-            font-family: PingFangSC;
+
             font-size: 18px;
             line-height: 1.33;
             color: #cccccc;
@@ -262,7 +262,7 @@
             object-fit cover
             margin-bottom 10px
           p
-            font-family: PingFangSC;
+
             font-size: 16px;
             font-weight: 500;
             line-height: 1;
@@ -299,7 +299,7 @@
             width 170px
             height 170px
           p
-            font-family: PingFangSC;
+
             font-size: 18px;
             line-height 1
             text-align: center;

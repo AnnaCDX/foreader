@@ -104,5 +104,6 @@
           padding-left 24px
     .main-right
       background #fff
+      min-height 800px
 
 </style>

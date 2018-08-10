@@ -105,7 +105,7 @@
       height: 68px
       line-height 68px
       border-bottom 1px solid #e8e8e8
-      font-family: PingFangSC;
+
       font-size: 18px;
       font-weight: 500;
       color rgba(0,0,0,.85)
@@ -155,7 +155,7 @@
                 border: solid 0.5px #f3799c;
                 color #f3799c
             .paragragh
-              font-family: PingFangSC;
+
               font-size: 14px;
               line-height 1.7
               color #9b9b9b
@@ -184,7 +184,7 @@
           object-fit cover
           margin-bottom 25px
         p
-          font-family: PingFangSC;
+
           font-size: 18px;
           line-height: 1.33;
           color: #cccccc;

@@ -226,7 +226,7 @@
                 border: solid 0.5px #f3799c;
                 color #f3799c
             .paragragh
-              font-family: PingFangSC;
+
               font-size: 14px;
               height 48px
               line-height 1.7
@@ -239,7 +239,7 @@
                 right: 0;
                 color rgba(0,0,0,.65)
                 padding-left: 40px;
-                background: linear-gradient(to right, transparent, #fff 55%);
+                background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 55%);
             .words-click
               position absolute
               top 0
@@ -264,7 +264,7 @@
           object-fit cover
           margin-bottom 25px
         p
-          font-family: PingFangSC;
+
           font-size: 18px;
           line-height: 1.33;
           color: #cccccc;

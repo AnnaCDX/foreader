@@ -207,7 +207,7 @@
           color #000
       .already-select
         .selected
-          font-family: PingFangSC;
+
           font-size: 12px;
           line-height: 1;
           color: #9b9b9b;
@@ -218,7 +218,7 @@
             background #f3799c
             border-radius 2px
             font-size 12px
-            font-family: PingFangSC;
+
             color #fff
       .type
         .type-body
@@ -247,8 +247,8 @@
                   margin-left -2px
                   height: 0px;
                   width: 0px;
-                  border-left: 2px solid transparent;
-                  border-right: 2px solid transparent;
+                  border-left: 2px solid rgba(255, 255, 255, 0);
+                  border-right: 2px solid rgba(255, 255, 255, 0);
                   border-bottom: 4px solid rgba(219, 237, 255, 0.7);
             .item-child
               padding 10px 2px
@@ -361,7 +361,7 @@
                     border: solid 0.5px #f3799c;
                     color #f3799c
               .paragragh
-                font-family: PingFangSC;
+
                 width 226px
                 position: relative;
                 height 48px
@@ -377,7 +377,7 @@
                   right: 0;
                   color rgba(0,0,0,.65)
                   padding-left: 40px;
-                  background: linear-gradient(to right, transparent, #fff 55%);
+                  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 55%);
               .word-count
                 color #9b9b9b
                 font-size 12px

@@ -163,7 +163,7 @@
   margin-top 20px
   padding: 26px 0 36px 46px
   .like-title
-    font-family: PingFangSC;
+
     font-size: 24px;
     font-weight: 500;
     color rgba(0,0,0,.85)
@@ -180,7 +180,7 @@
           height 136px
           box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.35);
       .like-book,.who-read
-        font-family: PingFangSC;
+
         overflow hidden
         text-overflow ellipsis
         white-space nowrap
@@ -205,7 +205,7 @@
     height 74px
     line-height 74px
     padding 0 40px
-    font-family: PingFangSC;
+
     font-size: 18px;
     font-weight: 500;
     color rgba(0,0,0,.85)
@@ -218,7 +218,7 @@
       line-height 38px
       border-radius: 4px;
       background-color: #4d8bee;
-      font-family: PingFangSC;
+
       font-size: 14px;
       color #fff
   .empty-collection
@@ -240,7 +240,7 @@
         object-fit cover
         margin-bottom 25px
       p
-        font-family: PingFangSC;
+
         font-size: 18px;
         line-height: 1.33;
         color: #cccccc;

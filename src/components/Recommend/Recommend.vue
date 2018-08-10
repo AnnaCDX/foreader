@@ -62,11 +62,11 @@
         width 340px
         >a
           color rgba(0,0,0,.85)
-          font-family: PingFangSC;
+
           font-size: 16px;
           font-weight: 500;
         .book-intro
-          font-family: PingFangSC;
+
           color: rgba(0, 0, 0, 0.65);
           margin: 7px 0 17px;
         .author-tag
@@ -104,6 +104,7 @@
           background #4D8BEE
           color #fff
         .fav
+          background white
           color #4D8BEE
     &:first-child
       margin-top 10px

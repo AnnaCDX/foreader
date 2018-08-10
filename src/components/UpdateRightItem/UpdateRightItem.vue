@@ -36,7 +36,7 @@
         float: left
         a
           display inline-block
-          font-family: PingFangSC;
+
         .list-book-name,.daily-update,.list-author-name
           overflow hidden
           text-overflow ellipsis
@@ -52,7 +52,7 @@
         .daily-update
           width: 59px;
           height: 14px;
-          font-family: PingFangSC;
+
           font-size: 14px;
           font-weight: 500;
           line-height: 1;
@@ -72,7 +72,7 @@
     .bottom-right-list
       width: 194px;
       height: 66px;
-      font-family: PingFangSC;
+
       font-size: 12px;
       line-height: 1.83;
       color: #9b9b9b;

@@ -27,7 +27,7 @@
     a
       display inline-block
       line-height:1
-      font-family: PingFangSC;
+
       overflow hidden
       text-overflow ellipsis
       white-space nowrap

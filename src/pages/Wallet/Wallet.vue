@@ -64,7 +64,7 @@
       background #fff
 
       .assets-title
-        font-family: PingFangSC;
+
         font-size: 18px;
         font-weight: 500;
         color rgba(0,0,0,.85)
@@ -78,12 +78,12 @@
           padding: 0 30px
           margin 8px 0
           span
-            font-family: PingFangSC;
+
             font-size: 34px;
             font-weight: 500;
             color: rgba(0, 0, 0, 0.85);
           a
-            font-family: PingFangSC;
+
             font-size: 14px;
             float: right
             margin-right: 30px
@@ -110,7 +110,7 @@
           line-height 68px
           vertical-align middle
           span
-            font-family: PingFangSC;
+
             font-size: 18px;
             color rgba(0,0,0,.85)
             font-weight: 500;

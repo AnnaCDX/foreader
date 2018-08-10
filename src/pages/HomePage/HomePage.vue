@@ -62,7 +62,7 @@
         height: 68px
         line-height 68px
         border-bottom 1px solid #e8e8e8
-        font-family: PingFangSC;
+
         font-size: 18px;
         font-weight: 500;
         color rgba(0,0,0,.85)
@@ -76,7 +76,7 @@
             margin-right 5px
       .marginTop
         margin-top: 20px
-        font-family: PingFangSC;
+
         font-size: 14px;
         line-height: 1
         color #9b9b9b
@@ -87,7 +87,7 @@
       .wallet
         margin 60px 0
         .wallet-title
-          font-family: PingFangSC;
+
           font-size: 18px;
           font-weight: 500;
           color rgba(0,0,0,.85)

@@ -47,9 +47,12 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  .module-title
+    a
+      text-decoration underline
   .kindsOf-listItem
     width:206px
-    margin:24px 30px 24px 12px
+    margin:30px 30px 24px 23px
     float: left
 
     &:last-child

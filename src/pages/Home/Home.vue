@@ -16,12 +16,14 @@
                     </div>
                   </div>
                   <div class="pag-banner">
-                    <div class="pb-item" v-for="(per,index) in item.data.slice(0,3)" :key="index" :class="{'pb-item-active':num==index+1 || num == index+4}"></div>
+                    <!--<div class="pb-item" v-for="(per,index) in item.data.slice(0,3)" :key="index" :class="{'pb-item-active':num==index+1 || num == index+4}"></div>-->
 
                   </div>
                 </div>
                 <div class="ct-book-name" >
-                  <a href="javascript:;" class="ct-book-tag" v-for="(each,inde) in item.data.slice(0,3)" :class="{active:num==inde+1 || num == inde+4}" :key="inde" @click="goDetail(each.webUrl.slice(-8))">{{each.title}}</a>
+                  <a href="javascript:;" class="ct-book-tag" v-for="(each,inde) in item.data.slice(0,3)" :class="{active:num==inde+1 || num == inde+4}" :key="inde" @click="goDetail(each.webUrl.slice(-8))">
+                    <span>{{each.title}}</span>
+                  </a>
                 </div>
                 <div class="ct-book-content" v-if="item.data[num-1]"><span>{{item.data[num-1].content}}</span><p>{{item.data[num-1].extra}}</p></div>
 
@@ -392,14 +394,14 @@ img
         .left-container
           position: relative
           .banner
-            height:274px
+            height:261px
             position relative
             .banner-wrapper
               .banner-slide
                 a
                   img
-                    width:430px;
-                    height 274px
+                    width:100%;
+                    height 100%
                     object-fit contain
                     box-shadow none
             .pag-banner
@@ -424,7 +426,6 @@ img
               bottom: 124px
               width:430px;
               height:34px;
-              border-radius:4px 4px 0 0
               font-size 0
               z-index: 199
               .ct-book-tag
@@ -439,13 +440,12 @@ img
                 color: #fff
                 vertical-align middle
                 text-align center
-                &:first-child
-                  border-radius 4px 0 0 0
-                &:last-child
-                  border-radius 0 4px 0 0
+              span
+                max-width 120px
+                text-overflow ellipsis
+
               .active
                 background:#4d8bee;
-                border-radius 4px 4px 0 0
                 opacity 1
           .ct-book-content
             bg-title(rgba(0,0,0,.65),14px)
@@ -478,6 +478,8 @@ img
               .book-info
                 width 378px
                 float right
+                overflow hidden
+                text-overflow: ellipsis;
                 .name-type
                   margin-bottom 5px
                   .name
@@ -529,19 +531,23 @@ img
                     color #4a4a4a
                     font-family "PingFang SC"
     .strong-recommend
-      height:382px
+      min-height:382px
       padding:20px
       .strong-container
+        display flex
+        flex-direction row
+        justify-content space-between
+        height auto
         width:100%
         .strong-left
           width:224px
-          float left
+          margin 0
           ul
             li
               height 42px
               padding-top 10px
         .strong-right
-          float: right
+          margin 0
           position relative
           width:654px
           .swiper-list
@@ -598,7 +604,7 @@ img
                       font-size 18px
                       height 18px
                       line-height 14px
-                      background: linear-gradient(to right, transparent, #f6f8fc 55%);
+                      background: linear-gradient(to right, rgba(255, 255, 255, 0), #f6f8fc 55%);
                   .last-desc
                     position relative
                     a
@@ -625,7 +631,7 @@ img
             left 190px
             width 100px
             height 10px
-            background transparent
+            background rgba(255, 255, 255, 0)
             .each-item
               position relative
               float left
@@ -709,15 +715,15 @@ img
                   line-height 14px
           .arrow-button
             width:26px
-            height:28px
+            height:26px
 
           .swiper-button-prev
             background url("../../assets/img/web/home/last.png")
-            background-size 100% 100%
+            background-size 26px 26px
             background-repeat no-repeat
           .swiper-button-next
             background url("../../assets/img/web/home/next.png")
-            background-size 100% 100%
+            background-size 26px 26px
             background-repeat no-repeat
     .update-list
       padding:24px 11px 5px

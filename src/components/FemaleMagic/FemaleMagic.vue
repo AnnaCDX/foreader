@@ -126,7 +126,7 @@
               color rgba(0,0,0,.65)
               padding-left: 40px;
               font-size 18px
-              background: linear-gradient(to right, transparent, #f6f8fc 55%);
+              background: linear-gradient(to right, rgba(255, 255, 255, 0), #f6f8fc 55%);
           .to-read
             display inline-block
             width:74px
@@ -159,7 +159,7 @@
             width:142px
             >a
               color rgba(0,0,0,.85)
-              font-family: PingFangSC;
+
               font-size: 16px;
               font-weight: 500;
               text-overflow ellipsis
@@ -167,7 +167,7 @@
               white-space nowrap
               width 142px
             .book-intro
-              font-family: PingFangSC;
+
               color: rgba(0, 0, 0, 0.65);
               margin-bottom 12px
               width 142px
@@ -183,7 +183,7 @@
                 color rgba(0,0,0,.65)
                 padding-left: 40px;
                 font-size 18px
-                background: linear-gradient(to right, transparent, #fff 55%);
+                background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 55%);
             .author-tag
               overflow hidden
               >a

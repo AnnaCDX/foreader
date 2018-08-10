@@ -396,7 +396,7 @@ img
           margin-bottom 22px
           .isAuto
             color rgba(0,0,0,.45)
-            font-family: PingFangSC;
+
           .selected
             color: #4d8bee
           .fgt-pswd

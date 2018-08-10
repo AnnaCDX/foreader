@@ -126,7 +126,7 @@
     background #fff
     margin 0 auto
     .recharge-title
-      font-family: PingFangSC;
+
       font-size: 18px;
       font-weight: 500;
       color: rgba(0, 0, 0, 0.85);
@@ -137,7 +137,7 @@
     .recharge-body
       padding 0 30px
       .recharge-num
-        font-family: PingFangSC;
+
         font-size: 14px;
         color #9b9b9b
         margin 20px 0
@@ -161,7 +161,7 @@
           border 1px solid #4d8bee
           background #eaf8ff
       .recharge-type
-        font-family: PingFangSC;
+
         font-size: 14px;
         color #9b9b9b
         margin 0 0 20px
@@ -176,7 +176,7 @@
           border-radius 4px
           margin-right 20px
           line-height 42px
-          font-family: PingFangSC;
+
           font-size: 18px;
           text-align center
           color rgba(0,0,0,.85)
@@ -194,7 +194,7 @@
         height: 38px;
         border-radius: 4px;
         background-color: #4d8bee;
-        font-family: PingFangSC;
+
         font-size: 16px;
         color: #fff;
         margin-bottom 14px
@@ -204,7 +204,7 @@
         margin-bottom 33px
       .no-duty
         .onduty-title
-          font-family: PingFangSC;
+
           font-size: 14px;
           font-weight: 500;
           color: rgba(0, 0, 0, 0.85);
@@ -212,7 +212,7 @@
           margin-bottom 14px
         .onduty-content
           p
-            font-family: PingFangSC;
+
             font-size: 12px;
             line-height: 24px;
             color #9b9b9b

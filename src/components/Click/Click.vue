@@ -115,11 +115,11 @@
           width 340px
           >a
             color rgba(0,0,0,.85)
-            font-family: PingFangSC;
+
             font-size: 18px;
             font-weight: 500;
           .book-intro
-            font-family: PingFangSC;
+
             margin: 3px 0 5px;
             width 340px
             position: relative;
@@ -136,7 +136,7 @@
               padding-left: 40px;
               font-size 18px
               font-weight 600
-              background: linear-gradient(to right, transparent, #fff 55%);
+              background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 55%);
           .author-tag
             color #E8E8E8
             line-height 20px
@@ -173,6 +173,7 @@
             background #4D8BEE
             color #fff
           .fav
+            background white
             color #4D8BEE
       &:first-child
         margin-top 10px

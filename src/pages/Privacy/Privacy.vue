@@ -162,7 +162,7 @@
   .first-intro
     font-weight: bold
   .text-container
-    background-color: transparent
+    background-color: rgba(255, 255, 255, 0)
     font-family:
      system, -apple-system, BlinkMacSystemFont,
      "PingFang SC", "Segoe UI", "Microsoft YaHei", "wenquanyi micro hei","Hiragino Sans GB", "Hiragino Sans GB W3", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -260,7 +260,7 @@
       display none
     }
     .text-container>.text-main {
-      background-color transparent
+      background-color rgba(255, 255, 255, 0)
       width 100%
       margin 0
     }

@@ -144,7 +144,7 @@
 
         .get_verification
           height:30px
-          background transparent
+          background rgba(255, 255, 255, 0)
           outline none
           vertical-align middle
           line-height 30px

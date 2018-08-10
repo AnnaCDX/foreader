@@ -575,8 +575,8 @@
                   right: -14px;
                   width 0
                   height 0
-                  border-top 3px solid transparent
-                  border-bottom 3px solid transparent
+                  border-top 3px solid rgba(255, 255, 255, 0)
+                  border-bottom 3px solid rgba(255, 255, 255, 0)
                   border-right 6px solid #eaeaea
                 .trangle-body
                   position absolute
@@ -614,6 +614,7 @@
                           overflow hidden
                           white-space nowrap
                           vertical-align: top;
+                          text-align left
                         .icon
                           width 16px
                           height 16px
@@ -744,7 +745,7 @@
                   width 366px
                   margin 0 auto
                   .sub-title
-                    font-family: PingFangSC;
+
                     font-size: 24px;
                     font-weight: 600;
                     color: #9b9b9b;
@@ -766,13 +767,13 @@
                         width 366px
                         margin-bottom 11px
                       .buy-num
-                        font-family: PingFangSC;
+
                         font-size: 14px;
                         font-weight: 500;
                         line-height 1.57
                         color: rgba(0, 0, 0, 0.85);
                         .need-num
-                          font-family: PingFangSC;
+
                           font-size: 12px;
                           line-height 1.83
                           color #9b9b9b
@@ -784,11 +785,11 @@
                   .agreement
                     margin-bottom 10px
                     .is-agree
-                      font-family: PingFangSC;
+
                       font-size: 12px;
                       color rgba(0,0,0,.65)
                   .not-enough
-                    font-family: PingFangSC;
+
                     font-size: 14px;
                     color: rgba(0, 0, 0, 0.85);
                     margin-bottom 5px
@@ -906,7 +907,6 @@
                   font-size 24px
                   color #000
 
-
         .read-foot
           width 800px
           height 70px
@@ -949,7 +949,7 @@
               margin-top 15px
               text-align center
               line-height 41px
-              font-family: PingFangSC;
+
               font-size: 16px;
               color rgba(0,0,0,.85)
               .trangle
@@ -959,18 +959,19 @@
                 margin-top -2px
                 height 0
                 width 0
-                border-top 3px solid transparent
-                border-bottom 3px solid transparent
+                border-top 3px solid rgba(255, 255, 255, 0)
+                border-bottom 3px solid rgba(255, 255, 255, 0)
                 border-left 6px solid #fff
         .mask-right
           position absolute
-          top: 248px
-          left: 358px
+          top: 40%
+          left: 50%
           width 433px
           height 255px
           background #fff
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
           padding 14px 16px
+          transform translateX(4%)
           .right-title
             font-size: 18px;
             font-weight: 600;
@@ -985,7 +986,7 @@
               margin-right 41px
               p
                 margin-bottom 12px
-                font-family: PingFangSC;
+
                 font-size: 14px;
                 font-weight: 500;
                 color: #9b9b9b;

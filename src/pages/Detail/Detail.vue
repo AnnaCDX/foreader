@@ -119,7 +119,7 @@
           width 440px
           float left
           .book-author
-            font-family: PingFangSC;
+
             font-size 14px
             .book-name
               font-size: 24px;
@@ -144,18 +144,18 @@
               border: solid 0.5px #f3799c
 
           .words-num
-            font-family: PingFangSC;
+
             font-size: 14px;
             font-weight: 500;
             color #9b9b9b
             margin 20px 0 18px
             span
-              font-family: PingFangSC;
+
               font-size: 20px;
               font-weight: 500;
               color: rgba(0, 0, 0, 0.65);
           .update-new
-            font-family: PingFangSC;
+
             font-size: 14px;
             color rgba(0,0,0,.65)
             .update-info
@@ -191,7 +191,7 @@
         width 150px
         height 30px
         text-align center
-        font-family: PingFangSC;
+
         font-size: 18px;
         color rgba(0,0,0,.65)
         padding-bottom 3px
