@@ -58,7 +58,7 @@
                   <ul>
                     <li class="back-li bj01" @click="changeReadingBg('bgcolor01','bc1')"></li>
                     <li class="back-li bj02" @click="changeReadingBg('bgcolor02','bc2')"></li>
-                    <li class="back-li bj03" @click="changeReadingBg('bgcolor03','bc4')"></li>
+                    <li class="back-li theme-pink" @click="changeReadingBg('bgcolor03','bc4')"></li>
                     <li class="back-li bj04" @click="changeReadingBg('bgcolor04','bc3')"></li>
                     <li class="back-li bj05" @click="changeReadingBg('bgcolor05','bc5')"></li>
                     <li class="back-li bj06" @click="changeReadingBg('bgcolor06','bc6')"></li>
@@ -73,9 +73,9 @@
               </li>
 
               <!--手机端-->
-              <!--<li class="left-li" @click="">-->
-                <!--<p><i class="icon iconfont icon-shouji"></i></p>手机-->
-              <!--</li>-->
+              <li class="left-li" @click="">
+                <p><i class="icon iconfont icon-shouji"></i></p>手机
+              </li>
             </ul>
 
           </div>
@@ -562,13 +562,18 @@
             margin:0 14px
             background #eaeaea
             ul
+              padding-left: 1px;
+              padding-top: 1px;
+              padding-bottom: 1px;
               text-align center
+              border 1px solid #a1a3b0
+              &:last-child
+                border 1px solid #a1a3b0
               .left-li
                 position relative
                 padding 5px 15px
-                border-bottom 1px solid #a1a3b0
-                &:last-child
-                  border none
+                border 1px solid #a1a3b0
+                border-bottom none
                 .trangle
                   position: absolute;
                   top: 50%;
@@ -588,11 +593,14 @@
                   z-index 100
                   border-radius: 4px;
                   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
+                  border none
+                    ul
+                      border none
                   /*overflow auto*/
                   .chapter-title
                     font-size 20px
                     color rgba(0,0,0,.85)
-                    font-family PingFangSC-Medium
+                    font-weight 500
                   .all-chapter
                     width 760px
                     max-height 1500px
@@ -600,6 +608,7 @@
                     ul
                       width 100%
                       overflow hidden
+                      border none
                       .chapter-li
                         height 40px
                         width 50%
@@ -623,7 +632,7 @@
                           margin-left 34px
                 .font-body
                   padding 0
-                  border:1px solid #a1a3b0
+                  border: none
                   .body-main
                     width 184px
                     height 52px
@@ -639,9 +648,9 @@
                   width 380px
                   height 52px
                   padding 0
-                  border 1px solid #a1a3b0
                   ul
                     overflow hidden
+                    border: none
                     .back-li
                       float left
                       width 40px
@@ -652,7 +661,7 @@
                       background #e9e9e9
                     .bj02
                       background #fbf0cd
-                    .bj03
+                    .theme-pink
                       background #ebcecf
                     .bj04
                       background #cfdde0
@@ -686,18 +695,24 @@
           .bc2
             background #fbf0cd
             ul
+              border 1px solid #daca92
               .left-li
-                border-bottom 1px solid #daca92
-              .isActive
-                background #FDFBED
-                .sameActive
+                  border 1px solid #daca92
+                .isActive
                   background #FDFBED
-                  border 1px solid #DACA92
+                  .sameActive
+                    background #FDFBED
+                    border 1px solid #DACA92
+              &:last-child
+                border-bottom 1px solid #daca92
           .bc3
             background #cfdde0
             ul
+              &:last-child
+                border-bottom  1px solid #bfcdd1
+              border 1px solid #bfcdd1
               .left-li
-                border-bottom 1px solid #bfcdd1
+                border 1px solid #bfcdd1
               .isActive
                 background #eefaff
                 .sameActive
@@ -706,28 +721,33 @@
           .bc4
             background #ebcecf
             ul
+              border 1px solid #d7c4c4
               .left-li
-                border-bottom 1px solid #d7c4c4
+                border 1px solid #d7c4c4
               .isActive
                 background #fbf1f1
                 .sameActive
                   background #fbf1f1
                   border 1px solid #d7c4c4
+              &:last-child
+                border-bottom  1px solid #d7c4c4
           .bc5
             background #c5d3c7
             ul
+              border 1px solid #C5D3C7
               .left-li
-                border-bottom 1px solid #d7c4c4
+                border 1px solid #C5D3C7
               .isActive
                 background #F0FAF0
                 .sameActive
                   background #F0FAF0
-                  border 1px solid #d7c4c4
+                  border 1px solid #C5D3C7
           .bc6
             background #212121
             ul
+              border 1px solid #333333
               .left-li
-                border-bottom 1px solid #333333
+                border 1px solid #333333
               .isActive
                 background #444444
                 .sameActive
@@ -923,7 +943,10 @@
           .dis
             color #9b9b9b
     .art_con
-      text-align justify
+      p
+        line-height: 30px;
+        letter-spacing: 2px
+        padding-bottom  0
     .mask
       position absolute
       top: 0
