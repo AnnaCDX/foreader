@@ -60,7 +60,7 @@
             isRight:false,
             recharge_face:600,
             payType:1,
-            id:this.$cookies.get("id"),
+            id:this.$cookie.get("id"),
             shuju1:[
               {img:require("../../assets/img/web/msite/zhifubao.png"),font:"支付宝"},
               {img:require("../../assets/img/web/msite/wechat.png"),font:"微信"}
@@ -77,7 +77,7 @@
         },
         methods:{
           async pay(){
-            let user_id = this.$cookies.get("id")
+            let user_id = this.$cookie.get("id")
             let pay_method= this.payType==1? "H5ALIPAY":"H5WEIXIN"
             let {recharge_face} = this
             let result = await reqPayUrl(user_id,pay_method,recharge_face)

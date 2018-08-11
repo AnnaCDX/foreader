@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App'
-import VueCookie from 'vue-cookies'
+import VueCookie from 'vue-cookie'
 import router from './router'
 import {Input} from 'iview'
 import store from './store/index'

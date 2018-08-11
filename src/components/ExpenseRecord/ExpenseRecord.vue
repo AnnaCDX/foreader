@@ -36,7 +36,7 @@
         }
       },
       mounted(){
-        let user_id = this.$cookies.get("id")
+        let user_id = this.$cookie.get("id")
         let {limit,offset} = this
         this.$store.dispatch("getDealRecord",{user_id,offset,limit})
       },

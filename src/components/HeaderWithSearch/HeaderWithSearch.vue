@@ -8,7 +8,7 @@
       <div class="private" >
         <a href="javascript:;" class="phone-login collect" @click="goMsite()"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</a>
 
-        <a class="phone-login" v-if="!loginInfo.id && !id" ><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
+        <a class="phone-login" v-if="!loginInfo.id && !id" @click="showLoginDialog()"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
         <router-link to="/msite" class="phone-login" v-else><img src="../../assets/img/web/home/login.jpg" alt="">个人中心</router-link>
       </div>
     </div>
@@ -20,7 +20,7 @@
     export default {
         data() {
             return {
-              id:this.$cookies.get("id"),
+              id:this.$cookie.get("id"),
 
             }
         },

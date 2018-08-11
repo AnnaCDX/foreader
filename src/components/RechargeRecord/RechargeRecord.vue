@@ -33,11 +33,11 @@
             key: 'give_amount'
           }
         ],
-        user_id:this.$cookies.get("id")
+        user_id:this.$cookie.get("id")
       }
     },
     mounted(){
-      let user_id=this.$cookies.get("id")
+      let user_id=this.$cookie.get("id")
       let {limit,offset} = this
       this.$store.dispatch("getRechargeRecord",{user_id,offset,limit})
 

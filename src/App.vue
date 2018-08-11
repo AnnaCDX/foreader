@@ -178,8 +178,10 @@
             //手机号短信登录
             const result = await captureLogin("password",this.phone, this.password,'dxsatfpxrna86ifu7v29m5n9s0rdr2dafmmyp0d8',"phone");
             if(result.user) {
-              this.$cookies.set("tk",result.access_token, 60 * 60 * 24 * 30)
-              this.$cookies.set("id",result.user.id, 60 * 60 * 24 * 30)
+              var date = new Date;
+              date.setDate(date.getDate() + 30);
+              this.$cookie.set("tk",result.access_token,  {expires: date})
+              this.$cookie.set("id",result.user.id, {expires: date})
               this.$store.dispatch("showLoginDialog",false)
 
               this.recordUserInfo(result.user)

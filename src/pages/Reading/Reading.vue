@@ -246,7 +246,7 @@
         cid:"",
         title:"",
         whichCapter:0,//初始化选择哪个章节阅读
-        token:this.$cookies.get('tk'),
+        token:this.$cookie.get('tk'),
         needPay:false,//判断是否需要付钱，并控制购买页面的显示与隐藏
         isAll:false,//是否购买剩下的全部
         status:1,
@@ -272,8 +272,8 @@
           cid= this.bookChapter[0].cid
           this.title = this.bookChapter[0].title
         }
-        let token = this.$cookies.get('tk')
-        let id = this.$cookies.get("id")
+        let token = this.$cookie.get('tk')
+        let id = this.$cookie.get("id")
         let config={
           headers:{
             "Authorization":"Bearer "+token
@@ -292,7 +292,7 @@
           this.needPay = true
 
         }else if(data.need_pay){
-          let user_id = this.$cookies.get("id")
+          let user_id = this.$cookie.get("id")
           let result = await reqChapterShow(user_id,bid,cid)
           this.getChapterShow({result})
           this.needPay = data.need_pay
@@ -314,7 +314,7 @@
      //      window.open(routeData.href, '_blank')
      //    }else{
      //      let {buyWhich,cid,bid,} = this
-     //      let user_id = this.$cookies.get("id")
+     //      let user_id = this.$cookie.get("id")
      //      let {need_pay} = this.calculateResult
      //      if(this.isAll){
      //        await buyChapterAll(user_id,cid,bid,need_pay,buyWhich)
@@ -337,13 +337,13 @@
      //    this.buyWhich = index
      //    this.isAll = false
      //    let {bid,cid} = this
-     //    let token = this.$cookies.get('tk')
+     //    let token = this.$cookie.get('tk')
      //    let config={
      //      headers:{
      //        "Authorization":"Bearer "+token
      //      }
      //    }
-     //    let user_id = this.$cookies.get("id")
+     //    let user_id = this.$cookie.get("id")
      //    let dtResult = await reqCalPrice(user_id,index,cid,bid)
      //    this.recordCalculate({dtResult})
      //
@@ -353,10 +353,10 @@
      //    this.isAll = true
      //    this.buyWhich = allIndex;
      //   let {bid,cid} = this
-     //   let user_id = this.$cookies.get("id")
+     //   let user_id = this.$cookie.get("id")
      //    let dtResult = await reqCalPriceAll(user_id,cid,bid,allIndex)
      //   this.recordCalculate({dtResult})
-     //   let token = this.$cookies.get('tk')
+     //   let token = this.$cookie.get('tk')
      //   let config={
      //     headers:{
      //       "Authorization":"Bearer "+token
@@ -373,7 +373,7 @@
       },
       readyRead(){
         this.firstCome = false
-        // this.$cookies.firstCome = false
+        // this.$cookie.firstCome = false
       },
       toggleToolTip(id) {
         this.which = id
@@ -387,7 +387,7 @@
       async addCollection(){
         if (this.loginInfo.id) {
           let {bid} = this.$route.params
-          let token = this.$cookies.get('tk')
+          let token = this.$cookie.get('tk')
           let config = {
             headers: {
               "Authorization": "Bearer " + token
@@ -404,7 +404,7 @@
       async isFree(cid,bid,wCapter,title){
         this.bid = bid
         this.cid = cid
-        let id = this.$cookies.get("id")
+        let id = this.$cookie.get("id")
         this.whichCapter = wCapter
         this.title = title
         this.needPay = false
@@ -425,7 +425,7 @@
           // this.$router.push('/home')
           this.needPay = true
         }else if(data.need_pay){
-          let user_id = this.$cookies.get("id")
+          let user_id = this.$cookie.get("id")
           let result = await reqChapterShow(user_id,bid,cid)
           this.getChapterShow({result})
           let dtResult = await reqCalPrice(user_id,1,cid,bid)
@@ -447,7 +447,7 @@
           let cid = bookChapter[whichCapter].cid
           let bid = bookChapter[whichCapter].bid
           this.title = bookChapter[whichCapter].title
-          let id = this.$cookies.get("id")
+          let id = this.$cookie.get("id")
 
           let config={
             headers:{
@@ -466,7 +466,7 @@
             this.needPay = true
 
           }else if(data.need_pay){
-            let user_id = this.$cookies.get("id")
+            let user_id = this.$cookie.get("id")
             let result = await reqChapterShow(user_id,bid,cid)
             this.getChapterShow({result})
             let dtResult = await reqCalPrice(user_id,1,cid,bid)
@@ -499,7 +499,7 @@
             this.needPay = true
 
           }else if(data.need_pay){
-            let user_id = this.$cookies.get("id")
+            let user_id = this.$cookie.get("id")
             let result = await reqChapterShow(user_id,bid,cid)
             this.getChapterShow({result})
             let dtResult = await reqCalPrice(user_id,1,cid,bid)

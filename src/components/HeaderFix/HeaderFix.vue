@@ -15,7 +15,7 @@
   export default {
     data() {
             return {
-              id:this.$cookies.get("id"),
+              id:this.$cookie.get("id"),
 
             }
         },

@@ -7,12 +7,6 @@
           <router-link to="/home">首页</router-link>
           <router-link to="/rank">排行榜</router-link>
           <router-link to="/library">书库</router-link>
-          <!--<router-link to="/magic">玄幻</router-link>-->
-          <!--<router-link to="/city">都市</router-link>-->
-          <!--<router-link to="/net">网络</router-link>-->
-          <!--<router-link to="/detail">同人</router-link>-->
-          <!--<router-link to="/scine">科幻</router-link>-->
-          <!--<router-link to="/reading">阅读</router-link>-->
           <router-link to="/write" class="write">
             <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
@@ -179,6 +173,8 @@
       background #f6f8fc
       text-align center
       line-height 24px
+      span
+        color #4D8BEE
     .result-list
       ul
         li
@@ -216,6 +212,8 @@
                 color #9b9b9b
                 font-size 12px
                 margin-right 15px
+                position relative
+                top 2px
               a
                 border-radius: 2.4px;
                 margin-left 13px
@@ -246,7 +244,7 @@
               right 0
               font-size 12px
               p
-                color #d9d9d9
+                color #9b9b9b
                 span
                   color rgba(0,0,0,.85)
 

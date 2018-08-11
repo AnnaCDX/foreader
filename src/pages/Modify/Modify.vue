@@ -71,8 +71,8 @@
             this.sex=1
           }
           let {nickname,sex,birthday,ownSign} = this
-          let token = this.$cookies.get('tk')
-          let id=this.$cookies.get("id")
+          let token = this.$cookie.get('tk')
+          let id=this.$cookie.get("id")
           let config={
             headers:{
               "Authorization":"Bearer "+token
