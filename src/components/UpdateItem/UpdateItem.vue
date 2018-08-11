@@ -1,15 +1,19 @@
 <template>
   <div class="per-left-list">
-    <a href="javascript:;" class="per-type">「现代言情」</a>
-    <a href="javascript:;" class="per-name">头号甜宠 恶魔小草，请好嗨</a>
-    <a href="javascript:;" class="per-authorName">作者名字</a>
-    <a href="javascript:;" class="per-character">第十七章 烟鬼寻常家</a>
-    <span class="release-time">34分钟前</span>
+    <a href="javascript:;" class="per-type" v-if="per.categories.length > 0">「[{{per.categories[0]}}」</a>
+    <a href="javascript:;" class="per-name">{{per.title}}</a>
+    <a href="javascript:;" class="per-authorName">{{per.mainAuthor.name}}</a>
+    <a href="javascript:;" class="per-character">{{per.latestChapter.title}}</a>
+    <span class="release-time">{{per.updatedFormated}}</span>
   </div>
 </template>
 
 <script>
     export default {
+        props:{
+          index:Number,
+          per:Object
+        },
         data() {
           return{
 
@@ -50,16 +54,17 @@
       color: #637fa1;
       margin:0 55px
     .per-character
-      width: 112px;
+      width: 148px;
       height: 12px;
       font-size: 12px;
       color: #9b9b9b;
-      margin-right:360px
     .release-time
       line-height 1
       height: 12px;
       font-size: 12px;
       color: #9b9b9b;
       vertical-align middle
+      margin-left  110px
+
 
 </style>

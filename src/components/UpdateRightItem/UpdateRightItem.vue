@@ -2,20 +2,24 @@
   <div class="list-body-right">
     <div class="top-right-list">
       <div class="right-list-left">
-        <a href="javascript:;" class="list-book-name">宇宙最强矿工</a>
-        <p class="daily-update">日更9千+</p>
-        <a href="javascript:;" class="list-author-name">作者名字</a>
+        <a href="javascript:;" class="list-book-name">{{per.title}}</a>
+        <p class="daily-update">{{per.latestChapter.updatedFormated}}</p>
+        <a href="javascript:;" class="list-author-name">{{per.mainAuthor.name}}</a>
       </div>
-      <a href="javascript:;" class="list-book-img"><img src="../../assets/img/title.jpeg" alt=""></a>
+      <a href="javascript:;" class="list-book-img"><img v-lazy="per.poster" alt=""></a>
     </div>
     <p class="bottom-right-list">
-      俗话说：光剑贼吃肉，没见贼挨打。这话用在  洒俗话说这话用在  洒俗话说这话用在  洒俗话说这话用…
+      {{per.description}}
     </p>
   </div>
 </template>
 
 <script>
     export default {
+        props:{
+          index:Number,
+          per:Object
+        },
         data() {
           return {
 
@@ -30,6 +34,7 @@
     float: right
     padding:13px 16px
     margin-top:2px
+    margin-bottom 16px
     .top-right-list
       overflow hidden
       .right-list-left
@@ -50,9 +55,8 @@
           color: rgba(0, 0, 0, 0.85);
           margin-top 14px
         .daily-update
-          width: 59px;
+          width: 70px;
           height: 14px;
-
           font-size: 14px;
           font-weight: 500;
           line-height: 1;
@@ -72,7 +76,9 @@
     .bottom-right-list
       width: 194px;
       height: 66px;
-
+      max-height 66px
+      overflow hidden
+      text-overflow ellipsis
       font-size: 12px;
       line-height: 1.83;
       color: #9b9b9b;

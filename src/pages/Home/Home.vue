@@ -169,15 +169,15 @@
 
           <!--completely undone-->
           <template v-else-if="item.template===7" slot-scope="item">
-            <!--<div class="update-list back-color marginTop">-->
-              <!--<ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>-->
-              <!--<div class="update-list-body">-->
-                <!--<div class="list-body-left">-->
-                  <!--<UpdateItem v-for="(per,index) in shuju4" :key="index"></UpdateItem>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;<UpdateRightItem v-for="(per,index) in shuju5" :key="index"></UpdateRightItem>&ndash;&gt;-->
-              <!--</div>-->
-            <!--</div>-->
+            <div class="update-list back-color marginTop">
+              <ModuleTitle :cls="'icon-sousuo'" :title="'更新列表'"></ModuleTitle>
+              <div class="update-list-body">
+                <div class="list-body-left">
+                  <UpdateItem v-for="(per,index) in item.data" :key="index" v-bind:per="per"></UpdateItem>
+                </div>
+                <UpdateRightItem v-for="(per,index) in item.data.slice(-3)" :key="index" v-bind:per="per"></UpdateRightItem>
+              </div>
+            </div>
             <div class="footer  marginTop">
               <p class="friend-title">友情链接</p>
               <div class="all-friends">
@@ -259,7 +259,6 @@
           num:1,
           index1:3,
           value2:0,
-          shuju4:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
           shuju5:[1,1,1],
           book:{},
           homeInfo:[]
@@ -469,7 +468,6 @@ img
                 opacity 1
           .ct-book-content
             bg-title(rgba(0,0,0,.65),14px)
-            font-family:PingFangSC-Regular;
             line-height:28px
             width:100%;
             height:124px;
