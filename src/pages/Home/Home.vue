@@ -205,10 +205,6 @@
           </template>
         </div>
 
-        <InfiniteLoading @infinite="infiniteHandler">
-          <span slot="no-more">
-          </span>
-        </InfiniteLoading>
       </div>
       <div class="loading" v-else>
         <div class="loading-container">
@@ -244,7 +240,6 @@
   import UpdateItem from '../../components/UpdateItem/UpdateItem'
   import UpdateRightItem from '../../components/UpdateRightItem/UpdateRightItem'
   import Loading from "../../components/Loading/Loading"
-  import InfiniteLoading from 'vue-infinite-loading';
   import {mapState} from "vuex"
   import VueLazyload from 'vue-lazyload'
   import {reqHomeInfo} from "../../api";
@@ -253,8 +248,6 @@
   export default {
       data(){
         return {
-          offset:0,
-          limit:1,
           pagNum:0,
           num:1,
           index1:3,
@@ -267,17 +260,12 @@
       mounted(){
         let that = this;
         // this.$store.dispatch("getHomeInfo",{limit,offset})
-        if (that.offset == 0) {
-          reqHomeInfo(this.offset, this.limit).then(function (successMessage) {
+          reqHomeInfo().then(function (successMessage) {
             console.log(successMessage);
             that.homeInfo = successMessage
-
-            that.offset += that.homeInfo.length
-            that.limit = 2
           }).catch(function (successMessage) {
 
           })
-        }
 
       },
       watch:{
@@ -348,21 +336,6 @@
         goReading(bid){
           let routeData = this.$router.resolve({ path: `/reading/${bid}`});
           window.open(routeData.href, '_blank')
-        },
-        infiniteHandler($state) {
-          let that = this;
-          reqHomeInfo(that.offset,that.limit).then(function(res){
-            if (res.length > 0) {
-              that.homeInfo = that.homeInfo.concat(res);
-              that.offset += res.length;
-              $state.loaded();
-            } else {
-              $state.loaded();
-              $state.complete();
-            }
-          }).catch(function(res){
-             console.log(res);
-          })
         }
       },
       components:{
@@ -373,8 +346,7 @@
         WorkListItem,
         UpdateItem,
         UpdateRightItem,
-        Loading,
-        InfiniteLoading
+        Loading
       }
     }
 </script>
