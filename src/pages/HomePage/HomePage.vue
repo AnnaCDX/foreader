@@ -3,24 +3,24 @@
 
       <div class="hp-body" v-if="userInfo">
         <p class="info">个人信息  <router-link to="/msite/modify"><img src="../../assets/img/web/msite/edit.png" alt="">修改信息</router-link></p>
-        <p class="marginTop">ID:<span>{{userInfo.id}}</span></p>
+        <p class="marginTop">ID：<span>{{userInfo.id}}</span></p>
         <p class="marginTop">昵称：<span>{{userInfo.name}}</span></p>
         <p class="marginTop">性别：<span>{{userInfo.sex==0?"女":"男"}}</span></p>
         <p class="marginTop">生日：<span>{{userInfo.birthday}} </span></p>
         <p class="marginTop">个性签名：<span>{{userInfo.description}}</span></p>
-        <div class="wallet">
-          <p class="wallet-title">我的钱包</p>
-          <div class="line"></div>
-          <span class="read-coin">阅读币：<span>{{myWallet.primary_balance + myWallet.secondary_balance}}</span></span>
-          <router-link to="/recharge" class="charge">充值</router-link>
-        </div>
-        <div class="security">
-          <p class="security-title">账户安全</p>
-          <div class="line"></div>
-          <p class="my-phone">手机号：<span>{{userInfo.mobile}}</span></p>
-          <p class="my-wx">微信：<router-link to="/bindwx">去绑定</router-link><router-link to="/rmvwx" v-show="isShow">解绑</router-link></p>
-          <p class="my-qq">QQ：<router-link to="/bindqq">去绑定</router-link><router-link to="/rmvqq" v-show="isShow">解绑</router-link></p>
-        </div>
+        <!--<div class="wallet">-->
+          <!--<p class="wallet-title">我的钱包</p>-->
+          <!--<div class="line"></div>-->
+          <!--<span class="read-coin">阅读币：<span>{{myWallet.primary_balance + myWallet.secondary_balance}}</span></span>-->
+          <!--<router-link to="/recharge" class="charge">充值</router-link>-->
+        <!--</div>-->
+        <!--<div class="security">-->
+          <!--<p class="security-title">账户安全</p>-->
+          <!--<div class="line"></div>-->
+          <!--<p class="my-phone">手机号：<span>{{userInfo.mobile}}</span></p>-->
+          <!--<p class="my-wx">微信：<router-link to="/bindwx">去绑定</router-link><router-link to="/rmvwx" v-show="isShow">解绑</router-link></p>-->
+          <!--<p class="my-qq">QQ：<router-link to="/bindqq">去绑定</router-link><router-link to="/rmvqq" v-show="isShow">解绑</router-link></p>-->
+        <!--</div>-->
       </div>
 
   </div>
@@ -67,7 +67,7 @@
         font-weight: 500;
         color rgba(0,0,0,.85)
         a
-          margin-left 80%
+          float right
           font-size 12px
           img
             width 15px

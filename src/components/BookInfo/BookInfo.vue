@@ -24,7 +24,7 @@
         <div class="like-item" v-for="(item,index) in bookDetail.recommends" :key="index">
           <a href="javascript:;" @click="goDetail(item.bid)" :title="item.title"><img :src="item.poster" alt=""></a>
           <a class="like-book" @click="goDetail(item.bid)" :title="item.title">{{item.title}}</a>
-          <p class="who-read">{{item.description}}</p>
+          <p class="who-read">{{item.mainAuthor.name}}</p>
         </div>
       </div>
     </div>
@@ -184,7 +184,7 @@
         overflow hidden
         text-overflow ellipsis
         white-space nowrap
-        text-align center
+        text-align left
         margin 5px auto 0
       .like-book
         width: 96px;

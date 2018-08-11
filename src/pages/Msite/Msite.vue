@@ -32,7 +32,7 @@
             listData:[
               {title:"我的主页",path:'/msite/homePage' ,baseSrc:require("../../assets/img/web/msite/wodezhuye_grey.png"),activeSrc:require("../../assets/img/web/msite/wodezhuye.png")},
               {title:"我的收藏",path:'/msite/collection' ,baseSrc:require('../../assets/img/web/msite/wodeshoucang_grey.png'),activeSrc:require('../../assets/img/web/msite/wodeshoucang.png')},
-              {title:"我的钱包",path:'/msite/wallet' ,baseSrc:require('../../assets/img/web/msite/wodeqianbao_grey.png'),activeSrc:require('../../assets/img/web/msite/wodeqianbao.png')}
+              // {title:"我的钱包",path:'/msite/wallet' ,baseSrc:require('../../assets/img/web/msite/wodeqianbao_grey.png'),activeSrc:require('../../assets/img/web/msite/wodeqianbao.png')}
             ]
           }
         },
@@ -76,7 +76,7 @@
     .left-container
       float: left
       width:260px
-      height:620px
+      height:710px
       background #fff
       border-radius 10px 4px
       .avatar-name
@@ -84,19 +84,21 @@
         height: 208px
         border-radius: 4px;
         background url("../../assets/img/web/msite/grzx_bg.png")
+        background-size 100% 100%
         text-align center
         padding-top: 41px;
         img
           border-radius 50%
-          width: 100px
-          height: 100px
+          width: 88px
+          height: 88px
         p
-          font-size 14px
-          margin:15px 0 20px
+          font-size 18px
+          margin:29px 0 20px
       .mine
         margin-top: 40px
         a
           color: #000
+          font-size 16px
           display block
           height:48px
           line-height 48px
@@ -106,6 +108,8 @@
             width 20px
             margin-right 17px
             vertical-align: middle
+            position relative
+            top -2px
         .router-link-active
           color: #4d8bee
           padding-left 26px
