@@ -19,7 +19,6 @@
   export default {
     data() {
         return {
-          jiade:[1,1,1,1,1,1],
          }
     },
     mounted(){

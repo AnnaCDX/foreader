@@ -38,7 +38,7 @@
       vertical-align middle
 
     .per-type
-      width: 84px;
+      width: 90px;
       height: 14px;
       font-size: 14px;
       color: #9b9b9b

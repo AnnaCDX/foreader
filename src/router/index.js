@@ -63,58 +63,71 @@ export default new Router({
         {
           path:"",
           redirect:"/rank/synthesize/synthesize",
+          meta:{
+            keepAlive: true
+          }
         },
         {
           path:"/rank/synthesize/synthesize",
           component:Synthesize,
           meta:{
-            showHead:true
+            showHead:true,
+            keepAlive: true
           }
         },
         {
           path:"/rank/recommend/:type",
           component:Recommend,
           meta:{
-            showHead:true
+            showHead:true,
+            keepAlive: true
           }
         },
         {
           path:"/rank/pv/:type",
           component:Click,
           meta:{
-            showHead:true
+            showHead:true,
+            keepAlive: true
           }
         },
         {
           path:"/rank/fav/:type",
           component:Favorite,
           meta:{
-            showHead:true
+            showHead:true,
+            keepAlive: true
           }
         },
         {
           path:"/rank/peopleNum",
           component:PeopleNum,
           meta:{
-            showHead:true
+            showHead:true,
+            keepAlive: true
           }
         },
         {
           path:"/rank/update",
           component:Update,
           meta:{
-            showHead:true
+            showHead:true,
+            keepAlive: true
           }
         },
         {
           path:"/rank/comments/:type",
           component:HotComments,
           meta:{
-            showHead:true
+            showHead:true,
+            keepAlive: true
           }
         }
 
-      ]
+      ],
+      meta:{
+        keepAlive: true
+      }
     },
     {
       path:"/paySuccess",

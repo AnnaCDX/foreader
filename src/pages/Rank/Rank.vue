@@ -10,12 +10,21 @@
               综合榜
             </a>
           </li>
-          <li v-for="(item,index) in rankType" :key="index":class="{liActive:current==item.type}"><a href="javascript:;" class="click"  @click="rankTab(item.type)"><img :src="item.type==current?imgUrl[item.type][item.type+'Active']:imgUrl[item.type][item.type]" alt="">{{item.type_name}}榜</a></li>
+
+          <li v-if="rankTab" v-for="(item,index) in rankType" :key="index" :class="{liActive:current==item.type}">
+              <a v-if="item.type === 'pv' || item.type === 'fav' || item.type === 'comments'" href="javascript:;" class="click"  @click="rankTab(item.type)">
+                <img :src="item.type==current?imgUrl[item.type][item.type+'Active']:imgUrl[item.type][item.type]" alt="">
+                {{item.type_name}}榜
+              </a>
+          </li>
         </ul>
       </div>
       <div class="main-right">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
       </div >
+
     </div>
   </div>
 </div>
@@ -50,19 +59,26 @@
     },
     methods:{
       rankTab(type){
-        this.current = type
-        this.$router.push(`/rank/${type}/${type}`)
+        if (type) {
+          this.current = type
+          this.$router.push(`/rank/${type}/${type}`)
+        }
       }
 
     },
     mounted() {
+      console.log("mounted called Rank main")
       this.$store.dispatch("getRankType")
       this.$on('global:more',(hh)=>{
-        this.current = hh
+        if (hh != undefined) {
+          this.current = hh
+        } else {
+          this.current ='synthesize'
+        }
       })
     },
     computed:{
-      ...mapState(["rankType","rankList"])
+      ...mapState(["rankType"])
     }
   }
 </script>

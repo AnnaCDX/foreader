@@ -2,7 +2,9 @@
   <div class="header-back">
     <div class="header-top">
       <div class="top-content">
-        <div class="top-logo"></div>
+        <router-link to="/home" replace>
+          <div class="top-logo"></div>
+        </router-link>
         <HeaderSearch></HeaderSearch>
       </div>
     </div>

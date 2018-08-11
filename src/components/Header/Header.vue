@@ -4,7 +4,9 @@
       <div class="header-back">
        <div class="header-top">
          <div class="top-content">
-           <div class="top-logo"></div>
+           <router-link to="/home" replace>
+            <div class="top-logo"></div>
+           </router-link>
            <HeaderSearch></HeaderSearch>
          </div>
        </div>
@@ -20,9 +22,9 @@
       </div>
       <div class="header-bottom">
         <div class="bottom-content">
-          <router-link to="/home">首页</router-link>
-          <router-link to="/rank">排行榜</router-link>
-          <router-link to="/library">书库</router-link>
+          <router-link to="/home" replace>首页</router-link>
+          <router-link to="/rank" replace>排行榜</router-link>
+          <router-link to="/library" replace>书库</router-link>
           <!--<router-link to="/magic">玄幻</router-link>-->
           <!--<router-link to="/city">都市</router-link>-->
           <!--<router-link to="/net">网络</router-link>-->
