@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="top">
       <vueHeadful
         title="速更小说"
         description="速更小说"

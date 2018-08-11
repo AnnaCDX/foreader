@@ -17,7 +17,7 @@
         <!--<router-link to="/scine">科幻</router-link>-->
         <div class="write-phone">
           <!--<router-link to="/phone" class="phone-port">-->
-          <!--<img  src="../../assets/img/web/home/sy_shoujiduan.png" alt="">-->
+          <!--<img  src="../../assets/img/web/home/ic_phone.png" alt="">-->
           <!--手机端-->
           <!--</router-link>-->
           <router-link to="/write" class="write-plat">

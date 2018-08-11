@@ -215,6 +215,18 @@
           <img src="../../assets/img/fy_loading.gif" alt="">
         </div>
       </div>
+
+
+      <div class="right-side-floating">
+          <div class="floating-fix-block float-download">
+              <img src="../../assets/img/web/home/ic_phone.png">
+              <p>手机端</p>
+          </div>
+          <a href="#top" class="floating-fix-block float-to-top">
+              <img src="../../assets/img/web/home/ic_back_to_top.png">
+              <p>返回顶部</p>
+          </a>
+      </div>
     </div>
   </keep-alive>
 </template>
@@ -795,4 +807,34 @@ img
     img
       width 200px
       vertical-align middle
+.right-side-floating
+  position fixed
+  right 24px
+  top 50%
+  display flex
+  flex-direction column
+  .float-download
+    background: #F3799C;
+  .float-to-top
+    background: #4d8bee;
+    margin-top 10px
+  .floating-fix-block
+    width 56px
+    height 56px
+    text-align center
+    border-radius: 4px;
+    img
+      width 17px
+      height 17px
+      object-fit contain
+      display block
+      margin-top 7px
+      margin-left auto
+      margin-right auto
+    p
+      display block
+      color white
+      margin-top 7px
+      margin-left auto
+      margin-right auto
 </style>
