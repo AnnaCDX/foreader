@@ -73,7 +73,7 @@
   height 100%
   min-height 100vh
   .rank-main
-    width 990px
+    width 1200px
     margin 20px auto
     overflow hidden
     .main-left,.main-right
@@ -103,6 +103,7 @@
           border-left 3px solid #4d8bee
           padding-left 24px
     .main-right
+      width 776px
       background #fff
       min-height 800px
 

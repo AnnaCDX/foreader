@@ -124,22 +124,30 @@
           </div>
           <div class="activity back-color marginTop" v-else-if="item.template===5" >
             <a href="javascript:;" class="img-left" @click="gotoDetail()"><img src="../../assets/img/web/home/xianshimianfei.png" alt=""></a>
-            <div class="arrow-swiper">
-              <div class="arrow-container swiper-container">
-                <div class="arrow-wrapper swiper-wrapper">
-                  <div class="arrow-slide swiper-slide">
-                    <div class="arrow-content" v-for="(per,index) in item.data.slice(0,6)" :key="index">
-                      <a href="javascript:;" class="arrow-img" @click="goDetail(per.bid)" :title="per.title"><img :src="per.poster" alt=""></a>
-                      <p class="arrow-title" @click="goDetail(per.bid)"><a href="javascript:;" :title="per.title">{{per.title}}</a></p>
-                      <p class="isPay">免费</p>
-                    </div>
+            <div class="arrow-container">
+              <!--<div class="arrow-container swiper-container">-->
+                <!--<div class="arrow-wrapper swiper-wrapper">-->
+                  <!--<div class="arrow-slide swiper-slide">-->
+                    <!--<div class="arrow-content" v-for="(per,index) in item.data.slice(0,6)" :key="index">-->
+                      <!--<a href="javascript:;" class="arrow-img" @click="goDetail(per.bid)" :title="per.title"><img :src="per.poster" alt=""></a>-->
+                      <!--<p class="arrow-title" @click="goDetail(per.bid)"><a href="javascript:;" :title="per.title">{{per.title}}</a></p>-->
+                      <!--<p class="isPay">免费</p>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; 如果需要导航按钮 &ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="arrow-button swiper-button-prev" v-if=""></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="arrow-button swiper-button-next" v-if=""></div>&ndash;&gt;-->
 
+              <!--</div>-->
+              <div class="arrow-wrapper swiper-wrapper">
+                <div class="arrow-slide swiper-slide">
+                  <div class="arrow-content" v-for="(per,index) in item.data.slice(0,6)" :key="index">
+                    <a href="javascript:;" class="arrow-img" @click="goDetail(per.bid)" :title="per.title"><img :src="per.poster" alt=""></a>
+                    <p class="arrow-title" @click="goDetail(per.bid)"><a href="javascript:;" :title="per.title">{{per.title}}</a></p>
+                    <p class="isPay">免费</p>
                   </div>
                 </div>
-                <!-- 如果需要导航按钮 -->
-                <div class="arrow-button swiper-button-prev"></div>
-                <div class="arrow-button swiper-button-next"></div>
-
               </div>
             </div>
           </div>
@@ -305,15 +313,15 @@
                   that.index1 = this.activeIndex
                 }}
             })
-            let mySwiper2 = new Swiper('.arrow-container.swiper-container', {
-              direction: 'horizontal',
-              loop: true,
-              // 如果需要前进后退按钮
-              navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-              },
-            })
+            // let mySwiper2 = new Swiper('.arrow-container.swiper-container', {
+            //   direction: 'horizontal',
+            //   loop: false,
+            //   // 如果需要前进后退按钮
+            //   navigation: {
+            //     nextEl: '.swiper-button-next',
+            //     prevEl: '.swiper-button-prev',
+            //   },
+            // })
           });
         }
       },
@@ -611,7 +619,7 @@ img
                       position absolute
                       bottom 0
                       right 0
-                      color: #f3799c
+                      color: #4D8BEE
                 &:last-child
                   border-bottom none
               .list-item-active
@@ -677,54 +685,60 @@ img
 
     .activity
       position: relative
-      padding:20px 24px
+      padding:0px
+      display flex
+      width 100%
+      flex-direction row
       .img-left
         display inline-block
-        height: 175px
-        margin-right: 25px
+        width:142px
+        height:215px
         img
-          width:115px
-          height:175px
-      .arrow-swiper
-        width:798px
-        display inline-block
-        .arrow-container
-          .arrow-wrapper
-            .arrow-slide
-              padding:0 40px
-              .arrow-content
-                margin: 0 9px
-                display: inline-block
-                .arrow-img
-                  img
-                    width: 98px;
-                    height: 128px;
-                    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);
-                .arrow-title
-                  text-align center
-                  width 98px
-                  text-overflow ellipsis
-                  white-space nowrap
-                  overflow hidden
-                  a
-                    color: #9b9b9b
-                    font-size 14px
-                .isPay
-                  text-align center
-                  color #e94e71
-                  line-height 14px
-          .arrow-button
-            width:26px
-            height:26px
+          width:142px
+          height:215px
+      .arrow-container
+        height:215px
+        overflow hidden
+        .arrow-wrapper
+          .arrow-slide
+            padding:0 px
+            &:first-child
+              margin-left 20px
+            .arrow-content
+              margin: 19px 18px
+              display: inline-block
+              .arrow-img
+                img
+                  width: 98px;
+                  height: 128px;
+                  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);
+              .arrow-title
+                text-align center
+                width 98px
+                text-overflow ellipsis
+                white-space nowrap
+                overflow hidden
+                margin-top 6px
+                a
+                  color: #9b9b9b
+                  font-size 14px
+              .isPay
+                text-align center
+                color #e94e71
+                line-height 14px
+                margin-top 6px
+        .arrow-button
+          width:26px
+          height:26px
 
-          .swiper-button-prev
-            background url("../../assets/img/web/home/last.png")
-            background-size 26px 26px
-            background-repeat no-repeat
-          .swiper-button-next
-            background url("../../assets/img/web/home/next.png")
-            background-size 26px 26px
-            background-repeat no-repeat
+        .swiper-button-prev
+          background url("../../assets/img/web/home/last.png")
+          background-size 26px 26px
+          background-repeat no-repeat
+        .swiper-button-next
+          background url("../../assets/img/web/home/next.png")
+          background-size 26px 26px
+          background-repeat no-repeat
     .update-list
       padding:24px 11px 5px
       .update-list-body

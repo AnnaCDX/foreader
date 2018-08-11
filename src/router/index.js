@@ -114,11 +114,7 @@ export default new Router({
           }
         }
 
-      ],
-      meta:{
-        keepAlive: true
-      }
-
+      ]
     },
     {
       path:"/paySuccess",

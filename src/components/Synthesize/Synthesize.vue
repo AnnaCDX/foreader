@@ -38,7 +38,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
  .synthesize
   .right-container
-    width 748px
+    width 930px
   .loading
    width 748px
    margin 20px auto
