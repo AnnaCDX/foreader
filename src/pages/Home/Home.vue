@@ -206,7 +206,14 @@
       <div class="footer  marginTop">
         <p class="friend-title">友情链接</p>
         <div class="all-friends">
-          <a href="javascript:;">掌阅书城</a>
+          <a href="http://www.ireader.com/">掌阅书城</a>
+          <a href="http://www.quyuewang.cn/" title="趣阅中文网" target="_blank">趣阅中文网</a>
+          <a href="http://www.hongshu.com/" title="红薯中文网" target="_blank">红薯中文网</a>
+          <a href="http://www.iciyuan.com/" title="i次元轻小说" target="_blank">i次元轻小说</a>
+          <a href="http://www.pinyuew.com/" title="品阅中文网" target="_blank">品阅中文网</a>
+          <a href="http://www.zhangyue.com" title="品阅中文网" target="_blank">掌阅科技</a>
+          <a href="http://www.shenqiwang.cn" title="品阅中文网" target="_blank">神起中文网</a>
+
         </div>
         <div class="center">
           <router-link to="/helpCenter" >帮助中心</router-link>
@@ -738,7 +745,7 @@ img
     padding-top 30px
     padding-left 20px
   .all-friends
-    margin-top 30px
+    margin-top 6px
     width 720px
     a
       margin-left 20px
@@ -758,6 +765,8 @@ img
     text-align center
     a
       color #b9b9b9
+      padding-left 20px
+      padding-right 20px
   .copy-img
     text-align center
     img
