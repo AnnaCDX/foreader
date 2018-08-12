@@ -81,7 +81,7 @@
                       <div class="sl-wrapper swiper-wrapper">
                         <div class="sl-slide swiper-slide" v-for="(per,index) in item.data[1].list.slice(0,5)" :key="index">
                           <a href="javascript:;" @click="goDetail(per.bid)">
-                            <img v-lazy="per.poster" alt="">
+                            <img :src="per.poster" alt="">
                           </a>
                         </div>
 
@@ -154,15 +154,15 @@
 
 
           <template v-else-if="item.template===6" slot-scope="item">
-            <FemaleMagic :item="item" :title="'女频四部曲'">
+            <FemaleMagic :item="item" :title="item.data[0].title">
               <div class="col-right" slot="right" >
-                <LittleList v-for="(per,index) in item.data" :key="index" :per="per" :goDetail="goDetail" ></LittleList>
+                <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per" :goDetail="goDetail" ></LittleList>
               </div>
             </FemaleMagic>
 
-            <FemaleMagic :item="item" :title="'东方玄幻'">
+            <FemaleMagic :item="item" :title="item.data[0].title">
               <div class="magic-col-right" slot="right">
-                <WorkListItem v-for="(each,index) in item.data"  @click="goDetail(each.bid)" :key="index" :index="index" :each="each" ></WorkListItem>
+                <WorkListItem v-for="(each,index) in item.data[0].list"  @click="goDetail(each.bid)" :key="index" :index="index" :each="each" ></WorkListItem>
               </div>
             </FemaleMagic>
           </template>
@@ -178,31 +178,9 @@
                 <UpdateRightItem v-for="(per,index) in item.data.slice(-3)" :key="index" v-bind:per="per"></UpdateRightItem>
               </div>
             </div>
-            <div class="footer  marginTop">
-              <p class="friend-title">友情链接</p>
-              <div class="all-friends">
-                <a href="javascript:;">掌阅书城</a>
-                <!--<a href="javascript:;">掌阅书城</a>-->
-                <!--<a href="javascript:;">掌阅书城</a>-->
-                <!--<a href="javascript:;">掌阅书城</a>-->
-                <!--<a href="javascript:;">掌阅书城</a>-->
-                <!--<a href="javascript:;">掌阅书城</a>-->
-                <!--<a href="javascript:;">掌阅书城</a>-->
-                <!--<a href="javascript:;">掌阅书城</a>-->
-              </div>
-              <div class="center">
-                <router-link to="/helpCenter" >帮助中心</router-link>
-                <router-link to="/privacy">隐私策略</router-link>
-                <router-link to="/aggreement">使用协议</router-link>
-              </div>
-              <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
-              <div class="copy-img">
-                <!--<img src="../../assets/img/title.jpeg" alt="">-->
-                <!--<img src="../../assets/img/title.jpeg" alt="">-->
-                <!--<img src="../../assets/img/title.jpeg" alt="">-->
-              </div>
-            </div>
           </template>
+
+
         </div>
 
       </div>
@@ -222,6 +200,25 @@
               <img src="../../assets/img/web/home/ic_back_to_top.png">
               <p>返回顶部</p>
           </a>
+      </div>
+
+
+      <div class="footer  marginTop">
+        <p class="friend-title">友情链接</p>
+        <div class="all-friends">
+          <a href="javascript:;">掌阅书城</a>
+        </div>
+        <div class="center">
+          <router-link to="/helpCenter" >帮助中心</router-link>
+          <router-link to="/privacy">隐私策略</router-link>
+          <router-link to="/aggreement">使用协议</router-link>
+        </div>
+        <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
+        <div class="copy-img">
+          <!--<img src="../../assets/img/title.jpeg" alt="">-->
+          <!--<img src="../../assets/img/title.jpeg" alt="">-->
+          <!--<img src="../../assets/img/title.jpeg" alt="">-->
+        </div>
       </div>
     </div>
   </keep-alive>
@@ -728,42 +725,45 @@ img
         .list-body-left
           float left
 
-    .footer
-      width: 990px;
-      .friend-title
-        color #000
-        font-family "PingFang SC"
-        font-weight 600
-        font-size 14px
-        padding-top 30px
-        padding-left 20px
-      .all-friends
-        margin-top 30px
-        width 720px
-        a
-          margin-left 20px
-          font-size 14px
-          color rgba(0,0,0,.85)
-      .copy-right
-        margin 0
-        margin-left auto
-        margin-right auto
-        padding-bottom 30px
-        width 720px
-        color #d9d9d9
-        text-align center
-      .center
-        width 720px
-        margin 30px auto
-        text-align center
-        a
-          color #b9b9b9
-      .copy-img
-        text-align center
-        img
-          width 100px
-          height 50px
-          margin-right 20px
+.footer
+  width: 990px;
+  display block
+  margin-left auto
+  margin-right auto
+  .friend-title
+    color #000
+    font-family "PingFang SC"
+    font-weight 600
+    font-size 14px
+    padding-top 30px
+    padding-left 20px
+  .all-friends
+    margin-top 30px
+    width 720px
+    a
+      margin-left 20px
+      font-size 14px
+      color rgba(0,0,0,.85)
+  .copy-right
+    margin 0
+    margin-left auto
+    margin-right auto
+    padding-bottom 30px
+    width 720px
+    color #d9d9d9
+    text-align center
+  .center
+    width 720px
+    margin 30px auto
+    text-align center
+    a
+      color #b9b9b9
+  .copy-img
+    text-align center
+    img
+      width 100px
+      height 50px
+      margin-right 20px
 
 .loading
   width 100%

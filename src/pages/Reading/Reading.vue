@@ -6,12 +6,12 @@
     </HeaderWithSearch>
     <div class="content">
       <div class="content-body">
-        <Breadcrumb separator=">" v-if="bookDetail.book">
-          <BreadcrumbItem to="/">首页</BreadcrumbItem>
-          <BreadcrumbItem to="/components/breadcrumb" v-for="(item,index) in bookDetail.book.categories" :key="index">{{item}}</BreadcrumbItem>
+        <div v-if="bookDetail.book" class="brew">
+          <router-link to="/home">首页</router-link >
+          <span v-for="(item,index) in bookDetail.book.categories" :key="index"> > {{item}}</span>
 
-          <BreadcrumbItem>{{bookDetail.book.title}}</BreadcrumbItem>
-        </Breadcrumb>
+          <span> > {{bookDetail.book.title}}</span>
+        </div>
         <div class="body-main">
 
           <!--左侧导航-->
@@ -32,7 +32,7 @@
               </li>
 
               <!--全屏-->
-              <!--<li class="left-li" @click="">-->
+              <!--<li class="left-li" @click="toggleFullScreen()">-->
                 <!--<p><i class="icon iconfont icon-quanping"></i></p>全屏-->
 
               <!--</li>-->
@@ -88,7 +88,7 @@
                 <li v-for="(item,index) in bookDetail.book.authors" :key="index">作者：{{item}}</li>
                 <li>类别：<a href="javascript:;" v-for="(item,index) in bookDetail.book.categories" @click="" :key="index">{{item}}</a> </li>
                 <li>更新时间：{{bookDetail.book.updated}}</li>
-                <li>本章字数：{{bookDetail.book.wordCount}}</li>
+                <li>本书字数：{{bookDetail.book.wordCount}}</li>
               </ul>
 
               <!--//小说内容-->
@@ -171,10 +171,10 @@
             目录
             <div class="trangle"></div>
           </li>
-          <li class="mask-li">
-            全屏阅读
-            <div class="trangle"></div>
-          </li>
+          <!--<li class="mask-li">-->
+            <!--全屏阅读-->
+            <!--<div class="trangle"></div>-->
+          <!--</li>-->
           <li class="mask-li">
             字体大小
             <div class="trangle"></div>
@@ -224,7 +224,6 @@
   import HeaderWithSearch from "../../components/HeaderWithSearch/HeaderWithSearch"
   import HeaderSearch from "../../components/HeaderSearch/HeaderSearch"
   import {mapState,mapActions} from "vuex"
-  import {Breadcrumb,BreadcrumbItem} from "iview"
   import {reqReadInfo,reqChapterShow,reqCalPrice,reqCalPriceAll,buyChapter,buyChapterAll,askAutoBuy} from "../../api"
   // todo how to import this css more elegant
   import "../../../reader/reader_common.css";
@@ -257,7 +256,6 @@
       let {bid} = this.$route.params
       this.$store.dispatch("getBookChapter",{bid})
       this.$store.dispatch("getBookDetail",{bid})
-
     },
     watch:{
       async bookChapter(value){
@@ -306,7 +304,6 @@
     methods:{
       ...mapActions(["recordReadInfo","getChapterShow","recordCalculate"]),
       // 太多复用未处理
-
       //购买时才用到，将html打开
      //  async subscribeRecharge(){
      //    if(this.myWallet.primary_balance < this.calculateResult.need_pay){
@@ -520,14 +517,19 @@
     },
     components:{
       HeaderWithSearch,
-      HeaderSearch,
-      BreadcrumbItem,
-      Breadcrumb,
+      HeaderSearch
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  .brew
+    padding-top 20px
+    height 60px
+    a
+      color: rgba(255,255,255,0.85);
+    span
+      color: rgba(255,255,255,0.85);
   .outer
     position relative
     .header-fix
@@ -570,6 +572,7 @@
               &:last-child
                 border 1px solid #a1a3b0
               .left-li
+                cursor: pointer;
                 position relative
                 padding 5px 15px
                 border 1px solid #a1a3b0
@@ -994,7 +997,7 @@
           background #fff
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
           padding 14px 16px
-          transform translateX(4%)
+          transform translateX(-50%)
           .right-title
             font-size: 18px;
             font-weight: 600;

@@ -3,20 +3,20 @@
     <ModuleTitle :title="title"></ModuleTitle>
     <div class="female-body">
       <div class="fml-body-left">
-        <div class="fml-left-content">
-          <a href="javascript:;" class="book-img" @click="goDetail(item.data[0].bid)"><img v-lazy="item.data[0].poster" alt=""></a>
-          <p class="book-name"><a href="javascript:;" @click="goDetail(item.data[0].bid)">{{item.data[0].title}}</a></p>
-          <p class="book-click">点击数</p>
-          <p class="book-author" v-for="(per,index) in item.data[0].authors" :key="index">{{per}}</p>
-          <p class="book-intro" :title="item.data[0].description" >
-            {{item.data[0].description}}
-            <a href="javascript:;" class="ellipsis" @click="goDetail(item.data[0].bid)">...</a>
+        <div class="fml-left-content" v-if="item.data[0].list[0]">
+          <a href="javascript:;" class="book-img" @click="goDetail(item.data[0].list[0].bid)"><img v-lazy="item.data[0].list[0].poster" alt=""></a>
+          <p class="book-name"><a href="javascript:;" @click="goDetail(item.data[0].bid)">{{item.data[0].list[0].title}}</a></p>
+          <p class="book-click">{{item.data[0].list[0].updatedFormated}}</p>
+          <p class="book-author" v-for="(per,index) in item.data[0].list[0].authors" :key="index">{{per}}</p>
+          <p class="book-intro" :title="item.data[0].list[0].description" >
+            {{item.data[0].list[0].description}}
+            <a href="javascript:;" class="ellipsis" @click="goDetail(item.data[0].list[0].bid)">...</a>
           </p>
-          <a href="javascript:;" class="to-read" @click="goReading(item.data[0].bid)">阅读</a>
+          <a href="javascript:;" class="to-read" @click="goReading(item.data[0].list[0].bid)">阅读</a>
         </div>
       </div>
       <div class="fml-body-middle">
-            <div class="list" v-for="(per,index) in item.data.slice(1,7)" :key="index">
+            <div class="list" v-for="(per,index) in item.data[0].list.slice(1,7)" :key="index">
               <a href="javascript:;" @click="goDetail(per.bid)"><img :src="per.poster" alt=""></a>
               <div class="book-info">
                 <a href="javascript:;" @click="goDetail(per.bid)" :title="per.title">{{per.title}}</a>
