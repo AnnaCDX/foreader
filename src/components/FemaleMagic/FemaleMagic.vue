@@ -107,7 +107,7 @@
             margin:8px 0
             font-size 14px
             color #dc5b5b
-          .book-author ,.book-intro
+          .book-author
             font-size 12px
             color #9b9b9b
           .book-intro
@@ -116,7 +116,7 @@
             height 44px
             position: relative;
             overflow: hidden;
-            font-size: 14px;
+            font-size: 12px;
             line-height 1.5
             color #9b9b9b
             .ellipsis
@@ -133,7 +133,7 @@
             height:32px
             margin-bottom 22px
             border-radius: 4px;
-            background-color: #f3799c;
+            background-color: #4d8bee;
             line-height 32px
             font-size 14px
             color: #fff
@@ -143,7 +143,6 @@
         overflow hidden
         width 500px
         margin-left 20px
-
         .list
           float: left
           width 232px
@@ -151,7 +150,7 @@
           >a
             display inline-block
             img
-              width:76px
+              width:78px
               height:102px
               box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
           .book-info
@@ -159,7 +158,6 @@
             width:142px
             >a
               color rgba(0,0,0,.85)
-
               font-size: 16px;
               font-weight: 500;
               text-overflow ellipsis
@@ -167,14 +165,13 @@
               white-space nowrap
               width 142px
             .book-intro
-
               color: rgba(0, 0, 0, 0.65);
               margin-bottom 12px
               width 142px
               height 44px
               position: relative;
               overflow: hidden;
-              font-size: 14px;
+              font-size: 12px;
               line-height 1.5
               .ellipsis
                 position: absolute;

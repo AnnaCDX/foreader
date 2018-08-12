@@ -160,11 +160,11 @@
               </div>
             </FemaleMagic>
 
-            <FemaleMagic :item="item" :title="item.data[0].title">
-              <div class="magic-col-right" slot="right">
-                <WorkListItem v-for="(each,index) in item.data[0].list"  @click="goDetail(each.bid)" :key="index" :index="index" :each="each" ></WorkListItem>
-              </div>
-            </FemaleMagic>
+            <!--<FemaleMagic :item="item" :title="item.data[0].title">-->
+              <!--<div class="magic-col-right" slot="right">-->
+                <!--<WorkListItem v-for="(each,index) in item.data[0].list"  @click="goDetail(each.bid)" :key="index" :index="index" :each="each" ></WorkListItem>-->
+              <!--</div>-->
+            <!--</FemaleMagic>-->
           </template>
 
           <!--completely undone-->
@@ -485,6 +485,7 @@ img
                 .author-name
                   color: $authName_Intro
                   font-size 12px
+                  margin-top 6px
                 .simple-intro
                   line-height:22px
                   font-size:14px

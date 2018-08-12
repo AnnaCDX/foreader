@@ -47,7 +47,7 @@ export const reqAllCategory = ()=>ajax(`${url}/categories`)
 //获取分类筛选信息
 export const reqCategoryInfo = (cid,status,free,offset,limit)=>ajax(`${url}/web/category/books`,{cid,status,free,offset,limit})
 // 获取首页数据
-export const reqHomeInfo = (offset,limit) =>ajax(`${url}/pages/web_bookstore`, {offset,limit})
+export const reqHomeInfo = () =>ajax(`${url}/pages/web_bookstore`)
 //获取阅读信息
 export const reqReadInfo = (bid,cid,config)=>axios.post(`${url}/chapter/content`,{bid,cid},config).then((res)=> ({data:res.data})).catch((err)=>({data:err.status}))
 //章节显示
