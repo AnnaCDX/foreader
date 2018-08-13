@@ -44,12 +44,15 @@
             "Authorization":"Bearer "+token
           }
         }
-        let user_id = id
-        this.$store.dispatch("getInfor",{id,config})
-        if (this.$route.path == "/msite/collection"){
-          this.clickWhich = 1
+        if (id) {
+          this.$store.dispatch("getInfor", {id, config})
+          if (this.$route.path == "/msite/collection") {
+            this.clickWhich = 1
+          } else {
+            this.clickWhich = 0
+          }
         } else {
-          this.clickWhich = 0
+          this.$router.push("/home")
         }
           // this.$store.dispatch("getWalletInfo",{user_id,config})
       },
