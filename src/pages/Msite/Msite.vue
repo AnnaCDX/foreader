@@ -45,8 +45,13 @@
           }
         }
         let user_id = id
-        this.$store.dispatch("getInfor",{id,config}),
-          this.$store.dispatch("getWalletInfo",{user_id,config})
+        this.$store.dispatch("getInfor",{id,config})
+        if (this.$route.path == "/msite/collection"){
+          this.clickWhich = 1
+        } else {
+          this.clickWhich = 0
+        }
+          // this.$store.dispatch("getWalletInfo",{user_id,config})
       },
       mounted(){
         this.$on("global:msite",(item)=>{
