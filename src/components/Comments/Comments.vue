@@ -54,7 +54,7 @@
             </div>
             <div class="right-bottom">
               <div class="bottom-body">
-                <img src="../../assets/img/title.jpeg" alt="">
+                <img src="" alt="">
                 <p >下载APP阅读</p>
               </div>
             </div>

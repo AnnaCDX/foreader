@@ -3,7 +3,7 @@
     <div class="recharge-container">
       <div class="header-fix" >
         <div class="fix-body">
-          <img src="../../assets/img/title.jpeg" alt="">
+          <img src="" alt="">
           <div class="private" >
             <router-link to="/phone" class="phone-login"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</router-link>
             <a class="phone-login" v-if="!loginInfo.id && !id" @click="closeTip"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
