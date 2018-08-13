@@ -25,7 +25,13 @@
                   <p class="chapter-title">目录·共{{bookChapter.length}}章</p>
                   <div class="all-chapter">
                     <ul >
-                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)"><a href="javascript:;">{{item.title}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
+                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)">
+                        <a href="javascript:;">{{item.title}}</a>
+                        <i v-if="!item.free" class="icon iconfont icon-icon-">
+                        </i>
+                        <i v-else class="icon">
+                        </i>
+                      </li>
                     </ul>
                   </div>
                 </div>
