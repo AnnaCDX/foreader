@@ -7,10 +7,10 @@
           <router-link to="/home">首页</router-link>
           <router-link to="/rank">排行榜</router-link>
           <router-link to="/library">书库</router-link>
-          <router-link to="/write" class="write">
+          <a href="https://www.foreader.com.cn/admin_login/" class="write">
             <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
-          </router-link>
+          </a>
         </div>
       </div>
       <div class="search-main" v-if="searchResult.books" >
@@ -25,9 +25,9 @@
                 <div class="gray-info">
                   <img class="author-avantar" :src="item.poster" alt="">
                   <span class="author-name" v-for="(per,index) in item.authors" :key="per">{{per}}</span>|
-                  <router-link v-for="(per,index) in item.tags.slice(0,2)" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
-                  <a href="javascript:;" class="type">{{item.status==0?"连载中":"已完结"}}</a>
-                  <a href="javascript:;" class="type">{{item.categories[0]}}</a>
+                  <span v-for="(per,index) in item.tags.slice(0,2)" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</span>
+                  <span class="type">{{item.status==0?"连载中":"已完结"}}</span>
+                  <span class="type">{{item.categories[0]}}</span>
                 </div>
                 <p class="paragragh">
                   {{item.description}}
@@ -219,6 +219,10 @@
                 margin-left 13px
                 padding 2px 6px
               .type
+                color #4f6ac5
+                border-radius: 2.4px;
+                margin-left 13px
+                padding 2px 6px
                 border: solid 0.5px #4f6ac5;
               .comfort
                 border: solid 0.5px #f3799c;
