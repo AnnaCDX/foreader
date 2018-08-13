@@ -133,7 +133,7 @@
           rightPhoneNumber: function () {
             return /^1\d{10}$/.test(this.phone)
           },
-          ...mapState(["needShowLogin"]),
+          ...mapState(["needShowLogin","loginInfo"]),
         },
         methods:{
           ...mapActions(["recordUserInfo"]),
@@ -142,7 +142,7 @@
           },
 
           showLoginIfNessary() {
-            if (!loginInfo.id) {
+            if (!this.loginInfo.id) {
                closeTip(true)
             }
           },
