@@ -968,7 +968,7 @@ img
   padding-top 20px
   min-height 100vh
 .wishContainer
-  height 120px
+  height 127px
   .swiper-slide
     height 123px
 </style>
