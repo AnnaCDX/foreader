@@ -55,6 +55,9 @@ export default {
     let result = await reqUserInfo(id,config)
     commit(GET_USER_INFO,{result})
   },
+  deleteInfo({commit},{userInfo}){
+    commit(RECEIVE_USER_INFO, {userInfo})
+  },
   //记录充值信息
   async recordRechargeInfo({commit}){
     let result = await reqRechargeInfo()

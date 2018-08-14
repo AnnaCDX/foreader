@@ -4,12 +4,12 @@
       <div class="private" >
         <a href="javascript:;" class="phone-login collect" @click="goMsite()"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</a>
         <a class="phone-login log" v-if="!loginInfo.id && !id" @click="showLoginDialog"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
-        <a href="javascript:;" to="/msite" class="phone-login log" v-else>
+        <a href="javascript:;" class="phone-login log" v-else>
           <img  :src="userInfo.avatar" alt="">
           <a href="javascript:;">{{userInfo.name}}</a>
           <div class="msite-list">
-            <a href="javascript:;">个人中心</a>
-            <a href="javascript:;">退出</a>
+            <router-link  to="/msite">个人中心</router-link>
+            <a href="javascript:;" @click="goOut()">退出</a>
           </div>
         </a>
       </div>
@@ -18,7 +18,8 @@
 </template>
 
 <script>
-  import {mapState} from "vuex"
+  import {mapState,mapActions} from "vuex"
+  import {logOut} from "../../api"
   export default {
     data() {
             return {
@@ -27,19 +28,30 @@
             }
         },
     computed:{
-      ...mapState(['loginInfo',"userInfo"])
+      ...mapState(['loginInfo',"userInfo"]),
     },
     mounted(){
-      let token = this.$cookie.get('tk')
-      let config={
-        headers:{
-          "Authorization":"Bearer "+token
-        }
+     this.getInfo()
+    },
+    watch:{
+      loginInfo(){
+        this.getInfo()
       }
-      let {id} = this
-      this.$store.dispatch("getInfor",{id,config})
     },
     methods:{
+      ...mapActions(['deleteInfo']),
+      getInfo(){
+        let token = this.$cookie.get('tk')
+        let config={
+          headers:{
+            "Authorization":"Bearer "+token
+          }
+        }
+        let id = this.$cookie.get("id")
+        if(id){
+          this.$store.dispatch("getInfor",{id,config})
+        }
+      },
       showLoginDialog(){
         this.$store.dispatch("showLoginDialog",true)
       },
@@ -49,6 +61,16 @@
         } else {
           this.showLoginDialog()
         }
+      },
+      async goOut(){
+
+        let token = this.$cookie.get('tk');
+        await logOut(token);
+        this.$cookie.delete("id");
+        this.$cookie.delete('tk');
+        let userInfo = {}
+        this.deleteInfo({userInfo})
+
       }
     }
     }
@@ -69,6 +91,7 @@
       .private
         float: right
         >.phone-login
+          position relative
           display inline-block
           font-size 14px
           margin:0 8px
@@ -80,10 +103,27 @@
             vertical-align middle
           .msite-list
             display none
+            background rgba(255,255,255,.85)
+            position absolute
+            top 40px
+            left 0
+            >a
+              display block
+              height 40px
+              width 114px
+              text-align center
+              &:hover
+                background rgba(233,67,98,.25)
         >.collect
           margin-right 10px
         >.log
           float: right
           margin-right 0
+          img
+            border-radius 50%
+          &:hover
+            .msite-list
+              display block
+
 
 </style>

@@ -7,7 +7,8 @@ let url = "https://api.foreader.com.cn"
 export const captureLogin = (grant_type,username,password,client_id,oauth_type,weixin_kind) => ajax(`${url}/accounts/access_token`, {
   grant_type,username,password,client_id,oauth_type,weixin_kind
 }, null,'POST')
-
+//登出
+export const logOut =  (token) => ajax(`${url}/accounts/revoke_token`,{token},"","POST")
 //验证码
 export const reqCapture =(phone) => ajax(`${url}/app/send_sms`,{phone}, null,'POST')
 //获取用户信息

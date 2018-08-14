@@ -7,38 +7,75 @@
       <slot name="headerSearch"></slot>
       <div class="private" >
         <a href="javascript:;" class="phone-login collect" @click="goMsite()"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</a>
-
-        <a class="phone-login" v-if="!loginInfo.id && !id" @click="showLoginDialog()"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
-        <router-link to="/msite" class="phone-login" v-else><img src="../../assets/img/web/home/login.jpg" alt="">个人中心</router-link>
+        <a class="phone-login log" v-if="!loginInfo.id && !id" @click="showLoginDialog"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
+        <a href="javascript:;" class="phone-login log" v-else>
+          <img  :src="userInfo.avatar" alt="">
+          <a href="javascript:;">{{userInfo.name}}</a>
+          <div class="msite-list">
+            <router-link  to="/msite">个人中心</router-link>
+            <a href="javascript:;" @click="goOut()">退出</a>
+          </div>
+        </a>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {mapState} from "vuex"
+  import {mapState,mapActions} from "vuex"
     export default {
-        data() {
-            return {
-              id:this.$cookie.get("id"),
+      data() {
+        return {
+          id:this.$cookie.get("id"),
 
-            }
-        },
-        computed:{
-          ...mapState(["loginInfo"])
-        },
-        methods:{
-          showLoginDialog(){
-            this.$store.dispatch("showLoginDialog",true)
-          },
-          goMsite(){
-            if (this.loginInfo.id) {
-              this.$router.push(`/msite/collection`)
-            } else {
-              this.showLoginDialog()
+        }
+      },
+      computed:{
+        ...mapState(['loginInfo',"userInfo"]),
+      },
+      mounted(){
+        this.getInfo()
+      },
+      watch:{
+        loginInfo(){
+          this.getInfo()
+        }
+      },
+      methods:{
+        ...mapActions(['deleteInfo']),
+        getInfo(){
+          let token = this.$cookie.get('tk')
+          let config={
+            headers:{
+              "Authorization":"Bearer "+token
             }
           }
+          let id = this.$cookie.get("id")
+          if(id){
+            this.$store.dispatch("getInfor",{id,config})
+          }
+        },
+        showLoginDialog(){
+          this.$store.dispatch("showLoginDialog",true)
+        },
+        goMsite(){
+          if (this.id) {
+            this.$router.push(`/msite/collection`)
+          } else {
+            this.showLoginDialog()
+          }
+        },
+        async goOut(){
+
+          let token = this.$cookie.get('tk');
+          await logOut(token);
+          this.$cookie.delete("id");
+          this.$cookie.delete('tk');
+          let userInfo = {}
+          this.deleteInfo({userInfo})
+
         }
+      }
     }
 </script>
 
@@ -56,15 +93,43 @@
         object-fit contain
       .private
         float: right
-        margin-top: 3px;
-        .phone-login
+        >.phone-login
+          position relative
           display inline-block
           font-size 14px
+          height 48px
+          line-height 48px
           margin:0 8px
-          color rgba(0,0,0,.65)
-          img
+          color rgba(0,0,0,.85)
+          >img
             width 16px
             height 16px
-            vertical-align middle
             margin-right 5px
+            vertical-align middle
+          .msite-list
+            display none
+            background rgba(255,255,255,.85)
+            position absolute
+            top 47px
+            left 0
+            z-index 300
+            >a
+              display block
+              height 40px
+              width 114px
+              text-align center
+              &:hover
+                background rgba(233,67,98,.25)
+        >.collect
+          margin-right 10px
+        >.log
+          float: right
+          margin-right 0
+          img
+            border-radius 50%
+          &:hover
+            .msite-list
+              display block
+
+
 </style>

@@ -69,6 +69,19 @@
               </div>
             </div>
           </div>
+          <div class="author-wish marginTop" v-else-if="item.template===8">
+            <div class="wish-body">
+              <div class="wish-left">
+                <div class="wish-avatar">
+                  <img src="../../assets/img/fy_loading.gif" alt="">
+                </div>
+                <p class="wish-author"></p>
+              </div>
+              <div class="wish-right">
+                <p class="wish-words"></p>
+              </div>
+            </div>
+          </div>
           <!--类型不可点，作者不可点-->
           <div class="strong-recommend back-color marginTop" v-else-if="item.template===2">
             <div class="strong-container">
@@ -562,6 +575,27 @@ img
                     font-size 12px
                     color #4a4a4a
                     font-family "PingFang SC"
+    .author-wish
+      height 161px
+      background red
+      padding 23px 64px 18px 126px
+      .wish-body
+        height 120px
+        margin 0 auto
+        background #fff
+        .wish-left
+          float left
+          width 50px
+          .wish-avatar
+            img
+              width 104px
+              height 104px
+              object-fit cover
+          .wish-author
+            padding 5px 30px
+        .wish-right
+          float right
+
     .strong-recommend
       min-height:382px
       padding:5px 20px

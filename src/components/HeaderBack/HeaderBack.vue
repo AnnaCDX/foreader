@@ -27,7 +27,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 
   .header-back
-    background url("../../assets/img/web/home/top_bg.png")
+    background url("../../assets/img/web/home/headback.jpg")
     background-repeat no-repeat
     background-size contain
     background-position:center;
