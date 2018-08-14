@@ -74,9 +74,9 @@
               </li>
 
               <!--手机端-->
-              <li class="left-li" @click="">
-                <p><img :src="isChange?shouji.shoujiNight:shouji.shouji" alt=""></p>手机
-              </li>
+              <!--<li class="left-li" @click="">-->
+                <!--<p><img :src="isChange?shouji.shoujiNight:shouji.shouji" alt=""></p>手机-->
+              <!--</li>-->
             </ul>
 
           </div>
