@@ -12,7 +12,7 @@
                   <div class="banner-wrapper swiper-wrapper">
                     <div class="banner-slide swiper-slide" v-for="(per,index) in item.data.slice(0,3)" :key="index">
                       <a href="javascript:;" @click="goDetail(per.webUrl.slice(-8))">
-                        <img v-lazy="per.poster">
+                        <img :src="per.poster">
                       </a>
                     </div>
                   </div>
@@ -334,10 +334,10 @@
 
                 }},
             })
-            let mySwiper2 = new Swiper(".ct-book-name.swiper-container",{
-            })
-            mySwiper.params.control = mySwiper2
-            mySwiper2.params.control = mySwiper
+            // let mySwiper2 = new Swiper(".ct-book-name.swiper-container",{
+            // })
+            // mySwiper.params.control = mySwiper2
+            // mySwiper2.params.control = mySwiper
           });
 
         }
@@ -441,7 +441,7 @@ img
           .ct-book-name
               position: absolute
               bottom: 124px
-              width:430px;
+              width:434px;
               height:34px;
               font-size 0
               z-index: 199
