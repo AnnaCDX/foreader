@@ -31,11 +31,11 @@
                 </div>
                 <p class="paragragh">
                   {{item.description}}
-                  <a href="javascript:;" class="ellipsis">...</a>
+                  <!--<a href="javascript:;" class="ellipsis">...</a>-->
                 </p>
                 <div class="words-click">
-                  <p > <span>{{item.wordCount}}万</span>字</p>
-                  <p > <span>3万</span>点击</p>
+                  <p > <span>{{Math.floor(item.wordCount/10000)}}万</span>字</p>
+                  <!--<p > <span>3万</span>点击</p>-->
                 </div>
               </div>
             </li>
@@ -148,13 +148,15 @@
     margin 0 auto
     background #fff
     padding 20px
+
+
     .top-center
       font-size:0
       text-align center
       .ivu-input-type
         width:261px
-        .ivu-input
-          border-radius 0
+      .skipTo
+        margin-top 1px
       span
         display inline-block
         vertical-align middle
@@ -194,8 +196,7 @@
             width:88%
             position relative
             .name-words
-              font-family: PingFangSC
-              font-size: 16px
+              font-size: 18px
               font-weight: 500
               color: rgba(0, 0, 0, 0.85)
             .gray-info
@@ -222,7 +223,7 @@
                 color #4f6ac5
                 border-radius: 2.4px;
                 margin-left 13px
-                padding 2px 6px
+                padding 0 6px
                 border: solid 0.5px #4f6ac5;
               .comfort
                 border: solid 0.5px #f3799c;
@@ -232,7 +233,7 @@
               font-size: 14px;
               height 48px
               line-height 1.7
-              color #9b9b9b
+              color rgba(0,0,0,.65)
               max-height: 48px;
               overflow: hidden;
               .ellipsis

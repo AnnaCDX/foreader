@@ -37,10 +37,7 @@
     },
     mounted(){
      this.getInfo()
-      // if(!this.loginInfo.id){
-      //   let userInfo={id:10086}
-      //   this.deleteInfo({userInfo})
-      // }
+
     },
     watch:{
       loginInfo(){

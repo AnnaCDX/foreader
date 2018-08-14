@@ -50,9 +50,12 @@
       .ivu-input
         border-radius 0
     .skipTo
+      position relative
+      left -2px
       display inline-block
       vertical-align middle
       width:45px
+      margin-top 1px
       height:32px
       line-height 32px
       text-align center

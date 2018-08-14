@@ -233,30 +233,7 @@
       </div>
 
 
-      <div class="footer  marginTop">
-        <p class="friend-title">友情链接</p>
-        <div class="all-friends">
-          <a href="http://www.ireader.com/">掌阅书城</a>
-          <a href="http://www.quyuewang.cn/" title="趣阅中文网" target="_blank">趣阅中文网</a>
-          <a href="http://www.hongshu.com/" title="红薯中文网" target="_blank">红薯中文网</a>
-          <a href="http://www.iciyuan.com/" title="i次元轻小说" target="_blank">i次元轻小说</a>
-          <a href="http://www.pinyuew.com/" title="品阅中文网" target="_blank">品阅中文网</a>
-          <a href="http://www.zhangyue.com" title="品阅中文网" target="_blank">掌阅科技</a>
-          <a href="http://www.shenqiwang.cn" title="品阅中文网" target="_blank">神起中文网</a>
-
-        </div>
-        <div class="center">
-          <router-link to="/helpCenter" >帮助中心</router-link>
-          <router-link to="/privacy">隐私策略</router-link>
-          <router-link to="/aggreement">使用协议</router-link>
-        </div>
-        <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
-        <div class="copy-img">
-          <!--<img src="../../assets/img/title.jpeg" alt="">-->
-          <!--<img src="../../assets/img/title.jpeg" alt="">-->
-          <!--<img src="../../assets/img/title.jpeg" alt="">-->
-        </div>
-      </div>
+      <Footer></Footer>
     </div>
   </keep-alive>
 </template>
@@ -277,6 +254,7 @@
   import {mapState} from "vuex"
   import VueLazyload from 'vue-lazyload'
   import {reqHomeInfo} from "../../api";
+  import Footer from "../../components/Footer/Footer"
   Vue.use(VueLazyload);
 
   export default {
@@ -408,7 +386,8 @@
         WorkListItem,
         UpdateItem,
         UpdateRightItem,
-        Loading
+        Loading,
+        Footer
       }
     }
 </script>
@@ -878,47 +857,6 @@ img
         .list-body-left
           float left
 
-.footer
-  width: 990px;
-  display block
-  margin-left auto
-  margin-right auto
-  .friend-title
-    color #000
-    font-family "PingFang SC"
-    font-weight 600
-    font-size 14px
-    padding-top 30px
-    padding-left 20px
-  .all-friends
-    margin-top 6px
-    width 720px
-    a
-      margin-left 20px
-      font-size 14px
-      color rgba(0,0,0,.85)
-  .copy-right
-    margin 0
-    margin-left auto
-    margin-right auto
-    padding-bottom 30px
-    width 720px
-    color #d9d9d9
-    text-align center
-  .center
-    width 720px
-    margin 30px auto
-    text-align center
-    a
-      color #b9b9b9
-      padding-left 20px
-      padding-right 20px
-  .copy-img
-    text-align center
-    img
-      width 100px
-      height 50px
-      margin-right 20px
 
 .loading
   width 100%

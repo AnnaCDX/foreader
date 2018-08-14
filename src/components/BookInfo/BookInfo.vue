@@ -57,28 +57,13 @@
         </div>
       </div>
     </div>
-    <div class="footer  marginTop">
-      <p class="friend-title">友情链接</p>
-      <div class="all-friends">
-        <a href="javascript:;">掌阅书城</a>
-      </div>
-      <div class="center">
-        <a href="javascript:;">帮助中心</a>
-        <a href="javascript:;">隐私策略</a>
-        <a href="javascript:;">使用协议</a>
-      </div>
-      <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
-      <!--<div class="copy-img">-->
-        <!--<img src="../../assets/img/title.jpeg" alt="">-->
-        <!--<img src="../../assets/img/title.jpeg" alt="">-->
-        <!--<img src="../../assets/img/title.jpeg" alt="">-->
-      <!--</div>-->
-    </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
   import {mapState} from "vuex"
+  import Footer from "../Footer/Footer"
     export default {
         data() {
             return {
@@ -104,6 +89,9 @@
           let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
           window.open(routeData.href, '_blank')
         },
+      },
+      components:{
+        Footer
       }
     }
 </script>
@@ -290,37 +278,5 @@
         line-height 44px
         a
           width 100%
-.footer
-  width: 990px;
-  .friend-title
-    color #000
-    font-family "PingFang SC"
-    font-weight 600
-    font-size 14px
-    padding-top 30px
-    padding-left 20px
-  .all-friends
-    margin 30px auto
-    width 720px
-    a
-      margin-right 30px
-      font-size 14px
-      color rgba(0,0,0,.85)
-  .copy-right
-    margin 0 auto 30px
-    width 720px
-    color #d9d9d9
-    text-align center
-  .center
-    width 720px
-    margin 30px auto
-    text-align center
-    a
-      color #b9b9b9
-  .copy-img
-    text-align center
-    img
-      width 100px
-      height 50px
-      margin-right 20px
+
 </style>

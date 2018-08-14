@@ -37,18 +37,19 @@
         }
       },
       computed:{
-        ...mapState(['loginInfo',"userInfo"]),
+        ...mapState(['loginInfo',"userInfo",'login']),
       },
       mounted(){
         this.getInfo()
+
       },
       watch:{
-        userInfo(){
+        loginInfo(){
           this.getInfo()
         }
       },
       methods:{
-        ...mapActions(['deleteInfo']),
+        ...mapActions(['recordNewUserInfo',"deleteInfo"]),
         getInfo(){
           let token = this.$cookie.get('tk')
           let config={
@@ -72,15 +73,22 @@
           }
         },
         async goOut(){
+
           let token = this.$cookie.get('tk');
           if(token){
-            await logOut(token)
+            await logOut(token);
           }
 
           this.$cookie.delete("id");
           this.$cookie.delete('tk');
-          let userInfo = {}
-          this.deleteInfo({userInfo})
+          if(this.loginInfo.id){
+            this.$store.dispatch("loginDialog",false)
+            let userInfo = {};
+            this.deleteInfo({userInfo})
+          }else{
+            window.location.reload()
+          }
+
 
         }
       }

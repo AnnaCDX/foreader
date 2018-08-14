@@ -241,12 +241,13 @@ img
           width:261px
           .ivu-input
             border-radius 4px 0 0 4px
-        .span
+        .skipTo
           display inline-block
           vertical-align middle
           width:45px
           height:32px
           line-height 32px
+          margin-top 0
           text-align center
           border-radius 0 4px 4px 0
           background rgba(77,139,238,1)
