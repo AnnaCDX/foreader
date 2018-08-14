@@ -54,7 +54,7 @@
             </div>
             <div class="right-bottom">
               <div class="bottom-body">
-                <img src="" alt="">
+                <img src="../../assets/img/qr_android_download.png" alt="">
                 <p >下载APP阅读</p>
               </div>
             </div>

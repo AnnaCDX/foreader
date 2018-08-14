@@ -38,5 +38,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-
+  button
+    background white
 </style>
