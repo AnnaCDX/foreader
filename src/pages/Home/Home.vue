@@ -643,7 +643,7 @@ img
             vertical-align middle
     .strong-recommend
       min-height:382px
-      padding:5px 20px
+      padding:20px 20px
       .strong-container
         display flex
         flex-direction row
