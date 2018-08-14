@@ -632,6 +632,7 @@ img
           width 50px
           .wish-avatar
             img
+              margin-left 3px;
               width 112px
               height 112px
               object-fit cover
@@ -640,15 +641,15 @@ img
           .wish-author
             position absolute
             bottom -5px
-            left 3px
-            padding 5px 15px
+            left 0px
+            padding 0
+            padding-top 2px
             height 33px
-            width 104px
+            width 119px
             text-align center
             background #EDCB6A
             border 2px solid #653C39
-            font-size 16.8px
-            font-family PingFangSC-Semibold
+            font-size 16px
             border-radius 15px
             overflow hidden
             text-overflow ellipsis
