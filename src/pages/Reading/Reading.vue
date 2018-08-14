@@ -166,7 +166,7 @@
 
 
   </div>
-  <div class="mask" v-show="firstCome">
+  <div class="mask" v-if="firstLogin && maskvisible">
     <div class="mask-container">
       <div class="mask-left">
         <ul>
@@ -246,6 +246,8 @@
         maskShow:true,//初始化遮罩层是否显示
         bid:"",
         cid:"",
+        firstLogin:this.$cookie.get("firstLogin"),
+        maskvisible:true,
         title:"",
         whichCapter:0,//初始化选择哪个章节阅读
         token:this.$cookie.get('tk'),
@@ -253,7 +255,7 @@
         isAll:false,//是否购买剩下的全部
         status:1,
         isChange:false,
-        firstCome:true,
+
         mulu:{
           mulu:require("../../assets/img/web/reading/ydjm_mulu.png"),
           muluNight:require("../../assets/img/web/reading/ydjm_mulu_night.png")
@@ -408,8 +410,11 @@
         window.open(routeData.href, '_blank')
       },
       readyRead(){
-        this.firstCome = false
-        // this.$cookie.firstCome = false
+
+        this.maskvisible = false
+        this.$cookie.delete("firstLogin")
+         this.$cookie.set("firstLogin",false)
+
       },
       toggleToolTip(id) {
         this.which = id

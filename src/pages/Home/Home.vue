@@ -69,67 +69,78 @@
               </div>
             </div>
           </div>
-          <div class="author-wish marginTop" v-else-if="item.template===8">
-            <div class="wish-body">
-              <div class="wish-left">
-                <div class="wish-avatar">
-                  <img src="../../assets/img/fy_loading.gif" alt="">
-                </div>
-                <p class="wish-author"></p>
-              </div>
-              <div class="wish-right">
-                <p class="wish-words"></p>
-              </div>
-            </div>
-          </div>
+
           <!--类型不可点，作者不可点-->
-          <div class="strong-recommend back-color marginTop" v-else-if="item.template===2">
-            <div class="strong-container">
-              <div class="strong-left">
-                <ModuleTitle :title="item.data[0].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
-                <ul>
-                  <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per" :go-detail="goDetail"></LittleList>
-                </ul>
+          <template v-else-if="item.template===2" slot-scope="item">
+            <div class="author-wish marginTop" >
+              <div class="wishContainer swiper-container">
+                <div class="wishWrapper swiper-wrapper">
+                  <div class="wishSlide swiper-slide" v-for="(item,index) in authorWish" :key="index">
+                    <div class="wish-body">
+                    <div class="wish-left">
+                      <div class="wish-avatar">
+                        <img :src="item.avatar" alt="">
+                      </div>
+                      <p class="wish-author" :title="item.name">{{item.name}}</p>
+                    </div>
+                    <div class="wish-right">
+                      <img :src="item.words" alt="">
+                    </div>
+                  </div>
+                  </div>
+                </div>
               </div>
-              <div class="strong-right">
-                <ModuleTitle  :title="item.data[1].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
-                <div class="swiper-list">
-                  <div class="is-swiper">
-                    <div class="sl-container swiper-container">
-                      <div class="sl-wrapper swiper-wrapper">
-                        <div class="sl-slide swiper-slide" v-for="(per,index) in item.data[1].list.slice(0,5)" :key="index">
-                          <a href="javascript:;" @click="goDetail(per.bid)">
-                            <img :src="per.poster" alt="">
-                          </a>
+
+            </div>
+            <div class="strong-recommend back-color marginTop" >
+              <div class="strong-container">
+                <div class="strong-left">
+                  <ModuleTitle :title="item.data[0].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
+                  <ul>
+                    <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per" :go-detail="goDetail"></LittleList>
+                  </ul>
+                </div>
+                <div class="strong-right">
+                  <ModuleTitle  :title="item.data[1].title"></ModuleTitle><!--:cls="'icon-sousuo'"-->
+                  <div class="swiper-list">
+                    <div class="is-swiper">
+                      <div class="sl-container swiper-container">
+                        <div class="sl-wrapper swiper-wrapper">
+                          <div class="sl-slide swiper-slide" v-for="(per,index) in item.data[1].list.slice(0,5)" :key="index">
+                            <a href="javascript:;" @click="goDetail(per.bid)">
+                              <img :src="per.poster" alt="">
+                            </a>
+                          </div>
+
                         </div>
 
                       </div>
-
                     </div>
-                  </div>
-                  <div class="is-list">
-                    <div class="list-item " v-for="(per,index) in item.data[1].list.slice(0,5)" :class="{'list-item-active':index+3===index1 || index+8===index1}">
-                      <div class="item-header"><a href="javascript:;" @click="goDetail(per.bid)">{{per.title}}</a></div>
-                      <div class="item-content">
-                        <span v-for="(each,index) in per.authors" :key="index">{{each}}</span>
-                        <p class="main-desc">
-                          {{per.description}}
-                          <a href="javascript:;" class="ellipsis" @click="goDetail(per.bid)">...</a>
+                    <div class="is-list">
+                      <div class="list-item " v-for="(per,index) in item.data[1].list.slice(0,5)" :class="{'list-item-active':index+3===index1 || index+8===index1}">
+                        <div class="item-header"><a href="javascript:;" @click="goDetail(per.bid)">{{per.title}}</a></div>
+                        <div class="item-content">
+                          <span v-for="(each,index) in per.authors" :key="index">{{each}}</span>
+                          <p class="main-desc">
+                            {{per.description}}
+                            <a href="javascript:;" class="ellipsis" @click="goDetail(per.bid)">...</a>
 
-                        </p>
-                        <p class="last-desc"><span></span><a href="javascript:;" @click="goReading(per.bid)">阅读全部</a></p>
+                          </p>
+                          <p class="last-desc"><span></span><a href="javascript:;" @click="goReading(per.bid)">阅读全部</a></p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="pag-container">
-                  <div class="each-item" v-for="(item,index) in item.data[1].list.slice(0,5)" :class="{'each-item-active':index+3===index1 || index+8===index1}">
-                    <div class="each-inner"></div>
+                  <div class="pag-container">
+                    <div class="each-item" v-for="(item,index) in item.data[1].list.slice(0,5)" :class="{'each-item-active':index+3===index1 || index+8===index1}">
+                      <div class="each-inner"></div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </template>
+
           <template v-else-if="item.template===3" slot-scope="item">
             <!--<div class="productive marginTop"></div>-->
             <div class="kindsOf-list back-color marginTop" >
@@ -275,7 +286,21 @@
           value2:0,
           shuju5:[1,1,1],
           book:{},
-          homeInfo:[]
+          homeInfo:[],
+          authorWish:[
+            {name:"月关",avatar:require("../../assets/img/web/home/0.png"),words:require("../../assets/img/web/home/0_0.png")},
+            {name:"极品妖孽",avatar:require("../../assets/img/web/home/1.png"),words:require("../../assets/img/web/home/1_1.png")},
+            {name:"纯情犀利哥",avatar:require("../../assets/img/web/home/2.png"),words:require("../../assets/img/web/home/2_2.png")},
+            {name:"陨落星辰",avatar:require("../../assets/img/web/home/3.png"),words:require("../../assets/img/web/home/3_3.png")},
+            {name:"不信天上掉馅饼",avatar:require("../../assets/img/web/home/4.png"),words:require("../../assets/img/web/home/4_4.png")},
+            {name:"中原五百",avatar:require("../../assets/img/web/home/5.png"),words:require("../../assets/img/web/home/5_5.png")},
+            {name:"普祥真人",avatar:require("../../assets/img/web/home/6.png"),words:require("../../assets/img/web/home/6_6.png")},
+            {name:"洛城东",avatar:require("../../assets/img/web/home/7.png"),words:require("../../assets/img/web/home/7_7.png")},
+            {name:"我本疯狂",avatar:require("../../assets/img/web/home/8.png"),words:require("../../assets/img/web/home/8_8.png")},
+            {name:"风无极光",avatar:require("../../assets/img/web/home/9.png"),words:require("../../assets/img/web/home/9_9.png")},
+
+          ]
+
         }
       },
       mounted(){
@@ -292,7 +317,16 @@
         homeInfo(value){
           let that = this;
           this.$nextTick(() => {
-
+            let wishSwiper = new Swiper('.wishContainer.swiper-container',{
+              direction: 'vertical',
+              loop: true,
+              effect:"slide",
+              autoplay: {
+                delay: 4000,
+                stopOnLastSlide: false,
+                disableOnInteraction: false
+              },
+            })
 
             let mySwiper1 = new Swiper('.sl-container.swiper-container',{
               autoplay: {
@@ -390,7 +424,6 @@ img
   padding-top 20px
 .main
   width: 100%
-  background #f8f8f8
   .body
     width:990px
     margin: 0 auto
@@ -577,25 +610,51 @@ img
                     font-family "PingFang SC"
     .author-wish
       height 161px
-      background red
+      background url("../../assets/img/web/home/wishBg.jpg")
+      background-repeat no-repeat
+      background-size cover
       padding 23px 64px 18px 126px
+      .wishSlide
+        height 161px
       .wish-body
         height 120px
         margin 0 auto
-        background #fff
         .wish-left
+          position relative
           float left
           width 50px
           .wish-avatar
             img
-              width 104px
-              height 104px
+              width 112px
+              height 112px
               object-fit cover
+              border-radius 50%
+              border 2px solid #653C39
           .wish-author
-            padding 5px 30px
+            position absolute
+            bottom -5px
+            left 3px
+            padding 5px 15px
+            height 33px
+            width 104px
+            text-align center
+            background #EDCB6A
+            border 2px solid #653C39
+            font-size 16.8px
+            font-family PingFangSC-Semibold
+            border-radius 15px
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
         .wish-right
           float right
-
+          height 120px
+          line-height 148px
+          img
+            width 663px
+            height 72px
+            object-fit cover
+            vertical-align middle
     .strong-recommend
       min-height:382px
       padding:5px 20px

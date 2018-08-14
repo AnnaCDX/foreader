@@ -12,8 +12,13 @@
           <img  :src="userInfo.avatar" alt="">
           <a href="javascript:;">{{userInfo.name}}</a>
           <div class="msite-list">
-            <router-link  to="/msite">个人中心</router-link>
-            <a href="javascript:;" @click="goOut()">退出</a>
+            <router-link  to="/msite">
+              <img src="../../assets/img/web/home/login.jpg" alt="">
+              个人中心
+            </router-link>
+            <a href="javascript:;" @click="goOut()">
+              <img src="../../assets/img/web/home/logout.jpg" alt="">
+              退出账户</a>
           </div>
         </a>
       </div>
@@ -23,6 +28,7 @@
 
 <script>
   import {mapState,mapActions} from "vuex"
+  import {logOut} from "../../api"
     export default {
       data() {
         return {
@@ -66,9 +72,11 @@
           }
         },
         async goOut(){
-
           let token = this.$cookie.get('tk');
-          await logOut(token);
+          if(token){
+            await logOut(token)
+          }
+
           this.$cookie.delete("id");
           this.$cookie.delete('tk');
           let userInfo = {}
@@ -108,18 +116,24 @@
             vertical-align middle
           .msite-list
             display none
-            background rgba(255,255,255,.85)
+            background rgba(255,255,255,1)
             position absolute
             top 47px
-            left 0
+            right 0
             z-index 300
             >a
               display block
-              height 40px
-              width 114px
+              height 32px
+              width 134px
               text-align center
+              line-height 32px
+              img
+                width 14px
+                height 16px
+                margin-right 14px
+                vertical-align middle
               &:hover
-                background rgba(233,67,98,.25)
+                background #EDF3FD
         >.collect
           margin-right 10px
         >.log
