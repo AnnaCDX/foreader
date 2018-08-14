@@ -73,7 +73,10 @@
         },
         async goOut(){
           let token = this.$cookie.get('tk');
-          await logOut(token);
+          if(token){
+            await logOut(token)
+          }
+
           this.$cookie.delete("id");
           this.$cookie.delete('tk');
           let userInfo = {}
