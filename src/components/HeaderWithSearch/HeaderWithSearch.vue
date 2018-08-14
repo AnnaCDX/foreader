@@ -43,7 +43,7 @@
         this.getInfo()
       },
       watch:{
-        loginInfo(){
+        userInfo(){
           this.getInfo()
         }
       },

@@ -34,17 +34,27 @@
         },
     computed:{
       ...mapState(['loginInfo',"userInfo"]),
+      isLogin(hh){
+        if(hh){
+          return hh
+        }else{
+          return false
+        }
+
+      }
     },
     mounted(){
      this.getInfo()
     },
     watch:{
-      loginInfo(){
-        this.getInfo()
-      }
+      // isLogin(){
+      //   this.getInfo()
+      //   console.log(111)
+      // }
     },
+
     methods:{
-      ...mapActions(['deleteInfo']),
+      ...mapActions(['recordNewUserInfo','deleteInfo']),
       getInfo(){
         let token = this.$cookie.get('tk')
         let config={
@@ -76,9 +86,11 @@
 
         this.$cookie.delete("id");
         this.$cookie.delete('tk');
+
+        let result = {}
         let userInfo = {}
         this.deleteInfo({userInfo})
-
+        // this.recordNewUserInfo(result)
       }
     }
     }
