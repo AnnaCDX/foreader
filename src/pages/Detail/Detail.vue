@@ -15,7 +15,7 @@
                 <span class="book-name">{{bookDetail.book.title}}</span><span class="author-name" v-for="(item) in bookDetail.book.authors" :key="item">{{item}}</span> 著
               </p>
               <p class="other-info">
-                <router-link class="type" v-for="(per,index) in bookDetail.book.tags.slice(0,2)" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+                <a href="javascript:;" class="type" v-for="(per,index) in bookDetail.book.tags.slice(0,2)" :class="{comfort:index==2}"  :key="index">{{per}}</a>
                 <a href="javascript:;" class="type">{{bookDetail.book.status==0?"连载中":"已完结"}}</a>
                 <a href="javascript:;" class="type">{{bookDetail.book.categories[0]}}</a>
               </p>
