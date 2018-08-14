@@ -221,6 +221,7 @@ img
   height 100%
   min-height 100vh
   overflow hidden
+  background #f8f8f8
   .header
     .header-top
       position relative
