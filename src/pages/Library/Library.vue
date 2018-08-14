@@ -63,7 +63,7 @@
                         <span class="author-name" v-for="(per,index) in item.authors" :key="index" :title="per">{{per}}</span>
                       </div>|
                       <div class="little-info two" v-if="item.tags">
-                        <router-link v-for="(per,index) in item.tags.slice(0,3)" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+                        <a href="javascript:;" v-for="(per,index) in item.tags.slice(0,3)" class="type" :class="{comfort:index==2}"  :key="index">{{per}}</a>
 
                       </div>
                     </div>

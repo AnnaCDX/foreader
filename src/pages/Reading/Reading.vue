@@ -436,7 +436,7 @@
       },
       //加入收藏
       async addCollection(){
-        if (this.loginInfo.id) {
+        if (this.$cookie.get("id")) {
           let {bid} = this.$route.params
           let token = this.$cookie.get('web_tk')
           let config = {
