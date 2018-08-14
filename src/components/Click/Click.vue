@@ -46,7 +46,7 @@
     },
     created(){
       let type = this.$route.params.type
-      let count = 6
+      let count = 20
       this.$store.dispatch("getRankList",{type,count})
 
 
@@ -90,8 +90,8 @@
         position relative
         display inline-block
         .avatar
-          width:98px
-          height:128px
+          width:96px
+          height:129px
           box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
         .little-icon
           width 24px
@@ -161,7 +161,7 @@
           bottom 0
           right 0
           width 94px
-          >button
+          button
             width 94px
             height 34px
             border 1px solid #4D8BEE

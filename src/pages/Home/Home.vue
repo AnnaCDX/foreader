@@ -7,6 +7,7 @@
           <div class="recommend back-color " v-if="item.template===1">
             <div class="rcmd-left">
               <div class="left-container">
+
                 <div class="banner swiper-container" >
                   <div class="banner-wrapper swiper-wrapper">
                     <div class="banner-slide swiper-slide" v-for="(per,index) in item.data.slice(0,3)" :key="index">
@@ -20,10 +21,14 @@
 
                   </div>
                 </div>
-                <div class="ct-book-name" >
-                  <a href="javascript:;" class="ct-book-tag" v-for="(each,inde) in item.data.slice(0,3)" :class="{active:num==inde+1 || num == inde+4}" :key="inde" @click="goDetail(each.webUrl.slice(-8))">
-                    <span>{{each.title}}</span>
-                  </a>
+                <div class="ct-book-name swiper-container">
+                  <div class="ct swiper-wrapper">
+                    <div class="ct-slide swiper-slide" v-for="(each,inde) in item.data.slice(0,3)" :key="inde" >
+                      <a href="javascript:;" class="ct-book-tag" :class="{active:num==inde+1 || num == inde+4}" >
+                        <span>{{each.title}}</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
                 <div class="ct-book-content" v-if="item.data[num-1]"><span>{{item.data[num-1].content}}</span><p>{{item.data[num-1].extra}}</p></div>
 
@@ -106,8 +111,7 @@
                 </div>
                 <div class="pag-container">
                   <div class="each-item" v-for="(item,index) in item.data[1].list.slice(0,5)" :class="{'each-item-active':index+3===index1 || index+8===index1}">
-                    <div class="each-inner">
-                    </div>
+                    <div class="each-inner"></div>
                   </div>
                 </div>
               </div>
@@ -123,7 +127,7 @@
             <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img v-lazy="book.poster" alt=""></a>
           </div>
           <div class="activity back-color marginTop" v-else-if="item.template===5" >
-            <a href="javascript:;" class="img-left" @click="gotoDetail()"><img src="../../assets/img/web/home/xianshimianfei.png" alt=""></a>
+            <a href="javascript:;" class="img-left"><img src="../../assets/img/web/home/xianshimianfei.png" alt=""></a>
             <div class="arrow-container">
               <!--<div class="arrow-container swiper-container">-->
                 <!--<div class="arrow-wrapper swiper-wrapper">-->
@@ -156,7 +160,7 @@
           <template v-else-if="item.template===6" slot-scope="item">
             <FemaleMagic :item="item" :title="item.data[0].title">
               <div class="col-right" slot="right" >
-                <LittleList v-for="(per,index) in item.data[0].list" :key="index" :per="per" :goDetail="goDetail" ></LittleList>
+                <LittleList v-for="(per,index) in item.data[0].list.slice(5,12)" :key="index" :per="per" :goDetail="goDetail" ></LittleList>
               </div>
             </FemaleMagic>
 
@@ -265,7 +269,6 @@
         let that = this;
         // this.$store.dispatch("getHomeInfo",{limit,offset})
           reqHomeInfo().then(function (successMessage) {
-            console.log(successMessage);
             that.homeInfo = successMessage
           }).catch(function (successMessage) {
 
@@ -276,27 +279,11 @@
         homeInfo(value){
           let that = this;
           this.$nextTick(() => {
-            let mySwiper = new Swiper('.banner.swiper-container', {
-              autoplay: {
-                delay: 10000,
-                stopOnLastSlide: false,
-                disableOnInteraction: false
-              },
-              pagination: {
-                el: '.swiper-pagination',
-                clickable :true,
-                bulletActiveClass: 'my-bullet-active',
-              },
-              loop: true,
-              on: {
-                slideChangeTransitionStart: function(){
-                  that.num = this.activeIndex
 
-                }},
-            })
-            let mySwiper1 =new Swiper('.sl-container.swiper-container',{
+
+            let mySwiper1 = new Swiper('.sl-container.swiper-container',{
               autoplay: {
-                delay: 5000,
+                delay: 3000,
                 stopOnLastSlide: false,
                 disableOnInteraction: false
               },
@@ -315,17 +302,31 @@
                 slideChangeTransitionStart: function(){
                   that.index1 = this.activeIndex
                 }}
+            });
+            let mySwiper = new Swiper('.banner.swiper-container', {
+              autoplay: {
+                delay: 2000,
+                stopOnLastSlide: false,
+                disableOnInteraction: false
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable :true,
+                bulletActiveClass: 'my-bullet-active',
+              },
+              loop: true,
+              on: {
+                slideChangeTransitionStart: function(){
+                  that.num = this.activeIndex
+
+                }},
             })
-            // let mySwiper2 = new Swiper('.arrow-container.swiper-container', {
-            //   direction: 'horizontal',
-            //   loop: false,
-            //   // 如果需要前进后退按钮
-            //   navigation: {
-            //     nextEl: '.swiper-button-next',
-            //     prevEl: '.swiper-button-prev',
-            //   },
-            // })
+            let mySwiper2 = new Swiper(".ct-book-name.swiper-container",{
+            })
+            mySwiper.params.control = mySwiper2
+            mySwiper2.params.control = mySwiper
           });
+
         }
       },
 
@@ -373,13 +374,13 @@ img
   .body
     width:990px
     margin: 0 auto
-
+    margin-top 20px
     .marginTop
       margin-top 20px
     .back-color
       background #ffffff
     .recommend
-      height:434px
+      height:428px
       margin-bottom 10px 0
       .rcmd-left,.rcmd-right
         float: left
@@ -389,7 +390,8 @@ img
         .left-container
           position: relative
           .banner
-            height:261px
+            height:263px
+            width 434px
             position relative
             .banner-wrapper
               .banner-slide
@@ -423,25 +425,52 @@ img
               height:34px;
               font-size 0
               z-index: 199
-              .ct-book-tag
-                display inline-block
-                width:33.333%;
-                height:34px;
-                line-height 34px
-                font-size 14px
-                opacity 0.85
-                border-radius 0
-                background rgba(0,0,0,.85)
-                color: #fff
-                vertical-align middle
-                text-align center
-              span
-                max-width 120px
-                text-overflow ellipsis
+              .ct
+                .ct-slide
+                  width 33.3333%
+                  background rgba(0,0,0,.85)
+                  border-radius 0
+                  &:first-child
+                    border-radius 4px 0 0 0
+                  &:last-child
+                    border-radius 0 4px 0 0
+                  .ct-book-tag
+                    display inline-block
+                    width 100%
+                    height:34px;
+                    line-height 34px
+                    font-size 14px
+                    opacity 0.85
+                    color: #fff
+                    vertical-align middle
+                    text-align center
+                    span
+                      max-width 120px
+                      text-overflow ellipsis
+                  .active
+                    background:#4d8bee;
+                    opacity 1
+                    border-radius 4px 4px 0 0
 
-              .active
-                background:#4d8bee;
-                opacity 1
+          /*.ct-book-tag
+            display inline-block
+            width:33.333%;
+            height:34px;
+            line-height 34px
+            font-size 14px
+            opacity 0.85
+            border-radius 0
+            background rgba(0,0,0,.85)
+            color: #fff
+            vertical-align middle
+            text-align center
+          span
+            max-width 120px
+            text-overflow ellipsis
+
+          .active
+            background:#4d8bee;
+            opacity 1*/
           .ct-book-content
             bg-title(rgba(0,0,0,.65),14px)
             line-height:28px
@@ -464,15 +493,16 @@ img
           ul
             li
               &:first-child
-                margin-bottom 32px
+                margin-bottom 14px
               img
-                width:90px
-                height 118px
+                width 88px
+                height 121px
                 box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.35);
               .book-info
                 width 378px
                 float right
                 overflow hidden
+                margin-right 8px
                 text-overflow: ellipsis;
                 .name-type
                   margin-bottom 5px
@@ -485,19 +515,19 @@ img
                 .author-name
                   color: $authName_Intro
                   font-size 12px
-                  margin-top 6px
+                  margin-top 4px
                 .simple-intro
                   line-height:22px
                   font-size:14px
-                  height:44px
+                  height:66px
                   color: $authName_Intro
-                  margin-top:28px
+                  margin-top:9px
 
           .notice
             position relative
             height: 96px
             width: 495px
-            margin-top 14px
+            margin-top 22px
             background url("../../assets/img/web/home/download_app_banner.png")
             background-repeat no-repeat
             background-size 100% 100%
@@ -527,7 +557,7 @@ img
                     font-family "PingFang SC"
     .strong-recommend
       min-height:382px
-      padding:20px
+      padding:5px 20px
       .strong-container
         display flex
         flex-direction row
@@ -547,6 +577,7 @@ img
           width:654px
           .swiper-list
             .is-swiper
+              margin-top 18px
               display inline-block
               width:460px
               .sl-container
@@ -560,14 +591,15 @@ img
             .is-list
               background-color #f6f8fc
               width:184px
-              height:292px
+              height:307px
               float: right
+              margin-top 13px
               .list-item
                 border-bottom 1px solid #e8e8e8
                 padding:0 10px
                 .item-header
-                  height:34px
-                  line-height 34px
+                  height:38px
+                  line-height 38px
                   font-size:14px
                   a
                     color: rgba(0,0,0,.85)
@@ -594,7 +626,7 @@ img
                       position: absolute;
                       bottom: 0;
                       right: 0;
-                      color rgba(0,0,0,.65)
+                      color rgba(0,0,0,.25)
                       padding-left: 40px;
                       font-size 18px
                       height 18px
@@ -604,7 +636,7 @@ img
                     position relative
                     a
                       position absolute
-                      bottom 0
+                      bottom -10px
                       right 0
                       color: #4D8BEE
                 &:last-child
@@ -653,9 +685,12 @@ img
       /*background-repeat no-repeat*/
       /*background-size 100% 100%*/
     .kindsOf-list
-      height:460px
+      height:522px
+      padding: 0 20px
       .kindsOf-listItem
-        margin: 24px 29px 24px 12px;
+        margin: 24px 42px 24px 0;
+        &:last-child
+          margin-right 0
     .three-pic
       height: 235px
       line-height 235px
@@ -696,8 +731,8 @@ img
               display: inline-block
               .arrow-img
                 img
-                  width: 98px;
-                  height: 128px;
+                  width: 94px;
+                  height: 126px;
                   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);
               .arrow-title
                 text-align center
@@ -714,6 +749,8 @@ img
                 color #e94e71
                 line-height 14px
                 margin-top 6px
+                font-size 14px
+                font-weight 500
         .arrow-button
           width:26px
           height:26px

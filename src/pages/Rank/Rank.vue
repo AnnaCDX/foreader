@@ -40,7 +40,7 @@
           synthesize: require("../../assets/img/web/rank/zonghebang_grey.png"),
           synthesizeActive: require("../../assets/img/web/rank/zonghebang.png")
         },
-        imgUrl:{
+        imgUrl: {
           pv: {
             pv: require("../../assets/img/web/rank/dianjibang_grey.png"),
             pvActive: require("../../assets/img/web/rank/dianjibang.png")
@@ -54,7 +54,6 @@
             commentsActive: require("../../assets/img/web/rank/renshubang.png")
           }
         }
-
       }
     },
     methods:{
@@ -89,19 +88,20 @@
   height 100%
   min-height 100vh
   .rank-main
-    width 1200px
+    width 990px
     margin 20px auto
     overflow hidden
     .main-left,.main-right
       float: left
     .main-left
-      width 220px
+      width 198px
       background #fff
       padding 26px 0
       margin-right 22px
       .left-ul
         li
           padding-left 27px
+          margin-bottom 20px
           .click
             height 34px
             line-height 34px
@@ -119,7 +119,7 @@
           border-left 3px solid #4d8bee
           padding-left 24px
     .main-right
-      width 776px
+      width 770px
       background #fff
       min-height 800px
 

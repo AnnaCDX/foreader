@@ -72,7 +72,7 @@
         float: right
         img
           width:70px
-          height:94px
+          height:91px
     .bottom-right-list
       width: 194px;
       height: 66px;

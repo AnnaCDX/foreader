@@ -19,13 +19,14 @@
             <ul>
               <!--目录-->
               <li class="left-li" @click="toggleToolTip('cap')" :class="{isActive:which==='cap'&& isShow}">
-                <p class="li-title"><i class="icon iconfont icon-mulu"></i></p>目录
+                <p class="li-title"><img :src="isChange?mulu.muluNight:mulu.mulu" alt=""></p>目录
                 <div class="trangle" v-show="which==='cap' && isShow"></div>
                 <div class="trangle-body" v-show="which==='cap' && isShow" :class="{sameActive:which==='cap'}">
                   <p class="chapter-title">目录·共{{bookChapter.length}}章</p>
                   <div class="all-chapter">
                     <ul >
-                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)"><a href="javascript:;">{{item.title}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
+                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)"><a href="javascript:;" class="cpt-title">{{item.title}}</a>
+                        <a href="javascript:;" class="cpt-key"><i class="icon iconfont icon-icon-" v-show="!item.free"></i></a></li>
                     </ul>
                   </div>
                 </div>
@@ -39,7 +40,7 @@
 
               <!--字体-->
               <li class="left-li" @click="toggleToolTip('font')" :class="{isActive:which==='font'&& isShow}">
-                <p><i class="icon iconfont icon-728bianjiqi_zitidaxiao"></i></p>字体
+                <p><img :src="isChange?ziti.zitiNight:ziti.ziti" alt=""></p>字体
                 <div class="trangle" v-show="which==='font' && isShow"></div>
                 <div class="trangle-body font-body" v-show="which==='font' && isShow" :class="{sameActive:which==='font'}">
                   <div class="body-main">
@@ -69,12 +70,12 @@
 
               <!--收藏-->
               <li class="left-li" @click="addCollection">
-                <p><i class="icon iconfont icon-msnui-collection"></i></p>收藏
+                <p><img :src="isChange?shoucang.shoucangNight:shoucang.shoucang" alt=""></p>收藏
               </li>
 
               <!--手机端-->
               <li class="left-li" @click="">
-                <p><i class="icon iconfont icon-shouji"></i></p>手机
+                <p><img :src="isChange?shouji.shoujiNight:shouji.shouji" alt=""></p>手机
               </li>
             </ul>
 
@@ -136,7 +137,7 @@
               <!--现在只弹出一个弹窗-->
               <div class="subscribe alert" v-else>
                 <div class="alert-main ">
-                    <i class="icon iconfont icon-chahao"></i>
+
                     <p class="alert-title">后续内容，请在速更小说APP中阅读</p>
                     <div class="alert-img">
                       <a href="javascript:;"><img src="../../assets/img/title.jpeg" alt=""><span>速更小说 for Android</span></a>
@@ -249,7 +250,25 @@
         needPay:false,//判断是否需要付钱，并控制购买页面的显示与隐藏
         isAll:false,//是否购买剩下的全部
         status:1,
-        firstCome:true
+        isChange:false,
+        firstCome:true,
+        mulu:{
+          mulu:require("../../assets/img/web/reading/ydjm_mulu.png"),
+          muluNight:require("../../assets/img/web/reading/ydjm_mulu_night.png")
+        },
+        ziti:{
+          ziti:require("../../assets/img/web/reading/ydjm_ziti.png"),
+          zitiNight:require("../../assets/img/web/reading/ydjm_ziti_night.png")
+        },
+        shoucang:{
+          shoucang:require("../../assets/img/web/reading/ydjm_shoucang.png"),
+          shoucangNight:require("../../assets/img/web/reading/ydjm_shoucang_night.png")
+        },
+        shouji:{
+          shouji:require("../../assets/img/web/reading/ydjm_shouji.png"),
+          shoujiNight:require("../../assets/img/web/reading/ydjm_shouji_night.png")
+        }
+
       }
     },
     mounted(){
@@ -287,12 +306,16 @@
 
         if(!data){
          // this.$router.push('/home')
-          this.needPay = true
+          this.$store.dispatch("showLoginDialog",true)
+          let content = ""
+          this.recordReadInfo({content})
 
         }else if(data.need_pay){
-          let user_id = this.$cookie.get("id")
-          let result = await reqChapterShow(user_id,bid,cid)
-          this.getChapterShow({result})
+          // let user_id = this.$cookie.get("id")
+          // let result = await reqChapterShow(user_id,bid,cid)
+          // this.getChapterShow({result})
+          let {content} = data
+          this.recordReadInfo({content})
           this.needPay = data.need_pay
 
         }else{
@@ -377,6 +400,11 @@
         this.isShow = !this.isShow
       },
       changeReadingBg(bg_name,bc) {
+        if(bg_name=="bgcolor06"){
+          this.isChange = true
+        }else{
+          this.isChange = false
+        }
         this.bgTheme = bg_name
         this.bc1 = bc
       },
@@ -405,28 +433,35 @@
         this.whichCapter = wCapter
         this.title = title
         this.needPay = false
+        let token=this.$cookie.get('tk')
         let config={
           headers:{
-            "Authorization":"Bearer "+this.token
+            "Authorization":"Bearer "+token
           }
         }
 
         let initData
         if(!id){
           initData = await reqReadInfo(bid,cid)
+
         }else{
           initData = await reqReadInfo(bid,cid,config)
         }
         let {data} = initData
         if(!data){
           // this.$router.push('/home')
-          this.needPay = true
+          this.$store.dispatch("showLoginDialog",true)
+          let content = ""
+          this.recordReadInfo({content})
+
         }else if(data.need_pay){
-          let user_id = this.$cookie.get("id")
-          let result = await reqChapterShow(user_id,bid,cid)
-          this.getChapterShow({result})
-          let dtResult = await reqCalPrice(user_id,1,cid,bid)
-          this.recordCalculate({dtResult})
+          // let user_id = this.$cookie.get("id")
+          // let result = await reqChapterShow(user_id,bid,cid)
+          // this.getChapterShow({result})
+          // let dtResult = await reqCalPrice(user_id,1,cid,bid)
+          // this.recordCalculate({dtResult})
+          let {content} = data
+          this.recordReadInfo({content})
           this.needPay = data.need_pay
         }else{
           let {content} = data
@@ -445,10 +480,10 @@
           let bid = bookChapter[whichCapter].bid
           this.title = bookChapter[whichCapter].title
           let id = this.$cookie.get("id")
-
+          let token=this.$cookie.get('tk')
           let config={
             headers:{
-              "Authorization":"Bearer "+this.token
+              "Authorization":"Bearer "+token
             }
           }
           let initData
@@ -460,14 +495,17 @@
           let {data} = initData
           if(!data){
             // this.$router.push('/home')
-            this.needPay = true
-
+            this.$store.dispatch("showLoginDialog",true)
+            let content = ""
+            this.recordReadInfo({content})
           }else if(data.need_pay){
-            let user_id = this.$cookie.get("id")
-            let result = await reqChapterShow(user_id,bid,cid)
-            this.getChapterShow({result})
-            let dtResult = await reqCalPrice(user_id,1,cid,bid)
-            this.recordCalculate({dtResult})
+            // let user_id = this.$cookie.get("id")
+            // let result = await reqChapterShow(user_id,bid,cid)
+            // this.getChapterShow({result})
+            // let dtResult = await reqCalPrice(user_id,1,cid,bid)
+            // this.recordCalculate({dtResult})
+            let {content} = data
+            this.recordReadInfo({content})
             this.needPay = data.need_pay
 
           }else{
@@ -483,24 +521,27 @@
           let cid = bookChapter[whichCapter].cid
           let bid = bookChapter[whichCapter].bid
           this.title = bookChapter[whichCapter].title
-
+          let token=this.$cookie.get('tk')
           let config={
             headers:{
-              "Authorization":"Bearer "+this.token
+              "Authorization":"Bearer "+token
             }
           }
           let {data} = await reqReadInfo(bid,cid,config)
           if(!data){
 
             // this.$router.push('/home')
-            this.needPay = true
-
+            this.$store.dispatch("showLoginDialog",true)
+            let content = ""
+            this.recordReadInfo({content})
           }else if(data.need_pay){
-            let user_id = this.$cookie.get("id")
-            let result = await reqChapterShow(user_id,bid,cid)
-            this.getChapterShow({result})
-            let dtResult = await reqCalPrice(user_id,1,cid,bid)
-            this.recordCalculate({dtResult})
+            // let user_id = this.$cookie.get("id")
+            // let result = await reqChapterShow(user_id,bid,cid)
+            // this.getChapterShow({result})
+            // let dtResult = await reqCalPrice(user_id,1,cid,bid)
+            // this.recordCalculate({dtResult})
+            let {content} = data
+            this.recordReadInfo({content})
             this.needPay = data.need_pay
           }else{
             let {content} = data
@@ -577,10 +618,14 @@
                 padding 5px 15px
                 border 1px solid #a1a3b0
                 border-bottom none
+                >p
+                  img
+                    width 22px
+                    height 22px
                 .trangle
                   position: absolute;
                   top: 50%;
-                  right: -14px;
+                  right: -11px;
                   width 0
                   height 0
                   border-top 3px solid rgba(255, 255, 255, 0)
@@ -591,7 +636,7 @@
                   top:0
                   /*height 800px*/
                   background #fff
-                  left: 68px;
+                  left: 66px;
                   padding 20px
                   z-index 100
                   border-radius: 4px;
@@ -618,7 +663,7 @@
                         line-height 40px
                         float left
                         border-bottom 1px solid #e8e8e8
-                        a
+                        .cpt-title
                           width 226px
                           color rgba(0,0,0,.85)
                           font-size 14px
@@ -627,12 +672,15 @@
                           white-space nowrap
                           vertical-align: top;
                           text-align left
-                        .icon
+                        .cpt-key
+                          text-align center
                           width 16px
-                          height 16px
-                          color #000000
-                          font-size 16px
-                          margin-left 34px
+                          .icon
+                            width 16px
+                            height 16px
+                            color #000000
+                            font-size 16px
+
                 .font-body
                   padding 0
                   border: none
@@ -678,6 +726,7 @@
                 .back
                   width 22px
                   height 22px
+                  background: #e9e9e9
                   border-radius 50%
                   border 1px solid #a1a3b0
                   margin-bottom: 2px;
@@ -687,46 +736,64 @@
           .bc1
             background #e9e9e9
             ul
+              &:last-child
+                border 1px solid #a1a3b0
               .left-li
                 border-bottom 1px solid #a1a3b0
+                .back
+                  background: #e9e9e9
+                .trangle
+                  border-right 6px solid #e9e9e9
               .isActive
                 background #f8f8f8
                 .sameActive
                   background #f8f8f8
-
                   border #a1a3b0
           .bc2
-            background #fbf0cd
+            background #FAF3DB
             ul
-              border 1px solid #daca92
+              &:last-child
+                border 1px solid #daca92
               .left-li
-                  border 1px solid #daca92
-                .isActive
+                border 1px solid #daca92
+                .back
+                  background: #fbf0cd
+                .trangle
+                  border-right 6px solid #FAF3DB
+              .isActive
+                background #FDFBED
+                .sameActive
                   background #FDFBED
-                  .sameActive
-                    background #FDFBED
-                    border 1px solid #DACA92
+                  border 1px solid #DACA92
               &:last-child
                 border-bottom 1px solid #daca92
           .bc3
-            background #cfdde0
+            background #E1EEF3
             ul
               &:last-child
                 border-bottom  1px solid #bfcdd1
-              border 1px solid #bfcdd1
               .left-li
                 border 1px solid #bfcdd1
+                .back
+                  background: #cfdde0
+                .trangle
+                  border-right 6px solid #E1EEF3
               .isActive
                 background #eefaff
                 .sameActive
                   background #eefaff
                   border 1px solid #bfcdd1
           .bc4
-            background #ebcecf
+            background #F5E4E4
             ul
-              border 1px solid #d7c4c4
+              &:last-child
+                border 1px solid #d7c4c4
               .left-li
                 border 1px solid #d7c4c4
+                .back
+                  background: #ebcecf
+                .trangle
+                  border-right 6px solid #F5E4E4
               .isActive
                 background #fbf1f1
                 .sameActive
@@ -735,22 +802,34 @@
               &:last-child
                 border-bottom  1px solid #d7c4c4
           .bc5
-            background #c5d3c7
+            background #E3EFE3
             ul
-              border 1px solid #C5D3C7
+              &:last-child
+                border 1px solid #C5D3C7
               .left-li
                 border 1px solid #C5D3C7
+                .back
+                  background: #bdcace
+                .trangle
+                  border-right 6px solid #E3EFE3
               .isActive
                 background #F0FAF0
                 .sameActive
                   background #F0FAF0
                   border 1px solid #C5D3C7
           .bc6
-            background #212121
+            background #333
+
             ul
-              border 1px solid #333333
+              &:last-child
+               border 1px #212121 solid
               .left-li
-                border 1px solid #333333
+                border 1px solid #212121
+                .back
+                  background: #212121
+                  border 1px #212121 solid
+                .trangle
+                  border-right 6px solid #333
               .isActive
                 background #444444
                 .sameActive
@@ -864,7 +943,6 @@
                 .alert-main
                   width 570px
                   height 388px
-                  background #fff
                   padding 54px 121px
                   .alert-title
                     font-size 20px

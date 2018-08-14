@@ -46,7 +46,7 @@
         </ul>
         <div class="more-comments">
           <div class="more-click">
-            <a href="javascript:;" >更多评论 ></a>
+            <a href="javascript:;" @click="goComments(bookDetail.book.bid)">更多评论 ></a>
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
       },
       methods:{
         goComments(bid){
-          if (this.loginInfo.id) {
+          if (this.$cookie.get('id')) {
             let routeData = this.$router.resolve({path: `/comments/${bid}`});
             window.open(routeData.href, '_blank')
           } else {
@@ -176,7 +176,7 @@
       width 104px
       a
         img
-          width 104px
+          width 101px
           height 136px
           box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.35);
       .like-book,.who-read

@@ -296,12 +296,12 @@
             height 173px
             position relative
             border-bottom 1px solid #e8e8e8
-            padding 20px 0
+            padding 20px 0 10px 0
             .book-cover, .book-info
               float: left
             .book-cover
-              height: 118px
-              width: 90px
+              height: 121px
+              width: 88px
               object-fit cover
               margin-right: 15px
               box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.35)

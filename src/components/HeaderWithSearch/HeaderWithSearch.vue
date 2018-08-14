@@ -61,6 +61,7 @@
           display inline-block
           font-size 14px
           margin:0 8px
+          color rgba(0,0,0,.65)
           img
             width 16px
             height 16px

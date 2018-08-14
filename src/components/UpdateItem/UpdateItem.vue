@@ -1,6 +1,6 @@
 <template>
   <div class="per-left-list">
-    <a href="javascript:;" class="per-type" v-if="per.categories.length > 0">「[{{per.categories[0]}}」</a>
+    <a href="javascript:;" class="per-type" v-if="per.categories.length > 0">「{{per.categories[0]}}」</a>
     <a href="javascript:;" class="per-name">{{per.title}}</a>
     <a href="javascript:;" class="per-authorName">{{per.mainAuthor.name}}</a>
     <a href="javascript:;" class="per-character">{{per.latestChapter.title}}</a>
@@ -27,7 +27,7 @@
     font-size 0
     height: 18px
     line-height 18px
-    margin-bottom: 15px
+    margin-bottom: 16px
     a
       display inline-block
       line-height:1
@@ -49,14 +49,14 @@
       color: rgba(0, 0, 0, 0.85);
     .per-authorName
       width: 48px;
-      height: 12px;
-      font-size: 12px;
+      height: 14px;
+      font-size: 14px;
       color: #637fa1;
       margin:0 55px
     .per-character
       width: 148px;
-      height: 12px;
-      font-size: 12px;
+      height: 14px;
+      font-size: 14px;
       color: #9b9b9b;
     .release-time
       line-height 1

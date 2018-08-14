@@ -8,18 +8,20 @@
           <p class="book-name"><a href="javascript:;" @click="goDetail(item.data[0].bid)">{{item.data[0].list[0].title}}</a></p>
           <p class="book-click">{{item.data[0].list[0].updatedFormated}}</p>
           <p class="book-author" v-for="(per,index) in item.data[0].list[0].authors" :key="index">{{per}}</p>
-          <p class="book-intro" :title="item.data[0].list[0].description" >
-            {{item.data[0].list[0].description}}
-            <a href="javascript:;" class="ellipsis" @click="goDetail(item.data[0].list[0].bid)">...</a>
-          </p>
+          <!--书籍简介暂时砍掉-->
+          <!--<p class="book-intro" :title="item.data[0].list[0].description" >-->
+            <!--{{item.data[0].list[0].description}}-->
+            <!--<a href="javascript:;" class="ellipsis" @click="goDetail(item.data[0].list[0].bid)">...</a>-->
+          <!--</p>-->
           <a href="javascript:;" class="to-read" @click="goReading(item.data[0].list[0].bid)">阅读</a>
         </div>
       </div>
       <div class="fml-body-middle">
-            <div class="list" v-for="(per,index) in item.data[0].list.slice(1,7)" :key="index">
+            <div class="list" v-for="(per,index) in item.data[0].list.slice(1,5)" :key="index">
               <a href="javascript:;" @click="goDetail(per.bid)"><img :src="per.poster" alt=""></a>
               <div class="book-info">
                 <a href="javascript:;" @click="goDetail(per.bid)" :title="per.title">{{per.title}}</a>
+
                 <p class="book-intro" :title="per.description">
                   {{per.description}}
                   <a href="javascript:;" class="ellipsis" @click="goDetail(per.bid)">...</a>
@@ -77,26 +79,28 @@
   img
     object-fit cover
   .female-chanel
-    padding:22px 20px
+    padding:15px 20px
 
     .female-body
       overflow hidden
 
       .fml-body-left
         float: left
-        width:166px
+        width:182px
         background #f6f8fc
         .fml-left-content
           width: 142px
           margin:0 auto
           text-align center
+          padding 20px 0
           .book-img
             display inline-block
-            margin-top 28px
-            margin-bottom 10px
+            //暂时不要
+            /*margin-top 28px*/
+            margin-bottom 8px
             img
-              width:98px
-              height 128px
+              width:94px
+              height 126px
               box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.45);
           .book-name
             font-size 16px
@@ -104,13 +108,14 @@
               color: rgba(0,0,0,.85)
               font-weight: 500;
           .book-click
-            margin:8px 0
+            margin:3px 0
             font-size 14px
             color #dc5b5b
           .book-author
             font-size 12px
             color #9b9b9b
-          .book-intro
+            margin-bottom 15px
+          /*.book-intro
             margin:12px auto 20px
             width 142px
             height 44px
@@ -126,12 +131,11 @@
               color rgba(0,0,0,.65)
               padding-left: 40px;
               font-size 18px
-              background: linear-gradient(to right, rgba(255, 255, 255, 0), #f6f8fc 55%);
+              background: linear-gradient(to right, rgba(255, 255, 255, 0), #f6f8fc 55%);*/
           .to-read
             display inline-block
             width:74px
             height:32px
-            margin-bottom 22px
             border-radius: 4px;
             background-color: #4d8bee;
             line-height 32px
@@ -146,12 +150,13 @@
         .list
           float: left
           width 232px
-          margin-bottom 28px
+          margin-bottom 50px
+          margin-top 16px
           >a
             display inline-block
             img
               width:78px
-              height:102px
+              height:105px
               box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.45);
           .book-info
             float: right
@@ -166,18 +171,19 @@
               width 142px
             .book-intro
               color: rgba(0, 0, 0, 0.65);
-              margin-bottom 12px
+              margin-bottom 20px
+              margin-top 2px
               width 142px
-              height 44px
+              height 35px
               position: relative;
               overflow: hidden;
               font-size: 12px;
-              line-height 1.5
+              line-height 19px
               .ellipsis
                 position: absolute;
                 bottom: 0;
-                right: 0;
-                color rgba(0,0,0,.65)
+                right: 10px;
+                color rgba(0,0,0,.25)
                 padding-left: 40px;
                 font-size 18px
                 background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 55%);
@@ -194,24 +200,28 @@
                   height: 19px
                   float: right
                   border-radius: 2.4px;
-                  border: solid 0.5px #4f6ac5;
+                  border: solid 0.5px #4d8bee;
                   text-align center
                   line-height: 19px
-                  color: #4f6ac5
+                  color: #4d8bee
 
 
         .list:nth-child(2n+0)
           margin-left 35px
-        .list:nth-child(5)
+        .list:nth-child(3)
           margin-bottom 0
-        .list:nth-child(6)
+          margin-top 0
+        .list:nth-child(4)
           margin-bottom 0
+          margin-top 0
       .fml-body-right
         float: right
         .col-right
           width:224px
+          margin-top 3px
           li
-            padding-top 1px
+            padding-top 10px
+            height 42px
         .magic-col-right
           width:224px
           float: left

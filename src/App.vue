@@ -89,7 +89,7 @@
 </template>
 <script>
   import {captureLogin,reqCapture} from './api'
-  import {Select,Option,Input} from 'iview'
+  import {Input} from 'iview'
   import {mapActions,mapState} from 'vuex'
   import HearderBack from "./components/HeaderBack/HeaderBack"
   import HeaderFix from "./components/HeaderFix/HeaderFix"
@@ -166,12 +166,13 @@
           },
           async login() {
             // debugger
-
-            if (!this.phone) {
-              this.phoneAlert = true
+            this.phoneAlert = false;
+            this.captureAlert = false;
+            if (!(/^1\d{10}$/.test(this.phone))) {
+              this.phoneAlert = true;
               return
             } else if (!(/^\d{4}$/gi.test(this.password))) {
-             this.captureAlert = true
+             this.captureAlert = true;
               return
             }
 
@@ -197,7 +198,6 @@
           Option,
           HeaderFix,
           HeaderBottom,
-          Select,
           Input,
           vueHeadful
         }
@@ -363,7 +363,7 @@ img
           color red
         .lgn-part-capture
           position relative
-          margin:24px 0
+          margin-top 24px
           .capture-left
             display inline-block
             line-height: 40px;
@@ -411,7 +411,7 @@ img
           background-color: #4d8bee;
           color: #fff
           margin-botom 32px
-
+          margin-top 24px
         .otherWay
           margin-top 40px
           .other-click

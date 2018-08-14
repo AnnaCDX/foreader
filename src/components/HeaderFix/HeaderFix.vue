@@ -4,7 +4,14 @@
       <div class="private" >
         <a href="javascript:;" class="phone-login collect" @click="goMsite()"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</a>
         <a class="phone-login log" v-if="!loginInfo.id && !id" @click="showLoginDialog"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
-        <router-link to="/msite" class="phone-login log" v-else><img  src="../../assets/img/web/home/login.jpg" alt="">个人中心</router-link>
+        <a href="javascript:;" to="/msite" class="phone-login log" v-else>
+          <img  :src="userInfo.avatar" alt="">
+          <a href="javascript:;">{{userInfo.name}}</a>
+          <div class="msite-list">
+            <a href="javascript:;">个人中心</a>
+            <a href="javascript:;">退出</a>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -20,7 +27,17 @@
             }
         },
     computed:{
-      ...mapState(['loginInfo'])
+      ...mapState(['loginInfo',"userInfo"])
+    },
+    mounted(){
+      let token = this.$cookie.get('tk')
+      let config={
+        headers:{
+          "Authorization":"Bearer "+token
+        }
+      }
+      let {id} = this
+      this.$store.dispatch("getInfor",{id,config})
     },
     methods:{
       showLoginDialog(){
@@ -61,9 +78,12 @@
             height 16px
             margin-right 5px
             vertical-align middle
+          .msite-list
+            display none
         >.collect
           margin-right 10px
         >.log
+          float: right
           margin-right 0
 
 </style>

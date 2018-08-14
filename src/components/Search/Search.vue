@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="search-main" v-if="searchResult.books" >
-        <HeaderSearch></HeaderSearch>
+        <HeaderSearch :bname="bname"></HeaderSearch>
         <p class="search-result">共有<span>{{searchResult.total}}</span>条结果</p>
         <div class="result-list" v-if="searchResult.books.length">
           <ul>
@@ -185,8 +185,8 @@
           .book-cover, .book-info
             float: left
           .book-cover
-            height: 118px
-            width: 90px
+            height: 121px
+            width: 88px
             object-fit cover
             margin-right: 15px
             box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.35)

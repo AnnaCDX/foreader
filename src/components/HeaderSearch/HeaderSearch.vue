@@ -10,11 +10,18 @@
 <script>
   import {Input} from "iview"
     export default {
-        data() {
-            return {
-              bname:''
-            }
-        },
+        // data() {
+        //     return {
+        //       bname:''
+        //     }
+        // },
+      props:{
+        bname:{
+          type:String,
+          default:"",
+          required:false
+        }
+      },
       mounted(){
 
       },

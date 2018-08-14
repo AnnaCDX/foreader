@@ -43,6 +43,8 @@
 .article h2{font-size: 32px; color: #333; text-align: center; margin-bottom: 24px;}
 .article ul{overflow: hidden;/*  padding-left: 252px;  */width: 664px; margin: 0 auto; border-bottom:1px solid #d9d9d9;padding-bottom:40px;
   padding-left: 56px;}
+
+
 .article ul li{margin: 0 12px; float: left; font-size: 12px;}
 .article .art_con{padding: 30px 0;}
 .article .art_con p{text-indent: 2em; line-height: 2em; letter-spacing: 2px; padding-bottom: 2em; color: #676767; font-size: 16px;}
@@ -150,4 +152,24 @@
 .bgcolor06 .aut_word{background: #212121; border: 1px solid #212121;}
 .bgcolor06 .aut_word{color: #9e9e9e;}
 .bgcolor06 .aut_word .tit{color: #fff;}
-/* .bgcolor06 .con_hd{border: 1px solid #212121;} */
+.bgcolor06 .article ul {
+  border-bottom:none
+}
+.bgcolor06 .article .art_con p,.bgcolor06 .article ul li,.bgcolor06 .article h2{
+  color:rgba(255,255,255,.25);
+}
+.bgcolor06 .content .content-body .read-foot a{
+  border-right: 1px solid #212121 !important;
+}
+.bgcolor06 .content .read-foot a:last-child{
+  border-right:none;
+}
+.bgcolor06 .content .content-body .body-main .art-box-right  ul li {
+  border-bottom: 1px solid #212121 !important;
+}
+.bgcolor06 .content .body-main .art-box-right ul li:last-child{
+  border-bottom:none !important;
+}
+.bgcolor06 .content .body-main .art-box-left ul .chapter-li {
+  border-bottom:1px solid #212121 !important;
+}

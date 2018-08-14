@@ -83,18 +83,18 @@
         float: right
         img
           width:64px
-          height:84px
+          height:86px
           object-fit cover
           box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.45);
     .li-hide
       position: relative;
       display block
       font-size 0
-      height:28px
+      height:36px
       border-radius: 2px;
       .li-hide-rank
         position absolute
-        bottom: 3px
+        bottom: 8px
         display inline-block
         width:18px
         height:18px
@@ -117,7 +117,7 @@
         width:176px
         height:34px
         border-top:1px solid #e8e8e8
-        line-height 29px
+        line-height 35px
         margin-left 30px
 
         .span

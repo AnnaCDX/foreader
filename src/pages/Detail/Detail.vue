@@ -19,11 +19,14 @@
                 <a href="javascript:;" class="type">{{bookDetail.book.status==0?"连载中":"已完结"}}</a>
                 <a href="javascript:;" class="type">{{bookDetail.book.categories[0]}}</a>
               </p>
-              <p class="words-num"><span>{{bookDetail.book.wordCount}}</span> 万字</p>
+              <p class="words-num"><span>{{bookDetail.book.wordCount/10000}}</span> 万字</p>
               <div class="update-new">
                 <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
                 <!--<span class="update-chapter">第多少张</span>-->
-                <p class="update-intro">{{ bookDetail.book.recDesc}}</p>
+                <p class="update-intro">
+                  {{ bookDetail.book.description}}
+                  <a href="javascript:;" class="ellipsis">...</a>
+                </p>
               </div>
               <div class="read-collect">
                 <button class="free-read" @click.prevent="goReading(bookDetail.book.bid)">免费试读</button>
@@ -110,7 +113,7 @@
         float: left;
         border-right: 1px solid #e8e8e8;
         img
-          width 196px
+          width 191px
           height 256px
       .book-intro
         float left
@@ -148,7 +151,7 @@
             font-size: 14px;
             font-weight: 500;
             color #9b9b9b
-            margin 20px 0 18px
+            margin 12px 0 16px
             span
 
               font-size: 20px;
@@ -164,9 +167,23 @@
               .update-time,.update-chapter,.chapter-name
                 margin-right 5px
             .update-intro
-              line-height 24px
+              height 44px
+              position: relative;
+              overflow: hidden;
+              line-height 1.7
+              letter-spacing 1px
+              .ellipsis
+                position: absolute;
+                bottom: 0;
+                right: 6px;
+                color rgba(0,0,0,.25)
+                padding-left: 40px;
+                font-size 18px
+                height 18px
+                line-height 14px
+                background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 55%);
           .read-collect
-            margin-top 5px
+            margin-top 18px
             .free-read
               width: 104px;
               height: 38px;
@@ -174,7 +191,11 @@
               background-color: #4d8bee;
               margin-right 20px
               color #fff
-
+              font-size 14px
+              &:last-child
+                background-color: #fff;
+                color #4d8bee
+                border 1px solid #4d8bee
         .share
           float right
           width 190px

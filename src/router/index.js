@@ -76,7 +76,7 @@ export default new Router({
           }
         },
         {
-          path:"/rank/recommend/:type",
+          path:"/rank/Manual/:type",
           component:Recommend,
           meta:{
             showHead:true,
@@ -100,7 +100,7 @@ export default new Router({
           }
         },
         {
-          path:"/rank/peopleNum",
+          path:"/rank/cdown/:type",
           component:PeopleNum,
           meta:{
             showHead:true,
@@ -108,7 +108,7 @@ export default new Router({
           }
         },
         {
-          path:"/rank/update",
+          path:"/rank/bangdan1/:type",
           component:Update,
           meta:{
             showHead:true,
