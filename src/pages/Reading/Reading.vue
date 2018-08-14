@@ -140,10 +140,10 @@
 
                     <p class="alert-title">后续内容，请在速更小说APP中阅读</p>
                     <div class="alert-img">
-                      <a href="javascript:;"><img src="" alt=""><span>速更小说 for Android</span></a>
+                      <a href="javascript:;"><img src="../../assets/img/qr_android_download.png" alt=""><span>速更小说 for Android</span></a>
                       <a href="javascript:;"><img src="" alt=""><span>速更小说 for iPhone</span></a>
                     </div>
-                    <p class="alert-foot">更新<span>快</span>，爽文<span>多</span>，更多精彩尽在 <a href="javascript:;">速更小说APP</a></p>
+                    <p class="alert-foot">更新<span>快</span>，爽文<span>多</span>，更多精彩尽在速更小说APP</p>
                 </div>
               </div>
             </div>
@@ -999,8 +999,6 @@
                   .alert-foot
                     color rgba(0,0,0,.5)
                     font-size 14px
-                    font-family "PingFang SC"
-                    margin-top 40px
                     text-align center
                     span
                       color rgba(0,0,0,.85)
