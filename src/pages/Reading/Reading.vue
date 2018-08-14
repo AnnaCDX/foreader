@@ -166,7 +166,7 @@
 
 
   </div>
-  <div class="mask" v-if="firstLogin && maskvisible">
+  <div class="mask" v-if="!hasShowIntro">
     <div class="mask-container">
       <div class="mask-left">
         <ul>
@@ -246,8 +246,7 @@
         maskShow:true,//初始化遮罩层是否显示
         bid:"",
         cid:"",
-        firstLogin:this.$cookie.get("firstLogin"),
-        maskvisible:true,
+        hasShowIntro: true,
         title:"",
         whichCapter:0,//初始化选择哪个章节阅读
         token:this.$cookie.get('tk'),
@@ -277,6 +276,11 @@
     },
     created: function () {
       window.addEventListener('keyup', this.onKeyPressed)
+        var hasShowIntroFlag = localStorage.getItem("hasShowIntro")
+        if (!hasShowIntroFlag || hasShowIntroFlag == null || hasShowIntroFlag == undefined) {
+          localStorage.setItem("hasShowIntro",true)
+          this.hasShowIntro = false
+        }
     },
 
     beforeDestroy: function () {
@@ -410,11 +414,8 @@
         window.open(routeData.href, '_blank')
       },
       readyRead(){
-
-        this.maskvisible = false
-        this.$cookie.delete("firstLogin")
-         this.$cookie.set("firstLogin",false)
-
+        localStorage.setItem("hasShowIntro",true)
+        this.hasShowIntro = true
       },
       toggleToolTip(id) {
         this.which = id
@@ -1145,4 +1146,6 @@
               border-radius: 4px;
               background-color: #4d8bee;
               color #fff
+  #reading_root_container
+    min-height 100vh
 </style>
