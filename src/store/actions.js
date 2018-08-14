@@ -20,7 +20,8 @@ import {
   RECORD_CALCULATE,
   GET_DEAL_RECORD,
   GET_SYNTHESIZE_INFO,
-  SHOW_LOGIN_DIALOG
+  SHOW_LOGIN_DIALOG,
+  LOGIN_DIALOG
 } from "./mutation-types"
 import {
   reqUserInfo,
@@ -158,5 +159,8 @@ export default {
   },
   showLoginDialog({commit}, result) {
     commit(SHOW_LOGIN_DIALOG,result)
+  },
+  loginDialog({commit},result){
+    commit(LOGIN_DIALOG,{result})
   }
 }

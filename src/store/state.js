@@ -19,5 +19,6 @@ export default {
   calculateResult:{},//点击各个套餐计算费用
   dealRecord:[],
   synthesizeInfo:[],
-  needShowLogin: false
+  needShowLogin: false,
+  login:false
 }

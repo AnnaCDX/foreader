@@ -3,7 +3,7 @@
     <div class="fix-body">
       <div class="private" >
         <a href="javascript:;" class="phone-login collect" @click="goMsite()"><img src="../../assets/img/web/home/sy_shoucang.png" alt="">收藏</a>
-        <a class="phone-login log" v-if="!loginInfo.id && !id" @click="showLoginDialog"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
+        <a class="phone-login log" v-if="!loginInfo.id && !id && !login" @click="showLoginDialog"><img src="../../assets/img/web/home/login.jpg" alt="">登录</a>
         <a href="javascript:;" class="phone-login log" v-else>
           <img  :src="userInfo.avatar" alt="">
           <a href="javascript:;">{{userInfo.name}}</a>
@@ -33,10 +33,14 @@
             }
         },
     computed:{
-      ...mapState(['loginInfo',"userInfo"]),
+      ...mapState(['loginInfo',"userInfo",'login']),
     },
     mounted(){
      this.getInfo()
+      // if(!this.loginInfo.id){
+      //   let userInfo={id:10086}
+      //   this.deleteInfo({userInfo})
+      // }
     },
     watch:{
       loginInfo(){
@@ -44,7 +48,7 @@
       }
     },
     methods:{
-      ...mapActions(['deleteInfo']),
+      ...mapActions(['recordNewUserInfo',"deleteInfo"]),
       getInfo(){
         let token = this.$cookie.get('tk')
         let config={
@@ -76,8 +80,14 @@
 
         this.$cookie.delete("id");
         this.$cookie.delete('tk');
-        let userInfo = {}
-        this.deleteInfo({userInfo})
+        if(this.loginInfo.id){
+          this.$store.dispatch("loginDialog",false)
+          let userInfo = {};
+          this.deleteInfo({userInfo})
+        }else{
+          window.location.reload()
+        }
+
 
       }
     }
