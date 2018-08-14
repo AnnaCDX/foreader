@@ -34,10 +34,15 @@
       methods:{
         gotosearch(){
           let {bname} = this
+          var searchWord = bname;
+
           if(!bname){
+            searchWord = this.defaultSearchWord
+          }
+          if (!searchWord) {
             return
           }
-          let routeData = this.$router.resolve({ path: `/search/${bname}`});
+          let routeData = this.$router.resolve({ path: `/search/${searchWord}`});
           window.open(routeData.href, '_blank')
         }
       },
