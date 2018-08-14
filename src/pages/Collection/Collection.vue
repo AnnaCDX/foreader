@@ -4,17 +4,17 @@
       <p class="collection-title"> 我的收藏(<span>{{collectionList.total}}</span>)</p>
       <div class="maybe-change" v-if="collectionList.books.length">
         <ul>
-          <li v-for="(item,index) in collectionList.books" v-show="item.title">
+          <li v-for="(item,index) in collectionList.books" v-show="item.title" @click="goDetail(item.bid)">
             <img class="book-cover" :src="item.poster" alt="">
             <div class="book-info">
-              <router-link  to="/detail"class="name-words">{{item.title}}</router-link>
+              <div class="name-words">{{item.title}}</div>
               <div class="gray-info">
                 <img class="author-avantar" :src="item.poster" alt="">
-                <span class="author-name" v-for="(per,index) in item.authors">{{per}}</span>
-                <router-link v-for="(per,index) in item.tags" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>
+                <!--<span class="author-name" v-for="(per,index) in item.authors">{{per}}</span>-->
+                <!--<router-link v-for="(per,index) in item.tags" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>-->
               </div>
-              <p class="paragragh">{{item.recDesc}}</p>
-              <a href="javascript:;" @click.prevent="deleteCollect(item.bid)"><img src="../../assets/img/web/msite/delete.png" alt="" title="删除收藏" ></a>
+              <p class="paragragh">{{item.latestChapter.title}}</p>
+              <a  @click.stop="deleteCollect(item.bid)"><img src="../../assets/img/web/msite/delete.png" alt="" title="删除收藏" ></a>
             </div>
           </li>
         </ul>
@@ -84,6 +84,10 @@
             }
             let {offset,limit} = this
             this.$store.dispatch("getCollectList",{config,offset,limit})
+          },
+          goDetail(bid){
+            let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
+            window.open(routeData.href, '_blank')
           }
         },
         computed:{
@@ -126,6 +130,7 @@
             margin-right: 15px
           .book-info
             width:80%
+            height 121px
             position relative
             .name-words
               font-family: PingFangSC
@@ -155,7 +160,8 @@
                 border: solid 0.5px #f3799c;
                 color #f3799c
             .paragragh
-
+              position absolute
+              bottom 0
               font-size: 14px;
               line-height 1.7
               color #9b9b9b
