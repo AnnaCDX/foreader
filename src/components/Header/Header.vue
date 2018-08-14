@@ -34,9 +34,10 @@
             <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
           </a>
-          <!--<router-link to="/phone" class="phone-login">-->
-            <!--<img  src="../../assets/img/web/home/ic_phone.png" alt="">-->
-            <!--手机端</router-link>-->
+          <div class="phone-login">
+            <img  src="../../assets/img/web/home/ic_phone.png" alt="">
+            手机端
+          </div>
 
         </div>
       </div>

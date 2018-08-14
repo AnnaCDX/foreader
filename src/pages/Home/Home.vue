@@ -18,7 +18,6 @@
                   </div>
                   <div class="pag-banner">
                     <!--<div class="pb-item" v-for="(per,index) in item.data.slice(0,3)" :key="index" :class="{'pb-item-active':num==index+1 || num == index+4}"></div>-->
-
                   </div>
                 </div>
                 <div class="ct-book-name swiper-container">
@@ -49,22 +48,22 @@
 
                 </ul>
                 <div class="notice">
-                  <div class="notice-main">
-                    <a href="javascript:;" class="notice-item" @click="showDownloadCode('ios')">
-                      <img src="../../assets/img/web/home/iphone.png" alt="">
-                      <div class="notice-word">
-                        <p class="for-chinese">速更小说</p>
-                        <p class=for-chinese>for iPhone</p>
-                      </div>
-                    </a>
-                    <a href="https://file.foreader.com.cn/apk/sugeng.apk" download class="notice-item">
-                      <img src="../../assets/img/web/home/android.png" alt="">
-                      <div class="notice-word">
-                        <p class="for-chinese">速更小说</p>
-                        <p class="for-chinese">for Android</p>
-                      </div>
-                    </a>
-                  </div>
+                  <!--<div class="notice-main">-->
+                    <!--<a href="javascript:;" class="notice-item" @click="showDownloadCode('ios')">-->
+                      <!--<img src="../../assets/img/web/home/iphone.png" alt="">-->
+                      <!--<div class="notice-word">-->
+                        <!--<p class="for-chinese">速更小说</p>-->
+                        <!--<p class=for-chinese>for iPhone</p>-->
+                      <!--</div>-->
+                    <!--</a>-->
+                    <!--<a href="https://file.foreader.com.cn/apk/sugeng.apk" download class="notice-item">-->
+                      <!--<img src="../../assets/img/web/home/android.png" alt="">-->
+                      <!--<div class="notice-word">-->
+                        <!--<p class="for-chinese">速更小说</p>-->
+                        <!--<p class="for-chinese">for Android</p>-->
+                      <!--</div>-->
+                    <!--</a>-->
+                  <!--</div>-->
 
                   <!--<img class="android-qr-code" src="../../assets/img/qr_android_download.png"/>-->
                 </div>
@@ -291,7 +290,6 @@
           }).catch(function (successMessage) {
 
           })
-
       },
       watch:{
         homeInfo(value){
@@ -409,7 +407,7 @@ img
   .body
     width:990px
     margin: 0 auto
-    margin-top 20px
+    margin-bottom 20px
     .marginTop
       margin-top 20px
     .back-color
@@ -563,7 +561,7 @@ img
             height: 96px
             width: 495px
             margin-top 22px
-            background url("../../assets/img/web/home/download_app_banner.png")
+            background url("../../assets/img/web/home/pic_celebrate.png")
             background-repeat no-repeat
             background-size 100% 100%
             .notice-main
@@ -612,6 +610,7 @@ img
           width 50px
           .wish-avatar
             img
+              margin-left 3px;
               width 112px
               height 112px
               object-fit cover
@@ -620,15 +619,15 @@ img
           .wish-author
             position absolute
             bottom -5px
-            left 3px
-            padding 5px 15px
+            left 0px
+            padding 0
+            padding-top 2px
             height 33px
-            width 104px
+            width 119px
             text-align center
             background #EDCB6A
             border 2px solid #653C39
-            font-size 16.8px
-            font-family PingFangSC-Semibold
+            font-size 16px
             border-radius 15px
             overflow hidden
             text-overflow ellipsis
@@ -903,7 +902,7 @@ img
 
 .outer
   background #f8f8f8
-  padding-top 20px
+  padding-top 10px
   min-height 100vh
 .wishContainer
   height 127px
