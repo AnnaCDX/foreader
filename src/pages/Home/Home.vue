@@ -679,7 +679,7 @@ img
               width:184px
               height:307px
               float: right
-              margin-top 13px
+              padding-bottom 5px
               .list-item
                 border-bottom 1px solid #e8e8e8
                 padding:0 10px

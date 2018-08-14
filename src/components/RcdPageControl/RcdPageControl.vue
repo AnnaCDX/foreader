@@ -145,7 +145,7 @@
         margin-right 10px
         border-radius 4px
       .page-btn-active
-        background #f3799c
+        background #2d8cf0
       .next
         margin-left 12px
       .page-input,.skip
