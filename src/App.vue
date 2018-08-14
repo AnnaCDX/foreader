@@ -184,7 +184,7 @@
               this.$cookie.set("tk",result.access_token,  {expires: date})
               this.$cookie.set("id",result.user.id, {expires: date})
 
-
+              this.$store.dispatch("loginDialog",true)
               this.$store.dispatch("showLoginDialog",false)
 
               this.recordUserInfo(result.user)
