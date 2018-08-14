@@ -18,7 +18,7 @@
         },
         methods:{
           async addCollection(bid){
-            if (this.loginInfo.id) {
+            if (this.$cookie.get("id")) {
               let token = this.$cookie.get('web_tk')
               let config={
                 headers:{

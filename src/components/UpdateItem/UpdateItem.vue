@@ -1,7 +1,7 @@
 <template>
   <div class="per-left-list">
     <a href="javascript:;" class="per-type" v-if="per.categories.length > 0">「{{per.categories[0]}}」</a>
-    <a href="javascript:;" class="per-name">{{per.title}}</a>
+    <a href="javascript:;" class="per-name" @click="goDetail(per.bid)">{{per.title}}</a>
     <a href="javascript:;" class="per-authorName">{{per.mainAuthor.name}}</a>
     <a href="javascript:;" class="per-character">{{per.latestChapter.title}}</a>
     <span class="release-time">{{per.updatedFormated}}</span>
@@ -18,7 +18,13 @@
           return{
 
           }
-        }
+        },
+      methods:{
+        goDetail(bid){
+          let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
+          window.open(routeData.href, '_blank')
+        },
+      }
     }
 </script>
 
