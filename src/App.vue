@@ -168,7 +168,7 @@
             // debugger
             this.phoneAlert = false;
             this.captureAlert = false;
-            if (!(/^1\d{10}$/.test(this.phone))) {
+            if (!(this.phone)) {
               this.phoneAlert = true;
               return
             } else if (!(/^\d{4}$/gi.test(this.password))) {
