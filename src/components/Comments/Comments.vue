@@ -94,7 +94,7 @@
           this.$store.dispatch("getBookDetail",{bid})
           this.$store.dispatch("getInfor",{id,config})
 
-          this.$store.dispatch("showLoginDialog",true)
+
         },
         computed:{
           ...mapState(["commentsList","bookDetail","userInfo"]),

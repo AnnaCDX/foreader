@@ -323,9 +323,11 @@
 
         if(!data){
          // this.$router.push('/home')
-          this.$store.dispatch("showLoginDialog",true)
-          let content = ""
-          this.recordReadInfo({content})
+         //  this.$store.dispatch("showLoginDialog",true)
+         //  let content = ""
+         //  this.recordReadInfo({content})
+
+          this.needPay = true
 
         }else if(data.need_pay){
           // let user_id = this.$cookie.get("id")
@@ -474,9 +476,11 @@
         let {data} = initData
         if(!data){
           // this.$router.push('/home')
-          this.$store.dispatch("showLoginDialog",true)
-          let content = ""
-          this.recordReadInfo({content})
+          // this.$store.dispatch("showLoginDialog",true)
+          // let content = ""
+          // this.recordReadInfo({content})
+          this.needPay = true
+
 
         }else if(data.need_pay){
           // let user_id = this.$cookie.get("id")
@@ -522,9 +526,8 @@
           let {data} = initData
           if(!data){
             // this.$router.push('/home')
-            this.$store.dispatch("showLoginDialog",true)
-            let content = ""
-            this.recordReadInfo({content})
+            this.needPay = true
+
           }else if(data.need_pay){
             // let user_id = this.$cookie.get("id")
             // let result = await reqChapterShow(user_id,bid,cid)
@@ -538,6 +541,7 @@
           }else{
             let {content} = data
             this.recordReadInfo({content})
+            this.needPay = data.need_pay
             document.documentElement.scrollTop = 0
             document.body.scrolltop = 0
           }
@@ -564,9 +568,12 @@
           let {data} = initData;
           if(!data){
             // this.$router.push('/home')
-            this.$store.dispatch("showLoginDialog",true)
-            let content = ""
-            this.recordReadInfo({content})
+            // this.$store.dispatch("showLoginDialog",true)
+            // let content = ""
+            // this.recordReadInfo({content})
+
+
+            this.needPay = true
           }else if(data.need_pay){
             // let user_id = this.$cookie.get("id")
             // let result = await reqChapterShow(user_id,bid,cid)
@@ -579,6 +586,7 @@
           }else{
             let {content} = data
             this.recordReadInfo({content})
+            this.needPay = data.need_pay
             document.documentElement.scrollTop = 0
             document.body.scrolltop = 0
           }
