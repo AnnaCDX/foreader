@@ -18,7 +18,6 @@
                   </div>
                   <div class="pag-banner">
                     <!--<div class="pb-item" v-for="(per,index) in item.data.slice(0,3)" :key="index" :class="{'pb-item-active':num==index+1 || num == index+4}"></div>-->
-
                   </div>
                 </div>
                 <div class="ct-book-name swiper-container">
@@ -49,22 +48,22 @@
 
                 </ul>
                 <div class="notice">
-                  <div class="notice-main">
-                    <a href="javascript:;" class="notice-item" @click="showDownloadCode('ios')">
-                      <img src="../../assets/img/web/home/iphone.png" alt="">
-                      <div class="notice-word">
-                        <p class="for-chinese">速更小说</p>
-                        <p class=for-chinese>for iPhone</p>
-                      </div>
-                    </a>
-                    <a href="https://file.foreader.com.cn/apk/sugeng.apk" download class="notice-item">
-                      <img src="../../assets/img/web/home/android.png" alt="">
-                      <div class="notice-word">
-                        <p class="for-chinese">速更小说</p>
-                        <p class="for-chinese">for Android</p>
-                      </div>
-                    </a>
-                  </div>
+                  <!--<div class="notice-main">-->
+                    <!--<a href="javascript:;" class="notice-item" @click="showDownloadCode('ios')">-->
+                      <!--<img src="../../assets/img/web/home/iphone.png" alt="">-->
+                      <!--<div class="notice-word">-->
+                        <!--<p class="for-chinese">速更小说</p>-->
+                        <!--<p class=for-chinese>for iPhone</p>-->
+                      <!--</div>-->
+                    <!--</a>-->
+                    <!--<a href="https://file.foreader.com.cn/apk/sugeng.apk" download class="notice-item">-->
+                      <!--<img src="../../assets/img/web/home/android.png" alt="">-->
+                      <!--<div class="notice-word">-->
+                        <!--<p class="for-chinese">速更小说</p>-->
+                        <!--<p class="for-chinese">for Android</p>-->
+                      <!--</div>-->
+                    <!--</a>-->
+                  <!--</div>-->
 
                   <!--<img class="android-qr-code" src="../../assets/img/qr_android_download.png"/>-->
                 </div>
@@ -430,7 +429,7 @@ img
   .body
     width:990px
     margin: 0 auto
-    margin-top 20px
+    margin-bottom 20px
     .marginTop
       margin-top 20px
     .back-color
@@ -584,7 +583,7 @@ img
             height: 96px
             width: 495px
             margin-top 22px
-            background url("../../assets/img/web/home/download_app_banner.png")
+            background url("../../assets/img/web/home/pic_celebrate.png")
             background-repeat no-repeat
             background-size 100% 100%
             .notice-main
@@ -965,7 +964,7 @@ img
 
 .outer
   background #f8f8f8
-  padding-top 20px
+  padding-top 10px
   min-height 100vh
 .wishContainer
   height 127px

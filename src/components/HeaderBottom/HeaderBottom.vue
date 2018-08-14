@@ -13,9 +13,12 @@
         <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
         写作平台
       </a>
-      <!--<router-link to="/phone" class="phone-login">-->
-        <!--<img  src="../../assets/img/web/home/ic_phone.png" alt="">-->
-        <!--手机端</router-link>-->
+      <a class="phone-login" v-on:mouseenter="hoverTest()" v-on:mouseleave="hoverLeaveTest()">
+        <img  src="../../assets/img/web/home/ic_phone.png" alt="">
+        手机端
+      </a>
+
+      <img class="android-qr-code" src="../../assets/img/qr_android_download.png" v-show="showQrcode"/>
 
     </div>
   </div>
@@ -24,7 +27,17 @@
 <script>
     export default {
         data() {
-            return {}
+            return {
+              showQrcode: false
+            }
+        },
+        methods: {
+          hoverTest() {
+            this.showQrcode = true
+          },
+          hoverLeaveTest() {
+            this.showQrcode = false
+          }
         }
     }
 </script>
@@ -39,6 +52,13 @@
       width: 990px
       height: 48px
       line-height: 48px
+      .android-qr-code
+        display block
+        width 120px
+        height 120px
+        z-index 9999
+        right: 68px;
+        position absolute
       a
         display inline-block
         width: 80px
@@ -55,12 +75,12 @@
         font-size 16px !important
       .write
         margin-left 10px
+
       .write,.phone-login
         float: right
         img
           width 20px
           height 20px
           vertical-align middle
-
 
 </style>

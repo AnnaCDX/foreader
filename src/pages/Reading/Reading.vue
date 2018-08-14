@@ -140,9 +140,11 @@
 
                     <p class="alert-title">后续内容，请在速更小说APP中阅读</p>
                     <div class="alert-img">
-                      <a href="javascript:;"><img src="../../assets/img/qr_android_download.png" alt=""><span>速更小说 for Android</span></a>
-                      <a href="javascript:;"><img src="" alt=""><span>速更小说 for iPhone</span></a>
+                      <a href="javascript:;"><img src="../../assets/img/qr_android_download.png" alt="">
+                        </a>
+                      <!--<a href="javascript:;"><img src="" alt=""><span>速更小说 for iPhone</span></a>-->
                     </div>
+                    <p style="margin-top: 20px">速更小说 for Android</p>
                     <p class="alert-foot">更新<span>快</span>，爽文<span>多</span>，更多精彩尽在速更小说APP</p>
                 </div>
               </div>
@@ -974,6 +976,7 @@
                   width 570px
                   height 388px
                   padding 54px 121px
+                  text-align center
                   .alert-title
                     font-size 20px
                     font-weight 500
@@ -982,14 +985,16 @@
                     margin-bottom 20px
                   .alert-img
                     a
-                      width 130px
-                      height 130px
+                      width 100px
+                      height 100px
                       text-align center
                       &:first-child
-                        margin-right 58px
+                        display: block;
+                        margin-left auto
+                        margin-right auto
                       img
-                        width 130px
-                        height 130px
+                        width 100px
+                        height 100px
 
                       span
                         font-family Helvetica
@@ -1000,6 +1005,7 @@
                     color rgba(0,0,0,.5)
                     font-size 14px
                     text-align center
+                    margin-top 20px
                     span
                       color rgba(0,0,0,.85)
                     a
