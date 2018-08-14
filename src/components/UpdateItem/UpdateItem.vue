@@ -3,8 +3,8 @@
     <a href="javascript:;" class="per-type" v-if="per.categories.length > 0">「{{per.categories[0]}}」</a>
     <a href="javascript:;" class="per-name" @click="goDetail(per.bid)">{{per.title}}</a>
     <a href="javascript:;" class="per-authorName">{{per.mainAuthor.name}}</a>
-    <!--<a href="javascript:;" class="per-character">{{per.latestChapter.title}}</a>-->
-    <!--<span class="release-time">{{per.updatedFormated}}</span>-->
+    <a href="javascript:;" class="per-character">{{per.latestChapter.title}}</a>
+    <span class="release-time">{{per.updatedFormated}}</span>
   </div>
 </template>
 
