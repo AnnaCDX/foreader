@@ -25,10 +25,12 @@
 </template>
 
 <script>
+
     export default {
         data() {
             return {
-              showQrcode: false
+              showQrcode: false,
+
             }
         },
         methods: {

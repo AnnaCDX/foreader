@@ -275,7 +275,7 @@
   import Loading from "../../components/Loading/Loading"
   import {mapState} from "vuex"
   import VueLazyload from 'vue-lazyload'
-  import {reqHomeInfo} from "../../api";
+  import {getHotSearchWord, reqHomeInfo} from "../../api";
   Vue.use(VueLazyload);
 
   export default {
@@ -312,7 +312,6 @@
           }).catch(function (successMessage) {
 
           })
-
       },
       watch:{
         homeInfo(value){

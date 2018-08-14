@@ -1,6 +1,6 @@
 <template>
   <div class="top-center">
-    <Input placeholder="默认搜索词" class="tc-input" v-model="bname"/>
+    <Input :placeholder="defaultSearchWord" class="tc-input" v-model="bname"/>
     <a class="skipTo" @click.prevent="gotosearch">
       <i class="icon iconfont icon-sousuo"></i>
     </a>
@@ -9,12 +9,13 @@
 
 <script>
   import {Input} from "iview"
+  import {getHotSearchWord} from "../../api";
     export default {
-        // data() {
-        //     return {
-        //       bname:''
-        //     }
-        // },
+      data() {
+          return {
+            defaultSearchWord:'',
+          }
+      },
       props:{
         bname:{
           type:String,
@@ -23,7 +24,12 @@
         }
       },
       mounted(){
+        let that  = this;
 
+        getHotSearchWord().then(function (res) {
+          console.log(res)
+          that.defaultSearchWord = res.default
+        })
       },
       methods:{
         gotosearch(){

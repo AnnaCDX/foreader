@@ -31,7 +31,7 @@ export const deleteCollectList = (data,configure)=>fetch(`${url}/books/favs`, {m
 //获取搜索结果
 export const reqSearchResult = (bname,offset,limit)=>ajax(`${url}/web/books/search/${bname}`,{offset,limit})
 
-export const getHotSearchWord = ()=>ajax(`${url}/books/hotsearch`,{offset,limit})
+export const getHotSearchWord = ()=>ajax(`${url}/books/hotsearch`)
 
 //获取排行前十名
 export const reqRankList = (type,count)=>ajax(`${url}/books/ranks/${type}`,{count})
