@@ -1,7 +1,7 @@
 <template>
   <keep-alive>
     <div class="outer">
-      <div class="main padding-top-20" v-if="homeInfo[0]">
+      <div class="main" v-if="homeInfo[0]">
         <div class="body " v-for="(item,index) in homeInfo" :key="index">
           <!--over-->
           <div class="recommend back-color " v-if="item.template===1">
@@ -57,7 +57,7 @@
                         <p class=for-chinese>for iPhone</p>
                       </div>
                     </a>
-                    <a href="javascript:;" class="notice-item" @click="showDownloadCode('android')">
+                    <a href="https://file.foreader.com.cn/apk/sugeng.apk" download class="notice-item">
                       <img src="../../assets/img/web/home/android.png" alt="">
                       <div class="notice-word">
                         <p class="for-chinese">速更小说</p>
@@ -65,6 +65,8 @@
                       </div>
                     </a>
                   </div>
+
+                  <!--<img class="android-qr-code" src="../../assets/img/qr_android_download.png"/>-->
                 </div>
               </div>
             </div>
@@ -220,10 +222,10 @@
 
 
       <div class="right-side-floating">
-          <div class="floating-fix-block float-download">
-              <img src="../../assets/img/web/home/ic_phone.png">
-              <p>手机端</p>
-          </div>
+          <!--<a class="floating-fix-block float-download" href="https://file.foreader.com.cn/apk/sugeng.apk" download>-->
+              <!--<img src="../../assets/img/web/home/ic_phone.png">-->
+              <!--<p>手机端</p>-->
+          <!--</a>-->
           <a href="#top" class="floating-fix-block float-to-top">
               <img src="../../assets/img/web/home/ic_back_to_top.png">
               <p>返回顶部</p>
@@ -607,7 +609,12 @@ img
                   .for-chinese
                     font-size 12px
                     color #4a4a4a
-                    font-family "PingFang SC"
+            .android-qr-code
+                display block
+                position absolute
+                right 124px
+                width 120px
+                height 120px
     .author-wish
       height 161px
       background url("../../assets/img/web/home/wishBg.jpg")
@@ -927,7 +934,7 @@ img
 .right-side-floating
   position fixed
   right 24px
-  top 50%
+  top 70%
   display flex
   flex-direction column
   .float-download
@@ -954,4 +961,8 @@ img
       margin-top 7px
       margin-left auto
       margin-right auto
+
+.outer
+  background #f8f8f8
+  padding-top 20px
 </style>
