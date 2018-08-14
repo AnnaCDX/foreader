@@ -19,7 +19,7 @@
         methods:{
           async addCollection(bid){
             if (this.$cookie.get("id")) {
-              let token = this.$cookie.get('tk')
+              let token = this.$cookie.get('web_tk')
               let config={
                 headers:{
                   "Authorization":"Bearer "+token
@@ -38,5 +38,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-
+  button
+    background white
 </style>

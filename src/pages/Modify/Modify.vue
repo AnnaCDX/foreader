@@ -72,7 +72,7 @@
             this.sex=1
           }
           let {nickname,sex,birthday,ownSign} = this
-          let token = this.$cookie.get('tk')
+          let token = this.$cookie.get('web_tk')
           let id=this.$cookie.get("id")
           let config={
             headers:{

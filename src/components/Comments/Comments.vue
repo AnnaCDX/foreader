@@ -5,9 +5,9 @@
           <div class="comments-left" >
             <Breadcrumb separator=">" >
               <BreadcrumbItem to="/">首页</BreadcrumbItem>
-              <BreadcrumbItem to="/components/breadcrumb">{{bookDetail.book.categories[0]}}</BreadcrumbItem>
-              <BreadcrumbItem to="/detail">{{bookDetail.book.title}}</BreadcrumbItem>
-              <BreadcrumbItem to="/comments">评论区</BreadcrumbItem>
+              <BreadcrumbItem >{{bookDetail.book.categories[0]}}</BreadcrumbItem>
+              <BreadcrumbItem >{{bookDetail.book.title}}</BreadcrumbItem>
+              <BreadcrumbItem >评论区</BreadcrumbItem>
             </Breadcrumb>
             <div class="write-comments">
               <p class="book-title">{{bookDetail.book.title}}《评论区》</p>
@@ -54,7 +54,7 @@
             </div>
             <div class="right-bottom">
               <div class="bottom-body">
-                <img src="" alt="">
+                <img src="../../assets/img/qr_android_download.png" alt="">
                 <p >下载APP阅读</p>
               </div>
             </div>
@@ -83,7 +83,7 @@
         mounted(){
           let bid = this.$route.params.bid
           let id = this.$cookie.get("id")
-          let token = this.$cookie.get('tk')
+          let token = this.$cookie.get('web_tk')
           let config={
             headers:{
               "Authorization":"Bearer "+token
@@ -108,7 +108,7 @@
           async publishComments(){
             let bid = this.$route.params.bid
             let {content} = this
-            let token = this.$cookie.get('tk')
+            let token = this.$cookie.get('web_tk')
             let config={
               headers:{
                 "Authorization":"Bearer "+token

@@ -40,11 +40,11 @@
        </div>
         <div class="each-item">
           <p class="type-title">版权合作</p>
-          <p class="type-content">邮箱: <a href="javascript:;">liuxi@foreader.cn</a></p>
+          <p class="type-content">邮箱: <a href="javascript:;">banquan@foreader.cn</a></p>
         </div>
         <div class="each-item">
           <p class="type-title">品牌合作</p>
-          <p class="type-content">邮箱: <a href="javascript:;">jiashengting@foreader.cn</a></p>
+          <p class="type-content">邮箱: <a href="javascript:;">pinpai@foreader.cn</a></p>
         </div>
         <div class="each-item">
           <p class="type-title">投稿</p>
@@ -175,7 +175,7 @@
         text-align center
       .center
         width 720px
-        margin 30px auto
+        margin 30px auto 25px
         text-align center
         a
           color #b9b9b9

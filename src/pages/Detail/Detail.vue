@@ -4,7 +4,7 @@
       <div class="detail-main" v-if="bookDetail.book">
         <Breadcrumb separator="<b class='demo-breadcrumb-separator'>></b>">
           <BreadcrumbItem to="/">首页</BreadcrumbItem>
-          <BreadcrumbItem to="/components/breadcrumb">{{bookDetail.book.categories[0]}}</BreadcrumbItem>
+          <BreadcrumbItem >{{bookDetail.book.categories[0]}}</BreadcrumbItem>
           <BreadcrumbItem>{{bookDetail.book.title}}</BreadcrumbItem>
         </Breadcrumb>
         <div class="detail-info">
@@ -90,8 +90,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-
-
 
 .detail-container
   width 100%

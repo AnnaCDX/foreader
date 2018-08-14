@@ -181,7 +181,7 @@
             if(result.user) {
               var date = new Date;
               date.setDate(date.getDate() + 30);
-              this.$cookie.set("tk",result.access_token,  {expires: date})
+              this.$cookie.set("web_tk",result.access_token,  {expires: date})
               this.$cookie.set("id",result.user.id, {expires: date})
 
               this.$store.dispatch("loginDialog",true)
@@ -221,6 +221,7 @@ img
   height 100%
   min-height 100vh
   overflow hidden
+  background #f8f8f8
   .header
     .header-top
       position relative

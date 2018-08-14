@@ -43,13 +43,13 @@
             limit:20,
             config:{
               headers:{
-                "Authorization":"Bearer "+this.$cookie.get('tk')
+                "Authorization":"Bearer "+this.$cookie.get('web_tk')
               }
             }
           }
         },
         created(){
-          let token = this.$cookie.get('tk')
+          let token = this.$cookie.get('web_tk')
           let config={
             headers:{
               "Authorization":"Bearer "+token
@@ -69,7 +69,7 @@
               uid:this.$cookie.get("id"),
               bids:[bid]
             };
-            let token = this.$cookie.get('tk')
+            let token = this.$cookie.get('web_tk')
             let configure= {
               "Authorization": "Bearer " + token,
               'Accept': 'application/json',

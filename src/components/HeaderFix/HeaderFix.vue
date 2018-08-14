@@ -47,7 +47,7 @@
     methods:{
       ...mapActions(['recordNewUserInfo',"deleteInfo"]),
       getInfo(){
-        let token = this.$cookie.get('tk')
+        let token = this.$cookie.get('web_tk')
         let config={
           headers:{
             "Authorization":"Bearer "+token
@@ -70,13 +70,13 @@
       },
       async goOut(){
 
-        let token = this.$cookie.get('tk');
+        let token = this.$cookie.get('web_tk');
         if(token){
           await logOut(token);
         }
 
         this.$cookie.delete("id");
-        this.$cookie.delete('tk');
+        this.$cookie.delete('web_tk');
         if(this.loginInfo.id){
           this.$store.dispatch("loginDialog",false)
           let userInfo = {};

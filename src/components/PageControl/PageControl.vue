@@ -61,13 +61,13 @@
         margin-right 10px
         border-radius 4px
       .page-btn-active
-        background #f3799c
+        background #2d8cf0
       .next
         margin-left 12px
       .page-input,.skip
         width 36px
         height 20px
-        border 1px solid #d9d9d9
+        border 1px solid #2d8cf0
         border-radius 4px
         margin-left 5px
         text-align center

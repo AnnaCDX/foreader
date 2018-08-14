@@ -230,7 +230,7 @@
         text-align center
       .center
         width 720px
-        margin 30px auto
+        margin 30px auto 25px
         text-align center
         a
           color #b9b9b9
