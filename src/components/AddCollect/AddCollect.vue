@@ -19,7 +19,7 @@
         methods:{
           async addCollection(bid){
             if (this.loginInfo.id) {
-              let token = this.$cookie.get('tk')
+              let token = this.$cookie.get('web_tk')
               let config={
                 headers:{
                   "Authorization":"Bearer "+token

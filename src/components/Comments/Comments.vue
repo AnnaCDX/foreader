@@ -83,7 +83,7 @@
         mounted(){
           let bid = this.$route.params.bid
           let id = this.$cookie.get("id")
-          let token = this.$cookie.get('tk')
+          let token = this.$cookie.get('web_tk')
           let config={
             headers:{
               "Authorization":"Bearer "+token
@@ -108,7 +108,7 @@
           async publishComments(){
             let bid = this.$route.params.bid
             let {content} = this
-            let token = this.$cookie.get('tk')
+            let token = this.$cookie.get('web_tk')
             let config={
               headers:{
                 "Authorization":"Bearer "+token

@@ -251,7 +251,7 @@
         hasShowIntro: true,
         title:"",
         whichCapter:0,//初始化选择哪个章节阅读
-        token:this.$cookie.get('tk'),
+        token:this.$cookie.get('web_tk'),
         needPay:false,//判断是否需要付钱，并控制购买页面的显示与隐藏
         isAll:false,//是否购买剩下的全部
         status:1,
@@ -306,7 +306,7 @@
           cid= this.bookChapter[0].cid
           this.title = this.bookChapter[0].title
         }
-        let token = this.$cookie.get('tk')
+        let token = this.$cookie.get('web_tk')
         let id = this.$cookie.get("id")
         let config={
           headers:{
@@ -381,7 +381,7 @@
      //    this.buyWhich = index
      //    this.isAll = false
      //    let {bid,cid} = this
-     //    let token = this.$cookie.get('tk')
+     //    let token = this.$cookie.get('web_tk')
      //    let config={
      //      headers:{
      //        "Authorization":"Bearer "+token
@@ -400,7 +400,7 @@
      //   let user_id = this.$cookie.get("id")
      //    let dtResult = await reqCalPriceAll(user_id,cid,bid,allIndex)
      //   this.recordCalculate({dtResult})
-     //   let token = this.$cookie.get('tk')
+     //   let token = this.$cookie.get('web_tk')
      //   let config={
      //     headers:{
      //       "Authorization":"Bearer "+token
@@ -436,7 +436,7 @@
       async addCollection(){
         if (this.loginInfo.id) {
           let {bid} = this.$route.params
-          let token = this.$cookie.get('tk')
+          let token = this.$cookie.get('web_tk')
           let config = {
             headers: {
               "Authorization": "Bearer " + token
@@ -457,7 +457,7 @@
         this.whichCapter = wCapter
         this.title = title
         this.needPay = false
-        let token=this.$cookie.get('tk')
+        let token=this.$cookie.get('web_tk')
         let config={
           headers:{
             "Authorization":"Bearer "+token
@@ -507,7 +507,7 @@
           let bid = this.bookChapter[this.whichCapter].bid
           this.title = this.bookChapter[this.whichCapter].title
           let id = this.$cookie.get("id")
-          let token=this.$cookie.get('tk')
+          let token=this.$cookie.get('web_tk')
           let config={
             headers:{
               "Authorization":"Bearer "+token
@@ -549,7 +549,7 @@
           let cid = this.bookChapter[this.whichCapter].cid
           let bid = this.bookChapter[this.whichCapter].bid
           this.title = this.bookChapter[this.whichCapter].title
-          let token=this.$cookie.get('tk')
+          let token=this.$cookie.get('web_tk')
           let config={
             headers:{
               "Authorization":"Bearer "+token
