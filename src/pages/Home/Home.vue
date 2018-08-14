@@ -75,8 +75,8 @@
           <!--类型不可点，作者不可点-->
           <template v-else-if="item.template===2" slot-scope="item">
             <div class="author-wish marginTop" >
-              <div class="wishContainer swiper-container">
-                <div class="wishWrapper swiper-wrapper">
+              <div  class="swiper-container wishContainer">
+                <div class="swiper-wrapper">
                   <div class="wishSlide swiper-slide" v-for="(item,index) in authorWish" :key="index">
                     <div class="wish-body">
                     <div class="wish-left">
@@ -319,12 +319,13 @@
         homeInfo(value){
           let that = this;
           this.$nextTick(() => {
-            let wishSwiper = new Swiper('.wishContainer.swiper-container',{
+            let wishSwiper = new Swiper('.wishContainer',{
               direction: 'vertical',
               loop: true,
               effect:"slide",
+              spaceBetween: 20,
               autoplay: {
-                delay: 4000,
+                delay: 2000,
                 stopOnLastSlide: false,
                 disableOnInteraction: false
               },
@@ -925,7 +926,7 @@ img
     width 990px
     margin 20px auto
     background #fff
-    height 434px
+    height 634px
     text-align center
     line-height 434px
     img
@@ -965,4 +966,9 @@ img
 .outer
   background #f8f8f8
   padding-top 20px
+  min-height 100vh
+.wishContainer
+  height 127px
+  .swiper-slide
+    height 123px
 </style>
