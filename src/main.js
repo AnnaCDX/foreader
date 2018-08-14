@@ -9,6 +9,9 @@ import 'babel-polyfill';
 import "iview/dist/styles/iview.css"
 import axios from 'axios'
 import qs from 'qs'
+import Es6Promise from 'es6-promise'
+Es6Promise.polyfill()
+
 // import "./filter/moment/moment"
 import EventProxy from 'vue-event-proxy';
 Vue.use(EventProxy);

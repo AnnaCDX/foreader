@@ -68,11 +68,11 @@
         <a href="javascript:;">使用协议</a>
       </div>
       <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
-      <div class="copy-img">
-        <img src="../../assets/img/title.jpeg" alt="">
-        <img src="../../assets/img/title.jpeg" alt="">
-        <img src="../../assets/img/title.jpeg" alt="">
-      </div>
+      <!--<div class="copy-img">-->
+        <!--<img src="../../assets/img/title.jpeg" alt="">-->
+        <!--<img src="../../assets/img/title.jpeg" alt="">-->
+        <!--<img src="../../assets/img/title.jpeg" alt="">-->
+      <!--</div>-->
     </div>
   </div>
 </template>

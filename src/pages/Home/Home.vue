@@ -50,14 +50,14 @@
                 </ul>
                 <div class="notice">
                   <div class="notice-main">
-                    <a href="javascript:;" class="notice-item">
+                    <a href="javascript:;" class="notice-item" @click="showDownloadCode('ios')">
                       <img src="../../assets/img/web/home/iphone.png" alt="">
                       <div class="notice-word">
                         <p class="for-chinese">速更小说</p>
                         <p class=for-chinese>for iPhone</p>
                       </div>
                     </a>
-                    <a href="javascript:;" class="notice-item">
+                    <a href="javascript:;" class="notice-item" @click="showDownloadCode('android')">
                       <img src="../../assets/img/web/home/android.png" alt="">
                       <div class="notice-word">
                         <p class="for-chinese">速更小说</p>
@@ -341,6 +341,13 @@
         goReading(bid){
           let routeData = this.$router.resolve({ path: `/reading/${bid}`});
           window.open(routeData.href, '_blank')
+        },
+        showDownloadCode(platform) {
+          if (platform == "ios") {
+
+          } else {
+
+          }
         }
       },
       components:{

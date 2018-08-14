@@ -20,10 +20,10 @@
             <!--<img  src="../../assets/img/web/home/ic_phone.png" alt="">-->
             <!--手机端-->
           <!--</router-link>-->
-          <router-link to="/write" class="write-plat">
+          <a href="https://www.foreader.com.cn/admin_login/" class="write-plat">
             <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
-          </router-link>
+          </a>
 
         </div>
 

@@ -140,8 +140,8 @@
 
                     <p class="alert-title">后续内容，请在速更小说APP中阅读</p>
                     <div class="alert-img">
-                      <a href="javascript:;"><img src="../../assets/img/title.jpeg" alt=""><span>速更小说 for Android</span></a>
-                      <a href="javascript:;"><img src="../../assets/img/title.jpeg" alt=""><span>速更小说 for iPhone</span></a>
+                      <a href="javascript:;"><img src="" alt=""><span>速更小说 for Android</span></a>
+                      <a href="javascript:;"><img src="" alt=""><span>速更小说 for iPhone</span></a>
                     </div>
                     <p class="alert-foot">更新<span>快</span>，爽文<span>多</span>，更多精彩尽在 <a href="javascript:;">速更小说APP</a></p>
                 </div>

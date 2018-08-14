@@ -44,7 +44,7 @@
         this.$store.dispatch("showLoginDialog",true)
       },
       goMsite(){
-        if (this.loginInfo.id) {
+        if (this.id) {
           this.$router.push(`/msite/collection`)
         } else {
           this.showLoginDialog()
