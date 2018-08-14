@@ -19,7 +19,7 @@
                 <a href="javascript:;" class="type">{{bookDetail.book.status==0?"连载中":"已完结"}}</a>
                 <a href="javascript:;" class="type">{{bookDetail.book.categories[0]}}</a>
               </p>
-              <p class="words-num"><span>{{bookDetail.book.wordCount/10000}}</span> 万字</p>
+              <p class="words-num"><span>{{Math.floor(bookDetail.book.wordCount/10000)}}</span> 万字</p>
               <div class="update-new">
                 <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
                 <!--<span class="update-chapter">第多少张</span>-->

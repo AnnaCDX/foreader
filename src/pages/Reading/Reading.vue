@@ -152,8 +152,8 @@
           <!--右侧导航-->
           <div class="art-box-right">
             <ul>
-              <li class="right-li"><a href="javascript:;" @click="nextPrev(true)"><i class="icon iconfont icon-jiantou-zuo"></i></a></li>
-              <li class="right-li"><a href="javascript:;" @click="nextPrev(false)"><i class="icon iconfont icon-jiantou-you"></i></a></li>
+              <li class="right-li"><a @click="nextPrev(true)"><i class="icon iconfont icon-jiantou-zuo"></i></a></li>
+              <li class="right-li"><a @click="nextPrev(false)"><i class="icon iconfont icon-jiantou-you"></i></a></li>
               <li class="right-li"><a href="#reading_root_container" ><i class="icon iconfont icon-tubiao02"></i></a></li>
             </ul>
           </div>
@@ -163,6 +163,8 @@
         </div>
       </div>
     </div>
+
+
   </div>
   <div class="mask" v-if="firstLogin && maskvisible">
     <div class="mask-container">
@@ -197,10 +199,10 @@
       <div class="mask-right">
         <p class="right-title">指南</p>
         <div class="right-main">
-          <div class="screen">
-            <p>全屏模式</p>
-            <a href="javascript:;">F11</a>
-          </div>
+          <!--<div class="screen">-->
+            <!--<p>全屏模式</p>-->
+            <!--<a href="javascript:;">F11</a>-->
+          <!--</div>-->
           <div class="page">
             <p>翻页</p>
             <a href="javascript:;"><i class="icon iconfont icon-zuojiantou"></i></a><a href="javascript:;"> <i class="icon iconfont icon-youjiantou"></i></a>
@@ -273,6 +275,13 @@
 
       }
     },
+    created: function () {
+      window.addEventListener('keyup', this.onKeyPressed)
+    },
+
+    beforeDestroy: function () {
+      window.removeEventListener('keyup', this.onKeyPressed)
+    },
     mounted(){
       let {bid} = this.$route.params
       this.$store.dispatch("getBookChapter",{bid})
@@ -328,6 +337,13 @@
     },
     methods:{
       ...mapActions(["recordReadInfo","getChapterShow","recordCalculate"]),
+      onKeyPressed(e) {
+        if (e.code === "ArrowRight") {
+          this.nextPrev(false)
+        } else if (e.code === "ArrowLeft") {
+          this.nextPrev(true)
+        }
+      },
       // 太多复用未处理
       //购买时才用到，将html打开
      //  async subscribeRecharge(){
@@ -476,14 +492,17 @@
         }
       },
       // 点击上下章进行阅读
-      async nextPrev(bool){
+      async nextPrev(isPrev){
+        // let {bookChapter,whichCapter} = this
 
-        if(bool){
+        if(isPrev){
           this.whichCapter--
-          let {bookChapter,whichCapter} = this
-          let cid = bookChapter[whichCapter].cid
-          let bid = bookChapter[whichCapter].bid
-          this.title = bookChapter[whichCapter].title
+          if (this.whichCapter < 0) {
+             this.whichCapter = 0
+          }
+          let cid = this.bookChapter[this.whichCapter].cid
+          let bid = this.bookChapter[this.whichCapter].bid
+          this.title = this.bookChapter[this.whichCapter].title
           let id = this.$cookie.get("id")
           let token=this.$cookie.get('tk')
           let config={
@@ -521,20 +540,26 @@
           }
         }else{
           this.whichCapter++
-
-          let {whichCapter,bookChapter} = this
-          let cid = bookChapter[whichCapter].cid
-          let bid = bookChapter[whichCapter].bid
-          this.title = bookChapter[whichCapter].title
+          if (this.whichCapter > this.bookChapter.length - 1) {
+            this.whichCapter = this.bookChapter.length - 1
+          }
+          let cid = this.bookChapter[this.whichCapter].cid
+          let bid = this.bookChapter[this.whichCapter].bid
+          this.title = this.bookChapter[this.whichCapter].title
           let token=this.$cookie.get('tk')
           let config={
             headers:{
               "Authorization":"Bearer "+token
             }
+          };
+          let initData
+          if(!token){
+            initData = await reqReadInfo(bid,cid)
+          }else{
+            initData = await reqReadInfo(bid,cid,config)
           }
-          let {data} = await reqReadInfo(bid,cid,config)
+          let {data} = initData;
           if(!data){
-
             // this.$router.push('/home')
             this.$store.dispatch("showLoginDialog",true)
             let content = ""
@@ -553,7 +578,6 @@
             this.recordReadInfo({content})
             document.documentElement.scrollTop = 0
             document.body.scrolltop = 0
-            console.log(content)
           }
         }
       }
@@ -1080,7 +1104,7 @@
           background #fff
           box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
           padding 14px 16px
-          transform translateX(-50%)
+          transform translateX(-25%)
           .right-title
             font-size: 18px;
             font-weight: 600;
