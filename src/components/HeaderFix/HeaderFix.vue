@@ -62,7 +62,7 @@
         this.$store.dispatch("showLoginDialog",true)
       },
       goMsite(){
-        if (this.id) {
+        if (this.$cookie.get("id")) {
           this.$router.push(`/msite/collection`)
         } else {
           this.showLoginDialog()

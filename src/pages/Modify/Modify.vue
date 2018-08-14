@@ -3,7 +3,7 @@
   <div class="modify-container">
     <p class="modify-title">信息修改</p>
     <div class="modify-base">
-      <div class="nickname">昵称：<Input placeholder="请输入昵称" v-model="nickname" /></div>
+      <div class="nickname">昵称：<Input :placeholder="userInfo.name" v-model="nickname" /></div>
       <div class="sex">性别：
         <RadioGroup v-model="sex">
           <Radio label="男"></Radio>
@@ -18,7 +18,7 @@
                             placement="top"
                             :start-date="new Date(2000,1,1)"
                             confirm
-                            placeholder="2017-08-08"
+                            :placeholder="userInfo.birthday"
                             @on-change="changebirth"
                 ></DatePicker>
               </Col>
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="modify-sign">
-      个性签名：<Input type="textarea" v-model="ownSign" :autosize="{minRows: 4,maxRows: 5}" placeholder="秀出不一样的烟火～"/>
+      个性签名：<Input type="textarea" v-model="ownSign" :autosize="{minRows: 4,maxRows: 5}" :placeholder="userInfo.description==''?'秀出不一样的烟火～':userInfo.description"/>
     </div>
     <button class="save" @click="save">保存</button>
   </div>
@@ -43,7 +43,7 @@
 <script>
   import {Input,RadioGroup,Radio,Row,Col,DatePicker} from "iview"
   import {modifyInfo} from "../../api"
-  import {mapActions} from "vuex"
+  import {mapActions,mapState} from "vuex"
     export default {
       data() {
           return{
@@ -56,6 +56,7 @@
           }
         },
       computed:{
+        ...mapState(["userInfo"]),
       },
       methods:{
         ...mapActions(["recordNewUserInfo"]),

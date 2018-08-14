@@ -40,7 +40,7 @@
         data() {
           return {
             offset:0,
-            limit:3,
+            limit:20,
             config:{
               headers:{
                 "Authorization":"Bearer "+this.$cookie.get('tk')

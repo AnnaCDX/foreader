@@ -391,7 +391,7 @@ img
             line-height 30px
             text-align center
             font-size 1rem
-            color: #eee
+            color: #d9d9d9
             position: absolute;
             top: 0px;
             right: 0;
