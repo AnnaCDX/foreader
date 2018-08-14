@@ -8,8 +8,13 @@
           <img  :src="userInfo.avatar" alt="">
           <a href="javascript:;">{{userInfo.name}}</a>
           <div class="msite-list">
-            <router-link  to="/msite">个人中心</router-link>
-            <a href="javascript:;" @click="goOut()">退出</a>
+            <router-link  to="/msite">
+              <img src="../../assets/img/web/home/login.jpg" alt="">
+              个人中心
+            </router-link>
+            <a href="javascript:;" @click="goOut()">
+              <img src="../../assets/img/web/home/logout.jpg" alt="">
+              退出账户</a>
           </div>
         </a>
       </div>
@@ -103,17 +108,23 @@
             vertical-align middle
           .msite-list
             display none
-            background rgba(255,255,255,.85)
+            background rgba(255,255,255,1)
             position absolute
             top 40px
-            left 0
+            right 0
             >a
               display block
-              height 40px
-              width 114px
+              height 32px
+              width 134px
+              line-height 32px
               text-align center
+              img
+                width 14px
+                height 16px
+                vertical-align middle
+                margin-right 14px
               &:hover
-                background rgba(233,67,98,.25)
+                background #EDF3FD
         >.collect
           margin-right 10px
         >.log
@@ -124,6 +135,4 @@
           &:hover
             .msite-list
               display block
-
-
 </style>
