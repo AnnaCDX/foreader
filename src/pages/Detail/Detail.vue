@@ -43,7 +43,7 @@
         </div>
         <div class="book-nav">
           <router-link :to="'/detail/bookIntro/'+bookDetail.book.bid">书籍简介</router-link>
-          <router-link :to="'/detail/directory/'+bookDetail.book.bid">目录（1789章）</router-link>
+          <router-link :to="'/detail/directory/'+bookDetail.book.bid">目录（{{bookDetail.book.chapterCount}}章）</router-link>
         </div>
         <div class="bookInfo-directory">
           <router-view ></router-view>
