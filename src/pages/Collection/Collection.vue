@@ -9,7 +9,7 @@
             <div class="book-info">
               <div class="name-words">{{item.title}}</div>
               <div class="gray-info">
-                <img class="author-avantar" :src="item.poster" alt="">
+                <!--<img class="author-avantar" :src="item.poster" alt="">-->
                 <!--<span class="author-name" v-for="(per,index) in item.authors">{{per}}</span>-->
                 <!--<router-link v-for="(per,index) in item.tags" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</router-link>-->
               </div>
@@ -124,13 +124,14 @@
           .book-cover, .book-info
             float: left
           .book-cover
-            height: 121px
-            width: 88px
+            height: 80px
+            width: 58px
             object-fit cover
             margin-right: 15px
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.35);
           .book-info
             width:80%
-            height 121px
+            height 80px
             position relative
             .name-words
               font-family: PingFangSC
@@ -170,7 +171,7 @@
                 width 18px
                 height 18px
                 position absolute
-                bottom 0
+                bottom 35px
                 right 0
       .ivu-page
         width 88px
