@@ -18,14 +18,16 @@
           <router-view></router-view>
         </div>
       </div>
-
+      <Footer></Footer>
     </div>
   </div>
 </template>
 
 <script>
   import {mapState} from "vuex"
-    export default {
+  import Footer from "../../components/Footer/Footer"
+
+  export default {
         data() {
           return {
             clickWhich:0,
@@ -69,7 +71,10 @@
       },
         computed:{
           ...mapState(['userInfo'])
-        }
+        },
+    components:{
+      Footer
+    }
     }
 </script>
 
@@ -126,6 +131,7 @@
     .homepage
       float:right
       width:710px
+
 
 
 </style>

@@ -58,6 +58,7 @@
       width: 710px
       height: 710px
       padding: 0 30px 44px
+      border-radius 4px 10px
       .info
         height: 68px
         line-height 68px
@@ -83,7 +84,7 @@
         span
           color: rgba(0, 0, 0, 0.85);
           line-height 1
-          font-family "PingFang SC"
+
       .wallet
         margin 60px 0
         .wallet-title
@@ -113,7 +114,7 @@
 
       .security
         .security-title
-          ont-family: PingFangSC;
+
           font-size: 18px;
           font-weight: 500;
           color rgba(0,0,0,.85)

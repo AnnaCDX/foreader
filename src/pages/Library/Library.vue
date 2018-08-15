@@ -59,7 +59,7 @@
                     <a href="javascript:;" class="name-words" @click="goDetail(item.bid)" :title="item.title">{{item.title}}</a>
                     <div class="gray-info">
                       <div class="little-info one">
-                        <img class="author-avantar" v-lazy="item.mainAuthor.poster" alt="" :key="item.mainAuthor.poster">
+                        <img class="author-avantar" v-lazy="item.mainAuthor.avatar" alt="" :key="item.mainAuthor.avatar">
                         <span class="author-name" v-for="(per,index) in item.authors" :key="index" :title="per">{{per}}</span>
                       </div>|
                       <div class="little-info two" v-if="item.tags">
@@ -70,7 +70,7 @@
                     <p class="paragragh" :title="item.description">{{item.description}}
                     <a href="javascript:;" @click="goDetail(item.bid)" class="ellipsis">...</a>
                     </p>
-                    <p class="word-count">{{item.wordCount/10000}}万</p>
+                    <p class="word-count">{{Math.ceil(item.wordCount/10000)}}万</p>
                   </div>
                 </li>
               </ul>
@@ -310,7 +310,7 @@
               width:70%
               position relative
               .name-words
-                font-family: PingFangSC
+
                 font-size: 16px
                 font-weight: 500
                 color: rgba(0, 0, 0, 0.85)
@@ -321,7 +321,7 @@
                 white-space nowrap
               .gray-info
                 color:#666
-                margin:0 0 5px
+                margin:5px 0 5px
                 height 25px
                 white-space nowrap
                 overflow hidden
@@ -353,6 +353,8 @@
                     border-radius: 2.4px;
                     margin-left 13px
                     padding 0 6px
+                    height 16px
+                    line-height 16px
                     &:first-child
                       margin-left 10px
                   .type
@@ -367,7 +369,7 @@
                 height 48px
                 max-height: 48px;
                 overflow: hidden;
-                margin-top 10px
+                margin-top 5px
                 font-size: 14px;
                 line-height 1.7
                 color rgba(0,0,0,.65)
@@ -381,7 +383,6 @@
               .word-count
                 color #9b9b9b
                 font-size 12px
-                font-family "PingFang SC"
                 position absolute
               a
                 >img

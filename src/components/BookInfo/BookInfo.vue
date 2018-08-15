@@ -12,9 +12,9 @@
         <div class="avatar-name">
           <img v-lazy="bookDetail.book.mainAuthor.avatar" alt="">
           <p class="author-name" v-for="(item) in bookDetail.book.authors">{{item}}</p>
-          <p class="author-type">大神作家</p>
-          <p class="update-info"><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
-          <!--<span class="update-chapter">第一百七十五章</span>-->
+          <!--<p class="author-type">大神作家</p>-->
+          <!--<p class="update-info"><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>-->
+          <!--&lt;!&ndash;<span class="update-chapter">第一百七十五章</span>&ndash;&gt;-->
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
           <li class="comments-item" v-for="(item,index) in bookDetail.comments" :key="index">
             <img v-lazy="item.user.avatar" alt="">
             <div class="comment-info">
-              <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.user.created}}</span></p>
+              <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.createdFormated}}</span></p>
               <div class="comment-content">
                 <p class="content-main">{{item.content}}</p>                         <!--<a href="javascript:;">展开全部</a>-->
               </div>
@@ -101,7 +101,7 @@
   overflow hidden
   .introduction-left
     width: 710px;
-    height: 326px;
+    height: 230px;
     border-radius: 4px;
     background-color: #ffffff;
     float: left
@@ -124,7 +124,7 @@
   .introduction-right
     float: right
     width: 260px;
-    height: 326px;
+    height: 230px;
     border-radius: 4px;
     background-color: #ffffff;
     .avatar-name
@@ -261,7 +261,7 @@
             /*height 96px*/
             position relative
             .content-main
-              font-size 12px
+              font-size 14px
               line-height 24px
 
     .more-comments

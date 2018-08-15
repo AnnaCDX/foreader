@@ -118,11 +118,11 @@
             height 14px
           >a
             color rgba(0,0,0,.85)
-            font-family: PingFangSC;
+        
             font-size: 18px;
             font-weight: 500;
           .book-intro
-            font-family: PingFangSC;
+        
             margin: 3px 0 5px;
             width 340px
             position: relative;

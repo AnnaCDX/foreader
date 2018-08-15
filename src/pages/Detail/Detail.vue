@@ -16,7 +16,7 @@
               </p>
               <p class="other-info">
                 <a href="javascript:;" class="type" v-for="(per,index) in bookDetail.book.tags.slice(0,2)" :class="{comfort:index==2}"  :key="index">{{per}}</a>
-                <a href="javascript:;" class="type">{{bookDetail.book.status==0?"连载中":"已完结"}}</a>
+                <a href="javascript:;" class="type comfort">{{bookDetail.book.status==0?"连载中":"已完结"}}</a>
                 <a href="javascript:;" class="type">{{bookDetail.book.categories[0]}}</a>
               </p>
               <p class="words-num"><span>{{Math.floor(bookDetail.book.wordCount/10000)}}</span> 万字</p>
@@ -135,11 +135,12 @@
             .type
               height 20px
               border-radius: 2.4px;
-              border: solid 0.5px #4f6ac5
+              border: solid 0.5px #4d8bee
               margin-right: 13px
               text-align center
               line-height 20px
               padding: 0 4px;
+              color #4d8bee
             .comfort
               color #f3799c
               border: solid 0.5px #f3799c
@@ -173,7 +174,7 @@
               .ellipsis
                 position: absolute;
                 bottom: 0;
-                right: 6px;
+                right: 0;
                 color rgba(0,0,0,.25)
                 padding-left: 40px;
                 font-size 18px

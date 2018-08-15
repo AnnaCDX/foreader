@@ -212,7 +212,6 @@
         color #637fa1
         font-size 20px
         font-weight 500
-        font-family "PingFang SC"
         line-height 120px
       .content-main
         padding 77px 125px 54px 85px
