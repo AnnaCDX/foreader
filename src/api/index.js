@@ -1,12 +1,38 @@
 
 import ajax from'./ajax'
 import axios from "axios"
+import Vue from 'vue'
+import VueCookie from 'vue-cookie'
+Vue.use(VueCookie)
+let vm = new Vue({})
 let url = "https://api.foreader.com.cn"
 // let url = "http://39.106.144.146/api"
 //登录注册
-export const captureLogin = (grant_type,username,password,client_id,oauth_type,weixin_kind) => ajax(`${url}/accounts/access_token`, {
-  grant_type,username,password,client_id,oauth_type,weixin_kind
-}, null,'POST')
+ function getCookie(name) {
+  let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  if (arr = document.cookie.match(reg))
+    return (arr[2]);
+  else
+    return null;
+}
+function delCookie (name) {
+  let exp = new Date();
+  exp.setTime(exp.getTime() - 1);
+  let cval = getCookie(name);
+  if (cval != null)
+    document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+}
+export const captureLogin = (grant_type,username,password,client_id,oauth_type,weixin_kind) => axios.post(`${url}/accounts/access_token`,{grant_type,username,password,client_id,oauth_type,weixin_kind})
+  .then((response)=>response.data)
+  .catch((err)=>{
+    if(err){
+     vm.$cookie.delete("web_tk")
+      vm.$cookie.delete("tk")
+      vm.$cookie.delete("id")
+
+    }
+  })
+
 //登出
 export const logOut =  (token) => ajax(`${url}/accounts/revoke_token`,{token},"","POST")
 //验证码

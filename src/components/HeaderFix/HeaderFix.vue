@@ -119,17 +119,20 @@
             vertical-align middle
           .msite-list
             display none
-            background rgba(255,255,255,1)
+            padding-top 4px
+
             position absolute
-            top 44px
+            top 40px
             right 0
-            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.20);
+
             >a
               display block
               height 32px
               width 134px
               line-height 32px
               text-align center
+              background rgba(255,255,255,1)
+              box-shadow: -1px 3px 4px 1px rgba(0,0,0,0.20);
               img
                 width 14px
                 height 16px
@@ -142,6 +145,7 @@
         >.log
           float: right
           margin-right 0
+
           img
             border-radius 50%
           &:hover

@@ -542,7 +542,7 @@ img
                   .name
                     font-size 16px
                     color: rgba(0,0,0,.85)
-                    font-family:PingFangSC-Medium
+                    
                   .type
                     float: right
                 .author-name

@@ -51,7 +51,7 @@
     margin-top 20px
     .friend-title
       color #000
-      font-family "PingFang SC"
+
       font-weight 600
       font-size 14px
       padding-top 30px
@@ -59,6 +59,9 @@
     .all-friends
       margin-top 6px
       text-align center
+      span
+        font-size 14px
+        color rgba(0,0,0,.85)
       a
         margin-left 14px
         font-size 14px

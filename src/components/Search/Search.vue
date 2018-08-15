@@ -168,13 +168,14 @@
         .icon
           font-size 14px
     .search-result
-      color #d9d9d9
-      width 100px
-      height 24px
-      border-radius 2px
+      color #9b9b9b
+      width 946px
+      height 32px
+      border-radius 4px
       background #f6f8fc
       text-align center
-      line-height 24px
+      line-height 32px
+      margin-top 20px
       span
         color #4D8BEE
     .result-list

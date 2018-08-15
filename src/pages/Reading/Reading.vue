@@ -16,7 +16,7 @@
 
           <!--左侧导航-->
           <div class="art-box-left" :class="bc1">
-            <ul>
+            <ul class="mask-ul-one">
               <!--目录-->
               <li class="left-li" @click="toggleToolTip('cap')" :class="{isActive:which==='cap'&& isShow}">
                 <p class="li-title"><img :src="isChange?mulu.muluNight:mulu.mulu" alt=""></p>目录
@@ -78,7 +78,34 @@
                 <!--<p><img :src="isChange?shouji.shoujiNight:shouji.shouji" alt=""></p>手机-->
               <!--</li>-->
             </ul>
-
+            <div class="mask-left" v-show="!maskShowOrNot">
+              <ul class="mask-ul">
+                <li class="mask-li">
+                  目录
+                  <div class="trangle"></div>
+                </li>
+                <!--<li class="mask-li">-->
+                <!--全屏阅读-->
+                <!--<div class="trangle"></div>-->
+                <!--</li>-->
+                <li class="mask-li">
+                  字体大小
+                  <div class="trangle"></div>
+                </li>
+                <li class="mask-li">
+                  阅读背景
+                  <div class="trangle"></div>
+                </li>
+                <li class="mask-li">
+                  收藏本书
+                  <div class="trangle"></div>
+                </li>
+                <!--<li class="mask-li">-->
+                  <!--手机阅读-->
+                  <!--<div class="trangle"></div>-->
+                <!--</li>-->
+              </ul>
+            </div>
           </div>
 
           <!--正文-->
@@ -161,43 +188,43 @@
           </div>
         </div>
         <div class="read-foot">
-          <a href="javascript:;" @click="nextPrev(true)" :disabled="whichCapter <= 0" :class="{dis:whichCapter <= 0}">上一章</a><a href="javascript:;" @click="goDetail">目录</a><a href="javascript:;" @click="nextPrev(false)" :disabled="whichCapter >= bookChapter.length-1" :class="{dis:whichCapter >= bookChapter.length-1}">下一章</a>
+          <a href="javascript:;" @click="nextPrev(true)" :disabled="whichCapter <= 0" :class="{dis:whichCapter <= 0}">上一章 <span>(快捷键←)</span></a><a href="javascript:;" @click="goDetail">目录</a><a href="javascript:;" @click="nextPrev(false)" :disabled="whichCapter >= bookChapter.length-1" :class="{dis:whichCapter >= bookChapter.length-1}">下一章 <span>(快捷键→)</span></a>
         </div>
       </div>
     </div>
 
 
   </div>
-  <div class="mask" v-if="!hasShowIntro">
-    <div class="mask-container">
-      <div class="mask-left">
-        <ul>
-          <li class="mask-li">
-            目录
-            <div class="trangle"></div>
-          </li>
+  <div class="mask" v-if="!maskShowOrNot">
+
+      <!--<div class="mask-left">-->
+        <!--<ul>-->
           <!--<li class="mask-li">-->
-            <!--全屏阅读-->
+            <!--目录-->
             <!--<div class="trangle"></div>-->
           <!--</li>-->
-          <li class="mask-li">
-            字体大小
-            <div class="trangle"></div>
-          </li>
-          <li class="mask-li">
-            阅读背景
-            <div class="trangle"></div>
-          </li>
-          <li class="mask-li">
-            收藏本书
-            <div class="trangle"></div>
-          </li>
-          <li class="mask-li">
-            手机阅读
-            <div class="trangle"></div>
-          </li>
-        </ul>
-      </div>
+          <!--&lt;!&ndash;<li class="mask-li">&ndash;&gt;-->
+            <!--&lt;!&ndash;全屏阅读&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="trangle"></div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</li>&ndash;&gt;-->
+          <!--<li class="mask-li">-->
+            <!--字体大小-->
+            <!--<div class="trangle"></div>-->
+          <!--</li>-->
+          <!--<li class="mask-li">-->
+            <!--阅读背景-->
+            <!--<div class="trangle"></div>-->
+          <!--</li>-->
+          <!--<li class="mask-li">-->
+            <!--收藏本书-->
+            <!--<div class="trangle"></div>-->
+          <!--</li>-->
+          <!--<li class="mask-li">-->
+            <!--手机阅读-->
+            <!--<div class="trangle"></div>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
       <div class="mask-right">
         <p class="right-title">指南</p>
         <div class="right-main">
@@ -218,7 +245,7 @@
           <button @click="readyRead">关闭</button>
         </div>
       </div>
-    </div>
+
   </div>
 </div>
 
@@ -248,7 +275,7 @@
         maskShow:true,//初始化遮罩层是否显示
         bid:"",
         cid:"",
-        hasShowIntro: true,
+        maskShowOrNot:this.$cookie.get("hasShowIntro"),
         title:"",
         whichCapter:0,//初始化选择哪个章节阅读
         token:this.$cookie.get('web_tk'),
@@ -288,6 +315,7 @@
     beforeDestroy: function () {
       window.removeEventListener('keyup', this.onKeyPressed)
     },
+
     mounted(){
       let {bid} = this.$route.params
       this.$store.dispatch("getBookChapter",{bid})
@@ -418,8 +446,10 @@
         window.open(routeData.href, '_blank')
       },
       readyRead(){
-        localStorage.setItem("hasShowIntro",true)
-        this.hasShowIntro = true
+        // localStorage.setItem("hasShowIntro",true)
+        // this.hasShowIntro = true
+        this.$cookie.set("hasShowIntro",true)
+        window.location.reload()
       },
       toggleToolTip(id) {
         this.which = id
@@ -594,7 +624,11 @@
       }
     },
     computed:{
-      ...mapState(["bookChapter","bookDetail","readInfo","chapterShow","calculateResult" ,"myWallet","loginInfo"])
+      ...mapState(["bookChapter","bookDetail","readInfo","chapterShow","calculateResult" ,"myWallet","loginInfo"]),
+      // maskShowOrNot(){
+      //   console.log(this.$cookie.get("hasShowIntro"))
+      //   return this.$cookie.get("hasShowIntro")
+      // }
     },
     components:{
       HeaderWithSearch,
@@ -635,7 +669,7 @@
          //左中右的父亲
         .body-main
           position relative
-          overflow hidden
+          /*overflow hidden*/
           .art_box
             min-height 700px
           .art-box-left
@@ -644,7 +678,37 @@
             left 0
             margin:0 14px
             background #eaeaea
-            ul
+            .mask-left
+              position absolute
+              top -5px
+              right 68px
+              z-index 300
+              .mask-ul
+                .mask-li
+                  position relative
+                  width 81px
+                  height 41px
+                  background #fff
+                  border-radius 2.6px
+                  box-shadow: 0 0 4px 0 #c4b78a;
+                  margin-top 15px
+                  text-align center
+                  line-height 41px
+
+                  font-size: 16px;
+                  color rgba(0,0,0,.85)
+                  .trangle
+                    position: absolute
+                    top 50%
+                    left 81px
+                    margin-top -2px
+                    height 0
+                    width 0
+                    border-top 3px solid rgba(255, 255, 255, 0)
+                    border-bottom 3px solid rgba(255, 255, 255, 0)
+                    border-left 6px solid #fff
+
+            .mask-ul-one
               padding-left: 1px;
               padding-top: 1px;
               padding-bottom: 1px;
@@ -789,6 +853,8 @@
                 .sameActive
                   background #f8f8f8
                   border #a1a3b0
+            .mask-ul
+              border none !important
           .bc2
             background #FAF3DB
             ul
@@ -962,11 +1028,9 @@
                       .need-pay
                         font-size 12px
                         color #d0021b
-                        font-family "PingFang SC"
                       .origin-pay
                         color #9b9b9b
                         font-size 12px
-                        font-family "PingFang SC"
                         text-decoration line-through
                     .sub-btn
                       float: right
@@ -989,7 +1053,7 @@
                     font-size 20px
                     font-weight 500
                     color #9b9b9b
-                    font-family "PingFang SC"
+
                     margin-bottom 20px
                   .alert-img
                     a
@@ -1057,12 +1121,15 @@
           margin-left 82px
           padding 22px 0
           a
-            padding 0 106px
+            padding 0 74px
             border-right 1px solid #d9d9d9
             font-size 20px
             color rgba(0,0,0,.65)
+            span
+              color #9b9b9b
             &:last-child
               border none
+
           .dis
             color #9b9b9b
     .art_con
@@ -1078,86 +1145,63 @@
       bottom 0
       margin auto
       background rgba(0,0,0,.3)
-      .mask-container
-        position fixed
-        top 95px
-        left 95px
-        width: 1150px;
-        .mask-left
-          ul
-            .mask-li
-              position relative
-              width 81px
-              height 41px
-              background #fff
-              border-radius 2.6px
-              box-shadow: 0 0 4px 0 #c4b78a;
-              margin-top 15px
+      /*.mask-container*/
+        /*position fixed*/
+        /*top 95px*/
+        /*left 95px*/
+        /*width: 1150px;*/
+      .mask-right
+        position absolute
+        margin-top 300px
+        left 50%
+        margin-left -123px
+
+        width 433px
+        height 255px
+        background #fff
+        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+        padding 14px 16px
+        transform translateX(-25%)
+        .right-title
+          font-size: 18px;
+          font-weight: 600;
+          color: rgba(0, 0, 0, 0.85);
+        .right-main
+          margin-top 36px
+          overflow hidden
+
+          .screen,.page,.move
+            float left
+            margin-left 12px
+            margin-right 41px
+            p
+              margin-bottom 12px
+
+              font-size: 14px;
+              font-weight: 500;
+              color: #9b9b9b;
+            a
+              width 44px
+              height 44px
+              background #f5f5f5
+              border: solid 1px #e2e2e2;
+              border-radius 4px
+              margin-right 12px
               text-align center
-              line-height 41px
+              line-height 44px
+              color #808080
+          .move
+            margin-right 0
 
-              font-size: 16px;
-              color rgba(0,0,0,.85)
-              .trangle
-                position: absolute
-                top 50%
-                left 81px
-                margin-top -2px
-                height 0
-                width 0
-                border-top 3px solid rgba(255, 255, 255, 0)
-                border-bottom 3px solid rgba(255, 255, 255, 0)
-                border-left 6px solid #fff
-        .mask-right
-          position absolute
-          top: 40%
-          left: 50%
-          width 433px
-          height 255px
-          background #fff
-          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
-          padding 14px 16px
-          transform translateX(-25%)
-          .right-title
-            font-size: 18px;
-            font-weight: 600;
-            color: rgba(0, 0, 0, 0.85);
-          .right-main
-            margin-top 36px
-            overflow hidden
-
-            .screen,.page,.move
-              float left
-              margin-left 12px
-              margin-right 41px
-              p
-                margin-bottom 12px
-
-                font-size: 14px;
-                font-weight: 500;
-                color: #9b9b9b;
-              a
-                width 44px
-                height 44px
-                background #f5f5f5
-                border: solid 1px #e2e2e2;
-                border-radius 4px
-                margin-right 12px
-                text-align center
-                line-height 44px
-                color #808080
-            .move
-              margin-right 0
-
-          .btn
-            margin-top 40px
-            text-align center
-            button
-              width: 65px;
-              height: 32px;
-              border-radius: 4px;
-              background-color: #4d8bee;
-              color #fff
+        .btn
+          margin-top 40px
+          text-align center
+          button
+            width: 65px;
+            height: 32px;
+            border-radius: 4px;
+            background-color: #4d8bee;
+            color #fff
   #reading_root_container
     min-height 100vh
 </style>

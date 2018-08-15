@@ -30,13 +30,14 @@
     </div>
     <button class="save" @click="save">保存</button>
   </div>
-  <div class="modify-success" v-show="isAlert">
-    <div class="success-font">
-      修改成功
-      <button class="complete" @click="complete">完成</button>
-    </div>
+  <!--<div class="modify-success" v-show="isAlert">-->
+    <!--<div class="success-font">-->
+      <!--修改成功-->
+      <!--<button class="complete" @click="complete">完成</button>-->
+    <!--</div>-->
 
-  </div>
+  <!--</div>-->
+
 </div>
 </template>
 
@@ -98,7 +99,7 @@
         Radio,
         Row,
         Col,
-        DatePicker
+        DatePicker,
       }
     }
 </script>
@@ -107,10 +108,10 @@
 .modify-container
   padding 40px 30px
   background: #fff;
+  height 710px
   .modify-title
     font-size 16px
     color rgba(0,0,0,.85)
-    font-family "PingFang SC"
   .modify-base
     padding-left 28px
     margin-top 30px
@@ -149,6 +150,8 @@
     line-height 38px
     text-align center
     margin 64px 0 0 72px
+    color #fff
+    font-size 14px
 .modify-success
   position absolute
   top 0

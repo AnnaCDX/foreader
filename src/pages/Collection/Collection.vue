@@ -134,7 +134,6 @@
             height 80px
             position relative
             .name-words
-              font-family: PingFangSC
               font-size: 16px
               font-weight: 500
               color: rgba(0, 0, 0, 0.85)

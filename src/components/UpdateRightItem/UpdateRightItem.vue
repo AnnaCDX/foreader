@@ -2,11 +2,11 @@
   <div class="list-body-right">
     <div class="top-right-list">
       <div class="right-list-left">
-        <a href="javascript:;" class="list-book-name">{{per.title}}</a>
+        <a href="javascript:;" class="list-book-name" @click="goDetail(per.bid)">{{per.title}}</a>
         <p class="daily-update">{{per.latestChapter.updatedFormated}}</p>
         <a href="javascript:;" class="list-author-name">{{per.mainAuthor.name}}</a>
       </div>
-      <a href="javascript:;" class="list-book-img"><img v-lazy="per.poster" alt=""></a>
+      <a href="javascript:;" class="list-book-img" @click="goDetail(per.bid)"><img v-lazy="per.poster" alt=""></a>
     </div>
     <p class="bottom-right-list">
       {{per.description}}
@@ -24,7 +24,13 @@
           return {
 
           }
-        }
+        },
+      methods:{
+        goDetail(bid){
+          let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
+          window.open(routeData.href, '_blank')
+        },
+      }
     }
 </script>
 
@@ -73,6 +79,7 @@
         img
           width:70px
           height:91px
+          box-shadow: 0 1px 4px 0 rgba(0,0,0,0.45);
     .bottom-right-list
       width: 194px;
       height: 66px;
