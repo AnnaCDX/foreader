@@ -30,7 +30,7 @@
           <!--<router-link to="/net">网络</router-link>-->
           <!--<router-link to="/samePeople">同人</router-link>-->
           <!--<router-link to="/scine">科幻</router-link>-->
-          <a href="https://www.foreader.com.cn/admin_login/" class="write">
+          <a href="https://author.foreader.com.cn/" class="write">
             <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
           </a>

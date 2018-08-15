@@ -7,7 +7,7 @@
           <router-link to="/home">首页</router-link>
           <router-link to="/rank">排行榜</router-link>
           <router-link to="/library">书库</router-link>
-          <a href="https://www.foreader.com.cn/admin_login/" class="write">
+          <a href="https://author.foreader.com.cn/" class="write">
             <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
             写作平台
           </a>
