@@ -5,7 +5,7 @@
         <p class="info">个人信息  <router-link to="/msite/modify"><img src="../../assets/img/web/msite/edit.png" alt="">修改信息</router-link></p>
         <p class="marginTop">ID：<span>{{userInfo.id}}</span></p>
         <p class="marginTop">昵称：<span>{{userInfo.name}}</span></p>
-        <p class="marginTop">性别：<span>{{userInfo.sex==0?"女":"男"}}</span></p>
+        <p class="marginTop">性别：<span>{{userInfo.sex==1?"女":"男"}}</span></p>
         <p class="marginTop">生日：<span>{{userInfo.birthday}} </span></p>
         <p class="marginTop">个性签名：<span>{{userInfo.description}}</span></p>
         <!--<div class="wallet">-->

@@ -152,7 +152,7 @@
             <a href="javascript:;" class="pic" v-for="(book,index) in item.data" :key="index" @click="goDetail(book.bid)"><img v-lazy="book.poster" alt=""></a>
           </div>
           <div class="activity back-color marginTop" v-else-if="item.template===5" >
-            <a href="javascript:;" class="img-left"><img src="../../assets/img/web/home/xianshimianfei.png" alt=""></a>
+            <a href="javascript:;" class="img-left"><img src="../../assets/img/web/home/newxianshimaifei.jpg" alt=""></a>
             <div class="arrow-container">
               <!--<div class="arrow-container swiper-container">-->
                 <!--<div class="arrow-wrapper swiper-wrapper">-->

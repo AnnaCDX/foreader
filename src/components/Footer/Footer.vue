@@ -10,6 +10,7 @@
       <a href="http://www.pinyuew.com/" title="品阅中文网" target="_blank">品阅中文网</a>
       <a href="http://www.zhangyue.com" title="品阅中文网" target="_blank">掌阅科技</a>
       <a href="http://www.shenqiwang.cn" title="品阅中文网" target="_blank">神起中文网</a>
+      <a href="http://www.yousuu.com" title="品阅中文网" target="_blank">优书网</a>
 
     </div>
     <div class="center">
