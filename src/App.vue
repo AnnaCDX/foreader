@@ -95,6 +95,7 @@
   import HeaderFix from "./components/HeaderFix/HeaderFix"
   import HeaderBottom from "./components/HeaderBottom/HeaderBottom"
   import vueHeadful from 'vue-headful'
+  import  "babel-polyfill"
 
   export default {
         data(){
