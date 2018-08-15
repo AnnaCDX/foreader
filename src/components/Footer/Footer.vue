@@ -11,6 +11,10 @@
       <a href="http://www.zhangyue.com" title="品阅中文网" target="_blank">掌阅科技</a>
       <a href="http://www.shenqiwang.cn" title="品阅中文网" target="_blank">神起中文网</a>
       <a href="http://www.yousuu.com" title="品阅中文网" target="_blank">优书网</a>
+      <a href="http://www.iyoule.com/" title="有乐中文网" target="_blank">有乐中文网</a>
+      <a href="http://w.miaoyuedu.com" title="喵阅读" target="_blank">喵阅读</a>
+      <a href="http://www.moqing.com" title="魔情小说网" target="_blank">魔情小说网</a>
+
 
     </div>
     <div class="center">
@@ -56,7 +60,7 @@
       margin-top 6px
       text-align center
       a
-        margin-left 20px
+        margin-left 14px
         font-size 14px
         color rgba(0,0,0,.85)
     .copy-right
