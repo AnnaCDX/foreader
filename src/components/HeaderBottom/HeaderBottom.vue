@@ -18,7 +18,7 @@
         手机端
       </a>
 
-      <img class="android-qr-code" src="../../assets/img/qr_android_download2.png" v-show="showQrcode"/>
+      <img class="android-qr-code" src="../../assets/img/qr_android_download.png" v-show="showQrcode"/>
 
     </div>
   </div>
@@ -61,7 +61,7 @@
         z-index 9999
         right: 68px;
         position absolute
-        box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.35)
+        box-shadow: 0 3px 7px 0 rgba(77, 139, 238,.8);
       a
         display inline-block
         width: 80px
