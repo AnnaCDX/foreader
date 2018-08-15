@@ -5,9 +5,9 @@
     <div class="modify-base">
       <div class="nickname">昵称：<Input :placeholder="userInfo.name" v-model="nickname" /></div>
       <div class="sex">性别：
-        <RadioGroup v-model="sex">
-          <Radio label="男"></Radio>
-          <Radio label="女"></Radio>
+        <RadioGroup v-model="sexSelect">
+          <Radio label="男" ></Radio>
+          <Radio label="女" ></Radio>
         </RadioGroup>
       </div>
       <div class="birthday">
@@ -49,7 +49,7 @@
           return{
             isAlert:false,
             nickname:"",
-            sexSelect:"",
+            sexSelect:"男",
             birthday:'',
             sex:0,
             ownSign:''
@@ -57,6 +57,9 @@
         },
       computed:{
         ...mapState(["userInfo"]),
+        // sexSelect(){
+        //   return this.userInfo.sex==2?"男":"女"
+        // }
       },
       methods:{
         ...mapActions(["recordNewUserInfo"]),
@@ -65,11 +68,11 @@
           this.birthday = date
         },
         async save(){
-
+        console.log(this.sexSelect)
           if(this.sexSelect=="女"){
-            this.sex=0
-          }else{
             this.sex=1
+          }else{
+            this.sex=2
           }
           let {nickname,sex,birthday,ownSign} = this
           let token = this.$cookie.get('web_tk')
@@ -79,6 +82,7 @@
               "Authorization":"Bearer "+token
             }
           };
+          console.log(this.sex)
           let result = await modifyInfo(sex,nickname,ownSign,birthday,id,config)
           this.recordNewUserInfo(result)
           this.$router.push("/msite/homePage")

@@ -48,7 +48,7 @@
       .top-logo
         float left
         width 142px
-        background url("../../assets/img/web/home/top_logo.png")
+        background url("../../assets/img/web/home/topbg_logo.png")
         background-repeat no-repeat
         background-size 100%
       .top-center

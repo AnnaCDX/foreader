@@ -25,8 +25,8 @@
                 <div class="gray-info">
                   <img class="author-avantar" :src="item.poster" alt="">
                   <span class="author-name" v-for="(per,index) in item.authors" :key="per">{{per}}</span>|
-                  <span v-for="(per,index) in item.tags.slice(0,2)" class="type" :class="{comfort:index==2}" to="/type" :key="index">{{per}}</span>
-                  <span class="type">{{item.status==0?"连载中":"已完结"}}</span>
+                  <span v-for="(per,index) in item.tags.slice(0,2)" class="type" :class="{comfort:index==2}"  :key="index">{{per}}</span>
+                  <span class="type comfort">{{item.status==0?"连载中":"已完结"}}</span>
                   <span class="type">{{item.categories[0]}}</span>
                 </div>
                 <p class="paragragh">
@@ -220,11 +220,11 @@
                 margin-left 13px
                 padding 2px 6px
               .type
-                color #4f6ac5
+                color #4d8bee
                 border-radius: 2.4px;
                 margin-left 13px
                 padding 0 6px
-                border: solid 0.5px #4f6ac5;
+                border: solid 0.5px #4d8bee;
               .comfort
                 border: solid 0.5px #f3799c;
                 color #f3799c

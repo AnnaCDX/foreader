@@ -73,6 +73,7 @@
         let token = this.$cookie.get('web_tk');
         if(token){
           await logOut(token);
+          console.log(11)
         }
 
         this.$cookie.delete("id");
@@ -120,8 +121,9 @@
             display none
             background rgba(255,255,255,1)
             position absolute
-            top 40px
+            top 44px
             right 0
+            box-shadow: 0 1px 4px 0 rgba(0,0,0,0.20);
             >a
               display block
               height 32px
