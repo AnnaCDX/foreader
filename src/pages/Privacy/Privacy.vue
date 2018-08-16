@@ -4,31 +4,6 @@
       title="隐私权声明"
       description="速更-隐私权声明"
     />
-    <HeaderWithSearch></HeaderWithSearch>
-    <div class="header-bottom">
-      <div class="bottom-content">
-        <router-link to="/home">首页</router-link>
-        <router-link to="/rank">排行榜</router-link>
-        <router-link to="/library">书库</router-link>
-        <!--<router-link to="/magic">玄幻</router-link>-->
-        <!--<router-link to="/city">都市</router-link>-->
-        <!--<router-link to="/net">网络</router-link>-->
-        <!--<router-link to="/samePeople">同人</router-link>-->
-        <!--<router-link to="/scine">科幻</router-link>-->
-        <div class="write-phone">
-          <!--<router-link to="/phone" class="phone-port">-->
-            <!--<img  src="../../assets/img/web/home/ic_phone.png" alt="">-->
-            <!--手机端-->
-          <!--</router-link>-->
-          <a href="https://author.foreader.com.cn/" class="write-plat">
-            <img src="../../assets/img/web/home/sy_xiezuopingtai.png" alt="">
-            写作平台
-          </a>
-
-        </div>
-
-      </div>
-    </div>
     <div class="text-main">
       <div class="content-header">
         速更小说网隐私策略
@@ -134,7 +109,6 @@
 </template>
 
 <script>
-  import HeaderWithSearch from "../../components/HeaderWithSearch/HeaderWithSearch"
   import vueHeadful from 'vue-headful';
 
   export default {
@@ -150,8 +124,7 @@
 
     },
     components:{
-      vueHeadful,
-      HeaderWithSearch
+      vueHeadful
     }
   }
 </script>

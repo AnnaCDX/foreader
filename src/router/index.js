@@ -248,15 +248,24 @@ export default new Router({
     },
     {
       path:"/privacy",
-      component:Privacy
+      component:Privacy,
+      meta:{
+        showHead:true
+      }
     },
     {
       path:"/aggreement",
-      component:Aggreement
+      component:Aggreement,
+      meta:{
+        showHead:true
+      }
     },
     {
       path:"/helpCenter",
-      component:HelpCenter
+      component:HelpCenter,
+      meta:{
+        showHead:true
+      }
     }
   ]
 })
