@@ -25,7 +25,7 @@
                   <p class="chapter-title">目录·共{{bookChapter.length}}章</p>
                   <div class="all-chapter">
                     <ul >
-                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="isFree(item.cid,item.bid,index,item.title)"><a href="javascript:;" class="cpt-title">{{item.title}}</a>
+                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="goToChapter(item.cid,item.bid,index,item.title)"><a href="javascript:;" class="cpt-title">{{item.title}}</a>
                         <a href="javascript:;" class="cpt-key"><i class="icon iconfont icon-icon-" v-show="!item.free"></i></a></li>
                     </ul>
                   </div>
@@ -483,12 +483,13 @@
           this.$store.dispatch("showLoginDialog",true)
         }
       },
+
       // 点击列表进行阅读
-      async isFree(cid,bid,wCapter,title){
-        this.bid = bid
+      async goToChapter(cid, bid, chapterIndex, title){
+        this.bid = bid;
         this.cid = cid
         let id = this.$cookie.get("id")
-        this.whichCapter = wCapter
+        this.whichCapter = chapterIndex
         this.title = title
         this.needPay = false
         let token=this.$cookie.get('web_tk')
@@ -530,6 +531,7 @@
           document.body.scrolltop = 0
         }
       },
+
       // 点击上下章进行阅读
       async nextPrev(isPrev){
         // let {bookChapter,whichCapter} = this
