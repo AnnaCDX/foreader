@@ -188,7 +188,9 @@
           </div>
         </div>
         <div class="read-foot">
-          <a href="javascript:;" @click="nextPrev(true)" :disabled="whichCapter <= 0" :class="{dis:whichCapter <= 0}">上一章 <span>(快捷键←)</span></a><a href="javascript:;" @click="goDetail">目录</a><a href="javascript:;" @click="nextPrev(false)" :disabled="whichCapter >= bookChapter.length-1" :class="{dis:whichCapter >= bookChapter.length-1}">下一章 <span>(快捷键→)</span></a>
+          <a class="bottom-btn-pre" href="javascript:;" @click="nextPrev(true)" :disabled="whichCapter <= 0" :class="{dis:whichCapter <= 0}">上一章 <span>(快捷键←)</span></a>
+          <a class="bottom-btn-catalog" href="javascript:;" @click="goDetail">目录</a>
+          <a class="bottom-btn-nxt" href="javascript:;" @click="nextPrev(false)" :disabled="whichCapter >= bookChapter.length-1" :class="{dis:whichCapter >= bookChapter.length-1}">下一章 <span>(快捷键→)</span></a>
         </div>
       </div>
     </div>
@@ -1119,17 +1121,25 @@
           height 70px
           margin-top 30px
           margin-left 82px
-          padding 22px 0
+          display flex
+          flex-direction row
+          align-items center
+          justify-content center
           a
-            padding 0 74px
             border-right 1px solid #d9d9d9
             font-size 20px
             color rgba(0,0,0,.65)
+            text-align center
             span
               color #9b9b9b
             &:last-child
               border none
-
+          .bottom-btn-pre
+            width 300px
+          .bottom-btn-nxt
+            width 300px
+          .bottom-btn-catalog
+            width 260px
           .dis
             color #9b9b9b
     .art_con
