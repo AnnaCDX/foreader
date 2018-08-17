@@ -21,7 +21,7 @@
               </p>
               <p class="words-num"><span>{{Math.floor(bookDetail.book.wordCount/10000)}}</span> 万字</p>
               <div class="update-new">
-                <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name">{{bookDetail.book.latestChapter.title}}</span></p>
+                <p class="update-info"><span class="update-title">最近更新：</span><span class="update-time">{{bookDetail.book.updatedFormated}}</span><span class="chapter-name" v-if="bookDetail.book.latestChapter">{{bookDetail.book.latestChapter.title}}</span></p>
                 <!--<span class="update-chapter">第多少张</span>-->
                 <p class="update-intro">
                   {{ bookDetail.book.description}}
@@ -68,14 +68,18 @@
         return {}
       },
       async  mounted(){
-        let bid = this.$route.params.bid
-        this.$store.dispatch("getBookDetail",{bid})
-        await rankAdd(bid,"pv")
+          let bid = this.$route.params.bid
+          this.$store.dispatch("getBookDetail", {bid})
+          await rankAdd(bid, "pv")
       },
       methods:{
         goReading(bid){
-          let routeData = this.$router.resolve({ path: `/reading/${bid}`});
-          window.open(routeData.href, '_blank')
+          if (this.bookDetail.book.latestChapter) {
+            let routeData = this.$router.resolve({path: `/reading/${bid}`});
+            window.open(routeData.href, '_blank')
+          } else {
+            window.alert("没有章节")
+          }
         }
       },
       computed:{
