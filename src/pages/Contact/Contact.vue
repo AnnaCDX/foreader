@@ -1,35 +1,25 @@
 <template>
   <div class="text-container">
     <vueHeadful
-      title="帮助中心"
-      description="速更-帮助中心"
-    />
+      title="联系我们"
+      description="速更-联系我们"/>
 
     <div class="text-main">
       <div class="content-header">
-        速更小说网帮助中心
+        联系我们
       </div>
       <div class="content-main">
-       <div class="each-item">
-         <p class="type-title">意见反馈</p>
-         <p class="type-content">QQ:1254851128（速速）</p>
-       </div>
         <div class="each-item">
-          <p class="type-title">版权合作</p>
-          <p class="type-content">邮箱: <a href="javascript:;">banquan@foreader.cn</a></p>
+          <p class="type-content">邮箱: <a href="javascript:;">kefu@foreader.cn</a></p>
         </div>
         <div class="each-item">
-          <p class="type-title">品牌合作</p>
-          <p class="type-content">邮箱: <a href="javascript:;">pinpai@foreader.cn</a></p>
+          <p class="type-title">编辑部联系方式</p>
+          <p class="type-content">鲨鱼: <a href="javascript:;"> 1319505356@qq.com</a></p>
         </div>
         <div class="each-item">
-          <p class="type-title">投稿</p>
-          <p class="type-content">邮箱: <a href="javascript:;">wangsy@foreader.cn</a></p>
+          <p class="type-content">柠檬: <a href="javascript:;">2300488388@qq.com</a></p>
         </div>
-        <div class="each-item">
-          <p class="type-title">工作时间</p>
-          <p class="type-content">周一到周五 09：30-18：30</p>
-        </div>
+
       </div>
     </div>
     <Footer></Footer>
@@ -115,7 +105,8 @@
 
         line-height 120px
       .content-main
-        padding 77px  125px 54px 85px
+         min-height 450px
+         padding 77px  125px 54px 85px
         .each-item
           margin-bottom 30px
           .type-title

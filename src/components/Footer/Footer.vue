@@ -2,7 +2,7 @@
   <div class="footer  marginTop">
 
     <div class="all-friends">
-      <span>合作伙伴：</span>
+      <span>友情链接：</span>
       <a href="http://www.ireader.com/">掌阅书城</a>
       <a href="http://www.quyuewang.cn/" title="趣阅中文网" target="_blank">趣阅中文网</a>
       <a href="http://www.hongshu.com/" title="红薯中文网" target="_blank">红薯中文网</a>
@@ -18,6 +18,8 @@
 
     </div>
     <div class="center">
+      <router-link to="/about" >关于我们</router-link>
+      <router-link to="/contact" >联系我们</router-link>
       <router-link to="/helpCenter" >帮助中心</router-link>
       <router-link to="/privacy">隐私策略</router-link>
       <router-link to="/aggreement">使用协议</router-link>

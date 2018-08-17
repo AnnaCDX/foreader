@@ -1,34 +1,16 @@
 <template>
   <div class="text-container">
     <vueHeadful
-      title="帮助中心"
-      description="速更-帮助中心"
-    />
+      title="关于我们"
+      description="速更-关于我们"/>
 
     <div class="text-main">
       <div class="content-header">
-        速更小说网帮助中心
+        关于我们
       </div>
       <div class="content-main">
-       <div class="each-item">
-         <p class="type-title">意见反馈</p>
-         <p class="type-content">QQ:1254851128（速速）</p>
-       </div>
         <div class="each-item">
-          <p class="type-title">版权合作</p>
-          <p class="type-content">邮箱: <a href="javascript:;">banquan@foreader.cn</a></p>
-        </div>
-        <div class="each-item">
-          <p class="type-title">品牌合作</p>
-          <p class="type-content">邮箱: <a href="javascript:;">pinpai@foreader.cn</a></p>
-        </div>
-        <div class="each-item">
-          <p class="type-title">投稿</p>
-          <p class="type-content">邮箱: <a href="javascript:;">wangsy@foreader.cn</a></p>
-        </div>
-        <div class="each-item">
-          <p class="type-title">工作时间</p>
-          <p class="type-content">周一到周五 09：30-18：30</p>
+          <p class="type-title">速更小说网于2018年8月成立，是北京复阅科技有限公司旗下网站，也是掌阅文学重要组成部分，速更小说网以开发精品内容为目标，致力于打造网络文学内容生产基地，立志成为行业领先的网络文学内容生产商与版权运营商。</p>
         </div>
       </div>
     </div>
@@ -115,19 +97,12 @@
 
         line-height 120px
       .content-main
-        padding 77px  125px 54px 85px
+         min-height 450px
+         padding 77px  125px 54px 85px
         .each-item
           margin-bottom 30px
           .type-title
             color rgba(0,0,0,.85 )
-
-
-
-
-
-
-
-
 
           &:last-child
             margin-bottom 30px

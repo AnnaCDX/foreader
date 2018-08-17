@@ -102,18 +102,14 @@
         </p>
       </div>
     </div>
-    <div class="footer ">
-      <div class="center">
-        <router-link to="/helpCenter" >帮助中心</router-link>
-        <router-link to="/privacy">隐私策略</router-link>
-        <router-link to="/aggreement">使用协议</router-link>
-      </div>
-      <p class="copy-right ">CopyRight &copy; 2018 foreader.com.cn All Rights Reserved</p>
-    </div>
+    <Footer></Footer>
+
   </div>
+
 </template>
 
 <script>
+  import Footer from "../../components/Footer/Footer"
   import vueHeadful from 'vue-headful';
 
   export default {
@@ -129,7 +125,8 @@
 
     },
     components:{
-      vueHeadful
+      vueHeadful,
+      Footer
     }
   }
 </script>

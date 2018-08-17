@@ -29,6 +29,8 @@ import HotComments from '../components/HotComments/HotComments'
 import Comments from "../components/Comments/Comments"
 import Search from "../components/Search/Search"
 import HelpCenter from "../pages/HelpCenter/HelpCenter"
+import About from "../pages/About/About"
+import Contact from "../pages/Contact/Contact"
 Vue.use(Router)
 
 export default new Router({
@@ -263,6 +265,20 @@ export default new Router({
     {
       path:"/helpCenter",
       component:HelpCenter,
+      meta:{
+        showHead:true
+      }
+    },
+    {
+      path:"/about",
+      component:About,
+      meta:{
+        showHead:true
+      }
+    },
+    {
+      path:"/contact",
+      component:Contact,
       meta:{
         showHead:true
       }
