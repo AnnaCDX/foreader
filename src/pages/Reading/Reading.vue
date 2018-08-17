@@ -78,7 +78,7 @@
                 <!--<p><img :src="isChange?shouji.shoujiNight:shouji.shouji" alt=""></p>手机-->
               <!--</li>-->
             </ul>
-            <div class="mask-left" v-show="!maskShowOrNot">
+            <div class="mask-left" v-show="needShowMask">
               <ul class="mask-ul">
                 <li class="mask-li">
                   目录
@@ -197,7 +197,7 @@
 
 
   </div>
-  <div class="mask" v-if="!maskShowOrNot">
+  <div class="mask" v-if="needShowMask">
 
       <!--<div class="mask-left">-->
         <!--<ul>-->
@@ -274,10 +274,9 @@
         isRight:true,//初始化是否自动购买
         buyWhich:1,//初始化购买哪个套餐
         isShow:false,//初始化是否显示
-        maskShow:true,//初始化遮罩层是否显示
         bid:"",
         cid:"",
-        maskShowOrNot:this.$cookie.get("hasShowIntro"),
+        needShowMask:false,
         title:"",
         whichCapter:0,//初始化选择哪个章节阅读
         token:this.$cookie.get('web_tk'),
@@ -307,11 +306,13 @@
     },
     created: function () {
       window.addEventListener('keyup', this.onKeyPressed)
-        var hasShowIntroFlag = localStorage.getItem("hasShowIntro")
-        if (!hasShowIntroFlag || hasShowIntroFlag == null || hasShowIntroFlag == undefined) {
-          localStorage.setItem("hasShowIntro",true)
-          this.hasShowIntro = false
-        }
+
+      var hasShowIntroFlag = localStorage.getItem("hasShowIntro")
+      if (!hasShowIntroFlag || hasShowIntroFlag == null || hasShowIntroFlag == undefined) {
+        localStorage.setItem("hasShowIntro",true)
+        this.needShowMask = true
+      }
+
     },
 
     beforeDestroy: function () {
@@ -322,6 +323,8 @@
       let {bid} = this.$route.params
       this.$store.dispatch("getBookChapter",{bid})
       this.$store.dispatch("getBookDetail",{bid})
+
+
     },
     watch:{
       async bookChapter(value){
@@ -448,10 +451,10 @@
         window.open(routeData.href, '_blank')
       },
       readyRead(){
-        // localStorage.setItem("hasShowIntro",true)
-        // this.hasShowIntro = true
-        this.$cookie.set("hasShowIntro",true)
-        window.location.reload()
+        localStorage.setItem("hasShowIntro",true)
+        this.needShowMask = false
+        // this.$cookie.set("hasShowIntro",true)
+        // window.location.reload()
       },
       toggleToolTip(id) {
         this.which = id
@@ -629,7 +632,7 @@
     },
     computed:{
       ...mapState(["bookChapter","bookDetail","readInfo","chapterShow","calculateResult" ,"myWallet","loginInfo"]),
-      // maskShowOrNot(){
+      // needShowMask(){
       //   console.log(this.$cookie.get("hasShowIntro"))
       //   return this.$cookie.get("hasShowIntro")
       // }
