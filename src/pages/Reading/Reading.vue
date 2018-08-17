@@ -346,12 +346,12 @@
             "Authorization":"Bearer "+token
           }
         }
-        let initData
-        if(!id){
-          initData = await reqReadInfo(bid,cid)
-        }else{
-          initData = await reqReadInfo(bid,cid,config)
-        }
+        let initData = await reqReadInfo(bid,cid)
+        // if(!id){
+        //   initData = await reqReadInfo(bid,cid)
+        // }else{
+        //   initData = await reqReadInfo(bid,cid,config)
+        // }
         let {data} = initData
 
         if(!data){
@@ -501,14 +501,14 @@
             "Authorization":"Bearer "+token
           }
         }
-
-        let initData
-        if(!id){
-          initData = await reqReadInfo(bid,cid)
-
-        }else{
-          initData = await reqReadInfo(bid,cid,config)
-        }
+        // todo 暂时不传入token，无购买操作，规避token时效
+        let initData = await reqReadInfo(bid,cid);
+        // if(!id){
+        //   initData =
+        //
+        // }else{
+        //   initData = await reqReadInfo(bid,cid,config)
+        // }
         let {data} = initData
         if(!data){
           // this.$router.push('/home')
@@ -554,12 +554,13 @@
               "Authorization":"Bearer "+token
             }
           }
-          let initData
-          if(!id){
-            initData = await reqReadInfo(bid,cid)
-          }else{
-            initData = await reqReadInfo(bid,cid,config)
-          }
+          let initData = await reqReadInfo(bid,cid);
+          // todo 暂时不传入token，无购买操作，规避token时效
+          // if(!id){
+          //   initData = await reqReadInfo(bid,cid)
+          // }else{
+          //   initData = await reqReadInfo(bid,cid,config)
+          // }
           let {data} = initData
           if(!data){
             // this.$router.push('/home')
@@ -596,12 +597,13 @@
               "Authorization":"Bearer "+token
             }
           };
-          let initData
-          if(!token){
-            initData = await reqReadInfo(bid,cid)
-          }else{
-            initData = await reqReadInfo(bid,cid,config)
-          }
+          // todo 暂时不传入token，无购买操作，规避token时效
+          let initData = await reqReadInfo(bid,cid);
+          // if(!token){
+          //   initData = await reqReadInfo(bid,cid)
+          // }else{
+          //   initData = await reqReadInfo(bid,cid,config)
+          // }
           let {data} = initData;
           if(!data){
             // this.$router.push('/home')
