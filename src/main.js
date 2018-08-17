@@ -10,6 +10,7 @@ import "iview/dist/styles/iview.css"
 import axios from 'axios'
 import qs from 'qs'
 import Es6Promise from 'es6-promise'
+import AppUtil from "./common/utils/AppUtil"
 Es6Promise.polyfill()
 
 // import "./filter/moment/moment"
@@ -59,6 +60,7 @@ if (Number.parseFloat === undefined) Number.parseFloat = window.parseFloat;
       clearTimeout(id);
     };
 }());
+Vue.use(AppUtil);
 Vue.use(VueCookie)
 // Vue.use(iView)
 Vue.component("Input",Input)

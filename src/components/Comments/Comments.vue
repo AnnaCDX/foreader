@@ -12,7 +12,8 @@
             <div class="write-comments">
               <p class="book-title">{{bookDetail.book.title}}《评论区》</p>
               <div class="comments-input">
-                <img :src="userInfo.avatar" alt="">
+                <img :src="userInfo.avatar" alt="" v-if="userInfo.avatar">
+                <img src="https://avatar.foreader.com.cn/avatar.png" alt="" v-else/>
                 <Input v-model="content" placeholder="我也来说一句" />
               </div>
               <button class="publish" @click.prevent="publishComments">发表评论</button>
@@ -106,17 +107,22 @@
             window.open(routeData.href, '_blank')
           },
           async publishComments(){
-            let bid = this.$route.params.bid
-            let {content} = this
-            let token = this.$cookie.get('web_tk')
-            let config={
-              headers:{
-                "Authorization":"Bearer "+token
+            if (this.isLogin()) {
+              let bid = this.$route.params.bid
+              let {content} = this
+              let token = this.$cookie.get('web_tk')
+              let config={
+                headers:{
+                  "Authorization":"Bearer "+token
+                }
               }
+              var result = await addComment(bid,content,config)
+              this.content ='';
+              this.$store.dispatch("getCommentsList",{bid})
+            } else {
+              this.$store.dispatch("showLoginDialog",true)
             }
-            var result = await addComment(bid,content,config)
-            this.content ='';
-            this.$store.dispatch("getCommentsList",{bid})
+
           }
         },
         components:{

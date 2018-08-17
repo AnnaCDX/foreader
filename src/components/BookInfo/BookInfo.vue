@@ -78,12 +78,8 @@
       },
       methods:{
         goComments(bid){
-          if (this.$cookie.get('id')) {
-            let routeData = this.$router.resolve({path: `/comments/${bid}`});
-            window.open(routeData.href, '_blank')
-          } else {
-            this.$store.dispatch("showLoginDialog",true)
-          }
+          let routeData = this.$router.resolve({path: `/comments/${bid}`});
+          window.open(routeData.href, '_blank')
         },
         goDetail(bid){
           let routeData = this.$router.resolve({ path: `/detail/bookIntro/${bid}`});
