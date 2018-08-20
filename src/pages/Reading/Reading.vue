@@ -530,9 +530,14 @@
         }else{
           let {content} = data
           this.recordReadInfo({content})
-          document.documentElement.scrollTop = 0
-          document.body.scrolltop = 0
+          this.scrollToTopSafely()
         }
+      },
+
+      scrollToTopSafely() {
+        document.documentElement.scrollTop = 0
+        document.body.scrolltop = 0
+        window.scrollTo(0,0)
       },
 
       // 点击上下章进行阅读
@@ -580,8 +585,7 @@
             let {content} = data
             this.recordReadInfo({content})
             this.needPay = data.need_pay
-            document.documentElement.scrollTop = 0
-            document.body.scrolltop = 0
+            this.scrollToTopSafely()
           }
         }else{
           this.whichCapter++
@@ -626,8 +630,7 @@
             let {content} = data
             this.recordReadInfo({content})
             this.needPay = data.need_pay
-            document.documentElement.scrollTop = 0
-            document.body.scrolltop = 0
+            this.scrollToTopSafely()
           }
         }
       }
