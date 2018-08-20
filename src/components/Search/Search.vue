@@ -34,7 +34,7 @@
                   <!--<a href="javascript:;" class="ellipsis">...</a>-->
                 </p>
                 <div class="words-click">
-                  <p > <span>{{Math.floor(item.wordCount/10000)}}万</span>字</p>
+                  <p > <span>{{(item.wordCount/10000).toFixed(1)}}万</span>字</p>
                   <!--<p > <span>3万</span>点击</p>-->
                 </div>
               </div>

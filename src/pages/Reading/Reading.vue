@@ -116,7 +116,7 @@
                 <li v-for="(item,index) in bookDetail.book.authors" :key="index">作者：{{item}}</li>
                 <li>类别：<a href="javascript:;" v-for="(item,index) in bookDetail.book.categories" @click="" :key="index">{{item}}</a> </li>
                 <li>更新时间：{{bookDetail.book.updated}}</li>
-                <li>本书字数：{{Math.floor(bookDetail.book.wordCount / 10000)}}万字</li>
+                <li>本书字数：{{(bookDetail.book.wordCount / 10000).toFixed(1)}}万字</li>
               </ul>
 
               <!--//小说内容-->

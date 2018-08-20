@@ -70,7 +70,7 @@
                     <p class="paragragh" :title="item.description">{{item.description}}
                     <a href="javascript:;" @click="goDetail(item.bid)" class="ellipsis">...</a>
                     </p>
-                    <p class="word-count">{{Math.ceil(item.wordCount/10000)}}万</p>
+                    <p class="word-count">{{(item.wordCount/10000).toFixed(1)}}万</p>
                   </div>
                 </li>
               </ul>
