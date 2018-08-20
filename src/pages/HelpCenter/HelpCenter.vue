@@ -24,7 +24,19 @@
         </div>
         <div class="each-item">
           <p class="type-title">投稿</p>
-          <p class="type-content">邮箱: <a href="javascript:;">wangsy@foreader.cn</a></p>
+
+          <p class="type-content">
+          <a href="javascript:;">1319505356@qq.com</a>
+          </p>
+          <p class="type-content">
+          <a href="javascript:;">2300488388@qq.com</a>
+          </p>
+          <p class="type-content">
+          <a href="javascript:;">814840862@qq.com</a>
+          </p>
+          <p class="type-content">
+          <a href="javascript:;">410352236@qq.com</a>
+          </p>
         </div>
         <div class="each-item">
           <p class="type-title">工作时间</p>
