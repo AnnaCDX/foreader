@@ -2,7 +2,7 @@
   <div class="dirOuter">
     <div class="all-chapter" v-if="bookChapter.length">
       <ul >
-        <li v-for="(item,index) in bookChapter" @click="goReading(item.bid,item.cid,item.title)" :key="index"><a href="javascript:;">{{item.title}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
+        <li v-for="(item,index) in bookChapter" @click="goReading(item.bid,item.cid,item.title,index)" :key="index"><a href="javascript:;">{{item.title.trim()}}</a><i class="icon iconfont icon-icon-" v-show="!item.free"></i></li>
       </ul>
     </div>
     <div class="loading" v-else>
@@ -22,8 +22,8 @@
             }
         },
         methods:{
-          goReading(bid,cid,title){
-            let routeData = this.$router.resolve({ path: `/reading/${bid}/${cid}/${title}`});
+          goReading(bid,cid,title,ind){
+            let routeData = this.$router.resolve({ path: `/reading/${bid}/${cid}/${title}/${ind}`});
             window.open(routeData.href, '_blank')
           }
         },

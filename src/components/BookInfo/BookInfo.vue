@@ -34,7 +34,7 @@
       </p>
       <div class="all-comments" v-if="bookDetail.comments.length">
         <ul>
-          <li class="comments-item" v-for="(item,index) in bookDetail.comments" :key="index">
+          <li class="comments-item" v-for="(item,index) in bookDetail.comments.slice(0,21)" :key="index">
             <img v-lazy="item.user.avatar" alt="">
             <div class="comment-info">
               <p class="who-when"><span class="whose-comment">{{item.user.name}}</span><span class="when-comment">{{item.createdFormated}}</span></p>
@@ -250,8 +250,10 @@
             overflow hidden
             .whose-comment
               float left
+              font-size 14px
             .when-comment
               float right
+              font-size 14px
           .comment-content
             width 570px
             /*height 96px*/

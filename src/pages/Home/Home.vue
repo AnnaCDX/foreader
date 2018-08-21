@@ -542,7 +542,7 @@ img
                   .name
                     font-size 16px
                     color: rgba(0,0,0,.85)
-                    
+
                   .type
                     float: right
                 .author-name

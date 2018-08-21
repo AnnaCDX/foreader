@@ -151,7 +151,7 @@ export default new Router({
       }
     },
     {
-      path:'/reading/:bid/:cid?/:title?',
+      path:'/reading/:bid/:cid?/:title?/:ind?',
       component:Reading
     },
     {

@@ -25,7 +25,7 @@
                   <p class="chapter-title">目录·共{{bookChapter.length}}章</p>
                   <div class="all-chapter">
                     <ul >
-                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="goToChapter(item.cid,item.bid,index,item.title)"><a href="javascript:;" class="cpt-title">{{item.title}}</a>
+                      <li class="chapter-li" v-for="(item,index) in bookChapter" :key="index" @click="goToChapter(item.cid,item.bid,index,item.title)"><a href="javascript:;" class="cpt-title">{{item.title.trim()}}</a>
                         <a href="javascript:;" class="cpt-key"><i class="icon iconfont icon-icon-" v-show="!item.free"></i></a></li>
                     </ul>
                   </div>
@@ -44,9 +44,9 @@
                 <div class="trangle" v-show="which==='font' && isShow"></div>
                 <div class="trangle-body font-body" v-show="which==='font' && isShow" :class="{sameActive:which==='font'}">
                   <div class="body-main">
-                    <a href="javascript:;" @click.stop="curFontSize -= 1">-</a>
+                    <a href="javascript:;" @click.stop="changeFont(true)">-</a>
                     <a>{{ curFontSize }}</a>
-                    <a href="javascript:;" @click.stop="curFontSize += 1">+</a>
+                    <a href="javascript:;" @click.stop="changeFont(false)">+</a>
                   </div>
                 </div>
               </li>
@@ -330,6 +330,7 @@
       async bookChapter(value){
         let bid
         let cid
+
         if(this.$route.params.cid){
           bid = this.$route.params.bid
           cid = this.$route.params.cid
@@ -339,6 +340,7 @@
           cid= this.bookChapter[0].cid
           this.title = this.bookChapter[0].title
         }
+        this.whichCapter = this.$route.params.ind+1
         let token = this.$cookie.get('web_tk')
         let id = this.$cookie.get("id")
         let config={
@@ -378,6 +380,17 @@
     },
     methods:{
       ...mapActions(["recordReadInfo","getChapterShow","recordCalculate"]),
+      changeFont(bool){
+        if(bool){
+          if(this.curFontSize<13){
+            return
+          }
+          this.curFontSize -= 1
+
+        }else{
+          this.curFontSize += 1
+        }
+      },
       onKeyPressed(e) {
         if (e.code === "ArrowRight") {
           this.nextPrev(false)

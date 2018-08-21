@@ -61,7 +61,8 @@
                       <div class="little-info one">
                         <img class="author-avantar" v-lazy="item.mainAuthor.avatar" alt="" :key="item.mainAuthor.avatar">
                         <span class="author-name" v-for="(per,index) in item.authors" :key="index" :title="per">{{per}}</span>
-                      </div>|
+                      </div>
+                      <span>|</span>
                       <div class="little-info two" v-if="item.tags">
                         <a href="javascript:;" v-for="(per,index) in item.tags.slice(0,3)" class="type" :class="{comfort:index==2}"  :key="index">{{per}}</a>
 
